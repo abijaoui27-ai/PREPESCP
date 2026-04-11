@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PrepESCP — Entraîne-toi avec un vrai jury IA</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
-</body>
-
   <style>
     :root {
       --bg: #0a0a0f; --surface: #13131a; --surface2: #1c1c28;
@@ -66,6 +63,14 @@
     .agent-instructions { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 40px; padding: 20px 24px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
     .launch-box { padding: 40px; background: var(--surface2); border: 1px solid var(--border); margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
     .launch-box p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .orb-wrap { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; }
+    .orb-wrap.on { border-color: var(--accent); animation: orbPulse 2s infinite; }
+    @keyframes orbPulse { 0%,100%{box-shadow:0 0 0 0 rgba(200,169,110,0.4)}50%{box-shadow:0 0 0 20px rgba(200,169,110,0)} }
+    .orb-inner { width: 60px; height: 60px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
+    #statusText { font-size: 0.85rem; color: var(--muted); min-height: 20px; }
+    .btn-launch { background: var(--gradient); color: var(--bg); border: none; padding: 16px 40px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 10px; }
+    .btn-launch:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-stop { background: transparent; color: var(--red); border: 1px solid var(--red); padding: 12px 32px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; display: none; }
     .divider { height: 1px; background: var(--border); }
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -146,8 +151,11 @@
       L'entretien dure environ 10 à 15 minutes. Parlez naturellement, comme face à un vrai jury. Autorisez le microphone quand demandé. À la fin, demandez un feedback détaillé.
     </div>
     <div class="launch-box">
-      <p>Cliquez sur le microphone pour démarrer l'entretien avec Jean-Marc.</p>
-      <elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
+      <p>Cliquez sur le microphone pour démarrer l'entretien vocal avec Jean-Marc.</p>
+      <div class="orb-wrap" id="orbWrap"><div class="orb-inner">🎙️</div></div>
+      <div id="statusText">Prêt à démarrer</div>
+      <button class="btn-launch" id="btnStart" onclick="startInterview()">🎙️ Lancer l'entretien</button>
+      <button class="btn-stop" id="btnStop" onclick="stopInterview()">⏹ Terminer l'entretien</button>
     </div>
   </div>
 </section>
@@ -157,7 +165,60 @@
   <div class="footer-copy">© 2025 PrepESCP · Tous droits réservés</div>
 </footer>
 
-<script>
+<script type="module">
+  import { Conversation } from 'https://cdn.jsdelivr.net/npm/@elevenlabs/client@latest/+esm';
+  const AGENT_ID = "agent_5301kn5frmakepgabf8ne1pw9kzr";
+  let conv = null;
+
+  window.startInterview = async function() {
+    const btnStart = document.getElementById('btnStart');
+    const btnStop = document.getElementById('btnStop');
+    const status = document.getElementById('statusText');
+    const orb = document.getElementById('orbWrap');
+    btnStart.disabled = true;
+    status.textContent = "Connexion en cours…";
+
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      const res = await fetch('/api/token');
+      const data = await res.json();
+      const signedUrl = data.signed_url || data.token;
+      if (!signedUrl) throw new Error(JSON.stringify(data));
+
+      conv = await Conversation.startSession({
+        signedUrl: signedUrl,
+        onConnect: () => {
+          status.textContent = "Entretien en cours — parlez naturellement.";
+          orb.classList.add('on');
+          btnStart.style.display = 'none';
+          btnStop.style.display = 'inline-block';
+        },
+        onDisconnect: () => {
+          status.textContent = "Entretien terminé. Merci !";
+          orb.classList.remove('on');
+          btnStart.style.display = 'inline-flex';
+          btnStart.disabled = false;
+          btnStop.style.display = 'none';
+        },
+        onError: (err) => {
+          status.textContent = "❌ " + err.message;
+          btnStart.disabled = false;
+        },
+        onModeChange: (mode) => {
+          status.textContent = mode.mode === 'speaking' ? "Jean-Marc parle…" : "À vous de parler…";
+        }
+      });
+    } catch(err) {
+      status.textContent = "❌ " + err.message;
+      btnStart.disabled = false;
+    }
+  };
+
+  window.stopInterview = async function() {
+    if (conv) { await conv.endSession(); conv = null; }
+  };
+
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
