@@ -17,7 +17,6 @@ export default async function handler(req, res) {
       }
     );
     const data = await response.json();
-    console.log('ElevenLabs response:', JSON.stringify(data));
     return res.status(200).json(data);
   } catch (err) {
     return res.status(500).json({ error: err.message });
