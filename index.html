@@ -180,12 +180,9 @@
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true });
       status.textContent = "Connexion à Jean-Marc…";
-      const res = await fetch('/api/token');
-      const { token, error } = await res.json();
-      if (error) throw new Error(error);
       conv = await Conversation.startSession({
-        agentId: AGENT_ID,
-        authorization: token,
+  agentId: AGENT_ID,
+
         onConnect: () => { status.textContent = "Entretien en cours — parlez naturellement."; orb.classList.add('on'); btnStart.style.display = 'none'; btnStop.style.display = 'inline-block'; },
         onDisconnect: () => { status.textContent = "Entretien terminé. Merci !"; orb.classList.remove('on'); btnStart.style.display = 'inline-flex'; btnStart.disabled = false; btnStop.style.display = 'none'; },
         onError: (err) => { status.textContent = "❌ " + err.message; btnStart.disabled = false; },
