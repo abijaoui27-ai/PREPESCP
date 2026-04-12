@@ -3,31 +3,126 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PrepESCP</title>
+  <title>PrepESCP — Entraîne-toi avec un vrai jury IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-bundle.js"></script>
   <style>
+    :root {
+      --bg: #0a0a0f; --surface: #13131a; --surface2: #1c1c28;
+      --accent: #c8a96e; --text: #f0ede8; --muted: #7a7890;
+      --border: rgba(200,169,110,0.15);
+      --gradient: linear-gradient(135deg, #c8a96e 0%, #e8c98e 50%, #c8a96e 100%);
+      --green: #4ade80;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0f; color: white; font-family: 'Georgia', serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
-    elevenlabs-convai { position: fixed; bottom: -9999px; right: -9999px; }
-    h1 { font-size: 2.5rem; margin-bottom: 16px; }
-    p { color: #aaa; margin-bottom: 48px; }
-    #callBtn { background: #c8a96e; color: #0a0a0f; border: none; padding: 20px 48px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 4px; }
-    #callBtn:hover { background: #e8c98e; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(12px); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-cta { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,169,110,0.08) 0%, transparent 70%); }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: rgba(200,169,110,0.06); padding: 8px 20px; border-radius: 100px; font-size: 0.78rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 40px; animation: fadeUp 0.8s ease forwards; opacity: 0; }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)} }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 900; line-height: 1.05; letter-spacing: -2px; max-width: 900px; margin-bottom: 32px; animation: fadeUp 0.8s 0.2s ease forwards; opacity: 0; }
+    h1 em { font-style: italic; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 56px; animation: fadeUp 0.8s 0.4s ease forwards; opacity: 0; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
+
+    /* AGENT CARD */
+    .agent-card { animation: fadeUp 0.8s 0.6s ease forwards; opacity: 0; background: var(--surface); border: 1px solid var(--border); padding: 48px 56px; max-width: 600px; width: 100%; position: relative; }
+    .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .agent-status { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+    .agent-status::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    .agent-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+    .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
+    .agent-info { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 36px; padding: 16px 20px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
+    
+    /* BUTTON */
+    .btn-call { background: var(--gradient); color: var(--bg); border: none; padding: 20px 48px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 12px; width: 100%; justify-content: center; }
+    .btn-call:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(200,169,110,0.4); }
+    .btn-call:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* STATS */
+    .stats { display: flex; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); margin-top: 80px; }
+    .stat { flex: 1; max-width: 280px; text-align: center; padding: 40px 32px; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 10px; }
+    .stat-label { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* WIDGET CACHÉ */
+    elevenlabs-convai { position: fixed; bottom: -9999px; right: -9999px; z-index: 9999; }
+    elevenlabs-convai.visible { bottom: 20px; right: 20px; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .agent-card { padding: 32px 24px; }
+      .stats { flex-direction: column; align-items: center; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); max-width: 100%; width: 100%; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
   </style>
 </head>
 <body>
-  <h1>Jean-Marc Delaunay</h1>
-  <p>Jury ESCP · Directeur associé chez Lazard</p>
-  <button id="callBtn" onclick="startCall()">🎙️ Lancer l'entretien</button>
-  <elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
-  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
-  <script>
-    function startCall() {
-      const widget = document.querySelector('elevenlabs-convai');
-      widget.style.bottom = '20px';
-      widget.style.right = '20px';
-      widget.shadowRoot?.querySelector('button')?.click();
-    }
-  </script>
+
+<nav>
+  <div class="nav-logo">PrepESCP</div>
+  <button class="nav-cta" onclick="startCall()">Commencer →</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">Intelligence Artificielle × Admission ESCP</div>
+  <h1>Entraîne-toi face à un <em>vrai jury</em></h1>
+  <p class="hero-sub">Un examinateur IA disponible 24h/24, qui simule l'oral d'admission ESCP avec la même exigence qu'un jury réel.</p>
+
+  <div class="agent-card">
+    <div class="agent-status">En ligne · Prêt pour l'entretien</div>
+    <div class="agent-name">Jean-Marc Delaunay</div>
+    <div class="agent-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
+    <div class="agent-info">
+      L'entretien dure environ 10 à 15 minutes. Parlez naturellement, comme face à un vrai jury. Autorisez le microphone quand demandé. À la fin, demandez votre feedback : note sur 20, points forts, axes d'amélioration.
+    </div>
+    <button class="btn-call" id="callBtn" onclick="startCall()">
+      🎙️ Lancer l'entretien avec Jean-Marc
+    </button>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">10–15'</div><div class="stat-label">Durée d'un entretien simulé<br>comme dans la réalité</div></div>
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Disponible à tout moment<br>depuis n'importe où</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Vocal, comme<br>le jour J</div></div>
+</div>
+
+<footer>
+  <div class="footer-logo">PrepESCP</div>
+  <div class="footer-copy">© 2025 PrepESCP · Tous droits réservés</div>
+</footer>
+
+<elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-bundle.js"></script>
+<script>
+  function startCall() {
+    const widget = document.querySelector('elevenlabs-convai');
+    widget.classList.add('visible');
+    setTimeout(() => {
+      const btn = widget.shadowRoot?.querySelector('button');
+      if (btn) btn.click();
+    }, 500);
+  }
+</script>
+
 </body>
 </html>
