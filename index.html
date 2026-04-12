@@ -11,7 +11,7 @@
       --accent: #c8a96e; --text: #f0ede8; --muted: #7a7890;
       --border: rgba(200,169,110,0.15);
       --gradient: linear-gradient(135deg, #c8a96e 0%, #e8c98e 50%, #c8a96e 100%);
-      --red: #e05c5c; --green: #4ade80;
+      --green: #4ade80;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -61,16 +61,7 @@
     .agent-frame { background: var(--surface); border: 1px solid var(--border); padding: 56px; position: relative; }
     .agent-frame::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
     .agent-instructions { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 40px; padding: 20px 24px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
-    .launch-box { padding: 40px; background: var(--surface2); border: 1px solid var(--border); margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
-    .launch-box p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
-    .orb-wrap { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; }
-    .orb-wrap.on { border-color: var(--accent); animation: orbPulse 2s infinite; }
-    @keyframes orbPulse { 0%,100%{box-shadow:0 0 0 0 rgba(200,169,110,0.4)}50%{box-shadow:0 0 0 20px rgba(200,169,110,0)} }
-    .orb-inner { width: 60px; height: 60px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
-    #statusText { font-size: 0.85rem; color: var(--muted); min-height: 20px; }
-    .btn-launch { background: var(--gradient); color: var(--bg); border: none; padding: 16px 40px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 10px; }
-    .btn-launch:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-stop { background: transparent; color: var(--red); border: 1px solid var(--red); padding: 12px 32px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; display: none; }
+    .launch-box { padding: 40px; background: var(--surface2); border: 1px solid var(--border); margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 24px; min-height: 200px; justify-content: center; }
     .divider { height: 1px; background: var(--border); }
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -151,11 +142,7 @@
       L'entretien dure environ 10 à 15 minutes. Parlez naturellement, comme face à un vrai jury. Autorisez le microphone quand demandé. À la fin, demandez un feedback détaillé.
     </div>
     <div class="launch-box">
-      <p>Cliquez sur le microphone pour démarrer l'entretien vocal avec Jean-Marc.</p>
-      <div class="orb-wrap" id="orbWrap"><div class="orb-inner">🎙️</div></div>
-      <div id="statusText">Prêt à démarrer</div>
-      <button class="btn-launch" id="btnStart" onclick="startInterview()">🎙️ Lancer l'entretien</button>
-      <button class="btn-stop" id="btnStop" onclick="stopInterview()">⏹ Terminer l'entretien</button>
+      <elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
     </div>
   </div>
 </section>
@@ -165,116 +152,8 @@
   <div class="footer-copy">© 2025 PrepESCP · Tous droits réservés</div>
 </footer>
 
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
 <script>
-  let ws = null;
-  let audioContext = null;
-  let processor = null;
-  let mediaStream = null;
-
-  window.startInterview = async function() {
-    const btnStart = document.getElementById('btnStart');
-    const btnStop = document.getElementById('btnStop');
-    const status = document.getElementById('statusText');
-    const orb = document.getElementById('orbWrap');
-
-    btnStart.disabled = true;
-    status.textContent = "Demande d'accès au microphone…";
-
-    try {
-      // 1. Demander accès micro
-      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      status.textContent = "Connexion à Jean-Marc…";
-
-      // 2. Récupérer le signed URL
-      const res = await fetch('/api/token');
-      const data = await res.json();
-      if (!data.signed_url) throw new Error(JSON.stringify(data));
-
-      // 3. Ouvrir WebSocket
-      ws = new WebSocket(data.signed_url);
-      ws.binaryType = 'arraybuffer';
-
-      ws.onopen = async () => {
-        status.textContent = "Entretien en cours — parlez naturellement.";
-        orb.classList.add('on');
-        btnStart.style.display = 'none';
-        btnStop.style.display = 'inline-block';
-
-        // 4. Envoyer audio micro via WebSocket
-        audioContext = new AudioContext({ sampleRate: 16000 });
-        const source = audioContext.createMediaStreamSource(mediaStream);
-        processor = audioContext.createScriptProcessor(4096, 1, 1);
-
-        processor.onaudioprocess = (e) => {
-          if (ws.readyState !== WebSocket.OPEN) return;
-          const float32 = e.inputBuffer.getChannelData(0);
-          const int16 = new Int16Array(float32.length);
-          for (let i = 0; i < float32.length; i++) {
-            int16[i] = Math.max(-32768, Math.min(32767, float32[i] * 32768));
-          }
-          ws.send(JSON.stringify({
-            user_audio_chunk: btoa(String.fromCharCode(...new Uint8Array(int16.buffer)))
-          }));
-        };
-
-        source.connect(processor);
-        processor.connect(audioContext.destination);
-      };
-
-      // 5. Recevoir audio de l'agent
-      ws.onmessage = async (event) => {
-        try {
-          const msg = JSON.parse(event.data);
-          if (msg.type === 'audio' && msg.audio_event?.audio_base_64) {
-            const audioData = atob(msg.audio_event.audio_base_64);
-            const arrayBuffer = new ArrayBuffer(audioData.length);
-            const view = new Uint8Array(arrayBuffer);
-            for (let i = 0; i < audioData.length; i++) view[i] = audioData.charCodeAt(i);
-            const decoded = await audioContext.decodeAudioData(arrayBuffer);
-            const bufferSource = audioContext.createBufferSource();
-            bufferSource.buffer = decoded;
-            bufferSource.connect(audioContext.destination);
-            bufferSource.start();
-            status.textContent = "Jean-Marc parle…";
-          } else if (msg.type === 'agent_response') {
-            status.textContent = "À vous de parler…";
-          }
-        } catch(e) {}
-      };
-
-      ws.onclose = () => {
-        status.textContent = "Entretien terminé. Merci !";
-        orb.classList.remove('on');
-        btnStart.style.display = 'inline-flex';
-        btnStart.disabled = false;
-        btnStop.style.display = 'none';
-        cleanup();
-      };
-
-      ws.onerror = () => {
-        status.textContent = "❌ Erreur de connexion.";
-        btnStart.disabled = false;
-        cleanup();
-      };
-
-    } catch(err) {
-      status.textContent = "❌ " + err.message;
-      btnStart.disabled = false;
-      cleanup();
-    }
-  };
-
-  function cleanup() {
-    if (processor) { processor.disconnect(); processor = null; }
-    if (audioContext) { audioContext.close(); audioContext = null; }
-    if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
-  }
-
-  window.stopInterview = function() {
-    if (ws) { ws.close(); ws = null; }
-    cleanup();
-  };
-
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
