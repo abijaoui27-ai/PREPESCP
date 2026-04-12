@@ -6,14 +6,28 @@
   <title>PrepESCP</title>
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-bundle.js"></script>
   <style>
-    body { background: white; color: #0a0a0f; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; margin: 0; }
-    elevenlabs-convai { position: fixed !important; bottom: 50% !important; right: 50% !important; transform: translate(50%, 50%) !important; z-index: 9999 !important; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0f; color: white; font-family: 'Georgia', serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+    elevenlabs-convai { position: fixed; bottom: -9999px; right: -9999px; }
+    h1 { font-size: 2.5rem; margin-bottom: 16px; }
+    p { color: #aaa; margin-bottom: 48px; }
+    #callBtn { background: #c8a96e; color: #0a0a0f; border: none; padding: 20px 48px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 4px; }
+    #callBtn:hover { background: #e8c98e; }
   </style>
 </head>
 <body>
-  <h1>PrepESCP — Jean-Marc Delaunay</h1>
-  <p>Cliquez sur le microphone pour démarrer l'entretien.</p>
+  <h1>Jean-Marc Delaunay</h1>
+  <p>Jury ESCP · Directeur associé chez Lazard</p>
+  <button id="callBtn" onclick="startCall()">🎙️ Lancer l'entretien</button>
   <elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
   <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
+  <script>
+    function startCall() {
+      const widget = document.querySelector('elevenlabs-convai');
+      widget.style.bottom = '20px';
+      widget.style.right = '20px';
+      widget.shadowRoot?.querySelector('button')?.click();
+    }
+  </script>
 </body>
 </html>
