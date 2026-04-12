@@ -4,10 +4,6 @@ export default async function handler(req, res) {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   const agentId = process.env.ELEVENLABS_AGENT_ID;
 
-  if (!apiKey || !agentId) {
-    return res.status(500).json({ error: 'Variables manquantes' });
-  }
-
   try {
     const response = await fetch(
       `https://api.elevenlabs.io/v1/convai/conversation/token?agent_id=${agentId}`,
@@ -17,7 +13,7 @@ export default async function handler(req, res) {
       }
     );
     const data = await response.json();
-    return res.status(200).json(data);
+    return res.status(200).json({ signed_url: data.token });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
