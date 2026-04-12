@@ -167,6 +167,9 @@
 
 <script>
   let ws = null;
+  let audioContext = null;
+  let processor = null;
+  let mediaStream = null;
 
   window.startInterview = async function() {
     const btnStart = document.getElementById('btnStart');
@@ -175,20 +178,68 @@
     const orb = document.getElementById('orbWrap');
 
     btnStart.disabled = true;
-    status.textContent = "Connexion en cours…";
+    status.textContent = "Demande d'accès au microphone…";
 
     try {
+      // 1. Demander accès micro
+      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      status.textContent = "Connexion à Jean-Marc…";
+
+      // 2. Récupérer le signed URL
       const res = await fetch('/api/token');
       const data = await res.json();
       if (!data.signed_url) throw new Error(JSON.stringify(data));
 
+      // 3. Ouvrir WebSocket
       ws = new WebSocket(data.signed_url);
+      ws.binaryType = 'arraybuffer';
 
-      ws.onopen = () => {
+      ws.onopen = async () => {
         status.textContent = "Entretien en cours — parlez naturellement.";
         orb.classList.add('on');
         btnStart.style.display = 'none';
         btnStop.style.display = 'inline-block';
+
+        // 4. Envoyer audio micro via WebSocket
+        audioContext = new AudioContext({ sampleRate: 16000 });
+        const source = audioContext.createMediaStreamSource(mediaStream);
+        processor = audioContext.createScriptProcessor(4096, 1, 1);
+
+        processor.onaudioprocess = (e) => {
+          if (ws.readyState !== WebSocket.OPEN) return;
+          const float32 = e.inputBuffer.getChannelData(0);
+          const int16 = new Int16Array(float32.length);
+          for (let i = 0; i < float32.length; i++) {
+            int16[i] = Math.max(-32768, Math.min(32767, float32[i] * 32768));
+          }
+          ws.send(JSON.stringify({
+            user_audio_chunk: btoa(String.fromCharCode(...new Uint8Array(int16.buffer)))
+          }));
+        };
+
+        source.connect(processor);
+        processor.connect(audioContext.destination);
+      };
+
+      // 5. Recevoir audio de l'agent
+      ws.onmessage = async (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          if (msg.type === 'audio' && msg.audio_event?.audio_base_64) {
+            const audioData = atob(msg.audio_event.audio_base_64);
+            const arrayBuffer = new ArrayBuffer(audioData.length);
+            const view = new Uint8Array(arrayBuffer);
+            for (let i = 0; i < audioData.length; i++) view[i] = audioData.charCodeAt(i);
+            const decoded = await audioContext.decodeAudioData(arrayBuffer);
+            const bufferSource = audioContext.createBufferSource();
+            bufferSource.buffer = decoded;
+            bufferSource.connect(audioContext.destination);
+            bufferSource.start();
+            status.textContent = "Jean-Marc parle…";
+          } else if (msg.type === 'agent_response') {
+            status.textContent = "À vous de parler…";
+          }
+        } catch(e) {}
       };
 
       ws.onclose = () => {
@@ -197,21 +248,31 @@
         btnStart.style.display = 'inline-flex';
         btnStart.disabled = false;
         btnStop.style.display = 'none';
+        cleanup();
       };
 
       ws.onerror = () => {
-        status.textContent = "❌ Erreur de connexion WebSocket.";
+        status.textContent = "❌ Erreur de connexion.";
         btnStart.disabled = false;
+        cleanup();
       };
 
     } catch(err) {
       status.textContent = "❌ " + err.message;
       btnStart.disabled = false;
+      cleanup();
     }
   };
 
+  function cleanup() {
+    if (processor) { processor.disconnect(); processor = null; }
+    if (audioContext) { audioContext.close(); audioContext = null; }
+    if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+  }
+
   window.stopInterview = function() {
     if (ws) { ws.close(); ws = null; }
+    cleanup();
   };
 
   const observer = new IntersectionObserver(entries => {
