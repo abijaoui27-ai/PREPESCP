@@ -6,14 +6,19 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
-      `https://api.elevenlabs.io/v1/convai/conversation/token?agent_id=${agentId}`,
+      `https://api.elevenlabs.io/v1/convai/conversation/token`,
       {
-        method: 'GET',
-        headers: { 'xi-api-key': apiKey },
+        method: 'POST',
+        headers: {
+          'xi-api-key': apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ agent_id: agentId })
       }
     );
     const data = await response.json();
-    return res.status(200).json({ signed_url: data.token });
+    console.log('ElevenLabs response:', JSON.stringify(data));
+    return res.status(200).json(data);
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
