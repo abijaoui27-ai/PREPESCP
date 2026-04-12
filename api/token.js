@@ -6,19 +6,16 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(
-      `https://api.elevenlabs.io/v1/convai/conversation/token`,
+      `https://api.elevenlabs.io/v1/convai/conversation/token?agent_id=${agentId}`,
       {
-        method: 'POST',
-        headers: {
-          'xi-api-key': apiKey,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ agent_id: agentId })
+        method: 'GET',
+        headers: { 'xi-api-key': apiKey },
       }
     );
     const data = await response.json();
-    console.log('ElevenLabs response:', JSON.stringify(data));
-    return res.status(200).json(data);
+    // Construire le signed URL WebSocket
+    const signedUrl = `wss://api.elevenlabs.io/v1/convai/conversation?token=${data.token}`;
+    return res.status(200).json({ signed_url: signedUrl });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
