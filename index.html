@@ -183,11 +183,11 @@
 
       const res = await fetch('/api/token');
       const data = await res.json();
-      const signedUrl = data.signed_url || data.token;
-      if (!signedUrl) throw new Error(JSON.stringify(data));
+      if (!data.signed_url) throw new Error(JSON.stringify(data));
 
       conv = await Conversation.startSession({
-        signedUrl: signedUrl,
+        agentId: AGENT_ID,
+        authorization: data.signed_url,
         onConnect: () => {
           status.textContent = "Entretien en cours — parlez naturellement.";
           orb.classList.add('on');
