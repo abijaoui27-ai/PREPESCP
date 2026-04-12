@@ -165,58 +165,53 @@
   <div class="footer-copy">© 2025 PrepESCP · Tous droits réservés</div>
 </footer>
 
-<script type="module">
-  import { Conversation } from 'https://cdn.jsdelivr.net/npm/@elevenlabs/client@latest/+esm';
-  const AGENT_ID = "agent_5301kn5frmakepgabf8ne1pw9kzr";
-  let conv = null;
+<script>
+  let ws = null;
 
   window.startInterview = async function() {
     const btnStart = document.getElementById('btnStart');
     const btnStop = document.getElementById('btnStop');
     const status = document.getElementById('statusText');
     const orb = document.getElementById('orbWrap');
+
     btnStart.disabled = true;
     status.textContent = "Connexion en cours…";
 
     try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-
       const res = await fetch('/api/token');
       const data = await res.json();
       if (!data.signed_url) throw new Error(JSON.stringify(data));
 
-      conv = await Conversation.startSession({
-        agentId: AGENT_ID,
-        authorization: data.signed_url,
-        onConnect: () => {
-          status.textContent = "Entretien en cours — parlez naturellement.";
-          orb.classList.add('on');
-          btnStart.style.display = 'none';
-          btnStop.style.display = 'inline-block';
-        },
-        onDisconnect: () => {
-          status.textContent = "Entretien terminé. Merci !";
-          orb.classList.remove('on');
-          btnStart.style.display = 'inline-flex';
-          btnStart.disabled = false;
-          btnStop.style.display = 'none';
-        },
-        onError: (err) => {
-          status.textContent = "❌ " + err.message;
-          btnStart.disabled = false;
-        },
-        onModeChange: (mode) => {
-          status.textContent = mode.mode === 'speaking' ? "Jean-Marc parle…" : "À vous de parler…";
-        }
-      });
+      ws = new WebSocket(data.signed_url);
+
+      ws.onopen = () => {
+        status.textContent = "Entretien en cours — parlez naturellement.";
+        orb.classList.add('on');
+        btnStart.style.display = 'none';
+        btnStop.style.display = 'inline-block';
+      };
+
+      ws.onclose = () => {
+        status.textContent = "Entretien terminé. Merci !";
+        orb.classList.remove('on');
+        btnStart.style.display = 'inline-flex';
+        btnStart.disabled = false;
+        btnStop.style.display = 'none';
+      };
+
+      ws.onerror = () => {
+        status.textContent = "❌ Erreur de connexion WebSocket.";
+        btnStart.disabled = false;
+      };
+
     } catch(err) {
       status.textContent = "❌ " + err.message;
       btnStart.disabled = false;
     }
   };
 
-  window.stopInterview = async function() {
-    if (conv) { await conv.endSession(); conv = null; }
+  window.stopInterview = function() {
+    if (ws) { ws.close(); ws = null; }
   };
 
   const observer = new IntersectionObserver(entries => {
