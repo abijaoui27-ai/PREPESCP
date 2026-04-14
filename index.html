@@ -94,20 +94,38 @@
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
 
 <script>
+  function injectHideStyle() {
+    const widget = document.querySelector('elevenlabs-convai');
+    if (widget && widget.shadowRoot) {
+      const style = document.createElement('style');
+      style.textContent = `
+        div[class*="launcher"],
+        div[class*="bubble"],
+        div[class*="trigger"],
+        div[class*="float"],
+        div[class*="widget-launcher"],
+        button[class*="launcher"] {
+          display: none !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+      `;
+      widget.shadowRoot.appendChild(style);
+    } else {
+      setTimeout(injectHideStyle, 300);
+    }
+  }
+
   function startCall() {
     const widget = document.querySelector('elevenlabs-convai');
     widget.classList.add('visible');
     setTimeout(() => {
       const btn = widget.shadowRoot?.querySelector('button');
       if (btn) btn.click();
-      // Cacher le launcher flottant après le démarrage
-      setTimeout(() => {
-        const style = document.createElement('style');
-        style.textContent = '[class*="launcher"], [class*="bubble"], [class*="trigger"] { display: none !important; opacity: 0 !important; }';
-        widget.shadowRoot?.appendChild(style);
-      }, 1000);
     }, 500);
   }
+
+  setTimeout(injectHideStyle, 1500);
 </script>
 
 </body>
