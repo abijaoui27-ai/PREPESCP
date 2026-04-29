@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PrepESCP — Entraîne-toi avec un vrai jury IA</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-bundle.js"></script>
   <style>
     :root {
       --bg: #0a0a0f; --surface: #13131a; --surface2: #1c1c28;
@@ -19,7 +18,7 @@
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(12px); }
     .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-cta { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+    .nav-cta { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
     .nav-cta:hover { background: var(--accent); color: var(--bg); }
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden; }
     .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,169,110,0.08) 0%, transparent 70%); }
@@ -37,15 +36,13 @@
     .agent-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
     .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
     .agent-info { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 36px; padding: 16px 20px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
-    .btn-call { background: var(--gradient); color: var(--bg); border: none; padding: 20px 48px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 12px; width: 100%; justify-content: center; }
+    .btn-call { background: var(--gradient); color: var(--bg); border: none; padding: 20px 48px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 12px; width: 100%; justify-content: center; text-decoration: none; }
     .btn-call:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(200,169,110,0.4); }
     .stats { display: flex; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); margin-top: 80px; }
     .stat { flex: 1; max-width: 280px; text-align: center; padding: 40px 32px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 10px; }
     .stat-label { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-    elevenlabs-convai { position: fixed; bottom: -9999px; right: -9999px; z-index: 9999; }
-    elevenlabs-convai.visible { bottom: 20px; right: 20px; }
     footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
     .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .footer-copy { font-size: 0.78rem; color: var(--muted); }
@@ -62,7 +59,7 @@
 
 <nav>
   <div class="nav-logo">PrepESCP</div>
-  <button class="nav-cta" onclick="startCall()">Commencer →</button>
+  <a href="entretien.html" class="nav-cta">Commencer →</a>
 </nav>
 
 <section class="hero">
@@ -75,7 +72,7 @@
     <div class="agent-name">Jean-Marc Delaunay</div>
     <div class="agent-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
     <div class="agent-info">L'entretien dure environ 10 à 15 minutes. Parlez naturellement, comme face à un vrai jury. Autorisez le microphone quand demandé. À la fin, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</div>
-    <button class="btn-call" id="callBtn" onclick="startCall()">🎙️ Lancer l'entretien avec Jean-Marc</button>
+    <a href="entretien.html" class="btn-call">🎙️ Lancer l'entretien avec Jean-Marc</a>
   </div>
 </section>
 
@@ -89,44 +86,6 @@
   <div class="footer-logo">PrepESCP</div>
   <div class="footer-copy">© 2025 PrepESCP · Tous droits réservés</div>
 </footer>
-
-<elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
-<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
-
-<script>
-  function injectHideStyle() {
-    const widget = document.querySelector('elevenlabs-convai');
-    if (widget && widget.shadowRoot) {
-      const style = document.createElement('style');
-      style.textContent = `
-        div[class*="launcher"],
-        div[class*="bubble"],
-        div[class*="trigger"],
-        div[class*="float"],
-        div[class*="widget-launcher"],
-        button[class*="launcher"] {
-          display: none !important;
-          opacity: 0 !important;
-          pointer-events: none !important;
-        }
-      `;
-      widget.shadowRoot.appendChild(style);
-    } else {
-      setTimeout(injectHideStyle, 300);
-    }
-  }
-
-  function startCall() {
-    const widget = document.querySelector('elevenlabs-convai');
-    widget.classList.add('visible');
-    setTimeout(() => {
-      const btn = widget.shadowRoot?.querySelector('button');
-      if (btn) btn.click();
-    }, 500);
-  }
-
-  setTimeout(injectHideStyle, 1500);
-</script>
 
 </body>
 </html>
