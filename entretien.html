@@ -17,7 +17,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(12px); }
-    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
     .nav-back { background: transparent; border: 1px solid rgba(200,169,110,0.3); color: var(--muted); padding: 8px 20px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; cursor: pointer; text-decoration: none; transition: all 0.3s; }
     .nav-back:hover { border-color: var(--accent); color: var(--accent); }
     .card { background: var(--surface); border: 1px solid var(--border); padding: 48px 56px; max-width: 600px; width: 90%; position: relative; text-align: center; }
@@ -26,26 +26,27 @@
     .agent-status::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)} }
     .agent-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
-    .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 40px; }
+    .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
+    .agent-hint { font-size: 0.85rem; color: var(--muted); line-height: 1.7; padding: 16px 20px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
     elevenlabs-convai { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .card { padding: 32px 24px; }
+    }
   </style>
 </head>
 <body>
-
 <nav>
-  <div class="nav-logo">PrepESCP</div>
-  <a href="index.html" class="nav-back">← Retour</a>
+  <a href="/" class="nav-logo">PrepESCP</a>
+  <a href="/" class="nav-back">← Terminer</a>
 </nav>
-
 <div class="card">
   <div class="agent-status">En ligne · Entretien en cours</div>
   <div class="agent-name">Jean-Marc Delaunay</div>
   <div class="agent-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
-  <p style="font-size:0.88rem;color:var(--muted);line-height:1.7;">L'entretien est en cours. Parlez naturellement. À la fin, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</p>
+  <div class="agent-hint">Parlez naturellement, comme face à un vrai jury. À la fin de l'entretien, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</div>
 </div>
-
 <elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
-
 </body>
 </html>
