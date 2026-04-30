@@ -11,15 +11,13 @@
       --accent: #c8a96e; --text: #f0ede8; --muted: #7a7890;
       --border: rgba(200,169,110,0.15);
       --gradient: linear-gradient(135deg, #c8a96e 0%, #e8c98e 50%, #c8a96e 100%);
-      --green: #4ade80;
+      --green: #4ade80; --red: #e05c5c;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(12px); }
     .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-cta { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
-    .nav-cta:hover { background: var(--accent); color: var(--bg); }
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden; }
     .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,169,110,0.08) 0%, transparent 70%); }
     .hero-tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: rgba(200,169,110,0.06); padding: 8px 20px; border-radius: 100px; font-size: 0.78rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 40px; animation: fadeUp 0.8s ease forwards; opacity: 0; }
@@ -35,9 +33,18 @@
     .agent-status::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
     .agent-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
     .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
-    .agent-info { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 36px; padding: 16px 20px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
-    .btn-call { background: var(--gradient); color: var(--bg); border: none; padding: 20px 48px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 12px; width: 100%; justify-content: center; text-decoration: none; }
-    .btn-call:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(200,169,110,0.4); }
+    .input-group { margin-bottom: 16px; text-align: left; }
+    .input-label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .form-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 1rem; padding: 14px 18px; border-radius: 2px; outline: none; transition: border-color 0.3s; }
+    .form-input:focus { border-color: var(--accent); }
+    .form-input::placeholder { color: var(--muted); }
+    .msg { font-size: 0.85rem; margin: 12px 0; padding: 12px 16px; border-radius: 2px; display: none; }
+    .msg.show { display: block; }
+    .msg.error { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); color: var(--red); }
+    .msg.success { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3); color: var(--green); }
+    .btn-call { background: var(--gradient); color: var(--bg); border: none; padding: 18px 48px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 12px; width: 100%; justify-content: center; margin-top: 8px; }
+    .btn-call:hover { transform: translateY(-2px); }
+    .btn-call:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
     .stats { display: flex; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); margin-top: 80px; }
     .stat { flex: 1; max-width: 280px; text-align: center; padding: 40px 32px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
@@ -58,7 +65,6 @@
 <body>
 <nav>
   <div class="nav-logo">PrepESCP</div>
-  <a href="/entretien" class="nav-cta">Commencer →</a>
 </nav>
 <section class="hero">
   <div class="hero-bg"></div>
@@ -69,8 +75,19 @@
     <div class="agent-status">En ligne · Prêt pour l'entretien</div>
     <div class="agent-name">Jean-Marc Delaunay</div>
     <div class="agent-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
-    <div class="agent-info">L'entretien dure environ 10 à 15 minutes. Parlez naturellement, comme face à un vrai jury. Autorisez le microphone quand demandé. À la fin, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</div>
-    <a href="/entretien" class="btn-call">🎙️ Lancer l'entretien avec Jean-Marc</a>
+    <div class="input-group">
+      <label class="input-label">Votre email</label>
+      <input type="email" class="form-input" id="emailInput" placeholder="prenom@email.com" />
+    </div>
+    <div class="input-group">
+      <label class="input-label">Code d'accès</label>
+      <input type="text" class="form-input" id="codeInput" placeholder="PREP-2025-XXXX" style="letter-spacing:2px;text-transform:uppercase;" />
+    </div>
+    <div class="msg error" id="errorMsg"></div>
+    <div class="msg success" id="successMsg"></div>
+    <button class="btn-call" id="btnAccess" onclick="handleAccess()">
+      Accéder à mon entretien →
+    </button>
   </div>
 </section>
 <div class="stats">
@@ -82,5 +99,71 @@
   <div class="footer-logo">PrepESCP</div>
   <div class="footer-copy">© 2025 PrepESCP · Tous droits réservés</div>
 </footer>
+<script>
+  async function handleAccess() {
+    const email = document.getElementById('emailInput').value.trim()
+    const code = document.getElementById('codeInput').value.trim()
+    const btn = document.getElementById('btnAccess')
+    const errorMsg = document.getElementById('errorMsg')
+    const successMsg = document.getElementById('successMsg')
+
+    errorMsg.classList.remove('show')
+    successMsg.classList.remove('show')
+
+    if (!email || !email.includes('@')) {
+      errorMsg.textContent = '❌ Veuillez entrer une adresse email valide.'
+      errorMsg.classList.add('show')
+      return
+    }
+    if (!code) {
+      errorMsg.textContent = '❌ Veuillez entrer votre code d\'accès.'
+      errorMsg.classList.add('show')
+      return
+    }
+
+    btn.disabled = true
+    btn.textContent = 'Vérification…'
+
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, access_code: code })
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        errorMsg.textContent = '❌ ' + data.error
+        errorMsg.classList.add('show')
+        btn.disabled = false
+        btn.textContent = 'Accéder à mon entretien →'
+        return
+      }
+
+      successMsg.textContent = '✅ Accès validé ! Redirection...'
+      successMsg.classList.add('show')
+
+      // Stocker l'identité en session
+      sessionStorage.setItem('student_id', data.student_id)
+      sessionStorage.setItem('sessions_used', data.sessions_used)
+      sessionStorage.setItem('sessions_max', data.sessions_max)
+      sessionStorage.setItem('email', email)
+
+      setTimeout(() => {
+        window.location.href = '/entretien'
+      }, 1000)
+
+    } catch (err) {
+      errorMsg.textContent = '❌ Erreur de connexion. Réessayez.'
+      errorMsg.classList.add('show')
+      btn.disabled = false
+      btn.textContent = 'Accéder à mon entretien →'
+    }
+  }
+
+  document.addEventListener('keypress', e => {
+    if (e.key === 'Enter') handleAccess()
+  })
+</script>
 </body>
 </html>
