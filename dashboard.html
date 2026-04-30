@@ -22,6 +22,9 @@
     .nav-logout { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; text-decoration: none; }
     .nav-logout:hover { border-color: var(--red); color: var(--red); }
     .main { max-width: 900px; margin: 0 auto; padding: 100px 24px 60px; }
+    .alert { background: rgba(224,92,92,0.08); border: 1px solid rgba(224,92,92,0.25); color: #f0a0a0; padding: 16px 20px; border-radius: 2px; font-size: 0.88rem; margin-bottom: 24px; display: none; line-height: 1.6; }
+    .alert.show { display: block; }
+    .alert a { color: var(--red); text-decoration: underline; }
     .hero-card { background: var(--surface); border: 1px solid var(--border); padding: 40px 48px; position: relative; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
     .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
     .hero-left h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
@@ -33,8 +36,12 @@
     .progress-fill { height: 100%; background: var(--gradient); border-radius: 100px; transition: width 0.8s ease; }
     .btn-primary { background: var(--gradient); color: var(--bg); border: none; padding: 16px 40px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
     .btn-primary:hover { transform: translateY(-2px); }
-    .alert { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); color: var(--red); padding: 14px 20px; border-radius: 2px; font-size: 0.88rem; margin-bottom: 20px; display: none; }
-    .alert.show { display: block; }
+    .recharge-banner { background: var(--surface2); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 32px; display: none; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .recharge-banner.show { display: flex; }
+    .recharge-text { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .recharge-text strong { color: var(--text); }
+    .btn-recharge { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s; }
+    .btn-recharge:hover { background: var(--accent); color: var(--bg); }
     .section-tag { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 8px; }
     .entretien-list { display: flex; flex-direction: column; gap: 12px; }
@@ -75,8 +82,9 @@
 </nav>
 
 <main class="main">
+
   <div class="alert" id="noCreditsAlert">
-    ❌ Vous n'avez plus de sessions disponibles. Contactez votre professeur pour en obtenir de nouvelles.
+    ❌ Vous n'avez plus de sessions disponibles. Pour recharger, contactez-nous à <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a> — 5 sessions à 9€ · 15 sessions à 20€.
   </div>
 
   <div class="hero-card">
@@ -93,6 +101,16 @@
         <div class="progress-fill" id="progressFill" style="width:0%"></div>
       </div>
     </div>
+  </div>
+
+  <div class="recharge-banner" id="rechargeBanner">
+    <div class="recharge-text">
+      <strong>Vous avez utilisé toutes vos sessions.</strong><br>
+      Rechargez votre compte pour continuer à vous entraîner — 5 sessions à 9€ ou 15 sessions à 20€.
+    </div>
+    <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepESCP&body=Bonjour, je souhaite recharger mon compte PrepESCP." class="btn-recharge">
+      Recharger mon compte →
+    </a>
   </div>
 
   <div class="section-tag">Historique</div>
@@ -133,7 +151,6 @@
 
   document.getElementById('navEmail').textContent = email || ''
 
-  // Afficher alerte si redirigé depuis entretien sans crédits
   if (window.location.search.includes('no_credits')) {
     document.getElementById('noCreditsAlert').classList.add('show')
   }
@@ -151,6 +168,7 @@
         btn.style.opacity = '0.4'
         btn.style.pointerEvents = 'none'
         btn.textContent = '❌ Plus de sessions disponibles'
+        document.getElementById('rechargeBanner').classList.add('show')
       }
     } catch(e) {
       const credits = parseInt(localStorage.getItem('credits') || '0')
