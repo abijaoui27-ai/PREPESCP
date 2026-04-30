@@ -5,26 +5,26 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end()
 
   const { student_id } = req.body
+  if (!student_id) return res.status(400).json({ error: 'student_id requis' })
 
   const SUPABASE_URL = process.env.SUPABASE_URL
   const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY
 
   try {
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/students?id=eq.${student_id}`,
+      `${SUPABASE_URL}/rest/v1/rpc/decrement_credits`,
       {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
           'apikey': SUPABASE_KEY,
           'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ credits: 'credits - 1' })
+        body: JSON.stringify({ student_uuid: student_id })
       }
     )
-    const data = await response.json()
-    return res.status(200).json(data)
+
+    return res.status(200).json({ success: true })
   } catch (err) {
     return res.status(500).json({ error: err.message })
   }
