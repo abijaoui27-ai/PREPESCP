@@ -12,12 +12,15 @@ export default async function handler(req, res) {
   const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY
 
   try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/students?email=eq.${email.toLowerCase()}&access_code=eq.${access_code.toUpperCase()}&select=*`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/students?email=eq.${email.toLowerCase()}&access_code=eq.${access_code.toUpperCase()}&select=*`,
+      {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
       }
-    })
+    )
 
     const students = await response.json()
 
@@ -27,15 +30,14 @@ export default async function handler(req, res) {
 
     const student = students[0]
 
-    if (student.sessions_used >= student.sessions_max) {
-      return res.status(403).json({ error: 'Plus de sessions disponibles' })
+    if (student.credits <= 0) {
+      return res.status(403).json({ error: 'Plus de sessions disponibles. Contactez votre professeur.' })
     }
 
     return res.status(200).json({
       success: true,
       student_id: student.id,
-      sessions_used: student.sessions_used,
-      sessions_max: student.sessions_max
+      credits: student.credits
     })
 
   } catch (err) {
