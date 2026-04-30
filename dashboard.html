@@ -33,6 +33,8 @@
     .progress-fill { height: 100%; background: var(--gradient); border-radius: 100px; transition: width 0.8s ease; }
     .btn-primary { background: var(--gradient); color: var(--bg); border: none; padding: 16px 40px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
     .btn-primary:hover { transform: translateY(-2px); }
+    .alert { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); color: var(--red); padding: 14px 20px; border-radius: 2px; font-size: 0.88rem; margin-bottom: 20px; display: none; }
+    .alert.show { display: block; }
     .section-tag { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 8px; }
     .entretien-list { display: flex; flex-direction: column; gap: 12px; }
@@ -73,6 +75,10 @@
 </nav>
 
 <main class="main">
+  <div class="alert" id="noCreditsAlert">
+    ❌ Vous n'avez plus de sessions disponibles. Contactez votre professeur pour en obtenir de nouvelles.
+  </div>
+
   <div class="hero-card">
     <div class="hero-left">
       <div class="section-tag">Bienvenue</div>
@@ -126,6 +132,11 @@
   if (!student_id) window.location.href = '/'
 
   document.getElementById('navEmail').textContent = email || ''
+
+  // Afficher alerte si redirigé depuis entretien sans crédits
+  if (window.location.search.includes('no_credits')) {
+    document.getElementById('noCreditsAlert').classList.add('show')
+  }
 
   async function loadCredits() {
     try {
