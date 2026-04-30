@@ -86,7 +86,7 @@
     <div class="msg error" id="errorMsg"></div>
     <div class="msg success" id="successMsg"></div>
     <button class="btn-call" id="btnAccess" onclick="handleAccess()">
-      Accéder à mon entretien →
+      Accéder à mon espace →
     </button>
   </div>
 </section>
@@ -136,28 +136,26 @@
         errorMsg.textContent = '❌ ' + data.error
         errorMsg.classList.add('show')
         btn.disabled = false
-        btn.textContent = 'Accéder à mon entretien →'
+        btn.textContent = 'Accéder à mon espace →'
         return
       }
 
       successMsg.textContent = '✅ Accès validé ! Redirection...'
       successMsg.classList.add('show')
 
-      // Stocker l'identité en session
       sessionStorage.setItem('student_id', data.student_id)
-      sessionStorage.setItem('sessions_used', data.sessions_used)
-      sessionStorage.setItem('sessions_max', data.sessions_max)
+      sessionStorage.setItem('credits', data.credits)
       sessionStorage.setItem('email', email)
 
       setTimeout(() => {
-        window.location.href = '/entretien'
+        window.location.href = '/dashboard'
       }, 1000)
 
     } catch (err) {
       errorMsg.textContent = '❌ Erreur de connexion. Réessayez.'
       errorMsg.classList.add('show')
       btn.disabled = false
-      btn.textContent = 'Accéder à mon entretien →'
+      btn.textContent = 'Accéder à mon espace →'
     }
   }
 
