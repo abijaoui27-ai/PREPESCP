@@ -30,10 +30,7 @@ export default async function handler(req, res) {
 
     const student = students[0]
 
-    if (student.credits <= 0) {
-      return res.status(403).json({ error: 'Plus de sessions disponibles. Contactez votre professeur.' })
-    }
-
+    // On laisse passer même avec 0 crédits
     return res.status(200).json({
       success: true,
       student_id: student.id,
