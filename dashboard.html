@@ -122,19 +122,29 @@
 <script>
   const student_id = localStorage.getItem('student_id')
   const email = localStorage.getItem('email')
-  const credits = parseInt(localStorage.getItem('credits') || '0')
 
   if (!student_id) window.location.href = '/'
 
   document.getElementById('navEmail').textContent = email || ''
-  document.getElementById('sessionsNum').textContent = credits
-  document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 5) * 100)}%`
 
-  if (credits <= 0) {
-    const btn = document.getElementById('btnEntretien')
-    btn.style.opacity = '0.4'
-    btn.style.pointerEvents = 'none'
-    btn.textContent = '❌ Plus de sessions disponibles'
+  async function loadCredits() {
+    try {
+      const res = await fetch(`/api/credits?student_id=${student_id}`)
+      const data = await res.json()
+      const credits = data.credits || 0
+      localStorage.setItem('credits', credits)
+      document.getElementById('sessionsNum').textContent = credits
+      document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 5) * 100)}%`
+      if (credits <= 0) {
+        const btn = document.getElementById('btnEntretien')
+        btn.style.opacity = '0.4'
+        btn.style.pointerEvents = 'none'
+        btn.textContent = '❌ Plus de sessions disponibles'
+      }
+    } catch(e) {
+      const credits = parseInt(localStorage.getItem('credits') || '0')
+      document.getElementById('sessionsNum').textContent = credits
+    }
   }
 
   function logout() {
@@ -146,10 +156,8 @@
       const res = await fetch(`/api/feedbacks?student_id=${student_id}`)
       const data = await res.json()
       if (!data || data.length === 0) return
-
       const list = document.getElementById('entretienList')
       list.innerHTML = ''
-
       data.forEach((fb, i) => {
         const date = new Date(fb.created_at).toLocaleDateString('fr-FR', {
           day: 'numeric', month: 'long', year: 'numeric'
@@ -188,6 +196,7 @@
     }
   }
 
+  loadCredits()
   loadFeedbacks()
 </script>
 
