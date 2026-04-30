@@ -28,6 +28,7 @@
     .agent-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
     .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
     .hint { font-size: 0.85rem; color: var(--muted); line-height: 1.7; padding: 16px 20px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
+    #debug { font-size: 0.75rem; color: var(--muted); margin-top: 16px; }
     elevenlabs-convai { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
@@ -47,18 +48,32 @@
   <div class="agent-name">Jean-Marc Delaunay</div>
   <div class="agent-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
   <div class="hint">Parlez naturellement, comme face à un vrai jury. À la fin de l'entretien, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</div>
+  <div id="debug">Chargement...</div>
 </div>
 
 <elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
 
 <script>
-  // Utiliser localStorage pour persister la session
   const student_id = localStorage.getItem('student_id')
-  const email = localStorage.getItem('email')
+  const debug = document.getElementById('debug')
+
+  debug.textContent = 'student_id: ' + (student_id || 'VIDE !')
 
   if (!student_id) {
     window.location.href = '/'
+  } else {
+    // Décrémenter les crédits
+    fetch('/api/decrement?student_id=' + student_id)
+      .then(r => r.json())
+      .then(data => {
+        debug.textContent = 'Decrement: ' + JSON.stringify(data)
+      })
+      .catch(err => {
+        debug.textContent = 'Erreur: ' + err.message
+      })
   }
+</script>
 
-  // Décrémenter les crédits au démarrage de​​​​​​​​​​​​​​​​
+</body>
+</html>
