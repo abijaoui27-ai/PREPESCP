@@ -18,8 +18,12 @@
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent); backdrop-filter: blur(12px); }
     .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-contact { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 8px 20px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+    .nav-contact:hover { background: var(--accent); color: var(--bg); }
+
+    /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden; }
-    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,169,110,0.08) 0%, transparent 70%); }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,169,110,0.08) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(200,169,110,0.04) 0%, transparent 60%); }
     .hero-tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: rgba(200,169,110,0.06); padding: 8px 20px; border-radius: 100px; font-size: 0.78rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 40px; animation: fadeUp 0.8s ease forwards; opacity: 0; }
     .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)} }
@@ -27,14 +31,15 @@
     h1 em { font-style: italic; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 56px; animation: fadeUp 0.8s 0.4s ease forwards; opacity: 0; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)} }
-    .agent-card { animation: fadeUp 0.8s 0.6s ease forwards; opacity: 0; background: var(--surface); border: 1px solid var(--border); padding: 48px 56px; max-width: 600px; width: 100%; position: relative; }
-    .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
-    .agent-status { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
-    .agent-status::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
-    .agent-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
-    .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
+
+    /* LOGIN CARD */
+    .login-card { animation: fadeUp 0.8s 0.6s ease forwards; opacity: 0; background: var(--surface); border: 1px solid var(--border); padding: 48px 56px; max-width: 560px; width: 100%; position: relative; }
+    .login-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .card-tag { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .card-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 32px; line-height: 1.6; }
     .input-group { margin-bottom: 16px; text-align: left; }
-    .input-label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .input-label { display: block; font-size: 0.75rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
     .form-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 1rem; padding: 14px 18px; border-radius: 2px; outline: none; transition: border-color 0.3s; }
     .form-input:focus { border-color: var(--accent); }
     .form-input::placeholder { color: var(--muted); }
@@ -45,36 +50,88 @@
     .btn-call { background: var(--gradient); color: var(--bg); border: none; padding: 18px 48px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 12px; width: 100%; justify-content: center; margin-top: 8px; }
     .btn-call:hover { transform: translateY(-2px); }
     .btn-call:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .stats { display: flex; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); margin-top: 80px; }
+    .access-hint { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 16px; line-height: 1.6; }
+    .access-hint a { color: var(--accent); text-decoration: none; }
+    .access-hint a:hover { text-decoration: underline; }
+
+    /* STATS */
+    .stats { display: flex; justify-content: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
     .stat { flex: 1; max-width: 280px; text-align: center; padding: 40px 32px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 10px; }
     .stat-label { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
-    footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; }
-    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* FEATURES */
+    .section { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+    .section-tag { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 16px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -1px; margin-bottom: 56px; max-width: 560px; }
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--border); }
+    .feature { background: var(--surface); padding: 40px 44px; transition: background 0.3s; }
+    .feature:hover { background: var(--surface2); }
+    .feature-icon { width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 1.1rem; }
+    .feature-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+    .feature-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* PRICING */
+    .pricing { padding: 100px 48px; max-width: 900px; margin: 0 auto; text-align: center; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+    .pricing-card { background: var(--surface); border: 1px solid var(--border); padding: 40px 36px; position: relative; text-align: left; transition: border-color 0.3s; }
+    .pricing-card:hover { border-color: var(--accent); }
+    .pricing-card.popular::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .pricing-badge { display: inline-block; background: rgba(200,169,110,0.1); border: 1px solid var(--border); color: var(--accent); font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; margin-bottom: 20px; }
+    .pricing-price { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
+    .pricing-sessions { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; }
+    .pricing-features { list-style: none; margin-bottom: 32px; }
+    .pricing-features li { font-size: 0.88rem; color: var(--muted); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 600; }
+    .btn-pricing { background: var(--gradient); color: var(--bg); border: none; padding: 14px 32px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s; display: block; width: 100%; text-align: center; text-decoration: none; }
+    .btn-pricing:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,169,110,0.3); }
+    .btn-pricing-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 14px 32px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: block; width: 100%; text-align: center; text-decoration: none; }
+    .btn-pricing-outline:hover { background: var(--accent); color: var(--bg); }
+    .pricing-note { font-size: 0.82rem; color: var(--muted); margin-top: 32px; line-height: 1.6; }
+    .pricing-note a { color: var(--accent); text-decoration: none; }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: var(--border); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 40px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--accent); }
     .footer-copy { font-size: 0.78rem; color: var(--muted); }
+
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
-      .agent-card { padding: 32px 24px; }
+      .login-card { padding: 32px 24px; }
       .stats { flex-direction: column; align-items: center; }
       .stat { border-right: none; border-bottom: 1px solid var(--border); max-width: 100%; width: 100%; }
-      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .section { padding: 60px 24px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .pricing { padding: 60px 24px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
+
 <nav>
   <div class="nav-logo">PrepESCP</div>
+  <a href="mailto:abijaoui27@gmail.com" class="nav-contact">Obtenir un accès</a>
 </nav>
+
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-tag">Intelligence Artificielle × Admission ESCP</div>
   <h1>Entraîne-toi face à un <em>vrai jury</em></h1>
   <p class="hero-sub">Un examinateur IA disponible 24h/24, qui simule l'oral d'admission ESCP avec la même exigence qu'un jury réel.</p>
-  <div class="agent-card">
-    <div class="agent-status">En ligne · Prêt pour l'entretien</div>
-    <div class="agent-name">Jean-Marc Delaunay</div>
-    <div class="agent-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
+
+  <div class="login-card">
+    <div class="card-tag">Espace étudiant</div>
+    <div class="card-title">Accéder à mon espace</div>
+    <div class="card-sub">Entrez votre email et le code d'accès reçu par email.</div>
     <div class="input-group">
       <label class="input-label">Votre email</label>
       <input type="email" class="form-input" id="emailInput" placeholder="prenom@email.com" />
@@ -88,17 +145,99 @@
     <button class="btn-call" id="btnAccess" onclick="handleAccess()">
       Accéder à mon espace →
     </button>
+    <p class="access-hint">
+      Pas encore d'accès ? <a href="mailto:abijaoui27@gmail.com">Contactez-nous</a> pour obtenir votre code.<br>
+      5 sessions à 9€ · 15 sessions à 20€
+    </p>
   </div>
 </section>
+
 <div class="stats">
   <div class="stat"><div class="stat-num">10–15'</div><div class="stat-label">Durée d'un entretien simulé<br>comme dans la réalité</div></div>
   <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Disponible à tout moment<br>depuis n'importe où</div></div>
   <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Vocal, comme<br>le jour J</div></div>
 </div>
+
+<section class="section">
+  <div class="section-tag">Pourquoi PrepESCP</div>
+  <h2 class="section-title">Conçu pour les candidats sérieux.</h2>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-title">Un vrai examinateur simulé</div>
+      <div class="feature-desc">Jean-Marc Delaunay explore votre personnalité, votre projet professionnel et votre motivation pour l'ESCP — exactement comme un jury réel.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔊</div>
+      <div class="feature-title">100% vocal</div>
+      <div class="feature-desc">Parlez à voix haute, comme le jour J. Un vrai échange oral pour vous préparer dans les meilleures conditions.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Feedback immédiat</div>
+      <div class="feature-desc">À la fin de chaque session : note sur 20, points forts, faiblesses, axes concrets pour progresser.</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📈</div>
+      <div class="feature-title">Suivi de progression</div>
+      <div class="feature-desc">Votre espace personnel conserve l'historique de vos entretiens pour mesurer votre progression dans le temps.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="pricing" id="tarifs">
+  <div class="section-tag">Tarifs</div>
+  <h2 class="section-title" style="margin:0 auto 16px;text-align:center;">Simple et transparent.</h2>
+  <p style="color:var(--muted);font-size:0.9rem;max-width:480px;margin:0 auto;">Contactez-nous par email pour obtenir votre code d'accès personnel avant de commencer.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-badge">Découverte</div>
+      <div class="pricing-price">9€</div>
+      <div class="pricing-sessions">5 sessions d'entraînement</div>
+      <ul class="pricing-features">
+        <li>5 entretiens complets</li>
+        <li>Feedback détaillé après chaque session</li>
+        <li>Note sur 20</li>
+        <li>Historique accessible</li>
+      </ul>
+      <a href="mailto:abijaoui27@gmail.com?subject=Accès PrepESCP - 5 sessions&body=Bonjour, je souhaite obtenir un accès pour 5 sessions à 9€." class="btn-pricing-outline">
+        Obtenir un accès →
+      </a>
+    </div>
+    <div class="pricing-card popular">
+      <div class="pricing-badge">⭐ Recommandé</div>
+      <div class="pricing-price">20€</div>
+      <div class="pricing-sessions">15 sessions d'entraînement</div>
+      <ul class="pricing-features">
+        <li>15 entretiens complets</li>
+        <li>Feedback détaillé après chaque session</li>
+        <li>Note sur 20</li>
+        <li>Historique accessible</li>
+        <li>Meilleur rapport qualité/prix</li>
+      </ul>
+      <a href="mailto:abijaoui27@gmail.com?subject=Accès PrepESCP - 15 sessions&body=Bonjour, je souhaite obtenir un accès pour 15 sessions à 20€." class="btn-pricing">
+        Obtenir un accès →
+      </a>
+    </div>
+  </div>
+  <p class="pricing-note">
+    Après réception de votre email, vous recevrez votre code d'accès personnel sous 24h.<br>
+    Contact : <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a>
+  </p>
+</section>
+
 <footer>
   <div class="footer-logo">PrepESCP</div>
+  <div class="footer-links">
+    <a href="#tarifs">Tarifs</a>
+    <a href="mailto:abijaoui27@gmail.com">Contact</a>
+  </div>
   <div class="footer-copy">© 2025 PrepESCP · Tous droits réservés</div>
 </footer>
+
 <script>
   async function handleAccess() {
     const email = document.getElementById('emailInput').value.trim()
