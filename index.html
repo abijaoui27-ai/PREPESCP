@@ -143,9 +143,9 @@
       successMsg.textContent = '✅ Accès validé ! Redirection...'
       successMsg.classList.add('show')
 
-      sessionStorage.setItem('student_id', data.student_id)
-      sessionStorage.setItem('credits', data.credits)
-      sessionStorage.setItem('email', email)
+      localStorage.setItem('student_id', data.student_id)
+      localStorage.setItem('credits', data.credits)
+      localStorage.setItem('email', email)
 
       setTimeout(() => {
         window.location.href = '/dashboard'
