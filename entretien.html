@@ -27,7 +27,7 @@
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)} }
     .agent-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
     .agent-role { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
-    .agent-hint { font-size: 0.85rem; color: var(--muted); line-height: 1.7; padding: 16px 20px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
+    .hint { font-size: 0.85rem; color: var(--muted); line-height: 1.7; padding: 16px 20px; background: var(--surface2); border-left: 2px solid var(--accent); text-align: left; }
     elevenlabs-convai { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
     @media (max-width: 768px) {
       nav { padding: 20px 24px; }
@@ -36,17 +36,29 @@
   </style>
 </head>
 <body>
+
 <nav>
-  <a href="/" class="nav-logo">PrepESCP</a>
-  <a href="/" class="nav-back">← Terminer</a>
+  <a href="/dashboard" class="nav-logo">PrepESCP</a>
+  <a href="/dashboard" class="nav-back">← Mon espace</a>
 </nav>
+
 <div class="card">
   <div class="agent-status">En ligne · Entretien en cours</div>
   <div class="agent-name">Jean-Marc Delaunay</div>
   <div class="agent-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
-  <div class="agent-hint">Parlez naturellement, comme face à un vrai jury. À la fin de l'entretien, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</div>
+  <div class="hint">Parlez naturellement, comme face à un vrai jury. À la fin de l'entretien, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</div>
 </div>
+
 <elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
-</body>
-</html>
+
+<script>
+  // Utiliser localStorage pour persister la session
+  const student_id = localStorage.getItem('student_id')
+  const email = localStorage.getItem('email')
+
+  if (!student_id) {
+    window.location.href = '/'
+  }
+
+  // Décrémenter les crédits au démarrage de​​​​​​​​​​​​​​​​
