@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepESCP — Mon espace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f; --surface: #13131a; --surface2: #1c1c28;
+      --accent: #c8a96e; --text: #f0ede8; --muted: #7a7890;
+      --border: rgba(200,169,110,0.15);
+      --gradient: linear-gradient(135deg, #c8a96e 0%, #e8c98e 50%, #c8a96e 100%);
+      --green: #4ade80; --red: #e05c5c;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-user { font-size: 0.85rem; color: var(--muted); }
+    .nav-logout { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+    .nav-logout:hover { border-color: var(--red); color: var(--red); }
+    .main { max-width: 900px; margin: 0 auto; padding: 100px 24px 60px; }
+
+    /* HERO CARD */
+    .hero-card { background: var(--surface); border: 1px solid var(--border); padding: 40px 48px; position: relative; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .hero-left h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+    .hero-left p { font-size: 0.88rem; color: var(--muted); }
+    .sessions-badge { background: var(--surface2); border: 1px solid var(--border); padding: 20px 32px; text-align: center; border-radius: 2px; }
+    .sessions-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+    .sessions-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+
+    /* BTN */
+    .btn-primary { background: var(--gradient); color: var(--bg); border: none; padding: 16px 40px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* SECTION */
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 40px; }
+    .section-tag { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+
+    /* PROGRESS */
+    .progress-bar { background: var(--surface2); border-radius: 100px; height: 6px; margin-top: 12px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--gradient); border-radius: 100px; transition: width 0.8s ease; }
+
+    /* ENTRETIEN CARD */
+    .entretien-list { display: flex; flex-direction: column; gap: 12px; }
+    .entretien-card { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; transition: background 0.3s; cursor: pointer; }
+    .entretien-card:hover { background: var(--surface2); }
+    .entretien-date { font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+    .entretien-title { font-size: 0.95rem; font-weight: 500; }
+    .note-badge { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .note-label { font-size: 0.72rem; color: var(--muted); text-align: right; }
+    .empty-state { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 0.9rem; line-height: 1.7; background: var(--surface); border: 1px solid var(--border); }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.5; }
+
+    /* MODAL FEEDBACK */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 600px; width: 100%; position: relative; max-height: 80vh; overflow-y: auto; }
+    .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+    .modal-note { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 8px; }
+    .modal-note-label { text-align: center; font-size: 0.82rem; color: var(--muted); margin-bottom: 32px; }
+    .feedback-section { margin-bottom: 24px; }
+    .feedback-section h4 { font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .feedback-section p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; background: var(--surface2); padding: 14px 18px; border-left: 2px solid var(--border); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .main { padding: 80px 16px 40px; }
+      .hero-card { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PrepESCP</div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <span class="nav-user" id="navEmail"></span>
+    <a href="/" class="nav-logout">Déconnexion</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero-card">
+    <div class="hero-left">
+      <div class="section-tag">Bienvenue</div>
+      <h2 id="welcomeName">Votre espace PrepESCP</h2>
+      <p style="margin-bottom:20px;">Préparez votre oral d'admission avec Jean-Marc Delaunay.</p>
+      <a href="/entretien" class="btn-primary" id="btnEntretien">🎙️ Lancer un entretien</a>
+    </div>
+    <div class="sessions-badge">
+      <div class="sessions-num" id="sessionsNum">—</div>
+      <div class="sessions-label">sessions restantes</div>
+      <div class="progress-bar" style="margin-top:12px;width:120px;">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIQUE -->
+  <div class="section-tag">Historique</div>
+  <div class="section-title">Mes entretiens</div>
+  <div class="entretien-list" id="entretienList">
+    <div class="empty-state">
+      <div class="empty-icon">🎙️</div>
+      <div>Vous n'avez pas encore passé d'entretien.<br>Lancez votre premier entretien pour commencer.</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- MODAL FEEDBACK -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
+    <div class="modal-note" id="modalNote">—</div>
+    <div class="modal-note-label">Note sur 20</div>
+    <div class="feedback-section">
+      <h4>✅ Points forts</h4>
+      <p id="modalForts">—</p>
+    </div>
+    <div class="feedback-section">
+      <h4>⚠️ Points faibles</h4>
+      <p id="modalFaibles">—</p>
+    </div>
+    <div class="feedback-section">
+      <h4>🎯 Axes d'amélioration</h4>
+      <p id="modalAxes">—</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const student_id = sessionStorage.getItem('student_id')
+  const email = sessionStorage.getItem('email')
+  const credits = sessionStorage.getItem('credits')
+
+  // Rediriger si pas connecté
+  if (!student_id) {
+    window.location.href = '/'
+  }
+
+  // Afficher email
+  document.getElementById('navEmail').textContent = email || ''
+
+  // Afficher sessions
+  const creditsNum = parseInt(credits) || 0
+  document.getElementById('sessionsNum').textContent = creditsNum
+  const maxCredits = 5
+  document.getElementById('progressFill').style.width = `${(creditsNum / maxCredits) * 100}%`
+
+  if (creditsNum <= 0) {
+    const btn = document.getElementById('btnEntretien')
+    btn.style.opacity = '0.4'
+    btn.style.pointerEvents = 'none'
+    btn.textContent = 'Plus de sessions disponibles'
+  }
+
+  // Charger les feedbacks
+  async function loadFeedbacks() {
+    try {
+      const res = await fetch(`/api/feedbacks?student_id=${student_id}`)
+      const data = await res.json()
+
+      if (!data || data.length === 0) return
+
+      const list = document.getElementById('entretienList')
+      list.innerHTML = ''
+
+      data.forEach((fb, i) => {
+        const date = new Date(fb.created_at).toLocaleDateString('fr-FR', {
+          day: 'numeric', month: 'long', year: 'numeric'
+        })
+        const card = document.createElement('div')
+        card.className = 'entretien-card'
+        card.onclick = () => openModal(fb)
+        card.innerHTML = `
+          <div>
+            <div class="entretien-date">${date}</div>
+            <div class="entretien-title">Entretien #${data.length - i} — Jean-Marc Delaunay</div>
+          </div>
+          <div>
+            <div class="note-badge">${fb.note}/20</div>
+            <div class="note-label">voir détails →</div>
+          </div>
+        `
+        list.appendChild(card)
+      })
+    } catch(e) {
+      console.error(e)
+    }
+  }
+
+  function openModal(fb) {
+    document.getElementById('modalNote').textContent = `${fb.note}/20`
+    document.getElementById('modalForts').textContent = fb.points_forts || '—'
+    document.getElementById('modalFaibles').textContent = fb.points_faibles || '—'
+    document.getElementById('modalAxes').textContent = fb.axes_amelioration || '—'
+    document.getElementById('modalOverlay').classList.add('show')
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modalOverlay')) {
+      document.getElementById('modalOverlay').classList.remove('show')
+    }
+  }
+
+  loadFeedbacks()
+</script>
+
+</body>
+</html>
