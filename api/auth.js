@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  const { email, access_code } = req.body
+  const { email, access_code, device_id } = req.body
   if (!email || !access_code) return res.status(400).json({ error: 'Email et code requis' })
 
   const SUPABASE_URL = process.env.SUPABASE_URL
@@ -30,7 +30,25 @@ export default async function handler(req, res) {
 
     const student = students[0]
 
-    // On laisse passer même avec 0 crédits
+    // Vérification fingerprint
+    if (student.device_id && device_id && student.device_id !== device_id) {
+      return res.status(403).json({ error: 'Accès refusé : ce compte est lié à un autre appareil. Contactez abijaoui27@gmail.com.' })
+    }
+
+    // Premier login — enregistrer le device_id
+    if (!student.device_id && device_id) {
+      await fetch(`${SUPABASE_URL}/rest/v1/students?id=eq.${student.id}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ device_id })
+      })
+    }
+
     return res.status(200).json({
       success: true,
       student_id: student.id,
