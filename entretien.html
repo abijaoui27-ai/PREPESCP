@@ -61,37 +61,11 @@
   } else if (credits <= 0) {
     window.location.href = '/dashboard?no_credits=1'
   } else {
-    // Décrémenter les crédits
-    fetch('/api/decrement?student_id=' + student_id)
-      .catch(err => console.error(err))
+    fetch('/api/decrement?student_id=' + student_id).catch(err => console.error(err))
 
-    // Créer une session en attente dans Supabase
-    // Le conversation_id sera mis à jour par le widget ElevenLabs
-    fetch('/api/session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ student_id })
-    })
-    .then(r => r.json())
-    .then(data => {
-      if (data.session_id) {
-        localStorage.setItem('current_session_id', data.session_id)
-      }
-    })
-    .catch(err => console.error(err))
-
-    // Écouter l'événement ElevenLabs pour récupérer le conversation_id
-    window.addEventListener('elevenlabs-convai:call-started', (e) => {
-      const conversationId = e.detail?.conversation_id
-      const sessionId = localStorage.getItem('current_session_id')
-      if (conversationId && sessionId) {
-        fetch('/api/session', {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ session_id: sessionId, conversation_id: conversationId })
-        }).catch(err => console.error(err))
-      }
-    })
+    // Passer le student_id au widget ElevenLabs via dynamic variables
+    const widget = document.querySelector('elevenlabs-convai')
+    widget.setAttribute('dynamic-variables', JSON.stringify({ student_id: student_id }))
   }
 </script>
 
