@@ -44,12 +44,9 @@
     .btn-recharge:hover { background: var(--accent); color: var(--bg); }
     .section-tag { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 8px; }
-
-    /* Questionnaire */
     .questionnaire-card { background: var(--surface); border: 1px solid var(--border); padding: 36px 40px; position: relative; margin-bottom: 32px; }
     .questionnaire-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
     .questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
-    .questionnaire-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(200,169,110,0.08); border: 1px solid var(--border); color: var(--accent); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
     .questionnaire-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
     .questionnaire-desc strong { color: var(--accent); }
     .q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; }
@@ -69,7 +66,6 @@
     .q-save-msg { font-size: 0.82rem; color: var(--green); display: none; }
     .q-save-msg.show { display: block; }
     .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--green); }
-
     .entretien-list { display: flex; flex-direction: column; gap: 12px; }
     .entretien-card { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; transition: background 0.3s; cursor: pointer; }
     .entretien-card:hover { background: var(--surface2); }
@@ -79,22 +75,41 @@
     .note-label { font-size: 0.72rem; color: var(--muted); text-align: right; }
     .empty-state { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 0.9rem; line-height: 1.7; background: var(--surface); border: 1px solid var(--border); }
     .empty-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.5; }
+
+    /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
     .modal-overlay.show { display: flex; }
-    .modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 600px; width: 100%; position: relative; max-height: 85vh; overflow-y: auto; }
+    .modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 680px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
     .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
     .modal-close { position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
-    .modal-note { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; line-height: 1; margin-bottom: 4px; }
-    .modal-note-label { text-align: center; font-size: 0.82rem; color: var(--muted); margin-bottom: 36px; }
+    .modal-header { text-align: center; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .modal-note { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
+    .modal-note-label { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
+    .modal-verdict { font-size: 0.92rem; color: var(--text); line-height: 1.7; font-style: italic; background: var(--surface2); padding: 16px 20px; border-left: 3px solid var(--accent); text-align: left; }
     .feedback-section { margin-bottom: 20px; }
-    .feedback-section h4 { font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .feedback-section h4 { font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .feedback-section p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; background: var(--surface2); padding: 14px 18px; border-left: 2px solid var(--border); }
+    .feedback-divider { height: 1px; background: var(--border); margin: 28px 0; }
+    .feedback-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .moment-card { background: var(--surface2); padding: 14px 16px; border-left: 2px solid var(--border); }
+    .moment-card.good { border-left-color: var(--green); }
+    .moment-card.bad { border-left-color: var(--red); }
+    .moment-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .moment-card.good .moment-label { color: var(--green); }
+    .moment-card.bad .moment-label { color: var(--red); }
+    .moment-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .comparaison-card { background: var(--surface2); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 20px; }
+    .comparaison-card .comp-label { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
+    .comparaison-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .main { padding: 80px 16px 40px; }
       .hero-card { padding: 28px 24px; }
       .questionnaire-card { padding: 24px 20px; }
       .modal { padding: 28px 20px; }
+      .moment-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -140,7 +155,6 @@
     </a>
   </div>
 
-  <!-- QUESTIONNAIRE -->
   <div class="questionnaire-card">
     <div class="questionnaire-header">
       <div>
@@ -155,37 +169,36 @@
     <p class="questionnaire-desc" style="margin-top:12px;">
       Ce questionnaire est transmis au jury avant votre entretien. <strong>Jean-Marc Delaunay s'en servira pour personnaliser ses questions.</strong> Il est optionnel mais fortement recommandé.
     </p>
-
     <div class="questionnaire-form" id="questionnaireForm">
       <div class="q-group">
         <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
         <div class="q-hint">Soyez précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
-        <textarea class="q-textarea" id="q1" placeholder="Ex: Je pratique le tennis en compétition depuis 8 ans (niveau régional), je lis beaucoup d'essais économiques…"></textarea>
+        <textarea class="q-textarea" id="q1" placeholder="Ex: Je pratique le tennis en compétition depuis 8 ans (niveau régional)…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">2. Un projet ou réalisation dont vous êtes fier(e)</div>
         <div class="q-hint">Succès ou échec, ce qui compte c'est ce que vous en avez appris.</div>
-        <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif inter-lycées qui a réuni 200 participants…"></textarea>
+        <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif inter-lycées…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">3. Expérience du monde du travail</div>
-        <div class="q-hint">Stages, jobs, rencontres marquantes, visites d'entreprises. Précisez lieu et durée.</div>
+        <div class="q-hint">Stages, jobs, rencontres marquantes. Précisez lieu et durée.</div>
         <textarea class="q-textarea" id="q3" placeholder="Ex: Stage de 2 semaines chez un cabinet comptable en juin 2024…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">4. Expériences de différentes cultures</div>
-        <div class="q-hint">Voyages, lectures, rencontres, expositions, travaux scolaires…</div>
-        <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour linguistique à Dublin, correspondant allemand pendant 2 ans…"></textarea>
+        <div class="q-hint">Voyages, lectures, rencontres, expositions…</div>
+        <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour linguistique à Dublin, correspondant allemand…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">5. Une expérience marquante</div>
-        <div class="q-hint">Humaine, culturelle, sportive, scolaire — ce qu'elle vous a appris sur vous-même.</div>
-        <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris à relativiser et à m'engager davantage…"></textarea>
+        <div class="q-hint">Humaine, culturelle, sportive — ce qu'elle vous a appris sur vous-même.</div>
+        <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris à relativiser…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">6. Autres informations pour le jury</div>
         <div class="q-hint">Tout ce que vous jugez utile de porter à la connaissance du jury.</div>
-        <textarea class="q-textarea" id="q6" placeholder="Ex: Je suis président du BDE de mon lycée depuis septembre 2024…"></textarea>
+        <textarea class="q-textarea" id="q6" placeholder="Ex: Je suis président du BDE de mon lycée…"></textarea>
       </div>
       <div class="q-actions">
         <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
@@ -204,11 +217,87 @@
   </div>
 </main>
 
+<!-- MODAL FEEDBACK COMPLÈTE -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
-    <div class="modal-note" id="modalNote">—</div>
-    <div class="modal-note-label">Note sur 20</div>
+
+    <!-- NOTE + VERDICT -->
+    <div class="modal-header">
+      <div class="modal-note" id="modalNote">—</div>
+      <div class="modal-note-label">Note sur 20</div>
+      <div class="modal-verdict" id="modalVerdict">—</div>
+    </div>
+
+    <!-- PRÉSENTATION -->
+    <div class="feedback-group-title">📋 Analyse de l'entretien</div>
+    <div class="feedback-section">
+      <h4>🎤 Présentation initiale</h4>
+      <p id="modalPresentation">—</p>
+    </div>
+    <div class="feedback-section">
+      <h4>🗣️ Qualité de l'expression</h4>
+      <p id="modalExpression">—</p>
+    </div>
+    <div class="feedback-section">
+      <h4>⚡ Dynamique de l'échange</h4>
+      <p id="modalDynamique">—</p>
+    </div>
+
+    <div class="feedback-divider"></div>
+
+    <!-- TRIANGLE -->
+    <div class="feedback-group-title">🔺 Le triangle Personnalité — Projet — ESCP</div>
+    <div class="feedback-section">
+      <p id="modalTriangle">—</p>
+    </div>
+
+    <div class="feedback-divider"></div>
+
+    <!-- FOND -->
+    <div class="feedback-group-title">📚 Fond & Contenu</div>
+    <div class="feedback-section">
+      <h4>🎯 Motivation & connaissance de l'ESCP</h4>
+      <p id="modalFond">—</p>
+    </div>
+    <div class="feedback-section">
+      <h4>📝 Exploitation du questionnaire</h4>
+      <p id="modalQuestionnaire">—</p>
+    </div>
+
+    <div class="feedback-divider"></div>
+
+    <!-- MEILLEUR / PIRE MOMENT -->
+    <div class="feedback-group-title">⚡ Moments clés</div>
+    <div class="moment-grid">
+      <div class="moment-card good">
+        <div class="moment-label">✅ Meilleur moment</div>
+        <p id="modalMeilleur">—</p>
+      </div>
+      <div class="moment-card bad">
+        <div class="moment-label">❌ Pire moment</div>
+        <p id="modalPire">—</p>
+      </div>
+    </div>
+
+    <div class="feedback-divider"></div>
+
+    <!-- QUESTION FINALE -->
+    <div class="feedback-section">
+      <h4>❓ Question finale au jury</h4>
+      <p id="modalQuestionFinale">—</p>
+    </div>
+
+    <!-- COMPARAISON -->
+    <div class="comparaison-card" id="modalComparaisonCard">
+      <div class="comp-label">📈 Comparaison avec l'entretien précédent</div>
+      <p id="modalComparaison">—</p>
+    </div>
+
+    <div class="feedback-divider"></div>
+
+    <!-- AXES -->
+    <div class="feedback-group-title">🚀 Pour progresser</div>
     <div class="feedback-section">
       <h4>✅ Points forts</h4>
       <p id="modalForts">—</p>
@@ -221,6 +310,7 @@
       <h4>🎯 Axes d'amélioration</h4>
       <p id="modalAxes">—</p>
     </div>
+
   </div>
 </div>
 
@@ -272,19 +362,14 @@
       const res = await fetch(`/api/questionnaire?student_id=${student_id}`)
       const data = await res.json()
       if (!data) return
-
       document.getElementById('q1').value = data.centres_interet || ''
       document.getElementById('q2').value = data.fierte || ''
       document.getElementById('q3').value = data.experience_travail || ''
       document.getElementById('q4').value = data.experience_cultures || ''
       document.getElementById('q5').value = data.experience_marquante || ''
       document.getElementById('q6').value = data.autres_infos || ''
-
-      const hasContent = Object.values({
-        a: data.centres_interet, b: data.fierte, c: data.experience_travail,
-        d: data.experience_cultures, e: data.experience_marquante, f: data.autres_infos
-      }).some(v => v && v.trim())
-
+      const hasContent = [data.centres_interet, data.fierte, data.experience_travail,
+        data.experience_cultures, data.experience_marquante, data.autres_infos].some(v => v && v.trim())
       if (hasContent) {
         document.getElementById('qFilledIndicator').style.display = 'inline-flex'
         document.getElementById('qToggle').textContent = 'Modifier ↓'
@@ -298,7 +383,6 @@
     btn.disabled = true
     btn.textContent = 'Sauvegarde…'
     msg.classList.remove('show')
-
     try {
       const res = await fetch('/api/questionnaire', {
         method: 'POST',
@@ -320,7 +404,6 @@
         setTimeout(() => { msg.classList.remove('show') }, 3000)
       }
     } catch(e) { console.error(e) }
-
     btn.disabled = false
     btn.textContent = 'Sauvegarder'
   }
@@ -356,6 +439,17 @@
 
   function openModal(fb) {
     document.getElementById('modalNote').textContent = `${fb.note}/20`
+    document.getElementById('modalVerdict').textContent = fb.verdict_jury || '—'
+    document.getElementById('modalPresentation').textContent = fb.presentation_initiale || '—'
+    document.getElementById('modalExpression').textContent = fb.qualite_expression || '—'
+    document.getElementById('modalDynamique').textContent = fb.dynamique_echange || '—'
+    document.getElementById('modalTriangle').textContent = fb.triangle_liens || '—'
+    document.getElementById('modalFond').textContent = fb.fond_escp || '—'
+    document.getElementById('modalQuestionnaire').textContent = fb.exploitation_questionnaire || '—'
+    document.getElementById('modalMeilleur').textContent = fb.meilleur_moment || '—'
+    document.getElementById('modalPire').textContent = fb.pire_moment || '—'
+    document.getElementById('modalQuestionFinale').textContent = fb.question_finale || '—'
+    document.getElementById('modalComparaison').textContent = fb.comparaison_precedent || '—'
     document.getElementById('modalForts').textContent = fb.points_forts || '—'
     document.getElementById('modalFaibles').textContent = fb.points_faibles || '—'
     document.getElementById('modalAxes').textContent = fb.axes_amelioration || '—'
