@@ -63,9 +63,28 @@
   } else {
     fetch('/api/decrement?student_id=' + student_id).catch(err => console.error(err))
 
-    // Passer le student_id au widget ElevenLabs via dynamic variables
-    const widget = document.querySelector('elevenlabs-convai')
-    widget.setAttribute('dynamic-variables', JSON.stringify({ student_id: student_id }))
+    // Charger le questionnaire puis initialiser le widget
+    fetch(`/api/questionnaire?student_id=${student_id}`)
+      .then(r => r.json())
+      .then(q => {
+        const dynamicVars = {
+          student_id: student_id,
+          centres_interet: q?.centres_interet || '',
+          fierte: q?.fierte || '',
+          experience_travail: q?.experience_travail || '',
+          experience_cultures: q?.experience_cultures || '',
+          experience_marquante: q?.experience_marquante || '',
+          autres_infos: q?.autres_infos || ''
+        }
+
+        const widget = document.querySelector('elevenlabs-convai')
+        widget.setAttribute('dynamic-variables', JSON.stringify(dynamicVars))
+      })
+      .catch(() => {
+        // Pas de questionnaire, on passe juste le student_id
+        const widget = document.querySelector('elevenlabs-convai')
+        widget.setAttribute('dynamic-variables', JSON.stringify({ student_id }))
+      })
   }
 </script>
 
