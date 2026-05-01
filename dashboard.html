@@ -44,6 +44,32 @@
     .btn-recharge:hover { background: var(--accent); color: var(--bg); }
     .section-tag { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 8px; }
+
+    /* Questionnaire */
+    .questionnaire-card { background: var(--surface); border: 1px solid var(--border); padding: 36px 40px; position: relative; margin-bottom: 32px; }
+    .questionnaire-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
+    .questionnaire-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(200,169,110,0.08); border: 1px solid var(--border); color: var(--accent); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; }
+    .questionnaire-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+    .questionnaire-desc strong { color: var(--accent); }
+    .q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; }
+    .q-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .questionnaire-form { display: none; flex-direction: column; gap: 20px; }
+    .questionnaire-form.open { display: flex; }
+    .q-group { display: flex; flex-direction: column; gap: 8px; }
+    .q-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
+    .q-hint { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-bottom: 4px; }
+    .q-textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; padding: 12px 16px; border-radius: 2px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 80px; line-height: 1.6; }
+    .q-textarea:focus { border-color: var(--accent); }
+    .q-textarea::placeholder { color: var(--muted); }
+    .q-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 12px 32px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+    .btn-save:hover { transform: translateY(-1px); }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .q-save-msg { font-size: 0.82rem; color: var(--green); display: none; }
+    .q-save-msg.show { display: block; }
+    .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--green); }
+
     .entretien-list { display: flex; flex-direction: column; gap: 12px; }
     .entretien-card { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; transition: background 0.3s; cursor: pointer; }
     .entretien-card:hover { background: var(--surface2); }
@@ -67,6 +93,7 @@
       nav { padding: 16px 20px; }
       .main { padding: 80px 16px 40px; }
       .hero-card { padding: 28px 24px; }
+      .questionnaire-card { padding: 24px 20px; }
       .modal { padding: 28px 20px; }
     }
   </style>
@@ -111,6 +138,60 @@
     <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepESCP&body=Bonjour, je souhaite recharger mon compte PrepESCP." class="btn-recharge">
       Recharger mon compte →
     </a>
+  </div>
+
+  <!-- QUESTIONNAIRE -->
+  <div class="questionnaire-card">
+    <div class="questionnaire-header">
+      <div>
+        <div class="section-tag">Questionnaire ESCP</div>
+        <div class="section-title" style="margin-bottom:0;">Mon dossier de personnalité</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="q-filled-indicator" id="qFilledIndicator" style="display:none;">✅ Rempli</span>
+        <button class="q-toggle" id="qToggle" onclick="toggleQuestionnaire()">Remplir ↓</button>
+      </div>
+    </div>
+    <p class="questionnaire-desc" style="margin-top:12px;">
+      Ce questionnaire est transmis au jury avant votre entretien. <strong>Jean-Marc Delaunay s'en servira pour personnaliser ses questions.</strong> Il est optionnel mais fortement recommandé.
+    </p>
+
+    <div class="questionnaire-form" id="questionnaireForm">
+      <div class="q-group">
+        <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
+        <div class="q-hint">Soyez précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
+        <textarea class="q-textarea" id="q1" placeholder="Ex: Je pratique le tennis en compétition depuis 8 ans (niveau régional), je lis beaucoup d'essais économiques…"></textarea>
+      </div>
+      <div class="q-group">
+        <div class="q-label">2. Un projet ou réalisation dont vous êtes fier(e)</div>
+        <div class="q-hint">Succès ou échec, ce qui compte c'est ce que vous en avez appris.</div>
+        <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif inter-lycées qui a réuni 200 participants…"></textarea>
+      </div>
+      <div class="q-group">
+        <div class="q-label">3. Expérience du monde du travail</div>
+        <div class="q-hint">Stages, jobs, rencontres marquantes, visites d'entreprises. Précisez lieu et durée.</div>
+        <textarea class="q-textarea" id="q3" placeholder="Ex: Stage de 2 semaines chez un cabinet comptable en juin 2024…"></textarea>
+      </div>
+      <div class="q-group">
+        <div class="q-label">4. Expériences de différentes cultures</div>
+        <div class="q-hint">Voyages, lectures, rencontres, expositions, travaux scolaires…</div>
+        <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour linguistique à Dublin, correspondant allemand pendant 2 ans…"></textarea>
+      </div>
+      <div class="q-group">
+        <div class="q-label">5. Une expérience marquante</div>
+        <div class="q-hint">Humaine, culturelle, sportive, scolaire — ce qu'elle vous a appris sur vous-même.</div>
+        <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris à relativiser et à m'engager davantage…"></textarea>
+      </div>
+      <div class="q-group">
+        <div class="q-label">6. Autres informations pour le jury</div>
+        <div class="q-hint">Tout ce que vous jugez utile de porter à la connaissance du jury.</div>
+        <textarea class="q-textarea" id="q6" placeholder="Ex: Je suis président du BDE de mon lycée depuis septembre 2024…"></textarea>
+      </div>
+      <div class="q-actions">
+        <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
+        <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé avec succès !</span>
+      </div>
+    </div>
   </div>
 
   <div class="section-tag">Historique</div>
@@ -176,8 +257,72 @@
     }
   }
 
-  function logout() {
-    localStorage.clear()
+  function logout() { localStorage.clear() }
+
+  function toggleQuestionnaire() {
+    const form = document.getElementById('questionnaireForm')
+    const btn = document.getElementById('qToggle')
+    const isOpen = form.classList.contains('open')
+    form.classList.toggle('open')
+    btn.textContent = isOpen ? 'Remplir ↓' : 'Réduire ↑'
+  }
+
+  async function loadQuestionnaire() {
+    try {
+      const res = await fetch(`/api/questionnaire?student_id=${student_id}`)
+      const data = await res.json()
+      if (!data) return
+
+      document.getElementById('q1').value = data.centres_interet || ''
+      document.getElementById('q2').value = data.fierte || ''
+      document.getElementById('q3').value = data.experience_travail || ''
+      document.getElementById('q4').value = data.experience_cultures || ''
+      document.getElementById('q5').value = data.experience_marquante || ''
+      document.getElementById('q6').value = data.autres_infos || ''
+
+      const hasContent = Object.values({
+        a: data.centres_interet, b: data.fierte, c: data.experience_travail,
+        d: data.experience_cultures, e: data.experience_marquante, f: data.autres_infos
+      }).some(v => v && v.trim())
+
+      if (hasContent) {
+        document.getElementById('qFilledIndicator').style.display = 'inline-flex'
+        document.getElementById('qToggle').textContent = 'Modifier ↓'
+      }
+    } catch(e) { console.error(e) }
+  }
+
+  async function saveQuestionnaire() {
+    const btn = document.getElementById('btnSaveQ')
+    const msg = document.getElementById('qSaveMsg')
+    btn.disabled = true
+    btn.textContent = 'Sauvegarde…'
+    msg.classList.remove('show')
+
+    try {
+      const res = await fetch('/api/questionnaire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student_id,
+          centres_interet: document.getElementById('q1').value,
+          fierte: document.getElementById('q2').value,
+          experience_travail: document.getElementById('q3').value,
+          experience_cultures: document.getElementById('q4').value,
+          experience_marquante: document.getElementById('q5').value,
+          autres_infos: document.getElementById('q6').value
+        })
+      })
+      if (res.ok) {
+        msg.classList.add('show')
+        document.getElementById('qFilledIndicator').style.display = 'inline-flex'
+        document.getElementById('qToggle').textContent = 'Modifier ↓'
+        setTimeout(() => { msg.classList.remove('show') }, 3000)
+      }
+    } catch(e) { console.error(e) }
+
+    btn.disabled = false
+    btn.textContent = 'Sauvegarder'
   }
 
   async function loadFeedbacks() {
@@ -206,9 +351,7 @@
         `
         list.appendChild(card)
       })
-    } catch(e) {
-      console.error(e)
-    }
+    } catch(e) { console.error(e) }
   }
 
   function openModal(fb) {
@@ -226,6 +369,7 @@
   }
 
   loadCredits()
+  loadQuestionnaire()
   loadFeedbacks()
 </script>
 
