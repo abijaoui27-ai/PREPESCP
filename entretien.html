@@ -49,7 +49,7 @@
   <div class="hint">Parlez naturellement, comme face à un vrai jury. À la fin de l'entretien, demandez votre feedback : note sur 20, points forts, axes d'amélioration.</div>
 </div>
 
-<elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr"></elevenlabs-convai>
+<elevenlabs-convai agent-id="agent_5301kn5frmakepgabf8ne1pw9kzr" style="display:none;"></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
 
 <script>
@@ -63,7 +63,6 @@
   } else {
     fetch('/api/decrement?student_id=' + student_id).catch(err => console.error(err))
 
-    // Charger le questionnaire puis initialiser le widget
     fetch(`/api/questionnaire?student_id=${student_id}`)
       .then(r => r.json())
       .then(q => {
@@ -76,14 +75,14 @@
           experience_marquante: q?.experience_marquante || '',
           autres_infos: q?.autres_infos || ''
         }
-
         const widget = document.querySelector('elevenlabs-convai')
         widget.setAttribute('dynamic-variables', JSON.stringify(dynamicVars))
+        widget.style.display = ''
       })
       .catch(() => {
-        // Pas de questionnaire, on passe juste le student_id
         const widget = document.querySelector('elevenlabs-convai')
         widget.setAttribute('dynamic-variables', JSON.stringify({ student_id }))
+        widget.style.display = ''
       })
   }
 </script>
