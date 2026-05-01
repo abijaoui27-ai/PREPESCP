@@ -1,22 +1,8 @@
-import crypto from 'crypto'
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).end()
-
-  // Vérification signature HMAC
-  const secret = process.env.ELEVENLABS_WEBHOOK_SECRET
-  const signature = req.headers['elevenlabs-signature']
-  if (secret && signature) {
-    const hmac = crypto.createHmac('sha256', secret)
-    hmac.update(JSON.stringify(req.body))
-    const expected = 'sha256=' + hmac.digest('hex')
-    if (signature !== expected) {
-      return res.status(401).json({ error: 'Invalid signature' })
-    }
-  }
 
   try {
     const body = req.body
