@@ -33,7 +33,7 @@ Le candidat a rempli un questionnaire de personnalité avant l'entretien :
 - Expériences culturelles : ${q.experience_cultures || 'Non renseigné'}
 - Expérience marquante : ${q.experience_marquante || 'Non renseigné'}
 - Autres informations : ${q.autres_infos || 'Non renseigné'}
-` : 'Le candidat n\'a pas rempli son questionnaire de personnalité.'
+` : "Le candidat n'a pas rempli son questionnaire de personnalité."
 
     const formattedTranscript = transcript
       .filter(t => t.message)
@@ -65,7 +65,7 @@ ${formattedTranscript}
 
 Tiens compte du questionnaire de personnalité dans ton évaluation : si le candidat y a mentionné des éléments qu'il n'a pas su valoriser à l'oral, signale-le dans les axes d'amélioration.
 
-Réponds UNIQUEMENT en JSON valide sans markdown :
+Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks, sans aucune mise en forme :
 {
   "note": <entier 0-20>,
   "points_forts": "<2-3 points forts précis et personnalisés>",
@@ -78,7 +78,9 @@ Réponds UNIQUEMENT en JSON valide sans markdown :
     })
 
     const openaiData = await openaiRes.json()
-    const feedback = JSON.parse(openaiData.choices[0].message.content)
+    const raw = openaiData.choices[0].message.content
+    const clean = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+    const feedback = JSON.parse(clean)
 
     // Créer la session
     const sessionRes = await fetch(`${SUPABASE_URL}/rest/v1/sessions`, {
