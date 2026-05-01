@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PrepESCP — Simulez votre oral d'admission</title>
+  <title>PrepESCP — Préparez votre oral d'admission ESCP</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@4/dist/fp.min.js"></script>
   <style>
@@ -22,13 +22,11 @@
       --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
       --green: #4ade80;
       --red: #e05c5c;
-      --glow: 0 0 60px rgba(200,169,110,0.08);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; overflow-x: hidden; }
 
-    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 20px 56px;
@@ -43,7 +41,6 @@
     .nav-cta { background: transparent; border: 1px solid rgba(200,169,110,0.4); color: var(--accent); padding: 8px 22px; font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.3s; }
     .nav-cta:hover { background: var(--accent); color: var(--bg); }
 
-    /* HERO */
     .hero {
       min-height: 100vh;
       display: grid; grid-template-columns: 1fr 1fr;
@@ -116,7 +113,6 @@
     .hero-trust-text { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
     .hero-trust-text strong { color: var(--accent); }
 
-    /* HERO LOGIN CARD */
     .hero-right {
       position: relative; z-index: 1;
       opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
@@ -167,49 +163,31 @@
     .login-hint a { color: var(--accent); text-decoration: none; }
     .login-hint a:hover { text-decoration: underline; }
 
-    /* STATS BAR */
     .stats-bar {
       border-top: 1px solid var(--border2);
       border-bottom: 1px solid var(--border2);
       background: var(--surface);
       display: grid; grid-template-columns: repeat(4, 1fr);
     }
-    .stat {
-      padding: 36px 32px; text-align: center;
-      border-right: 1px solid var(--border2);
-    }
+    .stat { padding: 36px 32px; text-align: center; border-right: 1px solid var(--border2); }
     .stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 700;
-      background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      line-height: 1; margin-bottom: 8px;
-    }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 8px; }
     .stat-label { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
 
-    /* COMMENT ÇA MARCHE */
     .section { padding: 100px 56px; max-width: 1200px; margin: 0 auto; }
     .section-eyebrow { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
     .section-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 60px; max-width: 500px; }
 
-    /* STEPS */
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border2); }
-    .step { background: var(--surface); padding: 48px 40px; position: relative; transition: background 0.3s; }
+    .step { background: var(--surface); padding: 48px 40px; transition: background 0.3s; }
     .step:hover { background: var(--surface2); }
-    .step-num {
-      font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700;
-      background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      opacity: 0.3; line-height: 1; margin-bottom: 24px;
-    }
+    .step-num { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.3; line-height: 1; margin-bottom: 24px; }
     .step-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 12px; }
     .step-desc { font-size: 0.85rem; color: var(--muted2); line-height: 1.7; }
 
-    /* FEATURES */
     .features-wrap { background: var(--surface); border: 1px solid var(--border2); }
-    .feature-row {
-      display: grid; grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--border2);
-    }
+    .feature-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border2); }
     .feature-row:last-child { border-bottom: none; }
     .feature-content { padding: 56px 56px; display: flex; flex-direction: column; justify-content: center; }
     .feature-visual { background: var(--surface2); position: relative; overflow: hidden; min-height: 280px; display: flex; align-items: center; justify-content: center; }
@@ -220,69 +198,30 @@
     .feature-list li { font-size: 0.85rem; color: var(--muted2); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
     .feature-list li::before { content: '→'; color: var(--accent); font-weight: 600; flex-shrink: 0; margin-top: 1px; }
 
-    /* MOCK DASHBOARD */
-    .mock-dashboard {
-      background: var(--bg); border: 1px solid var(--border); padding: 20px;
-      margin: 24px; font-size: 0.75rem;
-    }
+    .mock-dashboard { background: var(--bg); border: 1px solid var(--border); padding: 20px; margin: 24px; font-size: 0.75rem; }
     .mock-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border2); }
     .mock-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .mock-tag { font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
-    .mock-card { background: var(--surface2); padding: 14px 16px; margin-bottom: 10px; border-left: 2px solid var(--accent); }
     .mock-note { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .mock-label { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-    .mock-line { height: 6px; background: var(--surface3); margin-bottom: 6px; border-radius: 1px; }
-    .mock-line.filled { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
     .mock-entretien { background: var(--surface); border: 1px solid var(--border2); padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .mock-entretien-title { font-size: 0.7rem; color: var(--muted2); }
     .mock-entretien-note { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    /* MOCK FEEDBACK */
-    .mock-feedback { margin: 24px; background: var(--bg); border: 1px solid var(--border); padding: 20px; }
-    .mock-feedback-note { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; line-height: 1; margin-bottom: 4px; }
-    .mock-feedback-label { text-align: center; font-size: 0.6rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
-    .mock-section { margin-bottom: 12px; }
-    .mock-section-title { font-size: 0.6rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; }
-    .mock-text-line { height: 5px; background: var(--surface2); margin-bottom: 4px; border-radius: 1px; }
-
-    /* MOCK AGENT */
-    .mock-agent { margin: 24px; display: flex; flex-direction: column; gap: 10px; }
-    .mock-bubble { padding: 10px 14px; font-size: 0.72rem; line-height: 1.5; max-width: 85%; }
-    .mock-bubble.agent { background: var(--surface2); color: var(--muted2); align-self: flex-start; border-left: 2px solid var(--accent); }
-    .mock-bubble.user { background: rgba(200,169,110,0.08); color: var(--text); align-self: flex-end; border-right: 2px solid rgba(200,169,110,0.3); text-align: right; }
-    .mock-bubble-label { font-size: 0.58rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-
-    /* JEAN-MARC */
     .jm-section { padding: 100px 56px; background: var(--surface); border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); }
     .jm-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .jm-quote {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-style: italic; font-weight: 400; line-height: 1.5; color: var(--text);
-      margin-bottom: 32px;
-    }
+    .jm-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-style: italic; font-weight: 400; line-height: 1.5; color: var(--text); margin-bottom: 32px; }
     .jm-quote::before { content: '"'; font-size: 4rem; color: var(--accent); line-height: 0; vertical-align: -1rem; margin-right: 4px; }
     .jm-name { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
     .jm-role { font-size: 0.78rem; color: var(--muted2); }
-    .jm-visual { position: relative; }
-    .jm-card {
-      background: var(--surface2); border: 1px solid var(--border); padding: 36px 40px;
-      position: relative;
-    }
+    .jm-card { background: var(--surface2); border: 1px solid var(--border); padding: 36px 40px; position: relative; }
     .jm-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
-    .jm-avatar {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--bg);
-      margin-bottom: 20px;
-    }
+    .jm-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--bg); margin-bottom: 20px; }
     .jm-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
     .jm-card-role { font-size: 0.78rem; color: var(--muted2); margin-bottom: 24px; }
     .jm-traits { display: flex; flex-direction: column; gap: 10px; }
     .jm-trait { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; color: var(--muted2); }
     .jm-trait::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
 
-    /* PRICING */
     .pricing-section { padding: 100px 56px; max-width: 1000px; margin: 0 auto; }
     .pricing-header { text-align: center; margin-bottom: 60px; }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border2); margin-bottom: 40px; }
@@ -296,25 +235,13 @@
     .pricing-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
     .pricing-features li { font-size: 0.82rem; color: var(--muted2); display: flex; align-items: center; gap: 8px; }
     .pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 600; }
-    .btn-pricing-main {
-      display: block; width: 100%; background: var(--gradient); color: var(--bg);
-      border: none; padding: 13px 24px; text-align: center; text-decoration: none;
-      font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; transition: all 0.3s;
-    }
+    .btn-pricing-main { display: block; width: 100%; background: var(--gradient); color: var(--bg); border: none; padding: 13px 24px; text-align: center; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
     .btn-pricing-main:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,169,110,0.25); }
-    .btn-pricing-outline {
-      display: block; width: 100%; background: transparent;
-      border: 1px solid rgba(200,169,110,0.3); color: var(--accent);
-      padding: 13px 24px; text-align: center; text-decoration: none;
-      font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 500;
-      cursor: pointer; transition: all 0.3s;
-    }
+    .btn-pricing-outline { display: block; width: 100%; background: transparent; border: 1px solid rgba(200,169,110,0.3); color: var(--accent); padding: 13px 24px; text-align: center; text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.3s; }
     .btn-pricing-outline:hover { background: rgba(200,169,110,0.06); border-color: var(--accent); }
     .pricing-note { text-align: center; font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
     .pricing-note a { color: var(--accent); text-decoration: none; }
 
-    /* FOOTER */
     .divider { height: 1px; background: var(--border2); }
     footer { padding: 40px 56px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
     .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -334,7 +261,6 @@
       .section { padding: 60px 24px; }
       .steps { grid-template-columns: 1fr; }
       .feature-row { grid-template-columns: 1fr; }
-      .feature-row:nth-child(odd) .feature-visual { order: -1; }
       .jm-section { padding: 60px 24px; }
       .jm-inner { grid-template-columns: 1fr; gap: 48px; }
       .pricing-section { padding: 60px 24px; }
@@ -345,7 +271,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">PrepESCP</div>
   <div class="nav-links">
@@ -356,12 +281,11 @@
   <a href="#tarifs" class="nav-cta">Obtenir un accès</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <div class="hero-eyebrow">Préparation orale ESCP · IA</div>
-    <h1>Passez votre oral face à un <em>vrai jury</em></h1>
-    <p class="hero-desc">Jean-Marc Delaunay vous interroge comme le jour J — personnalité, projet, motivation — et vous donne un feedback de jury en 11 points après chaque session.</p>
+    <h1>Préparez votre oral.<br><em>Intégrez l'ESCP.</em></h1>
+    <p class="hero-desc">Entraînez-vous face à Jean-Marc Delaunay — un examinateur IA qui vous interroge, vous déstabilise, et vous donne un feedback de jury en 11 points pour progresser à chaque session.</p>
     <div class="hero-actions">
       <a href="#tarifs" class="btn-primary">Commencer maintenant →</a>
       <a href="mailto:abijaoui27@gmail.com?subject=Essai gratuit PrepESCP&body=Bonjour, je souhaite obtenir un essai gratuit PrepESCP. Mon email : " class="btn-secondary">Essai gratuit →</a>
@@ -401,7 +325,6 @@
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-num">15–20'</div>
@@ -421,7 +344,6 @@
   </div>
 </div>
 
-<!-- COMMENT ÇA MARCHE -->
 <section class="section" id="comment">
   <div class="section-eyebrow">Comment ça marche</div>
   <div class="section-title">Trois étapes pour progresser vraiment.</div>
@@ -446,7 +368,6 @@
 
 <div class="divider"></div>
 
-<!-- FEATURES -->
 <section class="section" id="feedback" style="padding-top:0;padding-bottom:0;max-width:100%;">
   <div style="max-width:1200px;margin:0 auto;padding:100px 56px 0;">
     <div class="section-eyebrow">Ce que vous obtenez</div>
@@ -466,18 +387,33 @@
         </ul>
       </div>
       <div class="feature-visual">
-        <div class="mock-agent">
-          <div class="mock-bubble agent">
-            <div class="mock-bubble-label">Jean-Marc</div>
-            Vous dites être curieux — concrètement, qu'est-ce que ça change dans votre façon d'envisager votre projet professionnel ?
-          </div>
-          <div class="mock-bubble user">
-            <div class="mock-bubble-label">Candidat</div>
-            Cette curiosité m'a poussé vers la recherche en stratégie... c'est exactement ce que l'ESCP permet avec ses labs européens.
-          </div>
-          <div class="mock-bubble agent">
-            <div class="mock-bubble-label">Jean-Marc</div>
-            Quel lab spécifiquement vous intéresse ?
+        <div style="padding:32px;width:100%;">
+          <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-weight:600;">Ce que Jean-Marc évalue</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="background:var(--bg);border:1px solid var(--border);padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+              <div style="width:32px;height:32px;background:rgba(200,169,110,0.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;">👤</div>
+              <div>
+                <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px;">Personnalité</div>
+                <div style="font-size:0.78rem;color:var(--muted2);line-height:1.5;">Qui vous êtes, ce qui vous motive, votre rapport à l'effort et au doute.</div>
+              </div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+              <div style="width:32px;height:32px;background:rgba(200,169,110,0.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;">🎯</div>
+              <div>
+                <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px;">Projet professionnel</div>
+                <div style="font-size:0.78rem;color:var(--muted2);line-height:1.5;">La clarté et la cohérence de ce que vous voulez faire après l'école.</div>
+              </div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:16px 20px;display:flex;gap:14px;align-items:flex-start;">
+              <div style="width:32px;height:32px;background:rgba(200,169,110,0.1);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;">🏛️</div>
+              <div>
+                <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:4px;">Motivation ESCP</div>
+                <div style="font-size:0.78rem;color:var(--muted2);line-height:1.5;">Pourquoi l'ESCP spécifiquement — pas juste "c'est une grande école".</div>
+              </div>
+            </div>
+            <div style="background:rgba(200,169,110,0.04);border:1px solid rgba(200,169,110,0.2);padding:14px 20px;">
+              <div style="font-size:0.75rem;color:var(--accent);font-style:italic;line-height:1.6;">"Le critère n°1 : les liens spontanés entre ces 3 pôles. Un candidat qui les tisse naturellement se distingue immédiatement."</div>
+            </div>
           </div>
         </div>
       </div>
@@ -485,24 +421,41 @@
 
     <div class="feature-row">
       <div class="feature-visual">
-        <div class="mock-feedback">
-          <div class="mock-feedback-note">13/20</div>
-          <div class="mock-feedback-label">Note sur 20</div>
-          <div class="mock-section">
-            <div class="mock-section-title">🔺 Triangle Personnalité → Projet → ESCP</div>
-            <div class="mock-text-line" style="width:95%"></div>
-            <div class="mock-text-line" style="width:80%"></div>
-            <div class="mock-text-line" style="width:70%"></div>
-          </div>
-          <div class="mock-section">
-            <div class="mock-section-title">⚡ Meilleur moment</div>
-            <div class="mock-text-line" style="width:90%"></div>
-            <div class="mock-text-line" style="width:65%"></div>
-          </div>
-          <div class="mock-section">
-            <div class="mock-section-title">📈 Comparaison entretien précédent</div>
-            <div class="mock-text-line" style="width:85%"></div>
-            <div class="mock-text-line" style="width:72%"></div>
+        <div style="padding:32px;width:100%;">
+          <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-weight:600;">Les 11 points du feedback</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="background:var(--bg);border:1px solid var(--border);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--muted2);">🎤 Présentation initiale</div>
+              <div style="width:60px;height:4px;background:var(--surface3);border-radius:1px;overflow:hidden;"><div style="width:75%;height:100%;background:var(--gradient);"></div></div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--muted2);">🗣️ Qualité de l'expression</div>
+              <div style="width:60px;height:4px;background:var(--surface3);border-radius:1px;overflow:hidden;"><div style="width:60%;height:100%;background:var(--gradient);"></div></div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--muted2);">⚡ Dynamique de l'échange</div>
+              <div style="width:60px;height:4px;background:var(--surface3);border-radius:1px;overflow:hidden;"><div style="width:80%;height:100%;background:var(--gradient);"></div></div>
+            </div>
+            <div style="background:rgba(200,169,110,0.06);border:1px solid rgba(200,169,110,0.2);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--accent);font-weight:500;">🔺 Triangle Perso→Projet→ESCP</div>
+              <div style="width:60px;height:4px;background:var(--surface3);border-radius:1px;overflow:hidden;"><div style="width:45%;height:100%;background:var(--gradient);"></div></div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--muted2);">📚 Fond & connaissance ESCP</div>
+              <div style="width:60px;height:4px;background:var(--surface3);border-radius:1px;overflow:hidden;"><div style="width:55%;height:100%;background:var(--gradient);"></div></div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--muted2);">✅ Meilleur & ❌ pire moment</div>
+              <div style="font-size:0.65rem;color:var(--muted);letter-spacing:1px;">CITÉS</div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--muted2);">📈 Comparaison session précédente</div>
+              <div style="font-size:0.65rem;color:var(--green);letter-spacing:1px;">+2 pts</div>
+            </div>
+            <div style="background:var(--bg);border:1px solid var(--border);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:0.78rem;color:var(--muted2);">❓ Question finale analysée</div>
+              <div style="font-size:0.65rem;color:var(--muted);letter-spacing:1px;">+ SUGGESTION</div>
+            </div>
           </div>
         </div>
       </div>
@@ -539,7 +492,7 @@
             <div style="flex:1;">
               <div class="mock-tag">Sessions restantes</div>
               <div class="mock-note">4</div>
-              <div class="mock-line filled" style="width:80%;height:4px;margin-top:6px;"></div>
+              <div style="width:80%;height:4px;background:var(--surface3);margin-top:6px;border-radius:1px;overflow:hidden;"><div style="width:80%;height:100%;background:var(--gradient);"></div></div>
             </div>
             <div style="flex:1;">
               <div class="mock-tag">Dernier entretien</div>
@@ -569,7 +522,6 @@
 
 <div class="divider" style="margin-top:100px;"></div>
 
-<!-- JEAN-MARC -->
 <section class="jm-section">
   <div class="jm-inner">
     <div>
@@ -578,7 +530,7 @@
       <div class="jm-name">Jean-Marc Delaunay</div>
       <div class="jm-role">Directeur associé chez Lazard · Jury ESCP depuis 8 ans</div>
     </div>
-    <div class="jm-visual">
+    <div>
       <div class="jm-card">
         <div class="jm-avatar">JM</div>
         <div class="jm-card-name">Jean-Marc Delaunay</div>
@@ -595,7 +547,6 @@
   </div>
 </section>
 
-<!-- TARIFS -->
 <section class="pricing-section" id="tarifs">
   <div class="pricing-header">
     <div class="section-eyebrow" style="justify-content:center;">Tarifs</div>
@@ -613,36 +564,36 @@
         <li>Note sur 20</li>
         <li>Sans engagement</li>
       </ul>
-      <a href="mailto:abijaoui27@gmail.com?subject=Essai gratuit PrepESCP&body=Bonjour, je souhaite obtenir un essai gratuit PrepESCP. Mon email : " class="btn-pricing-outline">
+      <a href="mailto:abijaoui27@gmail.com?subject=Essai gratuit PrepESCP&body=Bonjour, je souhaite obtenir mon essai gratuit PrepESCP (1 session). Mon email : " class="btn-pricing-outline">
         Demander mon essai →
       </a>
     </div>
     <div class="pricing-card featured">
       <div class="pricing-badge">⭐ Découverte</div>
       <div class="pricing-price">9€</div>
-      <div class="pricing-desc">5 sessions d'entraînement</div>
+      <div class="pricing-desc">4 sessions d'entraînement</div>
       <ul class="pricing-features">
-        <li>5 entretiens complets</li>
+        <li>4 entretiens complets</li>
         <li>Feedback en 11 points</li>
         <li>Comparaison entre sessions</li>
         <li>Questionnaire personnalisé</li>
       </ul>
-      <a href="mailto:abijaoui27@gmail.com?subject=Accès PrepESCP - 5 sessions&body=Bonjour, je souhaite obtenir un accès PrepESCP pour 5 sessions à 9€. Mon email : " class="btn-pricing-main">
+      <a href="mailto:abijaoui27@gmail.com?subject=Accès PrepESCP - 4 sessions (9€)&body=Bonjour, je souhaite obtenir un accès PrepESCP pour 4 sessions à 9€. Mon email : " class="btn-pricing-main">
         Obtenir un accès →
       </a>
     </div>
     <div class="pricing-card">
       <div class="pricing-badge">Intensif</div>
-      <div class="pricing-price">20€</div>
-      <div class="pricing-desc">15 sessions d'entraînement</div>
+      <div class="pricing-price">15€</div>
+      <div class="pricing-desc">8 sessions d'entraînement</div>
       <ul class="pricing-features">
-        <li>15 entretiens complets</li>
+        <li>8 entretiens complets</li>
         <li>Feedback en 11 points</li>
         <li>Comparaison entre sessions</li>
         <li>Questionnaire personnalisé</li>
         <li>Meilleur rapport qualité/prix</li>
       </ul>
-      <a href="mailto:abijaoui27@gmail.com?subject=Accès PrepESCP - 15 sessions&body=Bonjour, je souhaite obtenir un accès PrepESCP pour 15 sessions à 20€. Mon email : " class="btn-pricing-outline">
+      <a href="mailto:abijaoui27@gmail.com?subject=Accès PrepESCP - 8 sessions (15€)&body=Bonjour, je souhaite obtenir un accès PrepESCP pour 8 sessions à 15€. Mon email : " class="btn-pricing-outline">
         Obtenir un accès →
       </a>
     </div>
