@@ -3,120 +3,160 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PrepESCP — Mon espace</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <title>PrepOral — Mon espace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0f; --surface: #13131a; --surface2: #1c1c28;
-      --accent: #c8a96e; --text: #f0ede8; --muted: #7a7890;
-      --border: rgba(200,169,110,0.15);
-      --gradient: linear-gradient(135deg, #c8a96e 0%, #e8c98e 50%, #c8a96e 100%);
+      --bg: #07070c; --surface: #0f0f18; --surface2: #16161f; --surface3: #1e1e2a;
+      --accent: #c9a96e; --accent2: #e8c98e; --text: #f0ede8;
+      --muted: #6b6880; --muted2: #9994aa;
+      --border: rgba(200,169,110,0.12); --border2: rgba(200,169,110,0.06);
+      --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
       --green: #4ade80; --red: #e05c5c;
+      --em-red: #e8392a;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(7,7,12,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border2); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-user { font-size: 0.85rem; color: var(--muted); }
-    .nav-logout { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+    .nav-user { font-size: 0.82rem; color: var(--muted2); }
+    .nav-logout { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; transition: all 0.3s; text-decoration: none; }
     .nav-logout:hover { border-color: var(--red); color: var(--red); }
-    .main { max-width: 900px; margin: 0 auto; padding: 100px 24px 60px; }
-    .alert { background: rgba(224,92,92,0.08); border: 1px solid rgba(224,92,92,0.25); color: #f0a0a0; padding: 16px 20px; border-radius: 2px; font-size: 0.88rem; margin-bottom: 24px; display: none; line-height: 1.6; }
+
+    .main { max-width: 960px; margin: 0 auto; padding: 100px 24px 60px; }
+
+    .alert { background: rgba(224,92,92,0.08); border: 1px solid rgba(224,92,92,0.25); color: #f0a0a0; padding: 16px 20px; font-size: 0.85rem; margin-bottom: 24px; display: none; line-height: 1.6; }
     .alert.show { display: block; }
     .alert a { color: var(--red); text-decoration: underline; }
+
+    /* HERO */
     .hero-card { background: var(--surface); border: 1px solid var(--border); padding: 40px 48px; position: relative; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
     .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
-    .hero-left h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
-    .hero-left p { font-size: 0.88rem; color: var(--muted); margin-bottom: 24px; }
-    .sessions-badge { background: var(--surface2); border: 1px solid var(--border); padding: 20px 32px; text-align: center; border-radius: 2px; min-width: 140px; }
-    .sessions-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-    .sessions-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
-    .progress-bar { background: var(--surface); border-radius: 100px; height: 6px; margin-top: 12px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--gradient); border-radius: 100px; transition: width 0.8s ease; }
-    .btn-primary { background: var(--gradient); color: var(--bg); border: none; padding: 16px 40px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 32px rgba(200,169,110,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
-    .btn-primary:hover { transform: translateY(-2px); }
+    .hero-left h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
+    .hero-left p { font-size: 0.85rem; color: var(--muted2); margin-bottom: 24px; }
+    .sessions-badge { background: var(--surface2); border: 1px solid var(--border); padding: 20px 32px; text-align: center; min-width: 140px; }
+    .sessions-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+    .sessions-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+    .progress-bar { background: var(--surface3); height: 4px; margin-top: 12px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--gradient); transition: width 0.8s ease; }
+
+    /* BOUTONS ENTRETIENS */
+    .entretien-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-entretien { border: none; padding: 14px 28px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+    .btn-escp { background: var(--gradient); color: var(--bg); box-shadow: 0 6px 24px rgba(200,169,110,0.25); }
+    .btn-escp:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(200,169,110,0.35); }
+    .btn-emlyon { background: var(--em-red); color: white; box-shadow: 0 6px 24px rgba(232,57,42,0.25); }
+    .btn-emlyon:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,57,42,0.35); }
+
     .recharge-banner { background: var(--surface2); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 32px; display: none; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     .recharge-banner.show { display: flex; }
-    .recharge-text { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .recharge-text { font-size: 0.85rem; color: var(--muted2); line-height: 1.6; }
     .recharge-text strong { color: var(--text); }
-    .btn-recharge { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s; }
+    .btn-recharge { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s; }
     .btn-recharge:hover { background: var(--accent); color: var(--bg); }
-    .section-tag { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 8px; }
+
+    .section-eyebrow { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 8px; }
+
+    /* QUESTIONNAIRE */
     .questionnaire-card { background: var(--surface); border: 1px solid var(--border); padding: 36px 40px; position: relative; margin-bottom: 32px; }
     .questionnaire-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
     .questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
-    .questionnaire-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+    .questionnaire-desc { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; margin-bottom: 28px; }
     .questionnaire-desc strong { color: var(--accent); }
-    .q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 6px 16px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.3s; }
+    .q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; transition: all 0.3s; }
     .q-toggle:hover { border-color: var(--accent); color: var(--accent); }
     .questionnaire-form { display: none; flex-direction: column; gap: 20px; }
     .questionnaire-form.open { display: flex; }
     .q-group { display: flex; flex-direction: column; gap: 8px; }
-    .q-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
-    .q-hint { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-bottom: 4px; }
-    .q-textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; padding: 12px 16px; border-radius: 2px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 80px; line-height: 1.6; }
-    .q-textarea:focus { border-color: var(--accent); }
+    .q-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
+    .q-hint { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
+    .q-textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px 16px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 80px; line-height: 1.6; }
+    .q-textarea:focus { border-color: rgba(200,169,110,0.4); }
     .q-textarea::placeholder { color: var(--muted); }
     .q-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 12px 32px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+    .btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 12px 32px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
     .btn-save:hover { transform: translateY(-1px); }
     .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .q-save-msg { font-size: 0.82rem; color: var(--green); display: none; }
+    .q-save-msg { font-size: 0.78rem; color: var(--green); display: none; }
     .q-save-msg.show { display: block; }
-    .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--green); }
-    .entretien-list { display: flex; flex-direction: column; gap: 12px; }
-    .entretien-card { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; transition: background 0.3s; cursor: pointer; }
+    .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--green); }
+
+    /* LISTE ENTRETIENS */
+    .entretien-list { display: flex; flex-direction: column; gap: 10px; }
+    .entretien-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; transition: background 0.3s; cursor: pointer; position: relative; }
     .entretien-card:hover { background: var(--surface2); }
-    .entretien-date { font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
-    .entretien-title { font-size: 0.95rem; font-weight: 500; }
-    .note-badge { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .note-label { font-size: 0.72rem; color: var(--muted); text-align: right; }
-    .empty-state { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 0.9rem; line-height: 1.7; background: var(--surface); border: 1px solid var(--border); }
-    .empty-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.5; }
+    .entretien-card.escp-card { border-left: 3px solid var(--accent); }
+    .entretien-card.emlyon-card { border-left: 3px solid var(--em-red); }
+    .entretien-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+    .entretien-school { font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+    .entretien-school.escp { color: var(--accent); }
+    .entretien-school.emlyon { color: var(--em-red); }
+    .entretien-title { font-size: 0.92rem; font-weight: 500; }
+    .note-badge { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .note-label { font-size: 0.68rem; color: var(--muted); text-align: right; }
+    .empty-state { text-align: center; padding: 60px 24px; color: var(--muted2); font-size: 0.88rem; line-height: 1.7; background: var(--surface); border: 1px solid var(--border); }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.4; }
 
     /* MODAL */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
     .modal-overlay.show { display: flex; }
-    .modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 680px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
-    .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 700px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+    .modal.escp-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .modal.emlyon-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--em-red); }
     .modal-close { position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
+    .modal-school-badge { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 4px 12px; display: inline-block; margin-bottom: 16px; }
+    .modal-school-badge.escp { color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
+    .modal-school-badge.emlyon { color: var(--em-red); border: 1px solid rgba(232,57,42,0.3); }
     .modal-header { text-align: center; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
-    .modal-note { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
-    .modal-note-label { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
-    .modal-verdict { font-size: 0.92rem; color: var(--text); line-height: 1.7; font-style: italic; background: var(--surface2); padding: 16px 20px; border-left: 3px solid var(--accent); text-align: left; }
-    .feedback-section { margin-bottom: 20px; }
-    .feedback-section h4 { font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .feedback-section p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; background: var(--surface2); padding: 14px 18px; border-left: 2px solid var(--border); }
-    .feedback-divider { height: 1px; background: var(--border); margin: 28px 0; }
-    .feedback-group-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
-    .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-    .moment-card { background: var(--surface2); padding: 14px 16px; border-left: 2px solid var(--border); }
+    .modal-note { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
+    .modal-note-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 16px; }
+    .modal-verdict { font-size: 0.9rem; color: var(--text); line-height: 1.7; font-style: italic; background: var(--surface2); padding: 16px 20px; border-left: 3px solid var(--accent); text-align: left; }
+    .modal-verdict.emlyon { border-left-color: var(--em-red); }
+    .feedback-section { margin-bottom: 18px; }
+    .feedback-section h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .feedback-section h4.emlyon { color: var(--em-red); }
+    .feedback-section p { font-size: 0.85rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
+    .feedback-divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .feedback-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+    .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .moment-card { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--border); }
     .moment-card.good { border-left-color: var(--green); }
     .moment-card.bad { border-left-color: var(--red); }
-    .moment-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .moment-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
     .moment-card.good .moment-label { color: var(--green); }
     .moment-card.bad .moment-label { color: var(--red); }
-    .moment-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-    .comparaison-card { background: var(--surface2); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 20px; }
-    .comparaison-card .comp-label { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
-    .comparaison-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .moment-card p { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; }
+    .comparaison-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 18px; }
+    .comparaison-card .comp-label { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
+    .comparaison-card p { font-size: 0.85rem; color: var(--muted2); line-height: 1.7; }
+
+    /* Cartes EM Lyon dans la modal */
+    .cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .carte-feedback { background: var(--surface2); padding: 14px 16px; border-left: 2px solid rgba(232,57,42,0.4); }
+    .carte-feedback-cat { font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--em-red); font-weight: 600; margin-bottom: 6px; }
+    .carte-feedback-text { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; }
+    .valeurs-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .valeur-item { background: var(--surface2); padding: 10px 14px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: var(--muted2); line-height: 1.5; border-left: 2px solid var(--border); }
+    .valeur-name { font-weight: 600; color: var(--text); min-width: 100px; font-size: 0.78rem; }
 
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .main { padding: 80px 16px 40px; }
-      .hero-card { padding: 28px 24px; }
-      .questionnaire-card { padding: 24px 20px; }
+      .hero-card { padding: 28px 20px; }
+      .questionnaire-card { padding: 24px 16px; }
       .modal { padding: 28px 20px; }
       .moment-grid { grid-template-columns: 1fr; }
+      .cartes-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">PrepESCP</div>
+  <div class="nav-logo">PrepOral</div>
   <div class="nav-right">
     <span class="nav-user" id="navEmail"></span>
     <a href="/" class="nav-logout" onclick="logout()">Déconnexion</a>
@@ -126,15 +166,18 @@
 <main class="main">
 
   <div class="alert" id="noCreditsAlert">
-    ❌ Vous n'avez plus de sessions disponibles. Pour recharger, contactez-nous à <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a> — 5 sessions à 9€ · 15 sessions à 20€.
+    ❌ Vous n'avez plus de sessions disponibles. Pour recharger, contactez-nous à <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a> — 5 sessions à 12€ · 10 sessions à 20€.
   </div>
 
   <div class="hero-card">
     <div class="hero-left">
-      <div class="section-tag">Bienvenue</div>
-      <h2>Votre espace PrepESCP</h2>
-      <p>Préparez votre oral d'admission avec Jean-Marc Delaunay.</p>
-      <a href="/entretien" class="btn-primary" id="btnEntretien">🎙️ Lancer un entretien</a>
+      <div class="section-eyebrow">Bienvenue</div>
+      <h2>Votre espace PrepOral</h2>
+      <p>Choisissez votre école et entraînez-vous face à un jury IA.</p>
+      <div class="entretien-buttons">
+        <a href="/entretien" class="btn-entretien btn-escp" id="btnESCP">🎙️ ESCP — Jean-Marc</a>
+        <a href="/entretien-emlyon" class="btn-entretien btn-emlyon" id="btnEMLYON">🃏 emlyon — Sophie</a>
+      </div>
     </div>
     <div class="sessions-badge">
       <div class="sessions-num" id="sessionsNum">—</div>
@@ -148,17 +191,18 @@
   <div class="recharge-banner" id="rechargeBanner">
     <div class="recharge-text">
       <strong>Vous avez utilisé toutes vos sessions.</strong><br>
-      Rechargez votre compte pour continuer à vous entraîner — 5 sessions à 9€ ou 15 sessions à 20€.
+      Rechargez votre compte — 5 sessions à 12€ ou 10 sessions à 20€.
     </div>
-    <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepESCP&body=Bonjour, je souhaite recharger mon compte PrepESCP." class="btn-recharge">
+    <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepOral&body=Bonjour, je souhaite recharger mon compte PrepOral." class="btn-recharge">
       Recharger mon compte →
     </a>
   </div>
 
+  <!-- QUESTIONNAIRE ESCP -->
   <div class="questionnaire-card">
     <div class="questionnaire-header">
       <div>
-        <div class="section-tag">Questionnaire ESCP</div>
+        <div class="section-eyebrow">Questionnaire ESCP</div>
         <div class="section-title" style="margin-bottom:0;">Mon dossier de personnalité</div>
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
@@ -167,13 +211,13 @@
       </div>
     </div>
     <p class="questionnaire-desc" style="margin-top:12px;">
-      Ce questionnaire est transmis au jury avant votre entretien. <strong>Jean-Marc Delaunay s'en servira pour personnaliser ses questions.</strong> Il est optionnel mais fortement recommandé.
+      Ce questionnaire est transmis à Jean-Marc avant votre entretien ESCP. <strong>Il s'en servira pour personnaliser ses questions.</strong> Optionnel mais fortement recommandé.
     </p>
     <div class="questionnaire-form" id="questionnaireForm">
       <div class="q-group">
         <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
         <div class="q-hint">Soyez précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
-        <textarea class="q-textarea" id="q1" placeholder="Ex: Je pratique le tennis en compétition depuis 8 ans (niveau régional)…"></textarea>
+        <textarea class="q-textarea" id="q1" placeholder="Ex: Je pratique le tennis en compétition depuis 8 ans…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">2. Un projet ou réalisation dont vous êtes fier(e)</div>
@@ -183,12 +227,12 @@
       <div class="q-group">
         <div class="q-label">3. Expérience du monde du travail</div>
         <div class="q-hint">Stages, jobs, rencontres marquantes. Précisez lieu et durée.</div>
-        <textarea class="q-textarea" id="q3" placeholder="Ex: Stage de 2 semaines chez un cabinet comptable en juin 2024…"></textarea>
+        <textarea class="q-textarea" id="q3" placeholder="Ex: Stage de 2 semaines chez un cabinet comptable…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">4. Expériences de différentes cultures</div>
         <div class="q-hint">Voyages, lectures, rencontres, expositions…</div>
-        <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour linguistique à Dublin, correspondant allemand…"></textarea>
+        <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour linguistique à Dublin…"></textarea>
       </div>
       <div class="q-group">
         <div class="q-label">5. Une expérience marquante</div>
@@ -202,72 +246,101 @@
       </div>
       <div class="q-actions">
         <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
-        <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé avec succès !</span>
+        <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé !</span>
       </div>
     </div>
   </div>
 
-  <div class="section-tag">Historique</div>
+  <div class="section-eyebrow">Historique</div>
   <div class="section-title">Mes entretiens</div>
   <div class="entretien-list" id="entretienList">
     <div class="empty-state">
       <div class="empty-icon">🎙️</div>
-      <div>Vous n'avez pas encore passé d'entretien.<br>Lancez votre premier entretien pour commencer.</div>
+      <div>Vous n'avez pas encore passé d'entretien.<br>Choisissez votre école et lancez votre premier entretien.</div>
     </div>
   </div>
 </main>
 
-<!-- MODAL FEEDBACK COMPLÈTE -->
+<!-- MODAL FEEDBACK -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal">
+  <div class="modal" id="modalContent">
     <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
 
-    <!-- NOTE + VERDICT -->
     <div class="modal-header">
+      <div class="modal-school-badge" id="modalSchoolBadge">—</div>
       <div class="modal-note" id="modalNote">—</div>
       <div class="modal-note-label">Note sur 20</div>
       <div class="modal-verdict" id="modalVerdict">—</div>
     </div>
 
-    <!-- PRÉSENTATION -->
+    <!-- SECTIONS COMMUNES -->
     <div class="feedback-group-title">📋 Analyse de l'entretien</div>
     <div class="feedback-section">
-      <h4>🎤 Présentation initiale</h4>
+      <h4 id="h4Presentation">🎤 Présentation initiale</h4>
       <p id="modalPresentation">—</p>
     </div>
     <div class="feedback-section">
       <h4>🗣️ Qualité de l'expression</h4>
       <p id="modalExpression">—</p>
     </div>
-    <div class="feedback-section">
-      <h4>⚡ Dynamique de l'échange</h4>
-      <p id="modalDynamique">—</p>
+
+    <!-- SECTION ESCP UNIQUEMENT -->
+    <div id="sectionESCP">
+      <div class="feedback-section">
+        <h4>⚡ Dynamique de l'échange</h4>
+        <p id="modalDynamique">—</p>
+      </div>
+      <div class="feedback-divider"></div>
+      <div class="feedback-group-title">🔺 Le triangle Personnalité — Projet — ESCP</div>
+      <div class="feedback-section">
+        <p id="modalTriangle">—</p>
+      </div>
+      <div class="feedback-divider"></div>
+      <div class="feedback-group-title">📚 Fond & Contenu</div>
+      <div class="feedback-section">
+        <h4>🎯 Motivation & connaissance de l'ESCP</h4>
+        <p id="modalFond">—</p>
+      </div>
+      <div class="feedback-section">
+        <h4>📝 Exploitation du questionnaire</h4>
+        <p id="modalQuestionnaire">—</p>
+      </div>
+    </div>
+
+    <!-- SECTION EMLYON UNIQUEMENT -->
+    <div id="sectionEMLYON" style="display:none;">
+      <div class="feedback-divider"></div>
+      <div class="feedback-group-title">🃏 Réactivité aux cartes</div>
+      <div class="cartes-grid">
+        <div class="carte-feedback">
+          <div class="carte-feedback-cat">Personnalité</div>
+          <div class="carte-feedback-text" id="modalCartePersonnalite">—</div>
+        </div>
+        <div class="carte-feedback">
+          <div class="carte-feedback-cat">Expériences passées</div>
+          <div class="carte-feedback-text" id="modalCarteExperiences">—</div>
+        </div>
+        <div class="carte-feedback">
+          <div class="carte-feedback-cat">Projets futurs</div>
+          <div class="carte-feedback-text" id="modalCarteProjets">—</div>
+        </div>
+        <div class="carte-feedback">
+          <div class="carte-feedback-cat">Créativité</div>
+          <div class="carte-feedback-text" id="modalCarteCreativite">—</div>
+        </div>
+      </div>
+      <div class="feedback-divider"></div>
+      <div class="feedback-group-title">🌟 Les 5 valeurs emlyon</div>
+      <div class="valeurs-grid" id="modalValeursGrid">—</div>
+      <div class="feedback-section">
+        <h4 class="emlyon">🗣️ Échange final</h4>
+        <p id="modalEchangeFinal">—</p>
+      </div>
     </div>
 
     <div class="feedback-divider"></div>
 
-    <!-- TRIANGLE -->
-    <div class="feedback-group-title">🔺 Le triangle Personnalité — Projet — ESCP</div>
-    <div class="feedback-section">
-      <p id="modalTriangle">—</p>
-    </div>
-
-    <div class="feedback-divider"></div>
-
-    <!-- FOND -->
-    <div class="feedback-group-title">📚 Fond & Contenu</div>
-    <div class="feedback-section">
-      <h4>🎯 Motivation & connaissance de l'ESCP</h4>
-      <p id="modalFond">—</p>
-    </div>
-    <div class="feedback-section">
-      <h4>📝 Exploitation du questionnaire</h4>
-      <p id="modalQuestionnaire">—</p>
-    </div>
-
-    <div class="feedback-divider"></div>
-
-    <!-- MEILLEUR / PIRE MOMENT -->
+    <!-- MOMENTS CLÉS -->
     <div class="feedback-group-title">⚡ Moments clés</div>
     <div class="moment-grid">
       <div class="moment-card good">
@@ -280,23 +353,23 @@
       </div>
     </div>
 
-    <div class="feedback-divider"></div>
-
-    <!-- QUESTION FINALE -->
-    <div class="feedback-section">
-      <h4>❓ Question finale au jury</h4>
-      <p id="modalQuestionFinale">—</p>
+    <!-- QUESTION FINALE (ESCP uniquement) -->
+    <div id="sectionQuestionFinale">
+      <div class="feedback-section">
+        <h4>❓ Question finale au jury</h4>
+        <p id="modalQuestionFinale">—</p>
+      </div>
     </div>
 
     <!-- COMPARAISON -->
-    <div class="comparaison-card" id="modalComparaisonCard">
+    <div class="comparaison-card">
       <div class="comp-label">📈 Comparaison avec l'entretien précédent</div>
       <p id="modalComparaison">—</p>
     </div>
 
     <div class="feedback-divider"></div>
 
-    <!-- AXES -->
+    <!-- POUR PROGRESSER -->
     <div class="feedback-group-title">🚀 Pour progresser</div>
     <div class="feedback-section">
       <h4>✅ Points forts</h4>
@@ -317,11 +390,8 @@
 <script>
   const student_id = localStorage.getItem('student_id')
   const email = localStorage.getItem('email')
-
   if (!student_id) window.location.href = '/'
-
   document.getElementById('navEmail').textContent = email || ''
-
   if (window.location.search.includes('no_credits')) {
     document.getElementById('noCreditsAlert').classList.add('show')
   }
@@ -333,12 +403,12 @@
       const credits = data.credits || 0
       localStorage.setItem('credits', credits)
       document.getElementById('sessionsNum').textContent = credits
-      document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 5) * 100)}%`
+      document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 10) * 100)}%`
       if (credits <= 0) {
-        const btn = document.getElementById('btnEntretien')
-        btn.style.opacity = '0.4'
-        btn.style.pointerEvents = 'none'
-        btn.textContent = '❌ Plus de sessions disponibles'
+        document.getElementById('btnESCP').style.opacity = '0.4'
+        document.getElementById('btnESCP').style.pointerEvents = 'none'
+        document.getElementById('btnEMLYON').style.opacity = '0.4'
+        document.getElementById('btnEMLYON').style.pointerEvents = 'none'
         document.getElementById('rechargeBanner').classList.add('show')
       }
     } catch(e) {
@@ -419,13 +489,16 @@
         const date = new Date(fb.created_at).toLocaleDateString('fr-FR', {
           day: 'numeric', month: 'long', year: 'numeric'
         })
+        const ecole = fb.ecole || 'ESCP'
+        const isEmlyon = ecole === 'EM Lyon'
         const card = document.createElement('div')
-        card.className = 'entretien-card'
+        card.className = `entretien-card ${isEmlyon ? 'emlyon-card' : 'escp-card'}`
         card.onclick = () => openModal(fb)
         card.innerHTML = `
           <div>
             <div class="entretien-date">${date}</div>
-            <div class="entretien-title">Entretien #${data.length - i} — Jean-Marc Delaunay</div>
+            <div class="entretien-school ${isEmlyon ? 'emlyon' : 'escp'}">${ecole}</div>
+            <div class="entretien-title">Entretien #${data.length - i} — ${isEmlyon ? 'Sophie Marchand' : 'Jean-Marc Delaunay'}</div>
           </div>
           <div style="text-align:right;">
             <div class="note-badge">${fb.note}/20</div>
@@ -438,21 +511,60 @@
   }
 
   function openModal(fb) {
+    const ecole = fb.ecole || 'ESCP'
+    const isEmlyon = ecole === 'EM Lyon'
+    const modal = document.getElementById('modalContent')
+
+    // Style modal selon école
+    modal.className = `modal ${isEmlyon ? 'emlyon-modal' : 'escp-modal'}`
+    const badge = document.getElementById('modalSchoolBadge')
+    badge.className = `modal-school-badge ${isEmlyon ? 'emlyon' : 'escp'}`
+    badge.textContent = ecole
+
+    const verdict = document.getElementById('modalVerdict')
+    verdict.className = `modal-verdict ${isEmlyon ? 'emlyon' : ''}`
+
+    // Sections visibles selon école
+    document.getElementById('sectionESCP').style.display = isEmlyon ? 'none' : 'block'
+    document.getElementById('sectionEMLYON').style.display = isEmlyon ? 'block' : 'none'
+    document.getElementById('sectionQuestionFinale').style.display = isEmlyon ? 'none' : 'block'
+
+    // Champs communs
     document.getElementById('modalNote').textContent = `${fb.note}/20`
     document.getElementById('modalVerdict').textContent = fb.verdict_jury || '—'
     document.getElementById('modalPresentation').textContent = fb.presentation_initiale || '—'
     document.getElementById('modalExpression').textContent = fb.qualite_expression || '—'
-    document.getElementById('modalDynamique').textContent = fb.dynamique_echange || '—'
-    document.getElementById('modalTriangle').textContent = fb.triangle_liens || '—'
-    document.getElementById('modalFond').textContent = fb.fond_escp || '—'
-    document.getElementById('modalQuestionnaire').textContent = fb.exploitation_questionnaire || '—'
     document.getElementById('modalMeilleur').textContent = fb.meilleur_moment || '—'
     document.getElementById('modalPire').textContent = fb.pire_moment || '—'
-    document.getElementById('modalQuestionFinale').textContent = fb.question_finale || '—'
     document.getElementById('modalComparaison').textContent = fb.comparaison_precedent || '—'
     document.getElementById('modalForts').textContent = fb.points_forts || '—'
     document.getElementById('modalFaibles').textContent = fb.points_faibles || '—'
     document.getElementById('modalAxes').textContent = fb.axes_amelioration || '—'
+
+    if (isEmlyon) {
+      // Champs EM Lyon
+      document.getElementById('modalCartePersonnalite').textContent = fb.carte_personnalite || '—'
+      document.getElementById('modalCarteExperiences').textContent = fb.carte_experiences || '—'
+      document.getElementById('modalCarteProjets').textContent = fb.carte_projets || '—'
+      document.getElementById('modalCarteCreativite').textContent = fb.carte_creativite || '—'
+      document.getElementById('modalEchangeFinal').textContent = fb.echange_final || '—'
+
+      // Valeurs emlyon
+      const valeursEl = document.getElementById('modalValeursGrid')
+      if (fb.valeurs_emlyon) {
+        valeursEl.innerHTML = `<div class="valeur-item"><div class="valeur-name">Analyse</div>${fb.valeurs_emlyon}</div>`
+      } else {
+        valeursEl.textContent = '—'
+      }
+    } else {
+      // Champs ESCP
+      document.getElementById('modalDynamique').textContent = fb.dynamique_echange || '—'
+      document.getElementById('modalTriangle').textContent = fb.triangle_liens || '—'
+      document.getElementById('modalFond').textContent = fb.fond_escp || '—'
+      document.getElementById('modalQuestionnaire').textContent = fb.exploitation_questionnaire || '—'
+      document.getElementById('modalQuestionFinale').textContent = fb.question_finale || '—'
+    }
+
     document.getElementById('modalOverlay').classList.add('show')
   }
 
