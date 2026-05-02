@@ -8,12 +8,20 @@
   <style>
     :root {
       --bg: #07070c; --surface: #0f0f18; --surface2: #16161f; --surface3: #1e1e2a;
-      --accent: #c9a96e; --accent2: #e8c98e; --text: #f0ede8;
-      --muted: #6b6880; --muted2: #9994aa;
+      --accent: #c9a96e; --text: #f0ede8; --muted: #6b6880; --muted2: #9994aa;
       --border: rgba(200,169,110,0.12); --border2: rgba(200,169,110,0.06);
       --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
       --green: #4ade80; --red: #e05c5c;
-      --em-red: #e8392a;
+      --escp: #c9a96e;
+      --escp-bg: rgba(201,169,110,0.08);
+      --escp-border: rgba(201,169,110,0.25);
+      --emlyon: #e8392a;
+      --emlyon-bg: rgba(232,57,42,0.08);
+      --emlyon-border: rgba(232,57,42,0.25);
+      --essec: #003b7a;
+      --essec2: #0055b3;
+      --essec-bg: rgba(0,85,179,0.08);
+      --essec-border: rgba(0,85,179,0.25);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
@@ -32,124 +40,160 @@
     .alert a { color: var(--red); text-decoration: underline; }
 
     /* HERO */
-    .hero-card { background: var(--surface); border: 1px solid var(--border); padding: 40px 48px; position: relative; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .hero-card { background: var(--surface); border: 1px solid var(--border); padding: 36px 48px; position: relative; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
     .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
-    .hero-left h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
-    .hero-left p { font-size: 0.85rem; color: var(--muted2); margin-bottom: 24px; }
+    .hero-left h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+    .hero-left p { font-size: 0.82rem; color: var(--muted2); margin-bottom: 0; }
     .sessions-badge { background: var(--surface2); border: 1px solid var(--border); padding: 20px 32px; text-align: center; min-width: 140px; }
     .sessions-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-    .sessions-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
-    .progress-bar { background: var(--surface3); height: 4px; margin-top: 12px; overflow: hidden; }
+    .sessions-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+    .progress-bar { background: var(--surface3); height: 4px; margin-top: 10px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--gradient); transition: width 0.8s ease; }
-
-    /* BOUTONS ENTRETIENS */
-    .entretien-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-entretien { border: none; padding: 14px 28px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
-    .btn-escp { background: var(--gradient); color: var(--bg); box-shadow: 0 6px 24px rgba(200,169,110,0.25); }
-    .btn-escp:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(200,169,110,0.35); }
-    .btn-emlyon { background: var(--em-red); color: white; box-shadow: 0 6px 24px rgba(232,57,42,0.25); }
-    .btn-emlyon:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,57,42,0.35); }
 
     .recharge-banner { background: var(--surface2); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 32px; display: none; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     .recharge-banner.show { display: flex; }
-    .recharge-text { font-size: 0.85rem; color: var(--muted2); line-height: 1.6; }
+    .recharge-text { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
     .recharge-text strong { color: var(--text); }
     .btn-recharge { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s; }
     .btn-recharge:hover { background: var(--accent); color: var(--bg); }
 
-    .section-eyebrow { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; margin-top: 8px; }
+    /* ONGLETS */
+    .tabs { display: flex; gap: 2px; margin-bottom: 0; background: var(--border2); }
+    .tab {
+      flex: 1; padding: 16px 20px; text-align: center; cursor: pointer;
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px;
+      background: var(--surface); color: var(--muted2);
+      transition: all 0.3s; border-bottom: 3px solid transparent;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .tab:hover { color: var(--text); background: var(--surface2); }
+    .tab.active-escp { color: var(--escp); border-bottom-color: var(--escp); background: var(--surface2); }
+    .tab.active-emlyon { color: var(--emlyon); border-bottom-color: var(--emlyon); background: var(--surface2); }
+    .tab.active-essec { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface2); }
+    .tab-school { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+    .tab-agent { font-size: 0.68rem; color: var(--muted); }
+    .tab.active-escp .tab-agent { color: rgba(201,169,110,0.6); }
+    .tab.active-emlyon .tab-agent { color: rgba(232,57,42,0.6); }
+    .tab.active-essec .tab-agent { color: rgba(0,85,179,0.6); }
+    .tab-coming { font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; background: var(--surface3); color: var(--muted); padding: 2px 8px; margin-top: 2px; }
+
+    /* CONTENU ONGLETS */
+    .tab-content { display: none; background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 36px 40px; position: relative; }
+    .tab-content.active { display: block; }
+    .tab-content.escp-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0; }
+    .tab-content.emlyon-content { border-top: 2px solid var(--emlyon); }
+    .tab-content.essec-content { border-top: 2px solid var(--essec2); }
+
+    /* BOUTON LANCER */
+    .btn-lancer {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: none; padding: 16px 36px; font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
+      text-decoration: none; margin-bottom: 32px;
+    }
+    .btn-escp { background: var(--gradient); color: var(--bg); box-shadow: 0 6px 24px rgba(201,169,110,0.25); }
+    .btn-escp:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,169,110,0.35); }
+    .btn-emlyon { background: var(--emlyon); color: white; box-shadow: 0 6px 24px rgba(232,57,42,0.25); }
+    .btn-emlyon:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,57,42,0.35); }
+    .btn-essec { background: var(--essec2); color: white; box-shadow: 0 6px 24px rgba(0,85,179,0.25); }
+    .btn-essec:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,85,179,0.35); }
+    .btn-disabled { opacity: 0.4; pointer-events: none; }
 
     /* QUESTIONNAIRE */
-    .questionnaire-card { background: var(--surface); border: 1px solid var(--border); padding: 36px 40px; position: relative; margin-bottom: 32px; }
-    .questionnaire-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .questionnaire-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; position: relative; margin-bottom: 32px; }
     .questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
-    .questionnaire-desc { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; margin-bottom: 28px; }
-    .questionnaire-desc strong { color: var(--accent); }
-    .q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; transition: all 0.3s; }
-    .q-toggle:hover { border-color: var(--accent); color: var(--accent); }
-    .questionnaire-form { display: none; flex-direction: column; gap: 20px; }
+    .questionnaire-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; margin-bottom: 24px; }
+    .questionnaire-desc strong { color: var(--escp); }
+    .q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; }
+    .q-toggle:hover { border-color: var(--escp); color: var(--escp); }
+    .questionnaire-form { display: none; flex-direction: column; gap: 18px; }
     .questionnaire-form.open { display: flex; }
-    .q-group { display: flex; flex-direction: column; gap: 8px; }
-    .q-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); }
-    .q-hint { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
-    .q-textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px 16px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 80px; line-height: 1.6; }
-    .q-textarea:focus { border-color: rgba(200,169,110,0.4); }
+    .q-group { display: flex; flex-direction: column; gap: 6px; }
+    .q-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--escp); }
+    .q-hint { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
+    .q-textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.82rem; padding: 10px 14px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 72px; line-height: 1.6; }
+    .q-textarea:focus { border-color: rgba(201,169,110,0.4); }
     .q-textarea::placeholder { color: var(--muted); }
-    .q-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 12px 32px; font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .q-actions { display: flex; align-items: center; gap: 16px; }
+    .btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 10px 28px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
     .btn-save:hover { transform: translateY(-1px); }
     .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .q-save-msg { font-size: 0.78rem; color: var(--green); display: none; }
+    .q-save-msg { font-size: 0.75rem; color: var(--green); display: none; }
     .q-save-msg.show { display: block; }
-    .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--green); }
+    .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--green); }
+
+    /* SECTION TAG */
+    .section-eyebrow { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
 
     /* LISTE ENTRETIENS */
-    .entretien-list { display: flex; flex-direction: column; gap: 10px; }
-    .entretien-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; transition: background 0.3s; cursor: pointer; position: relative; }
-    .entretien-card:hover { background: var(--surface2); }
-    .entretien-card.escp-card { border-left: 3px solid var(--accent); }
-    .entretien-card.emlyon-card { border-left: 3px solid var(--em-red); }
-    .entretien-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
-    .entretien-school { font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
-    .entretien-school.escp { color: var(--accent); }
-    .entretien-school.emlyon { color: var(--em-red); }
-    .entretien-title { font-size: 0.92rem; font-weight: 500; }
-    .note-badge { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .note-label { font-size: 0.68rem; color: var(--muted); text-align: right; }
-    .empty-state { text-align: center; padding: 60px 24px; color: var(--muted2); font-size: 0.88rem; line-height: 1.7; background: var(--surface); border: 1px solid var(--border); }
-    .empty-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.4; }
+    .entretien-list { display: flex; flex-direction: column; gap: 8px; }
+    .entretien-item { background: var(--surface2); border: 1px solid var(--border); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: background 0.3s; cursor: pointer; }
+    .entretien-item:hover { background: var(--surface3); }
+    .entretien-date { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
+    .entretien-title { font-size: 0.88rem; font-weight: 500; }
+    .note-badge { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .note-label { font-size: 0.65rem; color: var(--muted); text-align: right; }
+    .empty-state { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; line-height: 1.7; background: var(--surface2); border: 1px solid var(--border); }
+    .empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
+
+    /* COMING SOON */
+    .coming-soon { text-align: center; padding: 60px 24px; color: var(--muted2); }
+    .coming-soon-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.3; }
+    .coming-soon h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .coming-soon p { font-size: 0.82rem; line-height: 1.7; }
 
     /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
     .modal-overlay.show { display: flex; }
     .modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 700px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
-    .modal.escp-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
-    .modal.emlyon-modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--em-red); }
     .modal-close { position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
-    .modal-school-badge { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 4px 12px; display: inline-block; margin-bottom: 16px; }
-    .modal-school-badge.escp { color: var(--accent); border: 1px solid rgba(200,169,110,0.3); }
-    .modal-school-badge.emlyon { color: var(--em-red); border: 1px solid rgba(232,57,42,0.3); }
-    .modal-header { text-align: center; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .modal-top-bar { height: 2px; position: absolute; top: 0; left: 0; right: 0; }
+    .modal-top-bar.escp { background: var(--gradient); }
+    .modal-top-bar.emlyon { background: var(--emlyon); }
+    .modal-top-bar.essec { background: var(--essec2); }
+    .modal-school-badge { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
+    .modal-school-badge.escp { color: var(--escp); border: 1px solid var(--escp-border); background: var(--escp-bg); }
+    .modal-school-badge.emlyon { color: var(--emlyon); border: 1px solid var(--emlyon-border); background: var(--emlyon-bg); }
+    .modal-school-badge.essec { color: var(--essec2); border: 1px solid var(--essec-border); background: var(--essec-bg); }
+    .modal-header { text-align: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
     .modal-note { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
-    .modal-note-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 16px; }
-    .modal-verdict { font-size: 0.9rem; color: var(--text); line-height: 1.7; font-style: italic; background: var(--surface2); padding: 16px 20px; border-left: 3px solid var(--accent); text-align: left; }
-    .modal-verdict.emlyon { border-left-color: var(--em-red); }
-    .feedback-section { margin-bottom: 18px; }
-    .feedback-section h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-    .feedback-section h4.emlyon { color: var(--em-red); }
-    .feedback-section p { font-size: 0.85rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
-    .feedback-divider { height: 1px; background: var(--border); margin: 24px 0; }
-    .feedback-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 14px; color: var(--text); }
-    .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
-    .moment-card { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--border); }
-    .moment-card.good { border-left-color: var(--green); }
-    .moment-card.bad { border-left-color: var(--red); }
-    .moment-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .modal-note-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
+    .modal-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; font-style: italic; background: var(--surface2); padding: 14px 18px; text-align: left; }
+    .modal-verdict.escp { border-left: 3px solid var(--escp); }
+    .modal-verdict.emlyon { border-left: 3px solid var(--emlyon); }
+    .modal-verdict.essec { border-left: 3px solid var(--essec2); }
+    .fb-section { margin-bottom: 16px; }
+    .fb-section h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+    .fb-section h4.escp { color: var(--escp); }
+    .fb-section h4.emlyon { color: var(--emlyon); }
+    .fb-section h4.essec { color: var(--essec2); }
+    .fb-section p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
+    .fb-divider { height: 1px; background: var(--border); margin: 22px 0; }
+    .fb-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+    .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .moment-card { background: var(--surface2); padding: 12px 14px; }
+    .moment-card.good { border-left: 2px solid var(--green); }
+    .moment-card.bad { border-left: 2px solid var(--red); }
+    .moment-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
     .moment-card.good .moment-label { color: var(--green); }
     .moment-card.bad .moment-label { color: var(--red); }
-    .moment-card p { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; }
-    .comparaison-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 18px; }
-    .comparaison-card .comp-label { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
-    .comparaison-card p { font-size: 0.85rem; color: var(--muted2); line-height: 1.7; }
-
-    /* Cartes EM Lyon dans la modal */
-    .cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
-    .carte-feedback { background: var(--surface2); padding: 14px 16px; border-left: 2px solid rgba(232,57,42,0.4); }
-    .carte-feedback-cat { font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--em-red); font-weight: 600; margin-bottom: 6px; }
-    .carte-feedback-text { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; }
-    .valeurs-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-    .valeur-item { background: var(--surface2); padding: 10px 14px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: var(--muted2); line-height: 1.5; border-left: 2px solid var(--border); }
-    .valeur-name { font-weight: 600; color: var(--text); min-width: 100px; font-size: 0.78rem; }
+    .moment-card p { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
+    .comp-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 16px; }
+    .comp-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
+    .comp-card p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; }
+    .cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+    .carte-fb { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--emlyon-border); }
+    .carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
+    .carte-fb-text { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
 
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .main { padding: 80px 16px 40px; }
-      .hero-card { padding: 28px 20px; }
-      .questionnaire-card { padding: 24px 16px; }
+      .hero-card { padding: 24px 20px; }
+      .tab-content { padding: 24px 20px; }
       .modal { padding: 28px 20px; }
-      .moment-grid { grid-template-columns: 1fr; }
-      .cartes-grid { grid-template-columns: 1fr; }
+      .moment-grid, .cartes-grid { grid-template-columns: 1fr; }
+      .tabs { flex-direction: column; gap: 1px; }
     }
   </style>
 </head>
@@ -166,224 +210,229 @@
 <main class="main">
 
   <div class="alert" id="noCreditsAlert">
-    ❌ Vous n'avez plus de sessions disponibles. Pour recharger, contactez-nous à <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a> — 5 sessions à 12€ · 10 sessions à 20€.
+    ❌ Vous n'avez plus de sessions disponibles. Pour recharger : <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a> — 5 sessions à 12€ · 10 sessions à 20€.
   </div>
 
   <div class="hero-card">
     <div class="hero-left">
-      <div class="section-eyebrow">Bienvenue</div>
+      <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Bienvenue</div>
       <h2>Votre espace PrepOral</h2>
-      <p>Choisissez votre école et entraînez-vous face à un jury IA.</p>
-      <div class="entretien-buttons">
-        <a href="/entretien" class="btn-entretien btn-escp" id="btnESCP">🎙️ ESCP — Jean-Marc</a>
-        <a href="/entretien-emlyon" class="btn-entretien btn-emlyon" id="btnEMLYON">🃏 emlyon — Sophie</a>
-      </div>
+      <p>Préparez les oraux des grandes écoles de commerce avec des jurys IA.</p>
     </div>
     <div class="sessions-badge">
       <div class="sessions-num" id="sessionsNum">—</div>
       <div class="sessions-label">sessions restantes</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill" style="width:0%"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
   </div>
 
   <div class="recharge-banner" id="rechargeBanner">
-    <div class="recharge-text">
-      <strong>Vous avez utilisé toutes vos sessions.</strong><br>
-      Rechargez votre compte — 5 sessions à 12€ ou 10 sessions à 20€.
-    </div>
-    <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepOral&body=Bonjour, je souhaite recharger mon compte PrepOral." class="btn-recharge">
-      Recharger mon compte →
-    </a>
+    <div class="recharge-text"><strong>Plus de sessions disponibles.</strong><br>5 sessions à 12€ ou 10 sessions à 20€.</div>
+    <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepOral" class="btn-recharge">Recharger →</a>
   </div>
 
-  <!-- QUESTIONNAIRE ESCP -->
-  <div class="questionnaire-card">
-    <div class="questionnaire-header">
-      <div>
-        <div class="section-eyebrow">Questionnaire ESCP</div>
-        <div class="section-title" style="margin-bottom:0;">Mon dossier de personnalité</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="q-filled-indicator" id="qFilledIndicator" style="display:none;">✅ Rempli</span>
-        <button class="q-toggle" id="qToggle" onclick="toggleQuestionnaire()">Remplir ↓</button>
-      </div>
+  <!-- ONGLETS -->
+  <div class="tabs">
+    <div class="tab active-escp" id="tabESCP" onclick="switchTab('escp')">
+      <div class="tab-school">ESCP</div>
+      <div class="tab-agent">Jean-Marc Delaunay</div>
     </div>
-    <p class="questionnaire-desc" style="margin-top:12px;">
-      Ce questionnaire est transmis à Jean-Marc avant votre entretien ESCP. <strong>Il s'en servira pour personnaliser ses questions.</strong> Optionnel mais fortement recommandé.
-    </p>
-    <div class="questionnaire-form" id="questionnaireForm">
-      <div class="q-group">
-        <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
-        <div class="q-hint">Soyez précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
-        <textarea class="q-textarea" id="q1" placeholder="Ex: Je pratique le tennis en compétition depuis 8 ans…"></textarea>
-      </div>
-      <div class="q-group">
-        <div class="q-label">2. Un projet ou réalisation dont vous êtes fier(e)</div>
-        <div class="q-hint">Succès ou échec, ce qui compte c'est ce que vous en avez appris.</div>
-        <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif inter-lycées…"></textarea>
-      </div>
-      <div class="q-group">
-        <div class="q-label">3. Expérience du monde du travail</div>
-        <div class="q-hint">Stages, jobs, rencontres marquantes. Précisez lieu et durée.</div>
-        <textarea class="q-textarea" id="q3" placeholder="Ex: Stage de 2 semaines chez un cabinet comptable…"></textarea>
-      </div>
-      <div class="q-group">
-        <div class="q-label">4. Expériences de différentes cultures</div>
-        <div class="q-hint">Voyages, lectures, rencontres, expositions…</div>
-        <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour linguistique à Dublin…"></textarea>
-      </div>
-      <div class="q-group">
-        <div class="q-label">5. Une expérience marquante</div>
-        <div class="q-hint">Humaine, culturelle, sportive — ce qu'elle vous a appris sur vous-même.</div>
-        <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris à relativiser…"></textarea>
-      </div>
-      <div class="q-group">
-        <div class="q-label">6. Autres informations pour le jury</div>
-        <div class="q-hint">Tout ce que vous jugez utile de porter à la connaissance du jury.</div>
-        <textarea class="q-textarea" id="q6" placeholder="Ex: Je suis président du BDE de mon lycée…"></textarea>
-      </div>
-      <div class="q-actions">
-        <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
-        <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé !</span>
-      </div>
+    <div class="tab" id="tabEMLYON" onclick="switchTab('emlyon')">
+      <div class="tab-school">EM Lyon</div>
+      <div class="tab-agent">Sophie Marchand</div>
+    </div>
+    <div class="tab" id="tabESSEC" onclick="switchTab('essec')">
+      <div class="tab-school">ESSEC</div>
+      <div class="tab-agent">Bientôt disponible</div>
+      <div class="tab-coming">Coming soon</div>
     </div>
   </div>
 
-  <div class="section-eyebrow">Historique</div>
-  <div class="section-title">Mes entretiens</div>
-  <div class="entretien-list" id="entretienList">
-    <div class="empty-state">
-      <div class="empty-icon">🎙️</div>
-      <div>Vous n'avez pas encore passé d'entretien.<br>Choisissez votre école et lancez votre premier entretien.</div>
+  <!-- CONTENU ESCP -->
+  <div class="tab-content escp-content active" id="contentESCP">
+    <a href="/entretien" class="btn-lancer btn-escp" id="btnESCP">🎙️ Lancer un entretien ESCP</a>
+
+    <div class="questionnaire-card">
+      <div class="questionnaire-header">
+        <div>
+          <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--escp);margin-bottom:6px;">Questionnaire ESCP</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">Mon dossier de personnalité</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="q-filled-indicator" id="qFilledIndicator" style="display:none;">✅ Rempli</span>
+          <button class="q-toggle" id="qToggle" onclick="toggleQuestionnaire()">Remplir ↓</button>
+        </div>
+      </div>
+      <p class="questionnaire-desc" style="margin-top:10px;">
+        Transmis à Jean-Marc avant l'entretien. <strong>Il personnalisera ses questions en fonction de vos réponses.</strong> Optionnel mais fortement recommandé.
+      </p>
+      <div class="questionnaire-form" id="questionnaireForm">
+        <div class="q-group">
+          <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
+          <div class="q-hint">Précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
+          <textarea class="q-textarea" id="q1" placeholder="Ex: Tennis en compétition depuis 8 ans…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">2. Réalisation dont vous êtes fier(e)</div>
+          <div class="q-hint">Succès ou échec — ce que vous en avez appris.</div>
+          <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">3. Expérience du monde du travail</div>
+          <div class="q-hint">Stages, jobs, rencontres. Précisez lieu et durée.</div>
+          <textarea class="q-textarea" id="q3" placeholder="Ex: Stage chez un cabinet comptable…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">4. Expériences de différentes cultures</div>
+          <div class="q-hint">Voyages, lectures, rencontres, expositions…</div>
+          <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour à Dublin, correspondant allemand…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">5. Une expérience marquante</div>
+          <div class="q-hint">Ce qu'elle vous a appris sur vous-même.</div>
+          <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">6. Autres informations pour le jury</div>
+          <div class="q-hint">Tout ce que vous jugez utile.</div>
+          <textarea class="q-textarea" id="q6" placeholder="Ex: Président du BDE depuis septembre…"></textarea>
+        </div>
+        <div class="q-actions">
+          <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
+          <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé !</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-eyebrow">Historique ESCP</div>
+    <div class="entretien-list" id="listESCP">
+      <div class="empty-state">
+        <div class="empty-icon">🎙️</div>
+        <div>Aucun entretien ESCP pour l'instant.</div>
+      </div>
     </div>
   </div>
+
+  <!-- CONTENU EM LYON -->
+  <div class="tab-content emlyon-content" id="contentEMLYON">
+    <a href="/entretien-emlyon" class="btn-lancer btn-emlyon" id="btnEMLYON">🃏 Lancer un entretien EM Lyon</a>
+
+    <div class="section-eyebrow">Historique EM Lyon</div>
+    <div class="entretien-list" id="listEMLYON">
+      <div class="empty-state">
+        <div class="empty-icon">🃏</div>
+        <div>Aucun entretien EM Lyon pour l'instant.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENU ESSEC -->
+  <div class="tab-content essec-content" id="contentESSEC">
+    <div class="coming-soon">
+      <div class="coming-soon-icon">🏛️</div>
+      <h3>ESSEC — Bientôt disponible</h3>
+      <p>L'entretien ESSEC avec mise en situation arrive prochainement.<br>Restez connecté !</p>
+    </div>
+  </div>
+
 </main>
 
 <!-- MODAL FEEDBACK -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modalContent">
+    <div class="modal-top-bar escp" id="modalTopBar"></div>
     <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
 
     <div class="modal-header">
-      <div class="modal-school-badge" id="modalSchoolBadge">—</div>
+      <div class="modal-school-badge escp" id="modalSchoolBadge">ESCP</div>
       <div class="modal-note" id="modalNote">—</div>
       <div class="modal-note-label">Note sur 20</div>
-      <div class="modal-verdict" id="modalVerdict">—</div>
+      <div class="modal-verdict escp" id="modalVerdict">—</div>
     </div>
 
-    <!-- SECTIONS COMMUNES -->
-    <div class="feedback-group-title">📋 Analyse de l'entretien</div>
-    <div class="feedback-section">
-      <h4 id="h4Presentation">🎤 Présentation initiale</h4>
+    <div class="fb-group-title">📋 Analyse de l'entretien</div>
+    <div class="fb-section">
+      <h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4>
       <p id="modalPresentation">—</p>
     </div>
-    <div class="feedback-section">
-      <h4>🗣️ Qualité de l'expression</h4>
+    <div class="fb-section">
+      <h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4>
       <p id="modalExpression">—</p>
     </div>
 
-    <!-- SECTION ESCP UNIQUEMENT -->
+    <!-- ESCP ONLY -->
     <div id="sectionESCP">
-      <div class="feedback-section">
-        <h4>⚡ Dynamique de l'échange</h4>
+      <div class="fb-section">
+        <h4 class="escp">⚡ Dynamique de l'échange</h4>
         <p id="modalDynamique">—</p>
       </div>
-      <div class="feedback-divider"></div>
-      <div class="feedback-group-title">🔺 Le triangle Personnalité — Projet — ESCP</div>
-      <div class="feedback-section">
-        <p id="modalTriangle">—</p>
-      </div>
-      <div class="feedback-divider"></div>
-      <div class="feedback-group-title">📚 Fond & Contenu</div>
-      <div class="feedback-section">
-        <h4>🎯 Motivation & connaissance de l'ESCP</h4>
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">🔺 Triangle Personnalité — Projet — ESCP</div>
+      <div class="fb-section"><p id="modalTriangle">—</p></div>
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">📚 Fond & Contenu</div>
+      <div class="fb-section">
+        <h4 class="escp">🎯 Motivation & connaissance de l'ESCP</h4>
         <p id="modalFond">—</p>
       </div>
-      <div class="feedback-section">
-        <h4>📝 Exploitation du questionnaire</h4>
+      <div class="fb-section">
+        <h4 class="escp">📝 Exploitation du questionnaire</h4>
         <p id="modalQuestionnaire">—</p>
       </div>
     </div>
 
-    <!-- SECTION EMLYON UNIQUEMENT -->
+    <!-- EMLYON ONLY -->
     <div id="sectionEMLYON" style="display:none;">
-      <div class="feedback-divider"></div>
-      <div class="feedback-group-title">🃏 Réactivité aux cartes</div>
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">🃏 Réactivité aux cartes</div>
       <div class="cartes-grid">
-        <div class="carte-feedback">
-          <div class="carte-feedback-cat">Personnalité</div>
-          <div class="carte-feedback-text" id="modalCartePersonnalite">—</div>
-        </div>
-        <div class="carte-feedback">
-          <div class="carte-feedback-cat">Expériences passées</div>
-          <div class="carte-feedback-text" id="modalCarteExperiences">—</div>
-        </div>
-        <div class="carte-feedback">
-          <div class="carte-feedback-cat">Projets futurs</div>
-          <div class="carte-feedback-text" id="modalCarteProjets">—</div>
-        </div>
-        <div class="carte-feedback">
-          <div class="carte-feedback-cat">Créativité</div>
-          <div class="carte-feedback-text" id="modalCarteCreativite">—</div>
-        </div>
+        <div class="carte-fb"><div class="carte-fb-cat">Personnalité</div><div class="carte-fb-text" id="modalCarteP">—</div></div>
+        <div class="carte-fb"><div class="carte-fb-cat">Expériences</div><div class="carte-fb-text" id="modalCarteE">—</div></div>
+        <div class="carte-fb"><div class="carte-fb-cat">Projets futurs</div><div class="carte-fb-text" id="modalCartePr">—</div></div>
+        <div class="carte-fb"><div class="carte-fb-cat">Créativité</div><div class="carte-fb-text" id="modalCarteC">—</div></div>
       </div>
-      <div class="feedback-divider"></div>
-      <div class="feedback-group-title">🌟 Les 5 valeurs emlyon</div>
-      <div class="valeurs-grid" id="modalValeursGrid">—</div>
-      <div class="feedback-section">
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">🌟 Les 5 valeurs emlyon</div>
+      <div class="fb-section"><p id="modalValeurs">—</p></div>
+      <div class="fb-section">
         <h4 class="emlyon">🗣️ Échange final</h4>
         <p id="modalEchangeFinal">—</p>
       </div>
     </div>
 
-    <div class="feedback-divider"></div>
-
-    <!-- MOMENTS CLÉS -->
-    <div class="feedback-group-title">⚡ Moments clés</div>
+    <div class="fb-divider"></div>
+    <div class="fb-group-title">⚡ Moments clés</div>
     <div class="moment-grid">
-      <div class="moment-card good">
-        <div class="moment-label">✅ Meilleur moment</div>
-        <p id="modalMeilleur">—</p>
-      </div>
-      <div class="moment-card bad">
-        <div class="moment-label">❌ Pire moment</div>
-        <p id="modalPire">—</p>
-      </div>
+      <div class="moment-card good"><div class="moment-label">✅ Meilleur moment</div><p id="modalMeilleur">—</p></div>
+      <div class="moment-card bad"><div class="moment-label">❌ Pire moment</div><p id="modalPire">—</p></div>
     </div>
 
-    <!-- QUESTION FINALE (ESCP uniquement) -->
     <div id="sectionQuestionFinale">
-      <div class="feedback-section">
-        <h4>❓ Question finale au jury</h4>
+      <div class="fb-section">
+        <h4 class="escp">❓ Question finale au jury</h4>
         <p id="modalQuestionFinale">—</p>
       </div>
     </div>
 
-    <!-- COMPARAISON -->
-    <div class="comparaison-card">
+    <div class="comp-card">
       <div class="comp-label">📈 Comparaison avec l'entretien précédent</div>
       <p id="modalComparaison">—</p>
     </div>
 
-    <div class="feedback-divider"></div>
-
-    <!-- POUR PROGRESSER -->
-    <div class="feedback-group-title">🚀 Pour progresser</div>
-    <div class="feedback-section">
-      <h4>✅ Points forts</h4>
+    <div class="fb-divider"></div>
+    <div class="fb-group-title">🚀 Pour progresser</div>
+    <div class="fb-section">
+      <h4 class="escp" id="h4Forts">✅ Points forts</h4>
       <p id="modalForts">—</p>
     </div>
-    <div class="feedback-section">
-      <h4>⚠️ Points faibles</h4>
+    <div class="fb-section">
+      <h4 class="escp" id="h4Faibles">⚠️ Points faibles</h4>
       <p id="modalFaibles">—</p>
     </div>
-    <div class="feedback-section">
-      <h4>🎯 Axes d'amélioration</h4>
+    <div class="fb-section">
+      <h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4>
       <p id="modalAxes">—</p>
     </div>
-
   </div>
 </div>
 
@@ -396,6 +445,18 @@
     document.getElementById('noCreditsAlert').classList.add('show')
   }
 
+  let currentTab = 'escp'
+
+  function switchTab(tab) {
+    currentTab = tab
+    // Reset tabs
+    document.querySelectorAll('.tab').forEach(t => t.className = 'tab')
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
+    // Activate
+    document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab)
+    document.getElementById('content' + tab.toUpperCase()).classList.add('active')
+  }
+
   async function loadCredits() {
     try {
       const res = await fetch(`/api/credits?student_id=${student_id}`)
@@ -405,15 +466,12 @@
       document.getElementById('sessionsNum').textContent = credits
       document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 10) * 100)}%`
       if (credits <= 0) {
-        document.getElementById('btnESCP').style.opacity = '0.4'
-        document.getElementById('btnESCP').style.pointerEvents = 'none'
-        document.getElementById('btnEMLYON').style.opacity = '0.4'
-        document.getElementById('btnEMLYON').style.pointerEvents = 'none'
+        document.getElementById('btnESCP').classList.add('btn-disabled')
+        document.getElementById('btnEMLYON').classList.add('btn-disabled')
         document.getElementById('rechargeBanner').classList.add('show')
       }
     } catch(e) {
-      const credits = parseInt(localStorage.getItem('credits') || '0')
-      document.getElementById('sessionsNum').textContent = credits
+      document.getElementById('sessionsNum').textContent = localStorage.getItem('credits') || '0'
     }
   }
 
@@ -483,51 +541,58 @@
       const res = await fetch(`/api/feedbacks?student_id=${student_id}`)
       const data = await res.json()
       if (!data || data.length === 0) return
-      const list = document.getElementById('entretienList')
-      list.innerHTML = ''
-      data.forEach((fb, i) => {
-        const date = new Date(fb.created_at).toLocaleDateString('fr-FR', {
-          day: 'numeric', month: 'long', year: 'numeric'
-        })
-        const ecole = fb.ecole || 'ESCP'
-        const isEmlyon = ecole === 'EM Lyon'
-        const card = document.createElement('div')
-        card.className = `entretien-card ${isEmlyon ? 'emlyon-card' : 'escp-card'}`
-        card.onclick = () => openModal(fb)
-        card.innerHTML = `
-          <div>
-            <div class="entretien-date">${date}</div>
-            <div class="entretien-school ${isEmlyon ? 'emlyon' : 'escp'}">${ecole}</div>
-            <div class="entretien-title">Entretien #${data.length - i} — ${isEmlyon ? 'Sophie Marchand' : 'Jean-Marc Delaunay'}</div>
-          </div>
-          <div style="text-align:right;">
-            <div class="note-badge">${fb.note}/20</div>
-            <div class="note-label">voir détails →</div>
-          </div>
-        `
-        list.appendChild(card)
-      })
+
+      const escpFeedbacks = data.filter(fb => !fb.ecole || fb.ecole === 'ESCP')
+      const emlFeedbacks = data.filter(fb => fb.ecole === 'EM Lyon')
+
+      renderList(escpFeedbacks, 'listESCP', 'Jean-Marc Delaunay')
+      renderList(emlFeedbacks, 'listEMLYON', 'Sophie Marchand')
     } catch(e) { console.error(e) }
+  }
+
+  function renderList(feedbacks, listId, agent) {
+    if (!feedbacks.length) return
+    const list = document.getElementById(listId)
+    list.innerHTML = ''
+    feedbacks.forEach((fb, i) => {
+      const date = new Date(fb.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+      const item = document.createElement('div')
+      item.className = 'entretien-item'
+      item.onclick = () => openModal(fb)
+      item.innerHTML = `
+        <div>
+          <div class="entretien-date">${date}</div>
+          <div class="entretien-title">Entretien #${feedbacks.length - i} — ${agent}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="note-badge">${fb.note}/20</div>
+          <div class="note-label">voir détails →</div>
+        </div>
+      `
+      list.appendChild(item)
+    })
   }
 
   function openModal(fb) {
     const ecole = fb.ecole || 'ESCP'
     const isEmlyon = ecole === 'EM Lyon'
-    const modal = document.getElementById('modalContent')
+    const cls = isEmlyon ? 'emlyon' : 'escp'
 
-    // Style modal selon école
-    modal.className = `modal ${isEmlyon ? 'emlyon-modal' : 'escp-modal'}`
+    document.getElementById('modalTopBar').className = `modal-top-bar ${cls}`
     const badge = document.getElementById('modalSchoolBadge')
-    badge.className = `modal-school-badge ${isEmlyon ? 'emlyon' : 'escp'}`
+    badge.className = `modal-school-badge ${cls}`
     badge.textContent = ecole
+    document.getElementById('modalVerdict').className = `modal-verdict ${cls}`
 
-    const verdict = document.getElementById('modalVerdict')
-    verdict.className = `modal-verdict ${isEmlyon ? 'emlyon' : ''}`
-
-    // Sections visibles selon école
+    // Sections
     document.getElementById('sectionESCP').style.display = isEmlyon ? 'none' : 'block'
     document.getElementById('sectionEMLYON').style.display = isEmlyon ? 'block' : 'none'
     document.getElementById('sectionQuestionFinale').style.display = isEmlyon ? 'none' : 'block'
+
+    // Couleurs des titres
+    document.querySelectorAll('.fb-section h4').forEach(h => {
+      h.className = `${cls}`
+    })
 
     // Champs communs
     document.getElementById('modalNote').textContent = `${fb.note}/20`
@@ -542,22 +607,13 @@
     document.getElementById('modalAxes').textContent = fb.axes_amelioration || '—'
 
     if (isEmlyon) {
-      // Champs EM Lyon
-      document.getElementById('modalCartePersonnalite').textContent = fb.carte_personnalite || '—'
-      document.getElementById('modalCarteExperiences').textContent = fb.carte_experiences || '—'
-      document.getElementById('modalCarteProjets').textContent = fb.carte_projets || '—'
-      document.getElementById('modalCarteCreativite').textContent = fb.carte_creativite || '—'
+      document.getElementById('modalCarteP').textContent = fb.carte_personnalite || '—'
+      document.getElementById('modalCarteE').textContent = fb.carte_experiences || '—'
+      document.getElementById('modalCartePr').textContent = fb.carte_projets || '—'
+      document.getElementById('modalCarteC').textContent = fb.carte_creativite || '—'
+      document.getElementById('modalValeurs').textContent = fb.valeurs_emlyon || '—'
       document.getElementById('modalEchangeFinal').textContent = fb.echange_final || '—'
-
-      // Valeurs emlyon
-      const valeursEl = document.getElementById('modalValeursGrid')
-      if (fb.valeurs_emlyon) {
-        valeursEl.innerHTML = `<div class="valeur-item"><div class="valeur-name">Analyse</div>${fb.valeurs_emlyon}</div>`
-      } else {
-        valeursEl.textContent = '—'
-      }
     } else {
-      // Champs ESCP
       document.getElementById('modalDynamique').textContent = fb.dynamique_echange || '—'
       document.getElementById('modalTriangle').textContent = fb.triangle_liens || '—'
       document.getElementById('modalFond').textContent = fb.fond_escp || '—'
