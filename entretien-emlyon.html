@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepOral — Entretien emlyon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-bundle.js"></script>
+  <style>
+    :root {
+      --bg: #07070c;
+      --surface: #0f0f18;
+      --surface2: #16161f;
+      --surface3: #1e1e2a;
+      --accent: #c9a96e;
+      --accent2: #e8c98e;
+      --text: #f0ede8;
+      --muted: #6b6880;
+      --muted2: #9994aa;
+      --border: rgba(200,169,110,0.12);
+      --border2: rgba(200,169,110,0.06);
+      --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
+      --green: #4ade80;
+      --em-red: #e8392a;
+      --em-red2: rgba(232,57,42,0.15);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; display: flex; flex-direction: column; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(7,7,12,0.9); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border2);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    .nav-school { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--em-red); font-weight: 500; border: 1px solid rgba(232,57,42,0.3); padding: 4px 12px; }
+    .nav-back { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 7px 18px; font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; text-decoration: none; transition: all 0.3s; }
+    .nav-back:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* PHASE TIRAGE */
+    .tirage-phase {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 120px 24px 60px; min-height: 100vh;
+    }
+    .tirage-eyebrow { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--em-red); font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .tirage-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--em-red); }
+    .tirage-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; text-align: center; margin-bottom: 12px; line-height: 1.1; }
+    .tirage-sub { font-size: 0.88rem; color: var(--muted2); text-align: center; margin-bottom: 56px; line-height: 1.7; max-width: 480px; }
+
+    /* CARTES */
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; max-width: 900px; width: 100%;
+      margin-bottom: 48px;
+    }
+    .card-slot { perspective: 1000px; }
+    .card-inner {
+      position: relative; width: 100%; padding-bottom: 150%;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .card-inner.flipped { transform: rotateY(180deg); }
+    .card-face, .card-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      border: 1px solid var(--border);
+    }
+    .card-back { transform: rotateY(180deg); }
+
+    /* Face cachée */
+    .card-face {
+      background: var(--surface);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; padding: 20px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .card-face:hover { background: var(--surface2); border-color: rgba(200,169,110,0.25); }
+    .card-face-pattern {
+      width: 100%; height: 100%; position: absolute; inset: 0; opacity: 0.04;
+      background-image: repeating-linear-gradient(45deg, var(--accent) 0, var(--accent) 1px, transparent 0, transparent 50%);
+      background-size: 10px 10px;
+    }
+    .card-face-logo {
+      position: relative; z-index: 1;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700;
+      color: var(--em-red); opacity: 0.6;
+    }
+    .card-face-text {
+      position: relative; z-index: 1;
+      font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); text-align: center;
+    }
+    .card-face-hint {
+      position: relative; z-index: 1;
+      font-size: 0.72rem; color: var(--accent); opacity: 0.7;
+    }
+
+    /* Face révélée */
+    .card-back {
+      background: var(--surface2);
+      display: flex; flex-direction: column; padding: 20px;
+    }
+    .card-back::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--em-red); }
+    .card-category {
+      font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--em-red); font-weight: 600; margin-bottom: 12px;
+    }
+    .card-question {
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600;
+      color: var(--text); line-height: 1.4; flex: 1;
+    }
+    .card-number {
+      font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700;
+      color: var(--em-red); opacity: 0.15; align-self: flex-end; line-height: 1;
+    }
+    .card-slot.revealed .card-face { pointer-events: none; }
+
+    /* Compteur */
+    .tirage-progress {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; color: var(--muted2); margin-bottom: 32px;
+    }
+    .progress-dots { display: flex; gap: 6px; }
+    .progress-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--surface3); border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .progress-dot.active { background: var(--em-red); border-color: var(--em-red); }
+
+    /* Bouton démarrer */
+    .btn-start {
+      background: var(--em-red); color: white;
+      border: none; padding: 18px 56px;
+      font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 8px 32px rgba(232,57,42,0.3);
+      opacity: 0; pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.5s, transform 0.5s, box-shadow 0.3s;
+    }
+    .btn-start.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .btn-start:hover { box-shadow: 0 12px 40px rgba(232,57,42,0.4); transform: translateY(-2px); }
+
+    /* PHASE ENTRETIEN */
+    .entretien-phase {
+      display: none; flex: 1;
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 100px 24px 60px;
+    }
+    .entretien-phase.active { display: flex; }
+
+    .entretien-card {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 48px 56px; max-width: 600px; width: 100%;
+      position: relative; text-align: center;
+    }
+    .entretien-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--em-red); }
+
+    .agent-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; color: var(--em-red); letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .agent-status::before {
+      content: ''; width: 8px; height: 8px;
+      background: var(--em-red); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)} }
+
+    .agent-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+    .agent-role { font-size: 0.82rem; color: var(--muted2); margin-bottom: 28px; }
+
+    /* Mini cartes dans l'entretien */
+    .mini-cards {
+      display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .mini-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 8px 14px; font-size: 0.72rem;
+      display: flex; flex-direction: column; gap: 3px;
+      text-align: left; min-width: 120px;
+    }
+    .mini-card-cat { font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--em-red); font-weight: 600; }
+    .mini-card-q { font-size: 0.72rem; color: var(--muted2); line-height: 1.4; }
+
+    .hint {
+      font-size: 0.82rem; color: var(--muted2); line-height: 1.7;
+      padding: 14px 18px; background: var(--surface2);
+      border-left: 2px solid rgba(232,57,42,0.4); text-align: left;
+    }
+
+    elevenlabs-convai { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .entretien-card { padding: 32px 24px; }
+      .mini-cards { gap: 6px; }
+      .mini-card { min-width: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/dashboard" class="nav-logo">PrepOral</a>
+  <div class="nav-school">emlyon Business School</div>
+  <a href="/dashboard" class="nav-back">← Mon espace</a>
+</nav>
+
+<!-- PHASE 1 : TIRAGE DES CARTES -->
+<div class="tirage-phase" id="tiragePhase">
+  <div class="tirage-eyebrow">Entretien emlyon</div>
+  <h1 class="tirage-title">Tirez vos 4 cartes</h1>
+  <p class="tirage-sub">Cliquez sur chaque paquet pour révéler votre question. Vous choisirez par laquelle commencer une fois l'entretien démarré.</p>
+
+  <div class="tirage-progress">
+    <span id="progressText">0 carte tirée sur 4</span>
+    <div class="progress-dots">
+      <div class="progress-dot" id="dot0"></div>
+      <div class="progress-dot" id="dot1"></div>
+      <div class="progress-dot" id="dot2"></div>
+      <div class="progress-dot" id="dot3"></div>
+    </div>
+  </div>
+
+  <div class="cards-grid" id="cardsGrid">
+    <!-- Carte 1 : Personnalité -->
+    <div class="card-slot" id="slot0" onclick="revealCard(0)">
+      <div class="card-inner" id="card0">
+        <div class="card-face">
+          <div class="card-face-pattern"></div>
+          <div class="card-face-logo">em</div>
+          <div class="card-face-text">Personnalité</div>
+          <div class="card-face-hint">Cliquer pour tirer</div>
+        </div>
+        <div class="card-back">
+          <div class="card-category">Personnalité</div>
+          <div class="card-question" id="q0"></div>
+          <div class="card-number">01</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carte 2 : Expériences -->
+    <div class="card-slot" id="slot1" onclick="revealCard(1)">
+      <div class="card-inner" id="card1">
+        <div class="card-face">
+          <div class="card-face-pattern"></div>
+          <div class="card-face-logo">em</div>
+          <div class="card-face-text">Expériences</div>
+          <div class="card-face-hint">Cliquer pour tirer</div>
+        </div>
+        <div class="card-back">
+          <div class="card-category">Expériences passées</div>
+          <div class="card-question" id="q1"></div>
+          <div class="card-number">02</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carte 3 : Projets -->
+    <div class="card-slot" id="slot2" onclick="revealCard(2)">
+      <div class="card-inner" id="card2">
+        <div class="card-face">
+          <div class="card-face-pattern"></div>
+          <div class="card-face-logo">em</div>
+          <div class="card-face-text">Projets futurs</div>
+          <div class="card-face-hint">Cliquer pour tirer</div>
+        </div>
+        <div class="card-back">
+          <div class="card-category">Projets futurs</div>
+          <div class="card-question" id="q2"></div>
+          <div class="card-number">03</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carte 4 : Créativité -->
+    <div class="card-slot" id="slot3" onclick="revealCard(3)">
+      <div class="card-inner" id="card3">
+        <div class="card-face">
+          <div class="card-face-pattern"></div>
+          <div class="card-face-logo">em</div>
+          <div class="card-face-text">Créativité</div>
+          <div class="card-face-hint">Cliquer pour tirer</div>
+        </div>
+        <div class="card-back">
+          <div class="card-category">Créativité</div>
+          <div class="card-question" id="q3"></div>
+          <div class="card-number">04</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-start" id="btnStart" onclick="startEntretien()">
+    Démarrer l'entretien avec Sophie →
+  </button>
+</div>
+
+<!-- PHASE 2 : ENTRETIEN -->
+<div class="entretien-phase" id="entretienPhase">
+  <div class="entretien-card">
+    <div class="agent-status">En ligne · Entretien en cours</div>
+    <div class="agent-name">Sophie Marchand</div>
+    <div class="agent-role">Jury emlyon Business School · Early Makers</div>
+    <div class="mini-cards" id="miniCards"></div>
+    <div class="hint">Dites à Sophie par quelle carte vous souhaitez commencer. Elle connaît vos 4 questions.</div>
+  </div>
+</div>
+
+<elevenlabs-convai agent-id="VOTRE_AGENT_ID_EMLYON" style="display:none;"></elevenlabs-convai>
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" type="text/javascript"></script>
+
+<script>
+  const student_id = localStorage.getItem('student_id')
+  const credits = parseInt(localStorage.getItem('credits') || '0')
+
+  if (!student_id) window.location.href = '/'
+  if (credits <= 0) window.location.href = '/dashboard?no_credits=1'
+
+  // Banque de questions par catégorie
+  const questions = {
+    personnalite: [
+      "À qui n'aimeriez-vous pas ressembler ?",
+      "Plutôt argent ou plutôt pouvoir ?",
+      "Êtes-vous plutôt une personne qui voit sur le court terme ou le long terme ?",
+      "Pour quelqu'un de votre âge, mieux vaut être fou ou sage ?",
+      "Les actes sont-ils intéressés ou bien désintéressés ?",
+      "Pensez-vous être apte à l'entrepreneuriat ?",
+      "Êtes-vous utile ? Auprès de qui et pourquoi ?",
+      "Quel est votre leitmotiv ?",
+      "Quelle est votre devise ?",
+      "Sur quel sujet êtes-vous intarissable ?",
+      "Êtes-vous plutôt maçon ou architecte dans l'esprit ?",
+      "Gourmand ou gourmet ?",
+      "Faut-il tout tenter ?",
+      "Pensez-vous que la créativité est une qualité nécessaire pour un manager ?",
+      "Faire et refaire, est-ce travailler dur ou travailler sans but ?",
+      "Pensez-vous que l'échec fait grandir ?",
+      "Comment prenez-vous des décisions ?",
+      "Qu'est-ce qui vous fait peur ?",
+      "Aimez-vous le travail ? Quelle place a le travail dans votre vie ?",
+      "Le ridicule ne tue pas et ce qui ne tue pas nous rend plus fort — le ridicule rend-il plus fort ?",
+      "Est-ce qu'on peut vous acheter ?",
+      "Qu'est-ce qui vous ferait quitter un groupe ?",
+      "Êtes-vous quelqu'un de créatif ?",
+      "Qu'aimez-vous le moins dans l'humanité ?",
+      "Quelle place ont les réseaux sociaux dans votre vie ?"
+    ],
+    experiences: [
+      "Racontez-nous un échec. Comment avez-vous rebondi ?",
+      "Laquelle de vos expériences vous différencie le plus des autres candidats ?",
+      "Racontez une expérience où vous avez été un early maker.",
+      "Racontez-nous une situation déstabilisante dans votre vie.",
+      "Racontez une expérience où vous avez innové.",
+      "Racontez-nous un moment où vous avez le plus douté de vous-même.",
+      "Avez-vous déjà fait preuve d'altruisme ?",
+      "Quel a été votre dernier fou rire inextinguible ?",
+      "Quelles ont été vos meilleures vacances ?",
+      "Quel est le plus beau jour de votre vie ?",
+      "Quelle erreur vous êtes-vous juré de ne plus jamais faire ?",
+      "De quel talent artistique êtes-vous le plus fier ?",
+      "Parlez-nous d'une fierté.",
+      "Citez une expérience où vous vous êtes dépassé.",
+      "Racontez-nous une expérience où vous avez suivi votre intuition.",
+      "Avez-vous déjà fait une erreur que vous regrettez ?",
+      "Parlez-nous d'une performance collective que vous avez réalisée.",
+      "Qu'avez-vous appris sur vous l'année passée ?",
+      "Quel rêve d'enfant a changé au cours de votre vie ?",
+      "Racontez-nous une expérience familiale réussie.",
+      "Quelle est la chose la plus folle que vous ayez faite ?",
+      "Qu'avez-vous appris d'un de vos échecs ?",
+      "Quel a été le dernier reproche que l'on vous a fait ?",
+      "Parlez d'une expérience peu valorisante.",
+      "Racontez-nous une fois où vous avez pris un risque."
+    ],
+    projets: [
+      "Où vous voyez-vous en 2030 ?",
+      "Demain vous êtes propulsé dirigeant d'une start-up, que faites-vous ?",
+      "Quel serait votre rêve professionnel ?",
+      "Dans quelle entreprise ne voulez-vous pas travailler ?",
+      "Où aimeriez-vous travailler pendant les 5 prochaines années, hors de France ?",
+      "Est-il possible de concilier rêve et projet professionnel ?",
+      "Que voulez-vous apprendre à l'EM Lyon ?",
+      "Donnez 5 compétences que vous voulez développer à l'EM et en vue de quel projet ?",
+      "Pourquoi l'EM Lyon ?",
+      "Si vous deviez créer une nouvelle association à l'emlyon, qu'est-ce que ce serait ?",
+      "Quels sont les trois cours que vous aimeriez suivre dans notre école ?",
+      "Accepteriez-vous un job mal payé et difficile ?",
+      "Connaissez-vous des anciens de l'EM Lyon ? Qu'est-ce que l'école leur a apporté ?",
+      "Votre rêve le plus fou.",
+      "Que vous apportera l'école ?",
+      "Si vous deviez créer une entreprise, le feriez-vous seul ou à plusieurs ?",
+      "L'entreprise de vos rêves ?",
+      "Vous faites votre premier choix de carrière, quel est votre premier critère ?",
+      "Pensez-vous sortir de l'EM avec un esprit critique ?",
+      "Quelle est la chose que vous rêvez de faire durant votre vie ?"
+    ],
+    creativite: [
+      "Vous avez 1 million d'euros mais ne pouvez pas les utiliser pour vous, que faites-vous ?",
+      "Que vous inspire Neverland, le pays de Peter Pan ?",
+      "Vous venez d'une autre planète, comment décririez-vous votre civilisation ?",
+      "Si vous étiez un animal, lequel seriez-vous et pourquoi ?",
+      "Si vous pouviez dîner avec une personne morte ou vivante, qui serait-ce ?",
+      "Décrivez la couleur jaune à une personne aveugle.",
+      "Expliquez Google à un enfant de 8 ans.",
+      "Un réalisateur veut faire un film sur votre vie, qui joue votre rôle ?",
+      "Faites-nous rire.",
+      "Surprenez-nous.",
+      "Quelle question poseriez-vous à un candidat pour le déstabiliser ?",
+      "Vendez-nous votre boisson favorite.",
+      "Posez-nous une question iconoclaste.",
+      "Si vous deviez lancer une nouvelle mode vestimentaire, décrivez-en le style.",
+      "Vous êtes dans une tribu indienne qui désigne ses membres par des surnoms, quel serait le vôtre ?",
+      "Que vous inspire le pays des merveilles ?",
+      "Vous dînez avec Kim Jong-un, vous lui dites quoi ?",
+      "Vous avez 1 minute au JT de 20h en prime time, que dites-vous ?",
+      "Si vous aviez une cape d'invisibilité pendant 1h, que faites-vous ?",
+      "Vous devez convaincre votre banquier de financer votre voyage sur Mars.",
+      "Décrivez la couleur jaune à une personne aveugle.",
+      "Vous organisez une soirée déguisée notée, donnez les 3 critères de notation.",
+      "Jeff Bezos vous donne 1 million d'euros pour lancer un projet, lequel ?",
+      "Si vous pouviez être quelqu'un d'autre, qui seriez-vous ?",
+      "Un produit à inventer qu'il vous manque actuellement."
+    ]
+  }
+
+  const categories = ['personnalite', 'experiences', 'projets', 'creativite']
+  const tiresQuestions = []
+  let revealedCount = 0
+
+  // Tirer aléatoirement une question par catégorie
+  function getRandomQuestion(cat) {
+    const list = questions[cat]
+    return list[Math.floor(Math.random() * list.length)]
+  }
+
+  // Pré-tirer les 4 questions au chargement
+  categories.forEach(cat => {
+    tiresQuestions.push(getRandomQuestion(cat))
+  })
+
+  function revealCard(index) {
+    const card = document.getElementById('card' + index)
+    if (card.classList.contains('flipped')) return
+
+    document.getElementById('q' + index).textContent = tiresQuestions[index]
+    card.classList.add('flipped')
+    document.getElementById('slot' + index).classList.add('revealed')
+
+    revealedCount++
+    document.getElementById('dot' + (revealedCount - 1)).classList.add('active')
+    document.getElementById('progressText').textContent = revealedCount + ' carte' + (revealedCount > 1 ? 's tirées' : ' tirée') + ' sur 4'
+
+    if (revealedCount === 4) {
+      document.getElementById('btnStart').classList.add('visible')
+    }
+  }
+
+  function startEntretien() {
+    // Décrémenter les crédits
+    fetch('/api/decrement?student_id=' + student_id).catch(err => console.error(err))
+
+    // Construire les mini cartes dans la phase entretien
+    const miniCardsEl = document.getElementById('miniCards')
+    const labels = ['Personnalité', 'Expériences passées', 'Projets futurs', 'Créativité']
+    tiresQuestions.forEach((q, i) => {
+      const mc = document.createElement('div')
+      mc.className = 'mini-card'
+      mc.innerHTML = `<div class="mini-card-cat">${labels[i]}</div><div class="mini-card-q">${q}</div>`
+      miniCardsEl.appendChild(mc)
+    })
+
+    // Passer les cartes à Sophie via dynamic variables
+    const dynamicVars = {
+      student_id: student_id,
+      carte_personnalite: tiresQuestions[0],
+      carte_experiences: tiresQuestions[1],
+      carte_projets: tiresQuestions[2],
+      carte_creativite: tiresQuestions[3]
+    }
+
+    const widget = document.querySelector('elevenlabs-convai')
+    widget.setAttribute('dynamic-variables', JSON.stringify(dynamicVars))
+    widget.style.display = ''
+
+    // Changer de phase
+    document.getElementById('tiragePhase').style.display = 'none'
+    document.getElementById('entretienPhase').classList.add('active')
+  }
+</script>
+
+</body>
+</html>
