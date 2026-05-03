@@ -112,7 +112,6 @@
     .coming-soon h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
     .coming-soon p { font-size: 0.82rem; line-height: 1.7; }
 
-    /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
     .modal-overlay.show { display: flex; }
     .modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 700px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
@@ -129,7 +128,6 @@
     .modal-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface2); padding: 14px 18px; text-align: left; }
     .modal-verdict.escp { border-left: 3px solid var(--escp); }
     .modal-verdict.emlyon { border-left: 3px solid var(--emlyon); }
-
     .fb-section { margin-bottom: 16px; }
     .fb-section h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
     .fb-section h4.escp { color: var(--escp); }
@@ -137,15 +135,11 @@
     .fb-section p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
     .fb-divider { height: 1px; background: var(--border); margin: 22px 0; }
     .fb-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
-
-    /* Analyse personnalisée — section spéciale */
     .analyse-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 16px 20px; margin-bottom: 16px; font-size: 0.83rem; color: var(--text); line-height: 1.8; }
     .analyse-box.emlyon { border-left-color: var(--emlyon); }
-
     .comp-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 16px; }
     .comp-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
     .comp-card p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; }
-
     .cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
     .carte-fb { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--emlyon-border); }
     .carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
@@ -212,7 +206,6 @@
     </div>
   </div>
 
-  <!-- ESCP -->
   <div class="tab-content escp-content active" id="contentESCP">
     <a href="/entretien" class="btn-lancer btn-escp" id="btnESCP">🎙️ Lancer un entretien ESCP</a>
     <div class="questionnaire-card">
@@ -270,7 +263,6 @@
     </div>
   </div>
 
-  <!-- EM LYON -->
   <div class="tab-content emlyon-content" id="contentEMLYON">
     <a href="/entretien-emlyon" class="btn-lancer btn-emlyon" id="btnEMLYON">🃏 Lancer un entretien EM Lyon</a>
     <div class="section-eyebrow">Historique EM Lyon</div>
@@ -279,7 +271,6 @@
     </div>
   </div>
 
-  <!-- ESSEC -->
   <div class="tab-content essec-content" id="contentESSEC">
     <div class="coming-soon">
       <div class="coming-soon-icon">🏛️</div>
@@ -290,7 +281,6 @@
 
 </main>
 
-<!-- MODAL FEEDBACK -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modalContent">
     <div class="modal-top-bar escp" id="modalTopBar"></div>
@@ -303,7 +293,6 @@
       <div class="modal-verdict escp" id="modalVerdict">—</div>
     </div>
 
-    <!-- SECTIONS COMMUNES -->
     <div class="fb-group-title">📋 Analyse de l'entretien</div>
     <div class="fb-section">
       <h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4>
@@ -318,7 +307,6 @@
       <p id="modalConnaissance">—</p>
     </div>
 
-    <!-- ESCP ONLY -->
     <div id="sectionESCP">
       <div class="fb-section">
         <h4 class="escp">⚡ Dynamique de l'échange</h4>
@@ -339,7 +327,6 @@
       </div>
     </div>
 
-    <!-- EMLYON ONLY -->
     <div id="sectionEMLYON" style="display:none;">
       <div class="fb-divider"></div>
       <div class="fb-group-title">🃏 Réactivité aux cartes</div>
@@ -359,12 +346,9 @@
     </div>
 
     <div class="fb-divider"></div>
-
-    <!-- ANALYSE PERSONNALISÉE — commune aux deux -->
     <div class="fb-group-title">🔍 Analyse personnalisée</div>
     <div class="analyse-box" id="modalAnalyse">—</div>
 
-    <!-- QUESTION FINALE — commune aux deux -->
     <div class="fb-section">
       <h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4>
       <p id="modalQuestionFinale">—</p>
@@ -389,7 +373,6 @@
       <h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4>
       <p id="modalAxes">—</p>
     </div>
-
   </div>
 </div>
 
@@ -397,7 +380,20 @@
   const student_id = localStorage.getItem('student_id')
   const email = localStorage.getItem('email')
   if (!student_id) window.location.href = '/'
+
   document.getElementById('navEmail').textContent = email || ''
+
+  // Bouton admin visible uniquement pour abijaoui@icloud.com
+  if (email === 'abijaoui@icloud.com') {
+    const adminBtn = document.createElement('a')
+    adminBtn.href = '/admin'
+    adminBtn.textContent = '⚙️ Admin'
+    adminBtn.style.cssText = 'font-size:0.75rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:5px 14px;transition:all 0.3s;font-family:Outfit,sans-serif;'
+    adminBtn.onmouseover = () => { adminBtn.style.borderColor = 'var(--accent)'; adminBtn.style.color = 'var(--accent)' }
+    adminBtn.onmouseout = () => { adminBtn.style.borderColor = 'var(--border)'; adminBtn.style.color = 'var(--muted)' }
+    document.querySelector('.nav-right').prepend(adminBtn)
+  }
+
   if (window.location.search.includes('no_credits')) {
     document.getElementById('noCreditsAlert').classList.add('show')
   }
@@ -537,7 +533,6 @@
     document.getElementById('sectionESCP').style.display = isEmlyon ? 'none' : 'block'
     document.getElementById('sectionEMLYON').style.display = isEmlyon ? 'block' : 'none'
 
-    // Couleurs titres
     document.querySelectorAll('.fb-section h4').forEach(h => { h.className = cls })
     document.getElementById('h4Presentation').className = cls
     document.getElementById('h4Expression').className = cls
@@ -547,10 +542,8 @@
     document.getElementById('h4Faibles').className = cls
     document.getElementById('h4Axes').className = cls
 
-    // Analyse box couleur
     document.getElementById('modalAnalyse').className = `analyse-box ${isEmlyon ? 'emlyon' : ''}`
 
-    // Champs communs
     document.getElementById('modalNote').textContent = `${fb.note}/20`
     document.getElementById('modalVerdict').textContent = fb.verdict_jury || '—'
     document.getElementById('modalPresentation').textContent = fb.presentation_initiale || '—'
