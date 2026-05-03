@@ -12,16 +12,9 @@
       --border: rgba(200,169,110,0.12); --border2: rgba(200,169,110,0.06);
       --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
       --green: #4ade80; --red: #e05c5c;
-      --escp: #c9a96e;
-      --escp-bg: rgba(201,169,110,0.08);
-      --escp-border: rgba(201,169,110,0.25);
-      --emlyon: #e8392a;
-      --emlyon-bg: rgba(232,57,42,0.08);
-      --emlyon-border: rgba(232,57,42,0.25);
-      --essec: #003b7a;
-      --essec2: #0055b3;
-      --essec-bg: rgba(0,85,179,0.08);
-      --essec-border: rgba(0,85,179,0.25);
+      --escp: #c9a96e; --escp-bg: rgba(201,169,110,0.08); --escp-border: rgba(201,169,110,0.25);
+      --emlyon: #e8392a; --emlyon-bg: rgba(232,57,42,0.08); --emlyon-border: rgba(232,57,42,0.25);
+      --essec: #003b7a; --essec2: #0055b3; --essec-bg: rgba(0,85,179,0.08); --essec-border: rgba(0,85,179,0.25);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
@@ -39,11 +32,10 @@
     .alert.show { display: block; }
     .alert a { color: var(--red); text-decoration: underline; }
 
-    /* HERO */
     .hero-card { background: var(--surface); border: 1px solid var(--border); padding: 36px 48px; position: relative; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
     .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
     .hero-left h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
-    .hero-left p { font-size: 0.82rem; color: var(--muted2); margin-bottom: 0; }
+    .hero-left p { font-size: 0.82rem; color: var(--muted2); }
     .sessions-badge { background: var(--surface2); border: 1px solid var(--border); padding: 20px 32px; text-align: center; min-width: 140px; }
     .sessions-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
     .sessions-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
@@ -57,15 +49,8 @@
     .btn-recharge { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s; }
     .btn-recharge:hover { background: var(--accent); color: var(--bg); }
 
-    /* ONGLETS */
-    .tabs { display: flex; gap: 2px; margin-bottom: 0; background: var(--border2); }
-    .tab {
-      flex: 1; padding: 16px 20px; text-align: center; cursor: pointer;
-      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.5px;
-      background: var(--surface); color: var(--muted2);
-      transition: all 0.3s; border-bottom: 3px solid transparent;
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-    }
+    .tabs { display: flex; gap: 2px; background: var(--border2); }
+    .tab { flex: 1; padding: 16px 20px; text-align: center; cursor: pointer; font-size: 0.82rem; font-weight: 500; background: var(--surface); color: var(--muted2); transition: all 0.3s; border-bottom: 3px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .tab:hover { color: var(--text); background: var(--surface2); }
     .tab.active-escp { color: var(--escp); border-bottom-color: var(--escp); background: var(--surface2); }
     .tab.active-emlyon { color: var(--emlyon); border-bottom-color: var(--emlyon); background: var(--surface2); }
@@ -74,33 +59,21 @@
     .tab-agent { font-size: 0.68rem; color: var(--muted); }
     .tab.active-escp .tab-agent { color: rgba(201,169,110,0.6); }
     .tab.active-emlyon .tab-agent { color: rgba(232,57,42,0.6); }
-    .tab.active-essec .tab-agent { color: rgba(0,85,179,0.6); }
     .tab-coming { font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; background: var(--surface3); color: var(--muted); padding: 2px 8px; margin-top: 2px; }
 
-    /* CONTENU ONGLETS */
-    .tab-content { display: none; background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 36px 40px; position: relative; }
+    .tab-content { display: none; background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 36px 40px; }
     .tab-content.active { display: block; }
-    .tab-content.escp-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 0; }
     .tab-content.emlyon-content { border-top: 2px solid var(--emlyon); }
     .tab-content.essec-content { border-top: 2px solid var(--essec2); }
 
-    /* BOUTON LANCER */
-    .btn-lancer {
-      display: inline-flex; align-items: center; gap: 10px;
-      border: none; padding: 16px 36px; font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s;
-      text-decoration: none; margin-bottom: 32px;
-    }
+    .btn-lancer { display: inline-flex; align-items: center; gap: 10px; border: none; padding: 16px 36px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; margin-bottom: 32px; }
     .btn-escp { background: var(--gradient); color: var(--bg); box-shadow: 0 6px 24px rgba(201,169,110,0.25); }
     .btn-escp:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,169,110,0.35); }
     .btn-emlyon { background: var(--emlyon); color: white; box-shadow: 0 6px 24px rgba(232,57,42,0.25); }
     .btn-emlyon:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,57,42,0.35); }
-    .btn-essec { background: var(--essec2); color: white; box-shadow: 0 6px 24px rgba(0,85,179,0.25); }
-    .btn-essec:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,85,179,0.35); }
     .btn-disabled { opacity: 0.4; pointer-events: none; }
 
-    /* QUESTIONNAIRE */
-    .questionnaire-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; position: relative; margin-bottom: 32px; }
+    .questionnaire-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 32px; }
     .questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
     .questionnaire-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; margin-bottom: 24px; }
     .questionnaire-desc strong { color: var(--escp); }
@@ -122,10 +95,8 @@
     .q-save-msg.show { display: block; }
     .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--green); }
 
-    /* SECTION TAG */
     .section-eyebrow { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
 
-    /* LISTE ENTRETIENS */
     .entretien-list { display: flex; flex-direction: column; gap: 8px; }
     .entretien-item { background: var(--surface2); border: 1px solid var(--border); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: background 0.3s; cursor: pointer; }
     .entretien-item:hover { background: var(--surface3); }
@@ -136,7 +107,6 @@
     .empty-state { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; line-height: 1.7; background: var(--surface2); border: 1px solid var(--border); }
     .empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
 
-    /* COMING SOON */
     .coming-soon { text-align: center; padding: 60px 24px; color: var(--muted2); }
     .coming-soon-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.3; }
     .coming-soon h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
@@ -150,37 +120,32 @@
     .modal-top-bar { height: 2px; position: absolute; top: 0; left: 0; right: 0; }
     .modal-top-bar.escp { background: var(--gradient); }
     .modal-top-bar.emlyon { background: var(--emlyon); }
-    .modal-top-bar.essec { background: var(--essec2); }
     .modal-school-badge { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
     .modal-school-badge.escp { color: var(--escp); border: 1px solid var(--escp-border); background: var(--escp-bg); }
     .modal-school-badge.emlyon { color: var(--emlyon); border: 1px solid var(--emlyon-border); background: var(--emlyon-bg); }
-    .modal-school-badge.essec { color: var(--essec2); border: 1px solid var(--essec-border); background: var(--essec-bg); }
     .modal-header { text-align: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
     .modal-note { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
     .modal-note-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
-    .modal-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; font-style: italic; background: var(--surface2); padding: 14px 18px; text-align: left; }
+    .modal-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface2); padding: 14px 18px; text-align: left; }
     .modal-verdict.escp { border-left: 3px solid var(--escp); }
     .modal-verdict.emlyon { border-left: 3px solid var(--emlyon); }
-    .modal-verdict.essec { border-left: 3px solid var(--essec2); }
+
     .fb-section { margin-bottom: 16px; }
     .fb-section h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
     .fb-section h4.escp { color: var(--escp); }
     .fb-section h4.emlyon { color: var(--emlyon); }
-    .fb-section h4.essec { color: var(--essec2); }
     .fb-section p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
     .fb-divider { height: 1px; background: var(--border); margin: 22px 0; }
     .fb-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
-    .moment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    .moment-card { background: var(--surface2); padding: 12px 14px; }
-    .moment-card.good { border-left: 2px solid var(--green); }
-    .moment-card.bad { border-left: 2px solid var(--red); }
-    .moment-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
-    .moment-card.good .moment-label { color: var(--green); }
-    .moment-card.bad .moment-label { color: var(--red); }
-    .moment-card p { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
+
+    /* Analyse personnalisée — section spéciale */
+    .analyse-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 16px 20px; margin-bottom: 16px; font-size: 0.83rem; color: var(--text); line-height: 1.8; }
+    .analyse-box.emlyon { border-left-color: var(--emlyon); }
+
     .comp-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 16px; }
     .comp-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
     .comp-card p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; }
+
     .cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
     .carte-fb { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--emlyon-border); }
     .carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
@@ -192,7 +157,7 @@
       .hero-card { padding: 24px 20px; }
       .tab-content { padding: 24px 20px; }
       .modal { padding: 28px 20px; }
-      .moment-grid, .cartes-grid { grid-template-columns: 1fr; }
+      .cartes-grid { grid-template-columns: 1fr; }
       .tabs { flex-direction: column; gap: 1px; }
     }
   </style>
@@ -231,7 +196,6 @@
     <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepOral" class="btn-recharge">Recharger →</a>
   </div>
 
-  <!-- ONGLETS -->
   <div class="tabs">
     <div class="tab active-escp" id="tabESCP" onclick="switchTab('escp')">
       <div class="tab-school">ESCP</div>
@@ -248,10 +212,9 @@
     </div>
   </div>
 
-  <!-- CONTENU ESCP -->
+  <!-- ESCP -->
   <div class="tab-content escp-content active" id="contentESCP">
     <a href="/entretien" class="btn-lancer btn-escp" id="btnESCP">🎙️ Lancer un entretien ESCP</a>
-
     <div class="questionnaire-card">
       <div class="questionnaire-header">
         <div>
@@ -263,9 +226,7 @@
           <button class="q-toggle" id="qToggle" onclick="toggleQuestionnaire()">Remplir ↓</button>
         </div>
       </div>
-      <p class="questionnaire-desc" style="margin-top:10px;">
-        Transmis à Jean-Marc avant l'entretien. <strong>Il personnalisera ses questions en fonction de vos réponses.</strong> Optionnel mais fortement recommandé.
-      </p>
+      <p class="questionnaire-desc" style="margin-top:10px;">Transmis à Jean-Marc avant l'entretien. <strong>Il personnalisera ses questions en fonction de vos réponses.</strong> Optionnel mais fortement recommandé.</p>
       <div class="questionnaire-form" id="questionnaireForm">
         <div class="q-group">
           <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
@@ -303,30 +264,22 @@
         </div>
       </div>
     </div>
-
     <div class="section-eyebrow">Historique ESCP</div>
     <div class="entretien-list" id="listESCP">
-      <div class="empty-state">
-        <div class="empty-icon">🎙️</div>
-        <div>Aucun entretien ESCP pour l'instant.</div>
-      </div>
+      <div class="empty-state"><div class="empty-icon">🎙️</div><div>Aucun entretien ESCP pour l'instant.</div></div>
     </div>
   </div>
 
-  <!-- CONTENU EM LYON -->
+  <!-- EM LYON -->
   <div class="tab-content emlyon-content" id="contentEMLYON">
     <a href="/entretien-emlyon" class="btn-lancer btn-emlyon" id="btnEMLYON">🃏 Lancer un entretien EM Lyon</a>
-
     <div class="section-eyebrow">Historique EM Lyon</div>
     <div class="entretien-list" id="listEMLYON">
-      <div class="empty-state">
-        <div class="empty-icon">🃏</div>
-        <div>Aucun entretien EM Lyon pour l'instant.</div>
-      </div>
+      <div class="empty-state"><div class="empty-icon">🃏</div><div>Aucun entretien EM Lyon pour l'instant.</div></div>
     </div>
   </div>
 
-  <!-- CONTENU ESSEC -->
+  <!-- ESSEC -->
   <div class="tab-content essec-content" id="contentESSEC">
     <div class="coming-soon">
       <div class="coming-soon-icon">🏛️</div>
@@ -350,6 +303,7 @@
       <div class="modal-verdict escp" id="modalVerdict">—</div>
     </div>
 
+    <!-- SECTIONS COMMUNES -->
     <div class="fb-group-title">📋 Analyse de l'entretien</div>
     <div class="fb-section">
       <h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4>
@@ -358,6 +312,10 @@
     <div class="fb-section">
       <h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4>
       <p id="modalExpression">—</p>
+    </div>
+    <div class="fb-section">
+      <h4 class="escp" id="h4Connaissance">🏛️ Connaissance de l'école</h4>
+      <p id="modalConnaissance">—</p>
     </div>
 
     <!-- ESCP ONLY -->
@@ -372,7 +330,7 @@
       <div class="fb-divider"></div>
       <div class="fb-group-title">📚 Fond & Contenu</div>
       <div class="fb-section">
-        <h4 class="escp">🎯 Motivation & connaissance de l'ESCP</h4>
+        <h4 class="escp">🎯 Motivation & fond ESCP</h4>
         <p id="modalFond">—</p>
       </div>
       <div class="fb-section">
@@ -401,17 +359,15 @@
     </div>
 
     <div class="fb-divider"></div>
-    <div class="fb-group-title">⚡ Moments clés</div>
-    <div class="moment-grid">
-      <div class="moment-card good"><div class="moment-label">✅ Meilleur moment</div><p id="modalMeilleur">—</p></div>
-      <div class="moment-card bad"><div class="moment-label">❌ Pire moment</div><p id="modalPire">—</p></div>
-    </div>
 
-    <div id="sectionQuestionFinale">
-      <div class="fb-section">
-        <h4 class="escp">❓ Question finale au jury</h4>
-        <p id="modalQuestionFinale">—</p>
-      </div>
+    <!-- ANALYSE PERSONNALISÉE — commune aux deux -->
+    <div class="fb-group-title">🔍 Analyse personnalisée</div>
+    <div class="analyse-box" id="modalAnalyse">—</div>
+
+    <!-- QUESTION FINALE — commune aux deux -->
+    <div class="fb-section">
+      <h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4>
+      <p id="modalQuestionFinale">—</p>
     </div>
 
     <div class="comp-card">
@@ -433,6 +389,7 @@
       <h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4>
       <p id="modalAxes">—</p>
     </div>
+
   </div>
 </div>
 
@@ -445,14 +402,9 @@
     document.getElementById('noCreditsAlert').classList.add('show')
   }
 
-  let currentTab = 'escp'
-
   function switchTab(tab) {
-    currentTab = tab
-    // Reset tabs
     document.querySelectorAll('.tab').forEach(t => t.className = 'tab')
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
-    // Activate
     document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab)
     document.getElementById('content' + tab.toUpperCase()).classList.add('active')
   }
@@ -541,10 +493,8 @@
       const res = await fetch(`/api/feedbacks?student_id=${student_id}`)
       const data = await res.json()
       if (!data || data.length === 0) return
-
       const escpFeedbacks = data.filter(fb => !fb.ecole || fb.ecole === 'ESCP')
       const emlFeedbacks = data.filter(fb => fb.ecole === 'EM Lyon')
-
       renderList(escpFeedbacks, 'listESCP', 'Jean-Marc Delaunay')
       renderList(emlFeedbacks, 'listEMLYON', 'Sophie Marchand')
     } catch(e) { console.error(e) }
@@ -584,23 +534,30 @@
     badge.textContent = ecole
     document.getElementById('modalVerdict').className = `modal-verdict ${cls}`
 
-    // Sections
     document.getElementById('sectionESCP').style.display = isEmlyon ? 'none' : 'block'
     document.getElementById('sectionEMLYON').style.display = isEmlyon ? 'block' : 'none'
-    document.getElementById('sectionQuestionFinale').style.display = isEmlyon ? 'none' : 'block'
 
-    // Couleurs des titres
-    document.querySelectorAll('.fb-section h4').forEach(h => {
-      h.className = `${cls}`
-    })
+    // Couleurs titres
+    document.querySelectorAll('.fb-section h4').forEach(h => { h.className = cls })
+    document.getElementById('h4Presentation').className = cls
+    document.getElementById('h4Expression').className = cls
+    document.getElementById('h4Connaissance').className = cls
+    document.getElementById('h4QuestionFinale').className = cls
+    document.getElementById('h4Forts').className = cls
+    document.getElementById('h4Faibles').className = cls
+    document.getElementById('h4Axes').className = cls
+
+    // Analyse box couleur
+    document.getElementById('modalAnalyse').className = `analyse-box ${isEmlyon ? 'emlyon' : ''}`
 
     // Champs communs
     document.getElementById('modalNote').textContent = `${fb.note}/20`
     document.getElementById('modalVerdict').textContent = fb.verdict_jury || '—'
     document.getElementById('modalPresentation').textContent = fb.presentation_initiale || '—'
     document.getElementById('modalExpression').textContent = fb.qualite_expression || '—'
-    document.getElementById('modalMeilleur').textContent = fb.meilleur_moment || '—'
-    document.getElementById('modalPire').textContent = fb.pire_moment || '—'
+    document.getElementById('modalConnaissance').textContent = fb.connaissance_ecole || '—'
+    document.getElementById('modalAnalyse').textContent = fb.analyse_personnalisee || '—'
+    document.getElementById('modalQuestionFinale').textContent = fb.question_finale || '—'
     document.getElementById('modalComparaison').textContent = fb.comparaison_precedent || '—'
     document.getElementById('modalForts').textContent = fb.points_forts || '—'
     document.getElementById('modalFaibles').textContent = fb.points_faibles || '—'
@@ -618,7 +575,6 @@
       document.getElementById('modalTriangle').textContent = fb.triangle_liens || '—'
       document.getElementById('modalFond').textContent = fb.fond_escp || '—'
       document.getElementById('modalQuestionnaire').textContent = fb.exploitation_questionnaire || '—'
-      document.getElementById('modalQuestionFinale').textContent = fb.question_finale || '—'
     }
 
     document.getElementById('modalOverlay').classList.add('show')
