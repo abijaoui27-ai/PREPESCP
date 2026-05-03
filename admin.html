@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepOral — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07070c; --surface: #0f0f18; --surface2: #16161f; --surface3: #1e1e2a;
+      --accent: #c9a96e; --text: #f0ede8; --muted: #6b6880; --muted2: #9994aa;
+      --border: rgba(200,169,110,0.12); --border2: rgba(200,169,110,0.06);
+      --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
+      --green: #4ade80; --red: #e05c5c; --orange: #f97316;
+      --emlyon: #e8392a; --escp: #c9a96e;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(7,7,12,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border2); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-badge { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(249,115,22,0.3); padding: 3px 10px; }
+    .nav-back { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; cursor: pointer; text-decoration: none; transition: all 0.3s; }
+    .nav-back:hover { border-color: var(--accent); color: var(--accent); }
+
+    .main { max-width: 1100px; margin: 0 auto; padding: 90px 24px 60px; }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; background: var(--border2); margin-bottom: 32px; }
+    .stat-card { background: var(--surface); padding: 24px 20px; text-align: center; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* AJOUTER ÉTUDIANT */
+    .add-card { background: var(--surface); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 32px; position: relative; }
+    .add-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr 120px auto; gap: 12px; align-items: end; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .form-input { background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 10px 14px; outline: none; transition: border-color 0.3s; width: 100%; }
+    .form-input:focus { border-color: rgba(200,169,110,0.4); }
+    .form-input::placeholder { color: var(--muted); }
+    .btn-add { background: var(--gradient); color: var(--bg); border: none; padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.3s; height: 40px; }
+    .btn-add:hover { transform: translateY(-1px); }
+
+    /* LISTE ÉTUDIANTS */
+    .students-card { background: var(--surface); border: 1px solid var(--border); position: relative; }
+    .students-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .students-header { padding: 20px 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border2); }
+    .students-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; }
+    .search-input { background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.82rem; padding: 8px 14px; outline: none; width: 220px; transition: border-color 0.3s; }
+    .search-input:focus { border-color: rgba(200,169,110,0.4); }
+    .search-input::placeholder { color: var(--muted); }
+
+    .student-row { padding: 16px 28px; border-bottom: 1px solid var(--border2); display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 12px; align-items: center; transition: background 0.2s; }
+    .student-row:hover { background: var(--surface2); }
+    .student-row:last-child { border-bottom: none; }
+    .student-email { font-size: 0.85rem; font-weight: 500; }
+    .student-code { font-size: 0.75rem; color: var(--muted2); font-family: monospace; letter-spacing: 1px; }
+    .student-meta { font-size: 0.72rem; color: var(--muted); }
+    .credits-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; }
+    .credits-badge.ok { color: var(--green); }
+    .credits-badge.low { color: var(--orange); }
+    .credits-badge.empty { color: var(--red); }
+    .last-note { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .ecole-tag { font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 7px; font-weight: 600; }
+    .ecole-tag.escp { color: var(--escp); border: 1px solid rgba(201,169,110,0.3); }
+    .ecole-tag.emlyon { color: var(--emlyon); border: 1px solid rgba(232,57,42,0.3); }
+
+    .actions { display: flex; gap: 6px; }
+    .btn-action { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 5px 10px; font-family: 'Outfit', sans-serif; font-size: 0.7rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .btn-action:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-action.danger:hover { border-color: var(--red); color: var(--red); }
+    .btn-action.success:hover { border-color: var(--green); color: var(--green); }
+    .btn-action.warning:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* MODAL EDIT */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: var(--surface); border: 1px solid var(--border); padding: 36px; max-width: 480px; width: 100%; position: relative; }
+    .modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+    .modal-close { position: absolute; top: 14px; right: 18px; background: transparent; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+    .modal-subtitle { font-size: 0.78rem; color: var(--muted2); margin-bottom: 24px; }
+    .modal-form { display: flex; flex-direction: column; gap: 14px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 8px; }
+    .btn-modal-primary { background: var(--gradient); color: var(--bg); border: none; padding: 11px 28px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; flex: 1; transition: all 0.3s; }
+    .btn-modal-cancel { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 11px 20px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+    .btn-modal-cancel:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-modal-danger { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); color: var(--red); padding: 11px 28px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; flex: 1; transition: all 0.3s; }
+    .btn-modal-danger:hover { background: rgba(224,92,92,0.2); }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface2); border: 1px solid var(--border); padding: 12px 20px; font-size: 0.82rem; z-index: 300; transform: translateY(80px); opacity: 0; transition: all 0.3s; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-color: rgba(74,222,128,0.4); color: var(--green); }
+    .toast.error { border-color: rgba(224,92,92,0.4); color: var(--red); }
+
+    .empty-row { padding: 48px 28px; text-align: center; color: var(--muted2); font-size: 0.85rem; }
+
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .form-row { grid-template-columns: 1fr 1fr; }
+      .student-row { grid-template-columns: 1fr auto; }
+      .student-meta, .credits-badge, .last-note { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">PrepOral</div>
+  <div class="nav-badge">Admin</div>
+  <a href="/dashboard" class="nav-back">← Mon espace</a>
+</nav>
+
+<main class="main">
+
+  <!-- STATS -->
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="stat-num" id="statEtudiants">—</div><div class="stat-label">Étudiants</div></div>
+    <div class="stat-card"><div class="stat-num" id="statEntretiens">—</div><div class="stat-label">Entretiens</div></div>
+    <div class="stat-card"><div class="stat-num" id="statESCP">—</div><div class="stat-label">ESCP</div></div>
+    <div class="stat-card"><div class="stat-num" id="statEMLYON">—</div><div class="stat-label">EM Lyon</div></div>
+    <div class="stat-card"><div class="stat-num" id="statMoyenne">—</div><div class="stat-label">Note moyenne</div></div>
+  </div>
+
+  <!-- AJOUTER ÉTUDIANT -->
+  <div class="add-card">
+    <div class="card-title">Ajouter un étudiant</div>
+    <div class="form-row">
+      <div class="form-group">
+        <div class="form-label">Email</div>
+        <input type="email" class="form-input" id="newEmail" placeholder="prenom@email.com" />
+      </div>
+      <div class="form-group">
+        <div class="form-label">Code d'accès</div>
+        <input type="text" class="form-input" id="newCode" placeholder="PREP-2025-XXXX" />
+      </div>
+      <div class="form-group">
+        <div class="form-label">Crédits</div>
+        <input type="number" class="form-input" id="newCredits" value="1" min="1" max="100" />
+      </div>
+      <button class="btn-add" onclick="addStudent()">Ajouter →</button>
+    </div>
+  </div>
+
+  <!-- LISTE ÉTUDIANTS -->
+  <div class="students-card">
+    <div class="students-header">
+      <div class="students-title">Étudiants</div>
+      <input type="text" class="search-input" id="searchInput" placeholder="Rechercher par email…" oninput="filterStudents()" />
+    </div>
+    <div id="studentsList"><div class="empty-row">Chargement…</div></div>
+  </div>
+
+</main>
+
+<!-- MODAL EDIT -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
+    <div class="modal-title" id="modalTitle">Modifier</div>
+    <div class="modal-subtitle" id="modalSubtitle"></div>
+    <div class="modal-form" id="modalForm"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const student_id = localStorage.getItem('student_id')
+  const email = localStorage.getItem('email')
+
+  // Vérification admin
+  if (!student_id || email !== 'abijaoui@icloud.com') {
+    window.location.href = '/'
+  }
+
+  let allStudents = []
+
+  async function loadStats() {
+    try {
+      const res = await fetch('/api/admin?action=stats')
+      const data = await res.json()
+      document.getElementById('statEtudiants').textContent = data.total_etudiants || '0'
+      document.getElementById('statEntretiens').textContent = data.total_entretiens || '0'
+      document.getElementById('statESCP').textContent = data.escp || '0'
+      document.getElementById('statEMLYON').textContent = data.emlyon || '0'
+      document.getElementById('statMoyenne').textContent = data.moyenne_notes ? data.moyenne_notes + '/20' : '—'
+    } catch(e) { console.error(e) }
+  }
+
+  async function loadStudents() {
+    try {
+      const res = await fetch('/api/admin?action=students')
+      allStudents = await res.json()
+      renderStudents(allStudents)
+    } catch(e) { console.error(e) }
+  }
+
+  function filterStudents() {
+    const q = document.getElementById('searchInput').value.toLowerCase()
+    const filtered = allStudents.filter(s => s.email.toLowerCase().includes(q))
+    renderStudents(filtered)
+  }
+
+  function renderStudents(students) {
+    const list = document.getElementById('studentsList')
+    if (!students.length) {
+      list.innerHTML = '<div class="empty-row">Aucun étudiant trouvé.</div>'
+      return
+    }
+    list.innerHTML = students.map(s => {
+      const creditsClass = s.credits > 3 ? 'ok' : s.credits > 0 ? 'low' : 'empty'
+      const date = s.created_at ? new Date(s.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : '—'
+      const lastEntretien = s.dernier_entretien ? new Date(s.dernier_entretien).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : 'Jamais'
+      const ecoleTag = s.derniere_ecole ? `<span class="ecole-tag ${s.derniere_ecole === 'EM Lyon' ? 'emlyon' : 'escp'}">${s.derniere_ecole}</span>` : ''
+      const hasDevice = s.device_id ? '🔒' : '🔓'
+
+      return `
+        <div class="student-row" id="row-${s.id}">
+          <div>
+            <div class="student-email">${s.email} ${hasDevice}</div>
+            <div class="student-code">${s.access_code || '—'}</div>
+          </div>
+          <div class="credits-badge ${creditsClass}">
+            ${s.credits} crédit${s.credits > 1 ? 's' : ''}
+          </div>
+          <div class="student-meta">
+            ${s.total_entretiens} entretien${s.total_entretiens > 1 ? 's' : ''}<br>
+            Dernier : ${lastEntretien}
+          </div>
+          <div>
+            ${s.derniere_note ? `<span class="last-note">${s.derniere_note}/20</span>` : '<span style="color:var(--muted);font-size:0.75rem;">—</span>'}
+            ${ecoleTag}
+          </div>
+          <div class="actions">
+            <button class="btn-action success" onclick="openCredits('${s.id}', '${s.email}', ${s.credits})">Crédits</button>
+            <button class="btn-action warning" onclick="openCode('${s.id}', '${s.email}', '${s.access_code || ''}')">Code</button>
+            <button class="btn-action" onclick="resetDevice('${s.id}', '${s.email}')">Reset 📱</button>
+            <button class="btn-action danger" onclick="openDelete('${s.id}', '${s.email}')">Suppr.</button>
+          </div>
+        </div>
+      `
+    }).join('')
+  }
+
+  async function addStudent() {
+    const email = document.getElementById('newEmail').value.trim()
+    const code = document.getElementById('newCode').value.trim()
+    const credits = parseInt(document.getElementById('newCredits').value) || 1
+
+    if (!email || !code) return showToast('Email et code requis', 'error')
+
+    try {
+      const res = await fetch('/api/admin?action=add_student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, access_code: code, credits })
+      })
+      if (res.ok) {
+        document.getElementById('newEmail').value = ''
+        document.getElementById('newCode').value = ''
+        document.getElementById('newCredits').value = '1'
+        showToast('✅ Étudiant ajouté !', 'success')
+        loadStudents()
+        loadStats()
+      } else {
+        showToast('❌ Erreur lors de l\'ajout', 'error')
+      }
+    } catch(e) { showToast('❌ Erreur', 'error') }
+  }
+
+  function openCredits(id, email, current) {
+    document.getElementById('modalTitle').textContent = 'Modifier les crédits'
+    document.getElementById('modalSubtitle').textContent = email
+    document.getElementById('modalForm').innerHTML = `
+      <div class="form-group">
+        <div class="form-label">Nouveaux crédits</div>
+        <input type="number" class="form-input" id="modalCredits" value="${current}" min="0" max="100" />
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-action success" onclick="quickCredits('${id}', ${current}, 1)">+1</button>
+        <button class="btn-action success" onclick="quickCredits('${id}', ${current}, 5)">+5</button>
+        <button class="btn-action success" onclick="quickCredits('${id}', ${current}, 10)">+10</button>
+        <button class="btn-action danger" onclick="quickCredits('${id}', ${current}, -1)">-1</button>
+      </div>
+    `
+    document.getElementById('modalActions').innerHTML = `
+      <button class="btn-modal-cancel" onclick="document.getElementById('modalOverlay').classList.remove('show')">Annuler</button>
+      <button class="btn-modal-primary" onclick="updateCredits('${id}')">Sauvegarder</button>
+    `
+    document.getElementById('modalOverlay').classList.add('show')
+  }
+
+  async function quickCredits(id, current, delta) {
+    const newVal = Math.max(0, current + delta)
+    document.getElementById('modalCredits').value = newVal
+    await updateCredits(id)
+  }
+
+  async function updateCredits(id) {
+    const credits = parseInt(document.getElementById('modalCredits').value)
+    try {
+      await fetch('/api/admin?action=update_credits', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ student_id: id, credits })
+      })
+      document.getElementById('modalOverlay').classList.remove('show')
+      showToast('✅ Crédits mis à jour', 'success')
+      loadStudents()
+      loadStats()
+    } catch(e) { showToast('❌ Erreur', 'error') }
+  }
+
+  function openCode(id, email, currentCode) {
+    document.getElementById('modalTitle').textContent = 'Modifier le code d\'accès'
+    document.getElementById('modalSubtitle').textContent = email
+    document.getElementById('modalForm').innerHTML = `
+      <div class="form-group">
+        <div class="form-label">Nouveau code d'accès</div>
+        <input type="text" class="form-input" id="modalCode" value="${currentCode}" placeholder="PREP-2025-XXXX" />
+      </div>
+    `
+    document.getElementById('modalActions').innerHTML = `
+      <button class="btn-modal-cancel" onclick="document.getElementById('modalOverlay').classList.remove('show')">Annuler</button>
+      <button class="btn-modal-primary" onclick="updateCode('${id}')">Sauvegarder</button>
+    `
+    document.getElementById('modalOverlay').classList.add('show')
+  }
+
+  async function updateCode(id) {
+    const code = document.getElementById('modalCode').value.trim()
+    if (!code) return showToast('Code requis', 'error')
+    try {
+      await fetch('/api/admin?action=update_code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ student_id: id, access_code: code })
+      })
+      document.getElementById('modalOverlay').classList.remove('show')
+      showToast('✅ Code mis à jour', 'success')
+      loadStudents()
+    } catch(e) { showToast('❌ Erreur', 'error') }
+  }
+
+  async function resetDevice(id, email) {
+    if (!confirm(`Réinitialiser l'accès de ${email} ?`)) return
+    try {
+      await fetch('/api/admin?action=reset_device', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ student_id: id })
+      })
+      showToast('✅ Accès réinitialisé', 'success')
+      loadStudents()
+    } catch(e) { showToast('❌ Erreur', 'error') }
+  }
+
+  function openDelete(id, email) {
+    document.getElementById('modalTitle').textContent = 'Supprimer l\'étudiant'
+    document.getElementById('modalSubtitle').textContent = email
+    document.getElementById('modalForm').innerHTML = `
+      <p style="font-size:0.83rem;color:var(--muted2);line-height:1.7;">
+        Cette action supprimera définitivement l'étudiant, tous ses entretiens et tous ses feedbacks. Cette action est irréversible.
+      </p>
+    `
+    document.getElementById('modalActions').innerHTML = `
+      <button class="btn-modal-cancel" onclick="document.getElementById('modalOverlay').classList.remove('show')">Annuler</button>
+      <button class="btn-modal-danger" onclick="deleteStudent('${id}')">Supprimer définitivement</button>
+    `
+    document.getElementById('modalOverlay').classList.add('show')
+  }
+
+  async function deleteStudent(id) {
+    try {
+      await fetch('/api/admin?action=delete_student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ student_id: id })
+      })
+      document.getElementById('modalOverlay').classList.remove('show')
+      showToast('✅ Étudiant supprimé', 'success')
+      loadStudents()
+      loadStats()
+    } catch(e) { showToast('❌ Erreur', 'error') }
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modalOverlay')) {
+      document.getElementById('modalOverlay').classList.remove('show')
+    }
+  }
+
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast')
+    t.textContent = msg
+    t.className = `toast ${type} show`
+    setTimeout(() => { t.className = 'toast' }, 3000)
+  }
+
+  loadStats()
+  loadStudents()
+</script>
+
+</body>
+</html>
