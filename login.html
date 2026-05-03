@@ -1,1 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepOral — Connexion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@4/dist/fp.min.js"></script>
+  <style>
+    :root {
+      --bg: #07070c; --surface: #0f0f18; --surface2: #16161f;
+      --accent: #c9a96e; --accent2: #e8c98e; --text: #f0ede8;
+      --muted: #6b6880; --muted2: #9994aa;
+      --border: rgba(200,169,110,0.12); --border2: rgba(200,169,110,0.06);
+      --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
+      --green: #4ade80; --red: #e05c5c;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Outfit', sans-serif; font-weight: 300;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 24px;
+      position: relative;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,169,110,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .back-link { position: fixed; top: 24px; left: 32px; font-size: 0.75rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
+    .back-link:hover { color: var(--accent); }
+
+    .login-wrap { width: 100%; max-width: 460px; opacity: 0; animation: fadeUp 0.7s 0.1s forwards; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
+
+    .login-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin-bottom: 6px; }
+    .login-tagline { text-align: center; font-size: 0.75rem; color: var(--muted); margin-bottom: 36px; letter-spacing: 0.5px; }
+
+    .login-card { background: var(--surface); border: 1px solid var(--border); padding: 44px 48px; position: relative; }
+    .login-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+
+    .login-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
+    .login-sub { font-size: 0.8rem; color: var(--muted2); margin-bottom: 28px; line-height: 1.6; }
+
+    .input-group { margin-bottom: 14px; }
+    .input-label { display: block; font-size: 0.68rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .form-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.9rem; padding: 13px 16px; outline: none; transition: border-color 0.3s; }
+    .form-input:focus { border-color: rgba(200,169,110,0.45); }
+    .form-input::placeholder { color: var(--muted); }
+
+    .msg { font-size: 0.8rem; margin: 10px 0; padding: 10px 14px; display: none; }
+    .msg.show { display: block; }
+    .msg.error { background: rgba(224,92,92,0.08); border: 1px solid rgba(224,92,92,0.25); color: #f0a0a0; }
+    .msg.success { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); color: var(--green); }
+
+    .btn-login { width: 100%; background: var(--gradient); color: var(--bg); border: none; padding: 16px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 8px; box-shadow: 0 6px 24px rgba(201,169,110,0.2); }
+    .btn-login:hover { transform: translateY(-1px); box-shadow: 0 10px 32px rgba(201,169,110,0.3); }
+    .btn-login:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .login-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+    .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .login-divider span { font-size: 0.68rem; color: var(--muted); letter-spacing: 1px; }
+
+    .login-hint { font-size: 0.72rem; color: var(--muted); text-align: center; line-height: 1.7; }
+    .login-hint a { color: var(--accent); text-decoration: none; }
+    .login-hint a:hover { text-decoration: underline; }
+
+    .schools-strip { display: flex; justify-content: center; gap: 6px; margin-top: 28px; flex-wrap: wrap; }
+    .school-dot { font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; font-weight: 600; }
+    .school-dot.escp { color: #c9a96e; border: 1px solid rgba(201,169,110,0.2); }
+    .school-dot.emlyon { color: #e8392a; border: 1px solid rgba(232,57,42,0.2); }
+    .school-dot.essec { color: #0055b3; border: 1px solid rgba(0,85,179,0.2); opacity: 0.5; }
+
+    @media (max-width: 480px) {
+      .login-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="/" class="back-link">← Retour</a>
+
+<div class="login-wrap">
+  <div class="login-logo">PrepOral</div>
+  <div class="login-tagline">Préparez les oraux des grandes écoles</div>
+
+  <div class="login-card">
+    <div class="login-title">Accéder à mon espace</div>
+    <div class="login-sub">Entrez votre email et le code d'accès reçu par email.</div>
+
+    <div class="input-group">
+      <label class="input-label">Email</label>
+      <input type="email" class="form-input" id="emailInput" placeholder="prenom@email.com" />
+    </div>
+    <div class="input-group">
+      <label class="input-label">Code d'accès</label>
+      <input type="text" class="form-input" id="codeInput" placeholder="PREP-2025-XXXX" style="letter-spacing:2px;text-transform:uppercase;" />
+    </div>
+
+    <div class="msg error" id="errorMsg"></div>
+    <div class="msg success" id="successMsg"></div>
+
+    <button class="btn-login" id="btnAccess" onclick="handleAccess()">Accéder à mon espace →</button>
+
+    <div class="login-divider"><span>ou</span></div>
+
+    <div class="login-hint">
+      Pas encore de compte ?
+      <a href="/#tarifs">Essai gratuit</a> ·
+      <a href="/#tarifs">Voir les offres</a>
+    </div>
+  </div>
+
+  <div class="schools-strip">
+    <span class="school-dot escp">ESCP</span>
+    <span class="school-dot emlyon">EM Lyon</span>
+    <span class="school-dot essec">ESSEC</span>
+  </div>
+</div>
+
+<script>
+  let deviceId = null
+  window.addEventListener('load', async () => {
+    try {
+      const fp = await FingerprintJS.load()
+      const result = await fp.get()
+      deviceId = result.visitorId
+    } catch(e) { console.error(e) }
+  })
+
+  async function handleAccess() {
+    const email = document.getElementById('emailInput').value.trim()
+    const code = document.getElementById('codeInput').value.trim()
+    const btn = document.getElementById('btnAccess')
+    const errorMsg = document.getElementById('errorMsg')
+    const successMsg = document.getElementById('successMsg')
+
+    errorMsg.classList.remove('show')
+    successMsg.classList.remove('show')
+
+    if (!email || !email.includes('@')) {
+      errorMsg.textContent = '❌ Veuillez entrer une adresse email valide.'
+      errorMsg.classList.add('show')
+      return
+    }
+    if (!code) {
+      errorMsg.textContent = '❌ Veuillez entrer votre code d\'accès.'
+      errorMsg.classList.add('show')
+      return
+    }
+
+    btn.disabled = true
+    btn.textContent = 'Vérification…'
+
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, access_code: code, device_id: deviceId })
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        errorMsg.textContent = '❌ ' + data.error
+        errorMsg.classList.add('show')
+        btn.disabled = false
+        btn.textContent = 'Accéder à mon espace →'
+        return
+      }
+
+      successMsg.textContent = '✅ Accès validé ! Redirection...'
+      successMsg.classList.add('show')
+      localStorage.setItem('student_id', data.student_id)
+      localStorage.setItem('credits', data.credits)
+      localStorage.setItem('email', email)
+      setTimeout(() => { window.location.href = '/dashboard' }, 1000)
+
+    } catch(err) {
+      errorMsg.textContent = '❌ Erreur de connexion. Réessayez.'
+      errorMsg.classList.add('show')
+      btn.disabled = false
+      btn.textContent = 'Accéder à mon espace →'
+    }
+  }
+
+  document.addEventListener('keypress', e => { if (e.key === 'Enter') handleAccess() })
+</script>
+</body>
+</html>
 
