@@ -49,7 +49,8 @@ ENTRETIEN PRÉCÉDENT (à utiliser pour la comparaison) :
 
     // Détection de l'école
     const AGENT_ESCP = 'agent_5301kn5frmakepgabf8ne1pw9kzr'
-    const AGENT_EMLYON = 'agent_9101kqn9ayzzfdfvtf76vegs9gxm'
+    const AGENT_EMLYON = 'agent_2801kqpz5c0pfexst78ct5ezs5tf'
+
 
     let promptFeedback = ''
     let ecole = 'ESCP'
