@@ -29,7 +29,6 @@
     .nav-back { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 7px 18px; font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; text-decoration: none; transition: all 0.3s; }
     .nav-back:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* PHASE 1 : ACCUEIL */
     .phase { display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; padding: 120px 24px 60px; min-height: 100vh; }
     .phase.active { display: flex; }
 
@@ -50,7 +49,6 @@
     }
     .btn-start:hover { box-shadow: 0 12px 40px rgba(232,57,42,0.4); transform: translateY(-2px); }
 
-    /* PHASE 2 : ENTRETIEN + CARTES */
     .entretien-layout { display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%; max-width: 960px; }
 
     .sophie-mini { background: var(--surface); border: 1px solid var(--border); padding: 28px 36px; width: 100%; max-width: 560px; position: relative; text-align: center; }
@@ -58,7 +56,6 @@
     .sophie-mini .agent-name { font-size: 1.4rem; margin-bottom: 4px; }
     .sophie-mini .agent-role { font-size: 0.78rem; margin-bottom: 0; }
 
-    /* CARTES */
     .cards-section { width: 100%; }
     .cards-warning {
       text-align: center; font-size: 0.78rem; color: var(--em-red);
@@ -120,7 +117,6 @@
   <a href="/dashboard" class="nav-back">← Mon espace</a>
 </nav>
 
-<!-- PHASE 1 : ACCUEIL -->
 <div class="phase active" id="phase1">
   <div class="sophie-card">
     <div class="agent-status">En ligne · Prête</div>
@@ -134,22 +130,16 @@
   </div>
 </div>
 
-<!-- PHASE 2 : ENTRETIEN -->
 <div class="phase" id="phase2">
   <div class="entretien-layout">
-
     <div class="sophie-mini">
       <div class="agent-status">En ligne · Entretien en cours</div>
       <div class="agent-name">Sophie Marchand</div>
       <div class="agent-role">Jury emlyon · Early Makers</div>
     </div>
-
     <div class="cards-section">
-      <div class="cards-warning">
-        Ne retournez pas les cartes tant que Sophie ne vous le demande pas
-      </div>
+      <div class="cards-warning">Ne retournez pas les cartes tant que Sophie ne vous le demande pas</div>
       <div class="cards-grid" id="cardsGrid">
-
         <div class="card-slot" id="slot0" onclick="flipCard(0)">
           <div class="card-inner" id="card0">
             <div class="card-face">
@@ -165,7 +155,6 @@
             </div>
           </div>
         </div>
-
         <div class="card-slot" id="slot1" onclick="flipCard(1)">
           <div class="card-inner" id="card1">
             <div class="card-face">
@@ -181,7 +170,6 @@
             </div>
           </div>
         </div>
-
         <div class="card-slot" id="slot2" onclick="flipCard(2)">
           <div class="card-inner" id="card2">
             <div class="card-face">
@@ -197,7 +185,6 @@
             </div>
           </div>
         </div>
-
         <div class="card-slot" id="slot3" onclick="flipCard(3)">
           <div class="card-inner" id="card3">
             <div class="card-face">
@@ -213,15 +200,13 @@
             </div>
           </div>
         </div>
-
       </div>
       <div class="cards-progress" id="cardsProgress">0 carte révélée sur 4</div>
     </div>
-
   </div>
 </div>
 
-<elevenlabs-convai agent-id="agent_9101kqn9ayzzfdfvtf76vegs9gxm" style="display:none;"></elevenlabs-convai>
+<elevenlabs-convai agent-id="agent_2801kqpz5c0pfexst78ct5ezs5tf" style="display:none;"></elevenlabs-convai>
 <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
 <script>
@@ -337,8 +322,7 @@
   }
 
   const categories = ['personnalite', 'experiences', 'projets', 'creativite']
-  
-  // Tirer les 4 questions AU CHARGEMENT — Sophie les connaît avant même que le candidat les voit
+
   const tiresQuestions = categories.map(cat => {
     const list = questions[cat]
     return list[Math.floor(Math.random() * list.length)]
@@ -347,10 +331,8 @@
   let flippedCount = 0
 
   function demarrer() {
-    // Décrémenter les crédits
     fetch('/api/decrement?student_id=' + student_id).catch(err => console.error(err))
 
-    // Passer les cartes à Sophie MAINTENANT — elle les connaît dès le début
     const dynamicVars = {
       student_id: student_id,
       carte_personnalite: tiresQuestions[0],
@@ -362,7 +344,6 @@
     widget.setAttribute('dynamic-variables', JSON.stringify(dynamicVars))
     widget.style.display = ''
 
-    // Changer de phase
     document.getElementById('phase1').classList.remove('active')
     document.getElementById('phase2').classList.add('active')
   }
@@ -372,7 +353,6 @@
     const card = document.getElementById('card' + index)
     if (slot.classList.contains('done')) return
 
-    // Révéler la question
     document.getElementById('q' + index).textContent = tiresQuestions[index]
     card.classList.add('flipped')
     slot.classList.add('done')
