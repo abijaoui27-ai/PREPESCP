@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   const apiKey = process.env.ELEVENLABS_API_KEY;
-  const agentId = process.env.ELEVENLABS_AGENT_ID;
+  const agentId = req.query.agent_id || process.env.ELEVENLABS_AGENT_ID;
 
   try {
     const response = await fetch(
@@ -13,7 +13,6 @@ export default async function handler(req, res) {
       }
     );
     const data = await response.json();
-    // Construire le signed URL WebSocket
     const signedUrl = `wss://api.elevenlabs.io/v1/convai/conversation?token=${data.token}`;
     return res.status(200).json({ signed_url: signedUrl });
   } catch (err) {
