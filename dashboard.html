@@ -388,11 +388,10 @@
     const adminBtn = document.createElement('a')
     adminBtn.href = '/admin'
     adminBtn.textContent = '⚙️ Admin'
-    adminBtn.style.cssText = 'font-size:0.75rem;color:var(--muted);text-decoration:none;border:1px solid var(--border);padding:5px 14px;transition:all 0.3s;font-family:Outfit,sans-serif;'
-    adminBtn.onmouseover = () => { adminBtn.style.borderColor = 'var(--accent)'; adminBtn.style.color = 'var(--accent)' }
-    adminBtn.onmouseout = () => { adminBtn.style.borderColor = 'var(--border)'; adminBtn.style.color = 'var(--muted)' }
-    document.querySelector('.nav-right').prepend(adminBtn)
+    adminBtn.style.cssText = 'font-size:0.75rem;color:#9994aa;text-decoration:none;border:1px solid rgba(200,169,110,0.12);padding:5px 14px;font-family:Outfit,sans-serif;'
+    document.querySelector('.nav-logout').before(adminBtn)
   }
+
 
   if (window.location.search.includes('no_credits')) {
     document.getElementById('noCreditsAlert').classList.add('show')
