@@ -69,46 +69,60 @@ CARTES TIRÉES PAR LE CANDIDAT :
 
 MISSION : Génère un feedback complet, précis, honnête et personnalisé. Tu t'adresses directement au candidat en le vouvoyant. Cite ses propres mots quand tu fais des remarques — ne sois pas vague.
 
-RÈGLES DE NOTATION STRICTES :
-- Entretien trop court ou candidat ayant raccroché volontairement → note max 5/20, indique "Entretien non évaluable" dans le verdict
-- Seulement les cartes sans entretien libre → note max 11/20
-- Entretien complet mais mauvais → peut avoir 6, 7 ou 8/20
-- Entretien complet moyen → 10-11/20
-- Entretien complet bien → 12-13/20
-- Entretien complet très bien → 14-16/20
-- Entretien exceptionnel → 17+/20
+RÈGLES DE NOTATION STRICTES — LIS ATTENTIVEMENT :
+
+Analyse d'abord la transcription pour déterminer dans quel cas tu te trouves :
+
+CAS 1 — ENTRETIEN COMPLET : Les 4 cartes ont été abordées ET l'entretien libre a eu lieu.
+→ Note normale sur 20, calibrée sur la vraie moyenne emlyon (~13/20).
+
+CAS 2 — SEULEMENT LES CARTES : Les 4 cartes ont été abordées mais l'entretien libre n'a pas eu lieu.
+→ Note basée uniquement sur ce qui a été fait (présentation + cartes).
+→ Dans le verdict, indiquer clairement : "Cette note a été calculée uniquement sur la partie cartes — l'entretien libre n'a pas été atteint. Elle n'est pas représentative d'un vrai entretien emlyon complet."
+→ La section "echange_final" doit indiquer "Non évaluable — entretien libre non atteint."
+
+CAS 3 — ENTRETIEN TRÈS INCOMPLET : Moins de 4 cartes abordées, ou entretien volontairement arrêté très tôt.
+→ note : "NN"
+→ Dans le verdict : "Entretien non noté — moins de 4 cartes abordées. Un entretien emlyon ne peut pas être évalué dans ces conditions."
+→ Toutes les sections non évaluables doivent indiquer "Non évaluable."
+
+RÈGLES DE NOTATION POUR CAS 1 ET 2 :
+- Mauvais → 6-8/20
+- Moyen → 10-11/20
+- Bien → 12-13/20
+- Très bien → 14-16/20
+- Exceptionnel → 17+/20
 - Moyenne des admis emlyon ~13/20
 
-POUR CHAQUE SECTION : après ton analyse, donne un conseil concret et personnalisé. Si une section n'a pas pu être évaluée car l'entretien était incomplet, indique "Non évaluable — entretien incomplet."
+POUR CHAQUE SECTION : après ton analyse, donne un conseil concret et personnalisé. Si une section n'a pas pu être évaluée, indique "Non évaluable."
 
 CE QUE RECHERCHE VRAIMENT LE JURY EMLYON :
 - La spontanéité et l'authenticité — pas des réponses récitées
 - La capacité à se raconter avec des anecdotes concrètes
 - La réactivité face aux questions décalées de la carte Créativité
 - La cohérence entre les 4 cartes
-- La méthode STAR pour les cartes Expériences
 - Les 5 valeurs emlyon : Exigence, Responsabilité, Intégrité, Diversité, Solidarité
 - La connaissance réelle de l'école : spécialisations, valeurs, programmes, alumni, professeurs
 
 Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
 {
-  "note": <entier 0-20>,
-  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant. Ton humain et direct, pas froid. 3-4 phrases qui résument l'impression générale. Peut être encourageant ou sévère selon la prestation.>",
-  "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité, premier aperçu de qui est le candidat. Cite un extrait si nécessaire. Se termine par 'Conseil : ...'> ",
-  "qualite_expression": "<Vocabulaire, fluidité, hésitations — objectif, ni trop dur ni trop indulgent. Cite des exemples précis si erreurs. Se termine par 'Conseil : ...'> ",
-  "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment emlyon ? Cherche : citation d'une spécialisation, d'un programme, d'un prof, d'une valeur, d'un alumni, d'une initiative, ou connexion authentique entre ses valeurs et celles d'emlyon. Cite ce qu'il a dit. Se termine par 'Conseil : ...'> ",
-  "carte_personnalite": "<Si abordée : qualité, authenticité, profondeur. Cite un extrait. Se termine par 'Conseil : ...'. Si non abordée : 'Non évaluable — carte non abordée lors de cet entretien.'>",
-  "carte_experiences": "<Si abordée : méthode STAR, apprentissages, lien projet. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
-  "carte_projets": "<Si abordée : clarté, cohérence avec emlyon, ambition. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
+  "note": <entier 0-20 ou la chaîne "NN">,
+  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant. Ton humain et direct. 3-4 phrases. Si CAS 2 : préciser que la note ne couvre que les cartes. Si CAS 3 : indiquer entretien non noté.>",
+  "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité. Cite un extrait si nécessaire. Conseil.>",
+  "qualite_expression": "<Vocabulaire, fluidité, hésitations. Objectif. Cite des exemples si erreurs. Conseil.>",
+  "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment emlyon ? Cherche : spécialisation, programme, prof, valeur, alumni. Cite ce qu'il a dit. Conseil.>",
+  "carte_personnalite": "<Si abordée : qualité, authenticité, profondeur. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
+  "carte_experiences": "<Si abordée : apprentissages, lien projet. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
+  "carte_projets": "<Si abordée : clarté, cohérence avec emlyon. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
   "carte_creativite": "<Si abordée : originalité, spontanéité, prise de risque. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
-  "valeurs_emlyon": "<Les 5 valeurs : Exigence, Responsabilité, Intégrité, Diversité, Solidarité. Pour chacune : bien illustrée / présente / absente avec exemple concret tiré de l'entretien. Conseil global. Si incomplet : évalue uniquement ce qui a été dit.>",
-  "echange_final": "<Si atteint : qualité, profondeur, authenticité, motivation emlyon. Conseil. Si non atteint : 'Non évaluable — entretien terminé avant l'échange final.'>",
-  "question_finale": "<A-t-il posé une question ? Si oui : pertinente, originale ? Cite-la. Conseil. Si non : 'Aucune question posée. Conseil : Préparez toujours une question finale — c'est une occasion de montrer votre connaissance de l'école.'>",
-  "analyse_personnalisee": "<Section libre et personnalisée. Reviens sur 2 ou 3 moments précis. Cite exactement ce que le candidat a dit entre guillemets. Explique pourquoi c'était fort ou problématique. Donne des pistes concrètes. C'est la section la plus importante du feedback.>",
-  "comparaison_precedent": "<Si premier entretien : 'C'est votre premier entretien emlyon — cette session servira de référence.' Sinon : comparaison précise — progression, stagnation, régression.>",
-  "axes_amelioration": "<3 conseils ultra-concrets adaptés au profil et aux erreurs spécifiques du candidat.>",
-  "points_forts": "<2-3 points forts réels et précis.>",
-  "points_faibles": "<2-3 points faibles honnêtes avec exemples.>"
+  "valeurs_emlyon": "<Les 5 valeurs : Exigence, Responsabilité, Intégrité, Diversité, Solidarité. Exemple concret pour chacune. Conseil. Si entretien trop court : évalue uniquement ce qui a été dit.>",
+  "echange_final": "<Si atteint : qualité, profondeur, motivation emlyon. Conseil. Si non atteint : 'Non évaluable — entretien libre non atteint.'>",
+  "question_finale": "<A-t-il posé une question ? Pertinente ? Cite-la. Conseil. Si non : 'Aucune question posée. Conseil : Préparez toujours une question finale.'>",
+  "analyse_personnalisee": "<Section libre. Reviens sur 2-3 moments précis. Cite exactement ce que le candidat a dit entre guillemets. Explique pourquoi fort ou problématique. Pistes concrètes.>",
+  "comparaison_precedent": "<Si premier entretien : 'C'est votre premier entretien emlyon — cette session servira de référence.' Sinon : comparaison précise.>",
+  "axes_amelioration": "<3 conseils ultra-concrets. Si CAS 2 : le premier conseil doit être de faire l'entretien complet. Si CAS 3 : le premier conseil doit être d'aller au bout.>",
+  "points_forts": "<2-3 points forts réels. Si CAS 3 : 'Non évaluable sur un entretien aussi court.'>",
+  "points_faibles": "<2-3 points faibles honnêtes avec exemples. Si CAS 3 : 'Non évaluable.'>"
 }`
 
     } else {
@@ -155,16 +169,16 @@ La capacité à tisser naturellement des liens entre :
 Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
 {
   "note": <entier 0-20>,
-  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant. Ton humain et direct. 3-4 phrases qui résument l'impression générale. Peut être encourageant ou sévère.>",
-  "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité, premier aperçu. Cite un extrait si nécessaire. Se termine par 'Conseil : ...'>",
-  "qualite_expression": "<Vocabulaire, fluidité, hésitations — objectif. Cite des exemples si erreurs. Se termine par 'Conseil : ...'>",
-  "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment l'ESCP ? Cherche : spécialisation, programme, prof, partenariat, alumni, initiative, ou connexion authentique entre ses valeurs et celles de l'ESCP. Cite ce qu'il a dit. Se termine par 'Conseil : ...'>",
-  "dynamique_echange": "<Le candidat porte-t-il l'échange ou le subit-il ? Exemples concrets. Se termine par 'Conseil : ...'>",
-  "triangle_liens": "<Analyse détaillée des liens Personnalité↔Projet↔ESCP. Moments précis. Se termine par 'Conseil : ...'>",
-  "fond_escp": "<Cohérence du parcours, motivation réelle, profondeur du projet. Extraits. Se termine par 'Conseil : ...'>",
-  "exploitation_questionnaire": "<A-t-il valorisé son questionnaire ? Liens naturels ? Exemples. Se termine par 'Conseil : ...'. Si questionnaire vide : 'Le candidat n'a pas rempli son questionnaire. Conseil : le remplir avant le prochain entretien.'>",
+  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant. Ton humain et direct. 3-4 phrases. Peut être encourageant ou sévère.>",
+  "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité. Cite un extrait si nécessaire. Conseil.>",
+  "qualite_expression": "<Vocabulaire, fluidité, hésitations. Objectif. Cite des exemples si erreurs. Conseil.>",
+  "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment l'ESCP ? Cherche : spécialisation, programme, prof, partenariat, alumni. Cite ce qu'il a dit. Conseil.>",
+  "dynamique_echange": "<Le candidat porte-t-il l'échange ou le subit-il ? Exemples concrets. Conseil.>",
+  "triangle_liens": "<Analyse détaillée des liens Personnalité↔Projet↔ESCP. Moments précis. Conseil.>",
+  "fond_escp": "<Cohérence du parcours, motivation réelle, profondeur du projet. Extraits. Conseil.>",
+  "exploitation_questionnaire": "<A-t-il valorisé son questionnaire ? Liens naturels ? Exemples. Conseil. Si questionnaire vide : 'Le candidat n'a pas rempli son questionnaire. Conseil : le remplir avant le prochain entretien.'>",
   "question_finale": "<A-t-il posé une question ? Pertinente, originale ? Cite-la. Conseil. Si non : 'Aucune question posée. Conseil : Préparez toujours une question finale.'>",
-  "analyse_personnalisee": "<Section libre. Reviens sur 2-3 moments précis. Cite exactement ce que le candidat a dit entre guillemets. Explique pourquoi fort ou problématique. Pistes concrètes. Section la plus importante.>",
+  "analyse_personnalisee": "<Section libre. Reviens sur 2-3 moments précis. Cite exactement ce que le candidat a dit entre guillemets. Explique pourquoi fort ou problématique. Pistes concrètes.>",
   "comparaison_precedent": "<Si premier entretien : 'C'est votre premier entretien ESCP — cette session servira de référence.' Sinon : comparaison précise.>",
   "axes_amelioration": "<3 conseils ultra-concrets adaptés au profil spécifique.>",
   "points_forts": "<2-3 points forts réels et précis.>",
