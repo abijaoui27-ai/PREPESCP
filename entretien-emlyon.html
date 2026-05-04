@@ -45,31 +45,35 @@
     .sophie-mini .agent-name { font-size: 1.4rem; margin-bottom: 4px; }
     .sophie-mini .agent-role { font-size: 0.78rem; margin-bottom: 0; }
 
+    /* CARTES */
     .cards-section { width: 100%; }
     .cards-warning { text-align: center; font-size: 0.78rem; color: var(--em-red); letter-spacing: 0.5px; margin-bottom: 20px; padding: 10px 16px; background: rgba(232,57,42,0.06); border: 1px solid rgba(232,57,42,0.2); display: flex; align-items: center; justify-content: center; gap: 8px; }
     .cards-warning::before { content: '⚠️'; }
-    .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 
-    .card-slot { perspective: 1000px; cursor: pointer; }
+    .card-slot { perspective: 1200px; cursor: pointer; aspect-ratio: 2/3; }
     .card-slot.done { cursor: default; }
-    .card-inner { position: relative; width: 100%; padding-bottom: 160%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
     .card-inner.flipped { transform: rotateY(180deg); }
-    .card-face, .card-back { position: absolute; inset: 0; backface-visibility: hidden; border: 1px solid var(--border); }
+    .card-face, .card-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 6px; }
     .card-back { transform: rotateY(180deg); }
 
-    .card-face { background: var(--surface2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 16px; transition: background 0.3s, border-color 0.3s; }
-    .card-slot:not(.done) .card-face:hover { background: var(--surface3); border-color: rgba(232,57,42,0.3); }
-    .card-face-bg { position: absolute; inset: 0; opacity: 0.03; background-image: repeating-linear-gradient(45deg, var(--em-red) 0, var(--em-red) 1px, transparent 0, transparent 50%); background-size: 8px 8px; }
-    .card-face-logo { position: relative; z-index: 1; font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--em-red); opacity: 0.5; }
-    .card-face-cat { position: relative; z-index: 1; font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-align: center; }
-    .card-face-hint { position: relative; z-index: 1; font-size: 0.65rem; color: var(--em-red); opacity: 0.6; }
+    /* Face cachée */
+    .card-face { background: #0d0d1a; border: 1px solid rgba(232,57,42,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 20px; transition: border-color 0.3s; }
+    .card-slot:not(.done) .card-face:hover { border-color: rgba(232,57,42,0.45); background: #121220; }
+    .card-face-logo { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; color: var(--em-red); opacity: 0.35; letter-spacing: 6px; }
+    .card-face-line { width: 24px; height: 1px; background: rgba(232,57,42,0.3); }
+    .card-face-cat { font-size: 0.58rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); text-align: center; }
 
-    .card-back { background: var(--surface2); display: flex; flex-direction: column; padding: 16px; }
-    .card-back::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--em-red); }
-    .card-cat { font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: var(--em-red); font-weight: 600; margin-bottom: 10px; }
-    .card-q { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); line-height: 1.4; flex: 1; }
-    .card-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--em-red); opacity: 0.12; align-self: flex-end; line-height: 1; margin-top: 8px; }
-    .cards-progress { text-align: center; margin-top: 16px; font-size: 0.75rem; color: var(--muted2); }
+    /* Face révélée */
+    .card-back { background: #faf8f4; border: 1px solid rgba(232,57,42,0.12); display: flex; flex-direction: column; padding: 18px 16px; }
+    .card-back-header { display: flex; align-items: center; gap: 7px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(232,57,42,0.12); }
+    .card-back-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--em-red); flex-shrink: 0; }
+    .card-cat { font-size: 0.52rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--em-red); font-weight: 700; }
+    .card-q { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: #18182a; line-height: 1.5; flex: 1; }
+    .card-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--em-red); opacity: 0.08; align-self: flex-end; line-height: 1; margin-top: 8px; }
+
+    .cards-progress { text-align: center; margin-top: 14px; font-size: 0.72rem; color: var(--muted2); }
 
     elevenlabs-convai { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
 
@@ -111,66 +115,79 @@
     <div class="cards-section">
       <div class="cards-warning">Ne retournez pas les cartes tant que Sophie ne vous le demande pas</div>
       <div class="cards-grid" id="cardsGrid">
+
         <div class="card-slot" id="slot0" onclick="flipCard(0)">
           <div class="card-inner" id="card0">
             <div class="card-face">
-              <div class="card-face-bg"></div>
               <div class="card-face-logo">em</div>
+              <div class="card-face-line"></div>
               <div class="card-face-cat">Personnalité</div>
-              <div class="card-face-hint">Appuyer pour tirer</div>
             </div>
             <div class="card-back">
-              <div class="card-cat">Personnalité</div>
+              <div class="card-back-header">
+                <div class="card-back-dot"></div>
+                <div class="card-cat">Personnalité</div>
+              </div>
               <div class="card-q" id="q0"></div>
               <div class="card-num">01</div>
             </div>
           </div>
         </div>
+
         <div class="card-slot" id="slot1" onclick="flipCard(1)">
           <div class="card-inner" id="card1">
             <div class="card-face">
-              <div class="card-face-bg"></div>
               <div class="card-face-logo">em</div>
+              <div class="card-face-line"></div>
               <div class="card-face-cat">Expériences</div>
-              <div class="card-face-hint">Appuyer pour tirer</div>
             </div>
             <div class="card-back">
-              <div class="card-cat">Expériences passées</div>
+              <div class="card-back-header">
+                <div class="card-back-dot"></div>
+                <div class="card-cat">Expériences passées</div>
+              </div>
               <div class="card-q" id="q1"></div>
               <div class="card-num">02</div>
             </div>
           </div>
         </div>
+
         <div class="card-slot" id="slot2" onclick="flipCard(2)">
           <div class="card-inner" id="card2">
             <div class="card-face">
-              <div class="card-face-bg"></div>
               <div class="card-face-logo">em</div>
+              <div class="card-face-line"></div>
               <div class="card-face-cat">Projets futurs</div>
-              <div class="card-face-hint">Appuyer pour tirer</div>
             </div>
             <div class="card-back">
-              <div class="card-cat">Projets futurs</div>
+              <div class="card-back-header">
+                <div class="card-back-dot"></div>
+                <div class="card-cat">Projets futurs</div>
+              </div>
               <div class="card-q" id="q2"></div>
               <div class="card-num">03</div>
             </div>
           </div>
         </div>
+
         <div class="card-slot" id="slot3" onclick="flipCard(3)">
           <div class="card-inner" id="card3">
             <div class="card-face">
-              <div class="card-face-bg"></div>
               <div class="card-face-logo">em</div>
+              <div class="card-face-line"></div>
               <div class="card-face-cat">Créativité</div>
-              <div class="card-face-hint">Appuyer pour tirer</div>
             </div>
             <div class="card-back">
-              <div class="card-cat">Créativité</div>
+              <div class="card-back-header">
+                <div class="card-back-dot"></div>
+                <div class="card-cat">Créativité</div>
+              </div>
               <div class="card-q" id="q3"></div>
               <div class="card-num">04</div>
             </div>
           </div>
         </div>
+
       </div>
       <div class="cards-progress" id="cardsProgress">0 carte révélée sur 4</div>
     </div>
@@ -303,7 +320,6 @@
 
   function demarrer() {
     fetch('/api/decrement?student_id=' + student_id).catch(err => console.error(err))
-
     const dynamicVars = {
       student_id: student_id,
       carte_personnalite: tiresQuestions[0],
@@ -314,7 +330,6 @@
     const widget = document.querySelector('elevenlabs-convai')
     widget.setAttribute('dynamic-variables', JSON.stringify(dynamicVars))
     widget.style.display = ''
-
     document.getElementById('phase1').classList.remove('active')
     document.getElementById('phase2').classList.add('active')
   }
@@ -323,11 +338,9 @@
     const slot = document.getElementById('slot' + index)
     const card = document.getElementById('card' + index)
     if (slot.classList.contains('done')) return
-
     document.getElementById('q' + index).textContent = tiresQuestions[index]
     card.classList.add('flipped')
     slot.classList.add('done')
-
     flippedCount++
     document.getElementById('cardsProgress').textContent =
       flippedCount + ' carte' + (flippedCount > 1 ? 's révélées' : ' révélée') + ' sur 4'
