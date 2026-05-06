@@ -6,6 +6,7 @@
     { "src": "/entretien-emlyon", "dest": "/entretien-emlyon.html" },
     { "src": "/dashboard", "dest": "/dashboard.html" },
     { "src": "/admin", "dest": "/admin.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/(.*)", "dest": "/index.html" },
+    { "src": "/essec", "dest": "/essec.html" }
   ]
 }
