@@ -287,6 +287,40 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 }
 .empty-q { text-align: center; padding: 40px 20px; color: var(--muted2); background: var(--surface2); border: 1px solid var(--border); }
 
+
+.tab-content.escp-content { border-top: 2px solid var(--escp); }
+.questionnaire-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 32px; }
+.questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
+.questionnaire-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; margin-bottom: 24px; }
+.questionnaire-desc strong { color: var(--escp); }
+.q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; }
+.q-toggle:hover { border-color: var(--escp); color: var(--escp); }
+.questionnaire-form { display: none; flex-direction: column; gap: 18px; }
+.questionnaire-form.open { display: flex; }
+.q-group { display: flex; flex-direction: column; gap: 6px; }
+.q-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--escp); }
+.q-hint { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
+.q-textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.82rem; padding: 10px 14px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 72px; line-height: 1.6; }
+.q-textarea:focus { border-color: rgba(201,169,110,0.4); }
+.q-textarea::placeholder { color: var(--muted); }
+.q-actions { display: flex; align-items: center; gap: 16px; }
+.btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 10px 28px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.btn-save:hover { transform: translateY(-1px); }
+.btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.q-save-msg { font-size: 0.75rem; color: var(--green); display: none; }
+.q-save-msg.show { display: block; }
+.q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--green); }
+.section-eyebrow { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
+.entretien-list { display: flex; flex-direction: column; gap: 8px; }
+.entretien-item { background: var(--surface2); border: 1px solid var(--border); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: background 0.3s; cursor: pointer; }
+.entretien-item:hover { background: var(--surface3); }
+.entretien-date { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
+.entretien-title { font-size: 0.88rem; font-weight: 500; }
+.note-badge { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.note-label { font-size: 0.65rem; color: var(--muted); text-align: right; }
+.empty-state { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; line-height: 1.7; background: var(--surface2); border: 1px solid var(--border); }
+.empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
+
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
   .main { padding: 80px 16px 40px; }
@@ -708,27 +742,62 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 
   <!-- EXERCICES -->
   <div id="psycho-exos" class="psycho-panel">
-    <div class="exo-filters">
-      <button class="exo-filter active" onclick="exoSetType('all',this)">Tout mélanger</button>
-      <button class="exo-filter" onclick="exoSetType('num',this)">Séries numériques</button>
-      <button class="exo-filter" onclick="exoSetType('lettres',this)">Séries de lettres</button>
-      <button class="exo-filter" onclick="exoSetType('quant',this)">Quantitatif</button>
-      <button class="exo-filter" onclick="exoSetType('deductif',this)">Déductif</button>
-      <button class="exo-filter" onclick="exoSetType('vocab',this)">Vocabulaire</button>
-      <button class="exo-filter" onclick="exoSetType('analogie',this)">Analogies</button>
-      <button class="exo-filter" onclick="exoSetType('code',this)">Codes</button>
-    </div>
-    <div class="exo-score-bar">
+
+    <!-- Header progression globale -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
       <div>
-        <div class="exo-score-num" id="exo-score">0/0</div>
-        <div style="font-size:0.72rem;color:var(--muted2);">réponses correctes</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">Exercices par thème</div>
+        <div style="font-size:0.78rem;color:var(--muted2);margin-top:4px;">Réponds à toutes les questions de chaque section pour valider le thème</div>
       </div>
-      <div style="display:flex;gap:20px;">
-        <span style="font-size:0.82rem;color:var(--green)">✓ <span id="exo-ok">0</span></span>
-        <span style="font-size:0.82rem;color:var(--red)">✗ <span id="exo-ko">0</span></span>
+      <div style="text-align:right;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;" id="exo-global-score">0/0</div>
+        <div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Score global</div>
       </div>
     </div>
-    <div id="exo-container"></div>
+
+    <!-- Vue sélection des thèmes -->
+    <div id="exo-theme-selector">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="exo-themes-grid">
+        <!-- Généré par JS -->
+      </div>
+    </div>
+
+    <!-- Vue entraînement d'un thème -->
+    <div id="exo-training-view" style="display:none;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+        <button onclick="exoBackToThemes()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:8px 16px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.8rem;">← Retour aux thèmes</button>
+        <div id="exo-theme-title" style="font-size:0.92rem;font-weight:600;"></div>
+        <div style="margin-left:auto;font-size:0.82rem;color:var(--muted2);"><span id="exo-q-progress">0</span>/<span id="exo-q-total">0</span> questions</div>
+      </div>
+      <div class="exo-score-bar">
+        <div><div class="exo-score-num" id="exo-score">0/0</div><div style="font-size:0.72rem;color:var(--muted2);">réponses correctes</div></div>
+        <div style="display:flex;gap:20px;">
+          <span style="font-size:0.82rem;color:var(--green)">✓ <span id="exo-ok">0</span></span>
+          <span style="font-size:0.82rem;color:var(--red)">✗ <span id="exo-ko">0</span></span>
+        </div>
+      </div>
+      <div id="exo-container"></div>
+    </div>
+
+    <!-- Vue résultats d'un thème -->
+    <div id="exo-results-view" style="display:none;">
+      <div style="background:var(--surface2);border:1px solid var(--border);padding:40px;text-align:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);"></div>
+        <div id="exo-res-icon" style="font-size:3rem;margin-bottom:12px;"></div>
+        <div id="exo-res-title" style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;margin-bottom:8px;"></div>
+        <div id="exo-res-detail" style="font-size:0.85rem;color:var(--muted2);margin-bottom:24px;"></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border2);margin-bottom:24px;">
+          <div style="background:var(--surface);padding:16px;"><div id="exo-r-ok" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--green)">0</div><div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Bonnes</div></div>
+          <div style="background:var(--surface);padding:16px;"><div id="exo-r-ko" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--red)">0</div><div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Mauvaises</div></div>
+          <div style="background:var(--surface);padding:16px;"><div id="exo-r-pct" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0%</div><div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Score</div></div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="exoRetryTheme()" style="padding:12px 28px;background:var(--essec2);border:none;color:#fff;font-family:Outfit,sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;">🔁 Refaire ce thème</button>
+          <button onclick="exoBackToThemes()" style="padding:12px 28px;background:transparent;border:1px solid var(--border);color:var(--muted2);font-family:Outfit,sans-serif;font-size:0.88rem;cursor:pointer;">← Choisir un autre thème</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- TEST CHRONOMÉTRÉ -->
@@ -755,12 +824,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
         </div>
       </div>
       <div class="chrono-row">
-        <div class="chrono-label">Pénalité pour mauvaise réponse</div>
-        <div class="chrono-opts">
-          <div class="chrono-opt sel" onclick="chronoCfg(this,'pen','0.25')">−¼ point</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'pen','0.5')">−½ point</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'pen','1')">−1 point</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'pen','0')">Sans pénalité</div>
+        <div class="chrono-label">Notation ESSEC réelle</div>
+        <div style="background:var(--essec-bg);border:1px solid var(--essec-border);padding:12px 16px;font-size:0.82rem;color:var(--muted2);line-height:1.7;">
+          ✅ <strong style="color:var(--text)">Bonne réponse</strong> : +1 point<br>
+          ⬜ <strong style="color:var(--text)">Sans réponse</strong> : 0 point<br>
+          ❌ <strong style="color:var(--text)">Mauvaise réponse</strong> : −¼ point (pénalité réelle ESSEC)<br>
+          <span style="font-size:0.75rem;color:var(--muted);margin-top:6px;display:block;">Ce test simule exactement le barème officiel des épreuves psychotechniques ESSEC.</span>
         </div>
       </div>
       <button class="chrono-start" onclick="chronoStart()">🚀 Lancer le test</button>
@@ -1111,10 +1180,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     el.classList.add('active');
     var target = document.getElementById('essec-view-' + view);
     if(target){target.style.display='block';target.classList.add('active');}
-    if(view==='psycho'){
-      // Init exercices
-      if(exoFiltered.length===0) exoInit();
-    }
+    if(view==='psycho'){ exoRenderThemes(); }
   }
 
   function psychoNav(panel, el) {
@@ -1123,7 +1189,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     el.classList.add('active');
     var target = document.getElementById('psycho-' + panel);
     if(target){target.style.display='block';target.classList.add('active');}
-    if(panel==='exos' && exoFiltered.length===0) exoInit();
+    if(panel==='exos') { exoRenderThemes(); }
   }
 
   function coursToggle(item) {
@@ -1132,7 +1198,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     if(!isOpen) item.classList.add('open');
   }
 
-  // === EXERCICES ===
+  // === EXERCICES PAR THÈME ===
+
+
   const QUESTIONS = [
   // SÉRIES NUMÉRIQUES (25 questions)
   {type:'num',q:'Quelle est la suite logique ? 48, 8, 35, 7, 24, …',opts:['17','6','19','18'],ans:1,exp:'Deux suites entrelacées : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6.'},
@@ -1269,45 +1337,95 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   {type:'code',q:'Quel nombre remplace le ? : 4 (12) 8 – 5 (30) 6 – 3 (21) ?',opts:['6','7','8','9'],ans:1,exp:'4×8−(8−4) = 32−4=28? Non. 4×8=32/2=16? 5×6=30 ✓. Règle : premier × second = résultat. 3×? = 21 → 7. Réponse : 7.'},
 ]
 
+function shuffle(arr){const a=[...arr]
+
+    return a;
+  }
   function eShuffle(arr){var a=[...arr];for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 
-  var exoType='all', exoIdx=0, exoOk=0, exoKo=0, exoFiltered=[];
+  var EXO_THEMES = [
+    { id:'num',    label:'Séries numériques',   icon:'🔢', desc:'Arithmétique, géométrique, entrelacées' },
+    { id:'lettres',label:'Séries de lettres',    icon:'🔤', desc:'Positions, initiales, suites alternées' },
+    { id:'quant',  label:'Raisonnement quantitatif', icon:'📐', desc:'Maths appliquées, pièges logiques' },
+    { id:'deductif',label:'Raisonnement déductif',  icon:'🧠', desc:'Syllogismes, contraposée, quantificateurs' },
+    { id:'vocab',  label:'Synonymes & Vocabulaire', icon:'📖', desc:'Mots rares, antonymes, paronymes' },
+    { id:'analogie',label:'Analogies verbales',     icon:'🔗', desc:'8 types de rapports à identifier' },
+    { id:'code',   label:'Codes & Chiffrements',    icon:'🔐', desc:'Correspondances, anagrammes, liaisons' },
+  ];
 
-  function exoSetType(type,btn){
-    exoType=type;
-    document.querySelectorAll('.exo-filter').forEach(function(b){b.classList.remove('active');});
-    btn.classList.add('active');
-    exoOk=0;exoKo=0;exoIdx=0;
-    exoInit();
+  // Scores par thème stockés localement
+  var exoThemeScores = {};
+  EXO_THEMES.forEach(function(t){ exoThemeScores[t.id] = {done:0, ok:0, total:0}; });
+
+  var exoCurTheme = null, exoIdx=0, exoOk=0, exoKo=0, exoFiltered=[];
+
+  function exoRenderThemes() {
+    var grid = document.getElementById('exo-themes-grid');
+    if(!grid) return;
+    var totalDone=0, totalOk=0, totalQ=0;
+    grid.innerHTML = EXO_THEMES.map(function(t) {
+      var sc = exoThemeScores[t.id];
+      var pct = sc.total>0 ? Math.round((sc.ok/sc.total)*100) : -1;
+      var done = sc.done >= QUESTIONS.filter(function(q){return q.type===t.id;}).length && sc.total>0;
+      totalDone += sc.ok; totalOk += sc.ok; totalQ += sc.total;
+      var badge = done
+        ? '<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:6px;">✓ Terminé</div>'
+        : sc.total>0
+          ? '<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--warning);margin-bottom:6px;">En cours</div>'
+          : '';
+      var scoreBar = sc.total>0
+        ? '<div style="margin-top:10px;"><div style="background:var(--surface3);height:4px;border-radius:2px;overflow:hidden;"><div style="background:'+(pct>=70?'var(--green)':pct>=40?'#ffa94d':'var(--red)')
+          +';height:100%;width:'+pct+'%;transition:width 0.5s;"></div></div><div style="font-size:0.72rem;color:var(--muted2);margin-top:4px;">'+sc.ok+'/'+sc.total+' correctes ('+pct+'%)</div></div>'
+        : '<div style="margin-top:10px;font-size:0.72rem;color:var(--muted);">'+QUESTIONS.filter(function(q){return q.type===t.id;}).length+' questions disponibles</div>';
+      return '<div onclick="exoStartTheme(''+t.id+'')" style="background:var(--surface2);border:1px solid '+(done?'rgba(74,222,128,0.3)':'var(--border)')+';padding:20px 22px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--essec2)'" onmouseout="this.style.borderColor=''+(done?'rgba(74,222,128,0.3)':'var(--border)')+''">'+badge+'<div style="display:flex;align-items:center;gap:10px;"><div style="font-size:1.4rem;">'+t.icon+'</div><div><div style="font-size:0.9rem;font-weight:600;">'+t.label+'</div><div style="font-size:0.75rem;color:var(--muted2);margin-top:2px;">'+t.desc+'</div></div></div>'+scoreBar+'</div>';
+    }).join('');
+    // Update global score
+    var gEl = document.getElementById('exo-global-score');
+    if(gEl && totalQ>0) gEl.textContent = totalOk+'/'+totalQ;
   }
 
-  function exoInit(){
-    exoFiltered=eShuffle(exoType==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.type===exoType;}));
-    exoIdx=0;exoUpdateScore();exoRender();
+  function exoStartTheme(typeId) {
+    exoCurTheme = typeId;
+    var theme = EXO_THEMES.find(function(t){return t.id===typeId;});
+    exoFiltered = eShuffle(QUESTIONS.filter(function(q){return q.type===typeId;}));
+    exoIdx=0; exoOk=0; exoKo=0;
+    // Reset scores for this attempt
+    exoThemeScores[typeId] = {done:0, ok:0, total:exoFiltered.length};
+    // Update UI
+    document.getElementById('exo-theme-selector').style.display='none';
+    document.getElementById('exo-results-view').style.display='none';
+    document.getElementById('exo-training-view').style.display='block';
+    document.getElementById('exo-theme-title').innerHTML = theme.icon+' '+theme.label;
+    document.getElementById('exo-q-total').textContent = exoFiltered.length;
+    exoUpdateScore(); exoRender();
   }
 
-  function exoUpdateScore(){
+  function exoUpdateScore() {
     var t=exoOk+exoKo;
     document.getElementById('exo-score').textContent=exoOk+'/'+t;
     document.getElementById('exo-ok').textContent=exoOk;
     document.getElementById('exo-ko').textContent=exoKo;
+    document.getElementById('exo-q-progress').textContent=exoIdx;
   }
 
-  function exoRender(){
+  function exoRender() {
     var c=document.getElementById('exo-container');
-    if(!c)return;
-    if(exoIdx>=exoFiltered.length){
-      c.innerHTML='<div class="empty-q">🎉 Tu as terminé toutes les questions !<br><br><button onclick="exoInit()" style="margin-top:14px;background:var(--gradient);color:var(--bg);border:none;padding:10px 24px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:600;">Recommencer</button></div>';
+    if(!c) return;
+    if(exoIdx>=exoFiltered.length) {
+      // Thème terminé → afficher résultats
+      exoThemeScores[exoCurTheme] = {done:exoFiltered.length, ok:exoOk, total:exoFiltered.length};
+      exoShowResults();
       return;
     }
     var q=exoFiltered[exoIdx];
-    var labels={num:'Séries numériques',lettres:'Séries de lettres',quant:'Quantitatif',deductif:'Déductif',vocab:'Vocabulaire',analogie:'Analogies',code:'Codes'};
     var L=['A','B','C','D'];
-    var opts=q.opts.map(function(o,i){return '<button class="q-opt" onclick="exoAnswer(this,'+i+','+exoIdx+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>';}).join('');
-    c.innerHTML='<div class="q-card"><div class="q-tag">'+(labels[q.type]||q.type)+'</div><div class="q-text">'+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="qfb'+exoIdx+'"></div><button class="q-next" id="qnxt'+exoIdx+'" onclick="exoNext()">Question suivante →</button></div>';
+    var opts=q.opts.map(function(o,i){
+      return '<button class="q-opt" onclick="exoAnswer(this,'+i+','+exoIdx+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>';
+    }).join('');
+    c.innerHTML='<div class="q-card"><div class="q-tag">Question '+(exoIdx+1)+' / '+exoFiltered.length+'</div><div class="q-text">'+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="qfb'+exoIdx+'"></div><button class="q-next" id="qnxt'+exoIdx+'" onclick="exoNext()">Question suivante →</button></div>';
   }
 
-  function exoAnswer(btn,chosen,idx){
+  function exoAnswer(btn,chosen,idx) {
     var q=exoFiltered[idx];
     btn.parentElement.querySelectorAll('.q-opt').forEach(function(o){o.classList.add('disabled');o.onclick=null;});
     var ok=chosen===q.ans;
@@ -1320,7 +1438,36 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     exoUpdateScore();
   }
 
-  function exoNext(){exoIdx++;exoRender();}
+  function exoNext() { exoIdx++; exoRender(); }
+
+  function exoShowResults() {
+    document.getElementById('exo-training-view').style.display='none';
+    document.getElementById('exo-results-view').style.display='block';
+    var pct = exoFiltered.length>0 ? Math.round((exoOk/exoFiltered.length)*100) : 0;
+    var theme = EXO_THEMES.find(function(t){return t.id===exoCurTheme;});
+    var icon = pct>=80 ? '🏆' : pct>=50 ? '👍' : '📚';
+    var title = pct>=80 ? 'Excellent !' : pct>=50 ? 'Bon travail' : 'Continue à t'entraîner';
+    document.getElementById('exo-res-icon').textContent = icon;
+    document.getElementById('exo-res-title').textContent = title;
+    document.getElementById('exo-res-detail').textContent = 'Tu as répondu correctement à '+exoOk+' question'+(exoOk>1?'s':'')+ ' sur '+exoFiltered.length+' en '+theme.label;
+    document.getElementById('exo-r-ok').textContent = exoOk;
+    document.getElementById('exo-r-ko').textContent = exoKo;
+    document.getElementById('exo-r-pct').textContent = pct+'%';
+    exoRenderThemes();
+  }
+
+  function exoRetryTheme() { exoStartTheme(exoCurTheme); }
+
+  function exoBackToThemes() {
+    document.getElementById('exo-training-view').style.display='none';
+    document.getElementById('exo-results-view').style.display='none';
+    document.getElementById('exo-theme-selector').style.display='block';
+    exoRenderThemes();
+  }
+
+  function exoInit() {
+    exoRenderThemes();
+  }
 
   // === TEST CHRONOMÉTRÉ ===
   var cCfg={dur:5,type:'all',pen:0.25};
@@ -1397,10 +1544,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   }
 
   // Auto-init exercices au chargement
-  document.addEventListener('DOMContentLoaded', function(){
-    exoFiltered = eShuffle(QUESTIONS);
-    exoIdx=0;
-  });
+  document.addEventListener('DOMContentLoaded', function(){ exoRenderThemes(); });
 
 </script>
 
