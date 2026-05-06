@@ -274,7 +274,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .essec-subtab { flex: 1; padding: 12px 16px; text-align: center; cursor: pointer; font-size: 0.78rem; font-weight: 500; background: var(--surface2); color: var(--muted2); transition: all 0.3s; border-bottom: 2px solid transparent; }
 .essec-subtab:hover { color: var(--text); }
 .essec-subtab.active { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface3); }
-.essec-panel { display: none; padding: 28px 0 0; }
+.essec-panel { display: none; padding: 28px 0 0; } /* hidden by default */
 .essec-panel.active { display: block; }
 /* ESSEC score bar */
 .score-bar { display: flex; align-items: center; gap: 16px; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 20px; }
@@ -415,7 +415,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 </div>
 
 <!-- COURS -->
-<div id="essec-panel-cours" class="essec-panel active">
+<div id="essec-panel-cours" class="essec-panel active" style="display:block">
   <div class="section-eyebrow" style="margin-bottom:20px;">Techniques pour chaque type d'épreuve psychotechnique ESSEC</div>
   <div class="cours-grid">
 
@@ -930,13 +930,17 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab);
     document.getElementById('content' + tab.toUpperCase()).classList.add('active');
     if (tab === 'essec') {
-      // Forcer le premier sous-onglet actif
-      document.querySelectorAll('.essec-panel').forEach(function(p) { p.classList.remove('active'); });
+      // Forcer le premier sous-onglet actif avec style.display direct
+      var allPanels = ['cours','entrainement','test','oral'];
+      for (var pi = 0; pi < allPanels.length; pi++) {
+        var pp = document.getElementById('essec-panel-' + allPanels[pi]);
+        if (pp) pp.style.display = 'none';
+      }
+      var coursPanel = document.getElementById('essec-panel-cours');
+      if (coursPanel) coursPanel.style.display = 'block';
       document.querySelectorAll('.essec-subtab').forEach(function(t) { t.classList.remove('active'); });
-      var firstPanel = document.getElementById('essec-panel-cours');
-      var firstTab = document.querySelector('.essec-subtab');
-      if (firstPanel) firstPanel.classList.add('active');
-      if (firstTab) firstTab.classList.add('active');
+      var firstSubtab = document.querySelector('.essec-subtab');
+      if (firstSubtab) firstSubtab.classList.add('active');
     }
   }
 
@@ -1128,11 +1132,20 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   }
 
   function showEssecTab(name, el) {
-    document.querySelectorAll('.essec-panel').forEach(function(p) { p.classList.remove('active'); });
+    // Cacher tous les panels
+    var panels = ['cours','entrainement','test','oral'];
+    for (var i = 0; i < panels.length; i++) {
+      var p = document.getElementById('essec-panel-' + panels[i]);
+      if (p) { p.style.display = 'none'; p.classList.remove('active'); }
+    }
+    // Desactiver tous les sous-onglets
     document.querySelectorAll('.essec-subtab').forEach(function(t) { t.classList.remove('active'); });
-    var panel = document.getElementById('essec-panel-' + name);
-    if (panel) panel.classList.add('active');
+    // Afficher le panel sélectionné
+    var target = document.getElementById('essec-panel-' + name);
+    if (target) { target.style.display = 'block'; target.classList.add('active'); }
+    // Activer le sous-onglet
     if (el) el.classList.add('active');
+    // Init si nécessaire
     if (name === 'entrainement') essecInitEntrainement();
   }
 
