@@ -74,188 +74,218 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .btn-emlyon:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,57,42,0.35); }
 .btn-disabled { opacity: 0.4; pointer-events: none; }
 
-/* ESSEC buttons */
-.essec-actions { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
-.btn-essec-oral {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: linear-gradient(135deg, var(--essec) 0%, var(--essec2) 100%);
-  color: white; border: none; padding: 16px 36px;
-  font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600;
-  cursor: pointer; transition: all 0.3s; text-decoration: none;
-  box-shadow: 0 6px 24px rgba(0,85,179,0.25);
-  opacity: 0.5; pointer-events: none;
+
+
+/* ===== ESSEC REDESIGN ===== */
+.essec-nav { display: flex; gap: 0; margin-bottom: 0; }
+.essec-nav-btn {
+  flex: 1; padding: 14px 20px; text-align: center; cursor: pointer;
+  font-size: 0.82rem; font-weight: 600; background: var(--surface2);
+  color: var(--muted2); transition: all 0.25s; border-bottom: 3px solid transparent;
+  letter-spacing: 0.5px;
 }
-.btn-essec-psycho {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--surface2); color: var(--essec2);
-  border: 1px solid var(--essec-border); padding: 16px 36px;
-  font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600;
-  cursor: pointer; transition: all 0.3s; text-decoration: none;
+.essec-nav-btn:hover { color: var(--text); background: var(--surface3); }
+.essec-nav-btn.active { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface3); }
+
+.essec-view { display: none; }
+.essec-view.active { display: block; }
+
+/* Oral view */
+.oral-hero {
+  background: linear-gradient(135deg, rgba(0,59,122,0.15), rgba(0,85,179,0.08));
+  border: 1px solid var(--essec-border); padding: 40px;
+  margin-bottom: 24px; position: relative; overflow: hidden;
 }
-.btn-essec-psycho:hover { background: var(--essec-bg); transform: translateY(-2px); }
-.essec-oral-soon {
-  font-size: 0.72rem; color: var(--muted); background: var(--surface3);
-  padding: 2px 10px; letter-spacing: 1px; text-transform: uppercase;
-  align-self: center; margin-left: -8px;
+.oral-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--essec), var(--essec2));
+}
+.oral-hero-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700;
+  margin-bottom: 8px;
+}
+.oral-hero-sub { font-size: 0.85rem; color: var(--muted2); line-height: 1.7; margin-bottom: 28px; }
+.oral-info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+.oral-info-item {
+  background: rgba(0,85,179,0.08); border: 1px solid var(--essec-border);
+  padding: 16px; text-align: center;
+}
+.oral-info-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700;
+  color: var(--essec2); line-height: 1;
+}
+.oral-info-label { font-size: 0.68rem; color: var(--muted2); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.oral-tips {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-left: 3px solid var(--essec2); padding: 16px 20px; margin-bottom: 28px;
+}
+.oral-tips-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 10px; }
+.oral-tips ul { padding-left: 16px; }
+.oral-tips li { font-size: 0.83rem; color: var(--muted2); line-height: 1.8; }
+.oral-widget-box {
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 40px 24px; text-align: center;
+}
+.oral-widget-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+
+/* Psycho nav */
+.psycho-subnav { display: flex; gap: 2px; background: var(--border2); margin-bottom: 0; }
+.psycho-subnav-btn {
+  flex: 1; padding: 11px 16px; text-align: center; cursor: pointer;
+  font-size: 0.78rem; font-weight: 500; background: var(--surface);
+  color: var(--muted2); transition: all 0.2s; border-bottom: 2px solid transparent;
+}
+.psycho-subnav-btn:hover { color: var(--text); }
+.psycho-subnav-btn.active { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface2); }
+
+.psycho-panel { display: none; padding: 28px 0 0; }
+.psycho-panel.active { display: block; }
+
+/* Cours accordéon */
+.cours-list { display: flex; flex-direction: column; gap: 2px; }
+.cours-item { background: var(--surface2); border: 1px solid var(--border); overflow: hidden; }
+.cours-item-header {
+  display: flex; align-items: center; gap: 16px; padding: 20px 24px;
+  cursor: pointer; transition: background 0.2s; user-select: none;
+}
+.cours-item-header:hover { background: var(--surface3); }
+.cours-item.open .cours-item-header { background: var(--surface3); border-bottom: 1px solid var(--border); }
+.cours-item-icon {
+  width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; background: var(--essec-bg); border: 1px solid var(--essec-border); flex-shrink: 0;
+}
+.cours-item-title { font-size: 0.92rem; font-weight: 600; flex: 1; }
+.cours-item-sub { font-size: 0.75rem; color: var(--muted2); margin-top: 2px; }
+.cours-item-arrow { color: var(--muted); font-size: 0.75rem; transition: transform 0.25s; flex-shrink: 0; }
+.cours-item.open .cours-item-arrow { transform: rotate(180deg); }
+.cours-item-body { display: none; padding: 28px 32px; }
+.cours-item.open .cours-item-body { display: block; }
+.cours-item-body h4 {
+  font-size: 0.65rem; font-weight: 700; color: var(--essec2);
+  text-transform: uppercase; letter-spacing: 2px; margin: 20px 0 10px;
+}
+.cours-item-body h4:first-child { margin-top: 0; }
+.cours-item-body p, .cours-item-body li { font-size: 0.85rem; color: var(--muted2); line-height: 1.75; }
+.cours-item-body ul { padding-left: 18px; margin-bottom: 8px; }
+.cours-item-body li { margin-bottom: 6px; }
+.ex-box {
+  background: var(--surface); border-left: 3px solid var(--essec2);
+  padding: 14px 18px; margin: 10px 0; font-size: 0.83rem;
+}
+.ex-q { color: var(--muted2); margin-bottom: 6px; font-weight: 500; }
+.ex-r { color: var(--accent); font-weight: 600; }
+
+/* Exercices */
+.exo-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.exo-filter {
+  padding: 7px 16px; background: var(--surface2); border: 1px solid var(--border);
+  color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem; font-weight: 500; transition: all 0.2s;
+}
+.exo-filter:hover { border-color: var(--essec2); color: var(--text); }
+.exo-filter.active { background: var(--essec2); border-color: var(--essec2); color: #fff; }
+.exo-score-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 14px 20px; margin-bottom: 20px;
+}
+.exo-score-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700;
+  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.q-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px; margin-bottom: 16px; }
+.q-tag {
+  display: inline-block; font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--essec2); background: var(--essec-bg);
+  border: 1px solid var(--essec-border); padding: 3px 10px; margin-bottom: 14px;
+}
+.q-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 18px; font-weight: 500; }
+.q-opts { display: flex; flex-direction: column; gap: 8px; }
+.q-opt {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;
+  background: var(--surface); border: 1px solid var(--border2);
+  cursor: pointer; font-size: 0.85rem; line-height: 1.5; text-align: left;
+  width: 100%; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300;
+  transition: all 0.15s;
+}
+.q-opt:hover:not(.disabled) { border-color: var(--essec2); background: var(--essec-bg); }
+.q-opt.correct { border-color: var(--green); background: rgba(74,222,128,0.06); color: var(--green); }
+.q-opt.wrong { border-color: var(--red); background: rgba(224,92,92,0.06); color: var(--red); }
+.q-opt.disabled { cursor: default; }
+.q-letter {
+  width: 24px; height: 24px; border: 1px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700; color: var(--muted2);
+}
+.q-fb { display: none; margin-top: 14px; padding: 12px 16px; font-size: 0.83rem; line-height: 1.6; }
+.q-fb.correct { background: rgba(74,222,128,0.06); border-left: 2px solid var(--green); color: #a0f0b0; }
+.q-fb.wrong { background: rgba(224,92,92,0.06); border-left: 2px solid var(--red); color: #f0a0a0; }
+.q-next {
+  display: none; margin-top: 14px; padding: 10px 24px;
+  background: var(--gradient); border: none; color: var(--bg);
+  cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600;
 }
 
-.questionnaire-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 32px; }
-.questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
-.questionnaire-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; margin-bottom: 24px; }
-.questionnaire-desc strong { color: var(--escp); }
-.q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; }
-.q-toggle:hover { border-color: var(--escp); color: var(--escp); }
-.questionnaire-form { display: none; flex-direction: column; gap: 18px; }
-.questionnaire-form.open { display: flex; }
-.q-group { display: flex; flex-direction: column; gap: 6px; }
-.q-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--escp); }
-.q-hint { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
-.q-textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.82rem; padding: 10px 14px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 72px; line-height: 1.6; }
-.q-textarea:focus { border-color: rgba(201,169,110,0.4); }
-.q-textarea::placeholder { color: var(--muted); }
-.q-actions { display: flex; align-items: center; gap: 16px; }
-.btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 10px 28px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-.btn-save:hover { transform: translateY(-1px); }
-.btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.q-save-msg { font-size: 0.75rem; color: var(--green); display: none; }
-.q-save-msg.show { display: block; }
-.q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--green); }
-
-.section-eyebrow { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
-
-.entretien-list { display: flex; flex-direction: column; gap: 8px; }
-.entretien-item { background: var(--surface2); border: 1px solid var(--border); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: background 0.3s; cursor: pointer; }
-.entretien-item:hover { background: var(--surface3); }
-.entretien-date { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
-.entretien-title { font-size: 0.88rem; font-weight: 500; }
-.note-badge { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.note-label { font-size: 0.65rem; color: var(--muted); text-align: right; }
-.empty-state { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; line-height: 1.7; background: var(--surface2); border: 1px solid var(--border); }
-.empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
-
-/* ESSEC info card */
-.essec-info-card {
-  background: var(--essec-bg); border: 1px solid var(--essec-border);
-  padding: 20px 24px; margin-bottom: 28px;
-  display: flex; align-items: flex-start; gap: 14px;
+/* Test chrono */
+.chrono-config { background: var(--surface2); border: 1px solid var(--border); padding: 32px; margin-bottom: 20px; }
+.chrono-config-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 24px; }
+.chrono-row { margin-bottom: 20px; }
+.chrono-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 10px; }
+.chrono-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.chrono-opt {
+  padding: 8px 18px; background: var(--surface); border: 1px solid var(--border);
+  color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem; transition: all 0.15s;
 }
-.essec-info-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
-.essec-info-text { font-size: 0.82rem; color: var(--muted2); line-height: 1.7; }
-.essec-info-text strong { color: var(--essec2); }
-
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
-.modal-overlay.show { display: flex; }
-.modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 700px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
-.modal-close { position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
-.modal-top-bar { height: 2px; position: absolute; top: 0; left: 0; right: 0; }
-.modal-top-bar.escp { background: var(--gradient); }
-.modal-top-bar.emlyon { background: var(--emlyon); }
-.modal-school-badge { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
-.modal-school-badge.escp { color: var(--escp); border: 1px solid var(--escp-border); background: var(--escp-bg); }
-.modal-school-badge.emlyon { color: var(--emlyon); border: 1px solid var(--emlyon-border); background: var(--emlyon-bg); }
-.modal-header { text-align: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-.modal-note { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
-.modal-note-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
-.modal-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface2); padding: 14px 18px; text-align: left; }
-.modal-verdict.escp { border-left: 3px solid var(--escp); }
-.modal-verdict.emlyon { border-left: 3px solid var(--emlyon); }
-.fb-section { margin-bottom: 16px; }
-.fb-section h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
-.fb-section h4.escp { color: var(--escp); }
-.fb-section h4.emlyon { color: var(--emlyon); }
-.fb-section p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
-.fb-divider { height: 1px; background: var(--border); margin: 22px 0; }
-.fb-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
-.analyse-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 16px 20px; margin-bottom: 16px; font-size: 0.83rem; color: var(--text); line-height: 1.8; }
-.analyse-box.emlyon { border-left-color: var(--emlyon); }
-.comp-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 16px; }
-.comp-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
-.comp-card p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; }
-.cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-.carte-fb { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--emlyon-border); }
-.carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
-.carte-fb-text { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
-
-/* ESSEC EMBEDDED STYLES */
-.cours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border2); }
-    @media (max-width: 680px) { .cours-grid { grid-template-columns: 1fr; } }
-    .cours-card { background: var(--surface2); cursor: pointer; transition: background 0.3s; }
-    .cours-card:hover { background: var(--surface3); }
-    .cours-header { display: flex; align-items: center; gap: 14px; padding: 20px 24px; }
-    .cours-icon { width: 36px; height: 36px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; background: var(--essec-bg); border: 1px solid var(--essec-border); }
-    .cours-title { font-size: 0.88rem; font-weight: 500; }
-    .cours-subtitle { font-size: 0.72rem; color: var(--muted2); margin-top: 2px; }
-    .chevron { margin-left: auto; color: var(--muted); transition: transform 0.2s; font-size: 0.75rem; }
-    .cours-card.open .chevron { transform: rotate(180deg); }
-    .cours-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border2); }
-    .cours-card.open .cours-body { display: block; }
-    .cours-body h4 { font-size: 0.65rem; font-weight: 600; color: var(--essec); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 1.5px; }
-    .cours-body p, .cours-body li { font-size: 0.82rem; color: var(--muted2); line-height: 1.7; }
-    .cours-body ul { padding-left: 14px; }
-    .cours-body li { margin-bottom: 5px; }
-    .exemple-box { background: var(--surface); border-left: 2px solid var(--essec); padding: 12px 16px; margin: 10px 0; font-size: 0.8rem; }
-    .exemple-box .q { color: var(--muted2); margin-bottom: 6px; }
-    .exemple-box .r { color: var(--accent); font-weight: 500; }
-
-    /* TYPE SELECTOR */
-    .type-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    .type-btn { padding: 7px 16px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 500; transition: all 0.2s; }
-    .type-btn:hover { border-color: var(--essec); color: var(--text); }
-    .type-btn.active { background: var(--essec); border-color: var(--essec); color: #fff; }
-
-    /* SCORE BAR */
-    .score-bar { display: flex; align-items: center; gap: 16px; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 20px; }
-    .score-num { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.6rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-    .score-label { font-size: 0.78rem; color: var(--muted2); }
-
-    /* QUESTION CARD */
-    .q-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px; margin-bottom: 16px; }
-    .q-type-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--essec); border: 1px solid var(--essec-border); background: var(--essec-bg); padding: 3px 10px; margin-bottom: 14px; }
-    .q-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px; font-weight: 500; }
-    .q-options { display: flex; flex-direction: column; gap: 8px; }
-    .q-option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border2); cursor: pointer; transition: all 0.15s; font-size: 0.85rem; line-height: 1.5; text-align: left; width: 100%; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; }
-    .q-option:hover:not(.disabled) { border-color: var(--essec); background: var(--essec-bg); }
-    .q-option.correct { border-color: var(--green); background: rgba(74,222,128,0.06); color: var(--green); }
-    .q-option.wrong { border-color: var(--red); background: rgba(224,92,92,0.06); color: var(--red); }
-    .q-option.disabled { cursor: default; }
-    .opt-letter { width: 24px; height: 24px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; flex-shrink: 0; color: var(--muted2); }
-    .q-feedback { margin-top: 14px; padding: 12px 16px; font-size: 0.82rem; line-height: 1.6; display: none; }
-    .q-feedback.correct { background: rgba(74,222,128,0.06); border-left: 2px solid var(--green); color: #a0f0b0; }
-    .q-feedback.wrong { background: rgba(224,92,92,0.06); border-left: 2px solid var(--red); color: #f0a0a0; }
-    .next-btn { margin-top: 14px; padding: 10px 24px; background: var(--gradient); border: none; color: var(--bg); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; transition: opacity 0.2s; display: none; }
-    .next-btn:hover { opacity: 0.88; }
-    .no-more { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; background: var(--surface2); border: 1px solid var(--border); }
-
-    /* TEST CHRONO */
-    .test-config { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 24px; }
-    .test-config h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
-    .config-row { margin-bottom: 18px; }
-    .config-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--essec); margin-bottom: 10px; }
-    .config-options { display: flex; flex-wrap: wrap; gap: 8px; }
-    .config-opt { padding: 7px 16px; background: var(--surface); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; transition: all 0.15s; }
-    .config-opt:hover { border-color: var(--essec); color: var(--text); }
-    .config-opt.selected { background: var(--essec); border-color: var(--essec); color: #fff; }
-    .start-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #003b7a, #0055b3); border: none; color: #fff; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; margin-top: 8px; }
-    .start-btn:hover { opacity: 0.9; }
-
-    .timer-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 16px; }
-    .timer-display { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-    .timer-display.urgent { background: none; -webkit-text-fill-color: var(--red); color: var(--red); }
-    .timer-sub { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-
-    .results-panel { background: var(--surface2); border: 1px solid var(--border); padding: 48px 40px; text-align: center; display: none; }
-    .results-panel::before { content: ''; display: block; height: 2px; background: var(--gradient); margin: -48px -40px 40px; }
-    .results-score { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 8px 0; }
-    .results-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 24px 0; }
-    .results-stat { background: var(--surface); padding: 20px; }
-    .results-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; }
-    .results-stat-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-    .results-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface); padding: 14px 18px; border-left: 2px solid var(--accent); margin: 20px 0; text-align: left; }
-    .retry-btn { margin-top: 16px; padding: 12px 32px; background: var(--gradient); border: none; color: var(--bg); font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
-
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
-    .section-sub { font-size: 0.78rem; color: var(--muted2); margin-bottom: 28px; }
-    .hidden { display: none !important; }
+.chrono-opt:hover { border-color: var(--essec2); color: var(--text); }
+.chrono-opt.sel { background: var(--essec2); border-color: var(--essec2); color: #fff; }
+.chrono-start {
+  width: 100%; padding: 15px; background: linear-gradient(135deg, #003b7a, #0055b3);
+  border: none; color: #fff; font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: opacity 0.2s;
+}
+.chrono-start:hover { opacity: 0.9; }
+.chrono-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface2); border: 1px solid var(--border); padding: 16px 24px; margin-bottom: 20px;
+}
+.chrono-time {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700;
+  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.chrono-time.urgent { background: none; -webkit-text-fill-color: var(--red); color: var(--red); }
+.chrono-stop {
+  background: transparent; border: 1px solid var(--border); color: var(--muted2);
+  padding: 8px 18px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem;
+}
+.chrono-results {
+  display: none; background: var(--surface2); border: 1px solid var(--border);
+  padding: 48px 40px; text-align: center; position: relative; overflow: hidden;
+}
+.chrono-results::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gradient);
+}
+.chrono-score {
+  font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700;
+  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1; margin: 8px 0;
+}
+.chrono-verdict {
+  font-size: 0.88rem; color: var(--text); padding: 14px 18px;
+  background: var(--surface); border-left: 2px solid var(--accent);
+  margin: 20px 0; text-align: left;
+}
+.chrono-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 20px 0; }
+.chrono-stat { background: var(--surface); padding: 20px; }
+.chrono-stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; }
+.chrono-stat-l { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.chrono-retry {
+  margin-top: 16px; padding: 12px 32px; background: var(--gradient);
+  border: none; color: var(--bg); font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem; font-weight: 600; cursor: pointer;
+}
+.empty-q { text-align: center; padding: 40px 20px; color: var(--muted2); background: var(--surface2); border: 1px solid var(--border); }
 
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
@@ -406,402 +436,366 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   <div class="tab-content essec-content" id="contentESSEC">
 
 ```
-<!-- Sous-onglets ESSEC -->
-<div class="essec-subtabs">
-  <div class="essec-subtab active" onclick="showEssecTab('cours',this)">📚 Cours & Méthode</div>
-  <div class="essec-subtab" onclick="showEssecTab('entrainement',this)">⚡ Entraînement</div>
-  <div class="essec-subtab" onclick="showEssecTab('test',this)">⏱ Test Chrono</div>
-  <div class="essec-subtab" onclick="showEssecTab('oral',this)">🎙️ Entretien oral</div>
+<!-- Navigation principale ESSEC : 2 onglets -->
+<div class="essec-nav">
+  <div class="essec-nav-btn active" id="essecNavOral" onclick="essecNav('oral',this)">🎙️ Entretien oral</div>
+  <div class="essec-nav-btn" id="essecNavPsycho" onclick="essecNav('psycho',this)">📊 Tests psychotechniques</div>
 </div>
 
-<!-- COURS -->
-<div id="essec-panel-cours" class="essec-panel active" style="display:block">
-  <div class="section-eyebrow" style="margin-bottom:20px;">Techniques pour chaque type d'épreuve psychotechnique ESSEC</div>
-  <div class="cours-grid">
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">🔢</div>
-      <div><div class="cours-title">Séries numériques</div><div class="cours-subtitle">Trouver la loi de la suite</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>5 types à maîtriser</h4>
-      <ul>
-        <li><strong>Arithmétique</strong> : différence constante entre chaque terme. Ex : 3, 7, 11, 15 → +4</li>
-        <li><strong>Géométrique</strong> : on multiplie par un facteur fixe. Ex : 2, 6, 18, 54 → ×3</li>
-        <li><strong>Deux suites entrelacées</strong> : séparer rangs pairs et impairs. Ex : 48, 8, 35, 7, 24, ? → suite 1 : 48,35,24 (−13,−11) / suite 2 : 8,7,6 (−1)</li>
-        <li><strong>Différences croissantes</strong> : les écarts forment eux-mêmes une suite. Ex : 1, 2, 4, 7, 11, 16 → écarts +1,+2,+3,+4,+5</li>
-        <li><strong>Règles alternées</strong> : +2, ×3, +2, ×3... ou palindromes</li>
-      </ul>
-      <h4>Méthode en 4 étapes</h4>
-      <ul>
-        <li>Étape 1 : calculer les différences entre termes consécutifs</li>
-        <li>Étape 2 : si pas de loi, calculer les différences des différences</li>
-        <li>Étape 3 : si toujours rien, séparer termes pairs et impairs</li>
-        <li>Étape 4 : tester ×2, ×3, ÷2, ÷3 entre termes</li>
-      </ul>
-      <h4>Exemples corrigés</h4>
-      <div class="exemple-box">
-        <div class="q">7 – 13 – 24 – 45 – ?</div>
-        <div class="r">Règle : ×2−k avec k qui augmente : 7×2−1=13, 13×2−2=24, 24×2−3=45, 45×2−4=<strong>86</strong></div>
+<!-- ========== VUE ENTRETIEN ORAL ========== -->
+<div id="essec-view-oral" class="essec-view active">
+  <div class="oral-hero">
+    <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--essec2);margin-bottom:12px;">ESSEC Business School · Jury IA</div>
+    <div class="oral-hero-title">Entretien de personnalité ESSEC</div>
+    <div class="oral-hero-sub">Simulation immersive avec un jury IA calibré sur le vrai format ESSEC — questions ouvertes, mise en situation professionnelle, 9 critères évalués.</div>
+    <div class="oral-info-grid">
+      <div class="oral-info-item">
+        <div class="oral-info-num">30'</div>
+        <div class="oral-info-label">Durée réelle</div>
       </div>
-      <div class="exemple-box">
-        <div class="q">3, 21, 147, 1029, ?</div>
-        <div class="r">Géométrique ×7 : 1029×7=<strong>7203</strong></div>
+      <div class="oral-info-item">
+        <div class="oral-info-num">9</div>
+        <div class="oral-info-label">Critères évalués</div>
       </div>
-      <div class="exemple-box">
-        <div class="q">66, 63, 57, 45, ?</div>
-        <div class="r">Différences : −3, −6, −12 → elles doublent → −24 → 45−24=<strong>21</strong></div>
-      </div>
-      <h4>Astuce chrono</h4>
-      <p>Si tu bloques après 30s : sépare immédiatement pairs/impairs. C'est la clé de 80% des séries difficiles.</p>
-    </div>
-  </div>
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">🔤</div>
-      <div><div class="cours-title">Séries de lettres</div><div class="cours-subtitle">Alphabet et positions</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Règle de base</h4>
-      <p>Convertis toujours les lettres en numéros : A=1, B=2, C=3... Z=26. La loi se lit ensuite comme une série numérique.</p>
-      <h4>4 types courants</h4>
-      <ul>
-        <li><strong>Suite simple</strong> : A, C, E, G → +2 (on saute une lettre)</li>
-        <li><strong>Groupe fixe + variable</strong> : BCD Z, BCD Y, BCD X → groupe fixe, 4e lettre descend</li>
-        <li><strong>Initiales de mots</strong> : U-D-T-Q-C-S-S-H-? → Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit → <strong>N</strong> (Neuf)</li>
-        <li><strong>Suites entrelacées</strong> : M,V,N,W,O,X → suite 1 : M,N,O (+1) / suite 2 : V,W,X (+1)</li>
-      </ul>
-      <h4>Exemples corrigés</h4>
-      <div class="exemple-box">
-        <div class="q">A D H K O ?</div>
-        <div class="r">A=1,D=4,H=8,K=11,O=15 → écarts : +3,+4,+3,+4 → +4 → S=19 → <strong>S</strong></div>
-      </div>
-      <div class="exemple-box">
-        <div class="q">B D G K ?</div>
-        <div class="r">B=2,D=4,G=7,K=11 → écarts : +2,+3,+4 → +5 → P=16 → <strong>P</strong></div>
-      </div>
-      <div class="exemple-box">
-        <div class="q">DIKA – EKNE – FMQI – ?</div>
-        <div class="r">D→E→F→G (+1), I→K→M→O (+2), K→N→Q→T (+3), A→E→I→M (+4) → <strong>GOTM</strong></div>
-      </div>
-      <h4>Astuce</h4>
-      <p>Écris toujours A=1 à Z=26 en marge. Pour les initiales de mots : pense aux chiffres, jours, mois, planètes.</p>
-    </div>
-  </div>
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">📐</div>
-      <div><div class="cours-title">Raisonnement quantitatif</div><div class="cours-subtitle">Maths appliquées et logique numérique</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Les 6 pièges classiques ESSEC</h4>
-      <ul>
-        <li><strong>Le nénuphar</strong> : double chaque jour, 100 jours pour un étang → 2 nénuphars = surface déjà double → 99 jours (pas 50 !) La clé : réfléchir en partant de la fin.</li>
-        <li><strong>La course</strong> : tu doubles le 2ème → tu prends SA place → tu es 2ème, pas 1er !</li>
-        <li><strong>Les pots</strong> : 15 pots, 2 à la fois → 7 voyages = 14 pots, il en reste 1 → 8ème voyage.</li>
-        <li><strong>L'escargot</strong> : monte 3m/jour, descend 2m/nuit, poteau 12m → le 10ème jour il monte à 12m avant de redescendre → 10 jours (pas 12).</li>
-        <li><strong>Les chaussettes</strong> : 10 paires noires + 10 blanches dans le noir → principe du pigeonhole : 3 chaussettes garantissent une paire de même couleur.</li>
-        <li><strong>Le calendrier</strong> : 5 lundis, mardis, mercredis en janvier (31j) → janvier finit un mercredi → 1er février = jeudi.</li>
-      </ul>
-      <h4>Formules utiles</h4>
-      <ul>
-        <li>Périmètre rectangle : 2×(L+l)</li>
-        <li>Série géométrique infinie : S = a/(1−r) si |r|&lt;1. Ex : 1+½+¼+... = 1/(1−½) = 2</li>
-        <li>Probabilité : P(A ET B) = P(A)×P(B) si indépendants</li>
-      </ul>
-      <div class="exemple-box">
-        <div class="q">Jardin 21m×15m, un poteau tous les 3m, portail = 3m sans poteau. Combien de poteaux ?</div>
-        <div class="r">Périmètre = 2×(21+15)=72m → 72÷3=24 intervalles → portail enlève 1 poteau → <strong>23 poteaux</strong></div>
+      <div class="oral-info-item">
+        <div class="oral-info-num">Coeff 10</div>
+        <div class="oral-info-label">Importance</div>
       </div>
     </div>
-  </div>
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">🧠</div>
-      <div><div class="cours-title">Raisonnement déductif</div><div class="cours-subtitle">Logique formelle, syllogismes, contraposée</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Les 4 règles fondamentales</h4>
+    <div class="oral-tips">
+      <div class="oral-tips-title">Avant de commencer</div>
       <ul>
-        <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B. Ex : Tous les bruns aiment le chocolat. Paul est brun → Paul aime le chocolat.</li>
-        <li><strong>Contraposée</strong> : A→B est équivalent à ¬B→¬A. Ex : "Pas bleu → pas rouge" ≡ "rouge → bleu"</li>
-        <li><strong>Négation de "tous"</strong> : ¬(tous A sont B) = il existe AU MOINS UN A qui n'est pas B (pas "aucun A n'est B" !)</li>
-        <li><strong>Négation de "certains"</strong> : ¬(certains A sont B) = aucun A n'est B</li>
-      </ul>
-      <h4>Quantificateurs : ce que vous pouvez conclure</h4>
-      <ul>
-        <li>"Tous A sont B" + "X est A" → X est B ✓</li>
-        <li>"Certains A sont B" → on ne peut pas dire que TOUS A sont B ✗</li>
-        <li>"Aucun A n'est B" + "X est A" → X n'est pas B ✓</li>
-        <li>Ce qui est vrai en général ≠ ce qui est dit dans le texte</li>
-      </ul>
-      <h4>Méthode pour les coffres / ordres</h4>
-      <p>Pour les problèmes de placement : tester chaque hypothèse une par une et compter les contradictions. Si l'énoncé dit "une seule affirmation est fausse", tester case par case.</p>
-      <div class="exemple-box">
-        <div class="q">"Faux que toutes les grandes personnes sont maigres." Équivaut à ?</div>
-        <div class="r">¬(tous A sont B) = il existe AU MOINS UNE grande personne qui n'est pas maigre → <strong>réponse A</strong></div>
-      </div>
-      <div class="exemple-box">
-        <div class="q">"Si pas bleu → pas rouge." La contraposée ?</div>
-        <div class="r">¬bleu→¬rouge ≡ rouge→bleu → "Si je peux dire rouge, c'est que j'ai trouvé bleu" → <strong>réponse C</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">📖</div>
-      <div><div class="cours-title">Synonymes & Vocabulaire</div><div class="cours-subtitle">100 mots rares fréquents à l'ESSEC</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Méthode</h4>
-      <ul>
-        <li>Éliminer les réponses hors champ sémantique en premier</li>
-        <li>Chercher l'étymologie latine/grecque (pro-hibere = retenir en avant = interdire)</li>
-        <li>Attention aux paronymes : mots qui se ressemblent mais diffèrent (effleurer ≠ effacer)</li>
-        <li>La réponse est le synonyme le plus EXACT, pas le plus proche</li>
-      </ul>
-      <h4>Vocabulaire ESSEC — Liste complète</h4>
-      <ul>
-        <li>PROHIBER → interdire | DÉLECTATION → plaisir intense | SÉRÉNITÉ → tranquillité</li>
-        <li>ENTREGENT → diplomatie relationnelle | LUBIE → caprice bizarre | JADIS → autrefois</li>
-        <li>RUBIGINEUX → rouillé | COMMISÉRATION → compassion | PAMPHLET → texte satirique</li>
-        <li>CONSOMPTION → dépérissement | COMPLEXION → tempérament | INTERPOLER → intercaler</li>
-        <li>SIMULER → feindre | EXIGU → très petit | TAPAGE → vacarme | POSTERITÉ → descendants</li>
-        <li>GALANTERIE → courtoisie | SCELLER → fermer hermétiquement | MALÉFICE → sortilège</li>
-        <li>DÉCOCHER → envoyer | VULTUEUX → congestionné | TESSITURE → registre vocal</li>
-        <li>MORIGÉNER → réprimander | IRASCIBLE → coléreux | VOLUBILE → qui parle vite</li>
-        <li>ÉHONTÉ → honteux/scandaleux | ATERMOIEMENT → délai, procrastination</li>
-        <li>DILETTANTE → amateur (péjoratif) | MANICHÉISME → vision binaire bien/mal</li>
-      </ul>
-      <h4>Antonymes fréquents</h4>
-      <ul>
-        <li>ABROGER ↔ RÉTABLIR | ACCOMPLI ↔ INACHEVÉ | ANACHRONIQUE ↔ ACTUEL</li>
-        <li>SIBYLLIN ↔ CLAIR | MUTUEL ↔ INDIVIDUEL | BASANÉ ↔ PÂLE</li>
+        <li>Autorise l'accès au microphone quand le navigateur le demande</li>
+        <li>Installe-toi dans un endroit calme, comme le jour J</li>
+        <li>L'entretien dure environ 30 minutes — ne l'interromps pas</li>
+        <li>Parle naturellement, comme face à un vrai jury ESSEC</li>
       </ul>
     </div>
   </div>
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">🔗</div>
-      <div><div class="cours-title">Analogies verbales</div><div class="cours-subtitle">Identifier le rapport entre deux mots</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Méthode en 3 temps</h4>
-      <ul>
-        <li><strong>1. Formuler</strong> : "X est à Y ce que..." → trouver le lien précis</li>
-        <li><strong>2. Tester</strong> : appliquer ce même lien à chaque option</li>
-        <li><strong>3. Éliminer</strong> : la bonne réponse respecte le même rapport ET la même direction</li>
-      </ul>
-      <h4>Les 8 types de rapports</h4>
-      <ul>
-        <li><strong>Passionné/Objet</strong> : mélomane→musique, cinéphile→cinéma, mycophile→champignons</li>
-        <li><strong>Créateur/Création</strong> : compositeur→symphonie, écrivain→roman, sculpteur→statue</li>
-        <li><strong>Outil/Utilisateur</strong> : microscope→bactériologiste, gants→boxeur</li>
-        <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation, rouille→métal</li>
-        <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie, propriété→clôture</li>
-        <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur, émetteur→récepteur, compositeur→auditeur</li>
-        <li><strong>Intensificateur</strong> : torride→chaud, intense→fort, exquis→bon</li>
-        <li><strong>Violation/Règle</strong> : anomalie→normalité, fraude→examen, violation→loi</li>
-      </ul>
-      <div class="exemple-box">
-        <div class="q">MÉLOMANE – MUSIQUE, comme ?</div>
-        <div class="r">Passionné/objet → cinéphile est passionné de cinéma → <strong>cinéphile–cinéma</strong></div>
-      </div>
-      <div class="exemple-box">
-        <div class="q">MITE – VÊTEMENT, comme ?</div>
-        <div class="r">Nuisible/victime → calomnie détériore la réputation → <strong>calomnie–réputation</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">🔐</div>
-      <div><div class="cours-title">Codes & Chiffrements</div><div class="cours-subtitle">Décoder une correspondance lettre↔chiffre</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Méthode universelle</h4>
-      <ul>
-        <li>Lister les lettres communes entre les mots exemples</li>
-        <li>Identifier leur valeur numérique dans chaque mot</li>
-        <li>Tester les codes possibles : position normale (A=1), inversée (A=26), décalage +k</li>
-        <li>Vérifier la cohérence sur TOUS les exemples avant de répondre</li>
-      </ul>
-      <h4>Types de codes rencontrés</h4>
-      <ul>
-        <li><strong>Correspondance directe</strong> : chaque lettre a une valeur fixe à déduire</li>
-        <li><strong>Anagrammes</strong> : le second mot est une anagramme du premier (CHIEN→NICHE)</li>
-        <li><strong>Liaisons</strong> : fin d'un mot = début du suivant (ANTENNE→NE→NENUPHAR)</li>
-        <li><strong>Valeurs calculées</strong> : la valeur entre parenthèses suit une règle mathématique</li>
-      </ul>
-      <div class="exemple-box">
-        <div class="q">TOISE=67851, GOMME=47221, PIEGE=38141 → TEMPO=?</div>
-        <div class="r">T=6, O=7, I=8, S=5, E=1, G=4, M=2, P=3 → TEMPO : 6,1,2,3,7 → <strong>61237</strong></div>
-      </div>
-      <div class="exemple-box">
-        <div class="q">4(12)8 – 5(30)6 – 3(21)? </div>
-        <div class="r">Règle : premier × second = résultat → 3×?=21 → <strong>7</strong></div>
-      </div>
-      <div class="exemple-box">
-        <div class="q">(A-2) – (E-5) – (I-11) – (?-?) – (U-47)</div>
-        <div class="r">Voyelles + nombre ×2+1 : 2→5→11→23→47. Voyelle suivante = O → <strong>(O-23)</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cours-card" onclick="essecToggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">⏱</div>
-      <div><div class="cours-title">Stratégie & Gestion du temps</div><div class="cours-subtitle">Maximiser son score le jour J</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Règles d'or ESSEC</h4>
-      <ul>
-        <li>Ne jamais bloquer plus de <strong>60-90 secondes</strong> sur une question : passer immédiatement</li>
-        <li>Reporter les réponses sur le livret <strong>au fur et à mesure</strong> (ne pas attendre la fin)</li>
-        <li>Apporter une montre — les surveillants ne donnent <strong>pas le temps restant</strong></li>
-        <li>Les réponses au hasard coûtent des points : pénalité <strong>−0.25 à −1</strong> selon le test</li>
-        <li>Ne pas répondre (blanc) = 0 point — souvent préférable à une réponse aléatoire</li>
-      </ul>
-      <h4>Ordre de traitement recommandé</h4>
-      <ul>
-        <li><strong>1er passage</strong> : répondre à tout ce qu'on sait en moins de 30s</li>
-        <li><strong>2ème passage</strong> : revenir sur les questions sautées avec le temps restant</li>
-        <li><strong>Jamais</strong> : ne pas changer une réponse dont on n'est pas sûr</li>
-      </ul>
-      <h4>Ce qu'il faut savoir</h4>
-      <p>Aucun candidat ne finit tous les tests dans le temps imparti. C'est voulu. Le barème est relatif : ce sont vos scores <strong>comparés aux autres candidats</strong> qui comptent, pas votre score absolu.</p>
-      <h4>Entraînement optimal</h4>
-      <ul>
-        <li>Faire des tests chronométrés régulièrement (utilise l'onglet Test Chrono)</li>
-        <li>Analyser chaque erreur — comprendre POURQUOI tu as échoué</li>
-        <li>Mémoriser les patterns les plus fréquents (suites entrelacées, contraposée)</li>
-      </ul>
-    </div>
-  </div>
-
-</div>
-
-<!-- ENTRAÎNEMENT -->
-<div id="essec-panel-entrainement" class="essec-panel">
-  <div class="type-selector">
-    <button class="type-btn active" onclick="essecSetType('all',this)">Tout mélanger</button>
-    <button class="type-btn" onclick="essecSetType('num',this)">Séries numériques</button>
-    <button class="type-btn" onclick="essecSetType('lettres',this)">Séries de lettres</button>
-    <button class="type-btn" onclick="essecSetType('quant',this)">Quantitatif</button>
-    <button class="type-btn" onclick="essecSetType('deductif',this)">Déductif</button>
-    <button class="type-btn" onclick="essecSetType('vocab',this)">Vocabulaire</button>
-    <button class="type-btn" onclick="essecSetType('analogie',this)">Analogies</button>
-    <button class="type-btn" onclick="essecSetType('code',this)">Codes</button>
-  </div>
-  <div class="score-bar">
-    <div>
-      <div class="score-num" id="score-display">0/0</div>
-      <div style="font-size:0.78rem;color:var(--muted2);">réponses correctes</div>
-    </div>
-    <div style="margin-left:auto;display:flex;gap:20px;">
-      <div style="font-size:0.82rem;color:var(--green)">✓ <span id="correct-count">0</span></div>
-      <div style="font-size:0.82rem;color:var(--red)">✗ <span id="wrong-count">0</span></div>
-    </div>
-  </div>
-  <div id="q-container"></div>
-</div>
-
-<!-- TEST CHRONO -->
-<div id="essec-panel-test" class="essec-panel">
-  <div id="test-config-panel">
-    <div class="test-config">
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;margin-bottom:20px;">Configuration du test</h3>
-      <div class="config-row">
-        <div class="config-label">Durée</div>
-        <div class="config-options">
-          <div class="config-opt selected" onclick="essecSelectConfig(this,'duration','5')">5 min</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'duration','10')">10 min</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'duration','15')">15 min ← ESSEC</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'duration','20')">20 min</div>
-        </div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Type de questions</div>
-        <div class="config-options">
-          <div class="config-opt selected" onclick="essecSelectConfig(this,'qtype','all')">Tout mélanger</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','num')">Séries numériques</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','quant')">Quantitatif</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','deductif')">Déductif</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','vocab')">Vocabulaire</div>
-        </div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Pénalité pour mauvaise réponse</div>
-        <div class="config-options">
-          <div class="config-opt selected" onclick="essecSelectConfig(this,'penalty','0.25')">−¼ point</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'penalty','0.5')">−½ point</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'penalty','1')">−1 point</div>
-          <div class="config-opt" onclick="essecSelectConfig(this,'penalty','0')">Sans pénalité</div>
-        </div>
-      </div>
-      <button class="start-btn" onclick="essecStartTest()">🚀 Lancer le test</button>
-    </div>
-  </div>
-  <div id="test-running-panel" class="hidden">
-    <div class="timer-bar">
-      <div>
-        <div id="timer-display" class="timer-display">05:00</div>
-        <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;"><span id="test-q-num">0</span> / <span id="test-q-total">0</span> questions</div>
-      </div>
-      <div style="font-size:0.85rem;color:var(--muted2);">Score : <span id="test-score-live" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span> pts</div>
-      <button onclick="essecStopTest()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 16px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.78rem;">Arrêter</button>
-    </div>
-    <div id="test-q-container"></div>
-  </div>
-  <div id="results-panel" class="results-panel">
-    <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Score final</div>
-    <div class="results-score" id="results-score">0</div>
-    <div style="font-size:0.78rem;color:var(--muted2);">points sur <span id="results-max">0</span> possibles</div>
-    <div class="results-verdict" id="results-verdict"></div>
-    <div class="results-grid">
-      <div class="results-stat"><div class="results-stat-num" id="res-correct" style="color:var(--green)">0</div><div class="results-stat-label">Bonnes</div></div>
-      <div class="results-stat"><div class="results-stat-num" id="res-wrong" style="color:var(--red)">0</div><div class="results-stat-label">Mauvaises</div></div>
-      <div class="results-stat"><div class="results-stat-num" id="res-skip" style="color:var(--muted)">0</div><div class="results-stat-label">Passées</div></div>
-    </div>
-    <button class="retry-btn" onclick="essecResetTest()">🔁 Nouveau test</button>
-  </div>
-</div>
-
-<!-- ENTRETIEN ORAL -->
-<div id="essec-panel-oral" class="essec-panel">
-  <div style="background:var(--surface2);border:1px solid var(--border);padding:20px 24px;margin-bottom:20px;border-left:2px solid var(--essec2);">
-    <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--essec2);font-weight:600;margin-bottom:10px;">Avant de commencer</div>
-    <ul style="font-size:0.82rem;color:var(--muted2);line-height:1.8;padding-left:14px;">
-      <li>Autorisez l'accès au microphone quand le navigateur le demande</li>
-      <li>Placez-vous dans un endroit calme, comme le jour J</li>
-      <li>L'entretien dure environ 20 minutes — ne l'interrompez pas</li>
-    </ul>
-  </div>
-  <div style="background:var(--surface2);border:1px solid var(--border);padding:40px 24px;text-align:center;">
-    <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">Jury ESSEC — Intelligence artificielle</div>
+  <div class="oral-widget-box">
+    <div class="oral-widget-label">Jury ESSEC — Intelligence artificielle</div>
     <elevenlabs-convai agent-id="agent_6201kqyj4vwkerkt0faxgk2zn3ed"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-    <div style="margin-top:20px;font-size:0.75rem;color:var(--muted);line-height:1.6;">Le jury va vous accueillir et guider l'entretien.</div>
+    <div style="margin-top:20px;font-size:0.75rem;color:var(--muted);line-height:1.7;">Le jury va vous accueillir et conduire l'entretien.<br>Parlez naturellement — il s'adapte à vos réponses.</div>
   </div>
 </div>
+
+<!-- ========== VUE TESTS PSYCHOTECHNIQUES ========== -->
+<div id="essec-view-psycho" class="essec-view">
+
+  <div class="psycho-subnav">
+    <div class="psycho-subnav-btn active" onclick="psychoNav('cours',this)">📚 Cours & Techniques</div>
+    <div class="psycho-subnav-btn" onclick="psychoNav('exos',this)">⚡ Exercices par thème</div>
+    <div class="psycho-subnav-btn" onclick="psychoNav('test',this)">⏱ Test chronométré</div>
+  </div>
+
+  <!-- COURS -->
+  <div id="psycho-cours" class="psycho-panel active">
+    <div class="cours-list">
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">🔢</div>
+          <div style="flex:1"><div class="cours-item-title">Séries numériques</div><div class="cours-item-sub">Arithmétique · Géométrique · Entrelacées · Différences</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>5 types à maîtriser</h4>
+          <ul>
+            <li><strong>Arithmétique</strong> : différence constante. Ex : 3, 7, 11, 15 → +4 à chaque fois</li>
+            <li><strong>Géométrique</strong> : on multiplie par un facteur fixe. Ex : 2, 6, 18, 54 → ×3</li>
+            <li><strong>Deux suites entrelacées</strong> : séparer les rangs pairs et impairs. Ex : 48, 8, 35, 7, 24, ? → suite 1 : 48→35→24 (−13,−11) / suite 2 : 8→7→6 (−1) → réponse : 6</li>
+            <li><strong>Différences croissantes</strong> : les écarts forment eux-mêmes une suite. Ex : 1, 2, 4, 7, 11, 16 → écarts : +1,+2,+3,+4,+5</li>
+            <li><strong>Règles alternées</strong> : ex. +2,×3,+2,×3 ou séquences palindromiques</li>
+          </ul>
+          <h4>Méthode en 4 étapes</h4>
+          <ul>
+            <li>1 → Calculer les différences entre termes consécutifs</li>
+            <li>2 → Si pas de loi évidente, calculer les différences des différences</li>
+            <li>3 → Si toujours rien, séparer les rangs pairs et impairs</li>
+            <li>4 → Tester ×2, ×3, ÷2, ÷3 entre les termes</li>
+          </ul>
+          <h4>Exemples corrigés</h4>
+          <div class="ex-box"><div class="ex-q">7 – 13 – 24 – 45 – ?</div><div class="ex-r">×2−1=13, ×2−2=24, ×2−3=45, ×2−4 → 86</div></div>
+          <div class="ex-box"><div class="ex-q">9, 54, 18, 45, 27, ?</div><div class="ex-r">Deux suites : 9,18,27 (+9) et 54,45,36 (−9) → 36</div></div>
+          <div class="ex-box"><div class="ex-q">6, 8, 12, 20, ?</div><div class="ex-r">Différences : 2, 4, 8 → elles doublent → +16 → 36</div></div>
+          <h4>Astuce chrono</h4>
+          <p>Si tu bloques après 30s → sépare immédiatement pairs/impairs. Ça résout 80% des séries difficiles.</p>
+        </div>
+      </div>
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">🔤</div>
+          <div style="flex:1"><div class="cours-item-title">Séries de lettres</div><div class="cours-item-sub">Positions · Initiales · Groupes · Suites alternées</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>Règle de base</h4>
+          <p>Convertis toujours les lettres en numéros : A=1, B=2, C=3... Z=26. La loi se lit ensuite comme une série numérique.</p>
+          <h4>4 types courants</h4>
+          <ul>
+            <li><strong>Suite simple</strong> : A, C, E, G → +2 (on saute une lettre)</li>
+            <li><strong>Groupe fixe + variable</strong> : BCD Z, BCD Y, BCD X → groupe fixe, 4e lettre descend</li>
+            <li><strong>Initiales de mots</strong> : U-D-T-Q-C-S-S-H-? → Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit → N (Neuf)</li>
+            <li><strong>Suites entrelacées</strong> : M,V,N,W,O,X → suite 1 : M,N,O (+1) / suite 2 : V,W,X (+1)</li>
+          </ul>
+          <h4>Exemples corrigés</h4>
+          <div class="ex-box"><div class="ex-q">A D H K O ?</div><div class="ex-r">A=1,D=4,H=8,K=11,O=15 → +3,+4,+3,+4 → +4 → S=19 → S</div></div>
+          <div class="ex-box"><div class="ex-q">B D G K ?</div><div class="ex-r">Positions : 2,4,7,11 → écarts +2,+3,+4 → +5 → P=16 → P</div></div>
+          <div class="ex-box"><div class="ex-q">DIKA – EKNE – FMQI – ?</div><div class="ex-r">D→G(+1×3), I→O(+2×3), K→T(+3×3), A→M(+4×3) → GOTM</div></div>
+          <h4>Astuce</h4>
+          <p>Écris toujours A=1 à Z=26 en marge. Pour les initiales : pense aux chiffres, jours, mois, planètes.</p>
+        </div>
+      </div>
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">📐</div>
+          <div style="flex:1"><div class="cours-item-title">Raisonnement quantitatif</div><div class="cours-item-sub">Maths appliquées · Pièges logiques · Probabilités</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>Les 6 pièges classiques ESSEC</h4>
+          <ul>
+            <li><strong>Le nénuphar</strong> : double chaque jour, couvre en 100 jours. Avec 2 nénuphars → surface déjà double → 99 jours. La clé : raisonner à rebours.</li>
+            <li><strong>La course</strong> : tu doubles le 2ème → tu prends SA place → tu es 2ème, pas 1er !</li>
+            <li><strong>Les pots</strong> : 15 pots, 2 à la fois → 7 voyages = 14 pots, il reste 1 → 8ème voyage obligatoire.</li>
+            <li><strong>L'escargot</strong> : monte 3m/jour, descend 2m/nuit sur 12m → le 10ème jour il atteint 12m avant de redescendre → 10 jours.</li>
+            <li><strong>Les chaussettes</strong> : 10 paires noires + 10 blanches dans le noir → principe du pigeonhole → 3 suffisent pour garantir une paire.</li>
+            <li><strong>Le calendrier</strong> : 5 lundis, mardis, mercredis en janvier (31j) → janvier finit un mercredi → 1er février = jeudi.</li>
+          </ul>
+          <h4>Formules essentielles</h4>
+          <ul>
+            <li>Périmètre rectangle : 2×(L+l). Surface : L×l</li>
+            <li>Série géométrique infinie : S = a/(1−r) si |r|&lt;1. Ex : 1+½+¼+... = 2</li>
+          </ul>
+          <div class="ex-box"><div class="ex-q">Jardin 21m×15m, poteaux tous les 3m, portail = 3m. Combien de poteaux ?</div><div class="ex-r">Périmètre = 72m → 72÷3=24 intervalles → portail enlève 1 poteau → 23</div></div>
+        </div>
+      </div>
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">🧠</div>
+          <div style="flex:1"><div class="cours-item-title">Raisonnement déductif</div><div class="cours-item-sub">Syllogismes · Contraposée · Quantificateurs</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>Les 4 règles fondamentales</h4>
+          <ul>
+            <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B. (Tous les bruns aiment le chocolat + Paul est brun → Paul aime le chocolat)</li>
+            <li><strong>Contraposée</strong> : A→B est équivalent à ¬B→¬A. ("Pas bleu → pas rouge" ≡ "rouge → bleu")</li>
+            <li><strong>Négation de "tous"</strong> : ¬(tous A sont B) = il existe AU MOINS UN A qui n'est pas B (pas "aucun" !)</li>
+            <li><strong>Négation de "certains"</strong> : ¬(certains A sont B) = aucun A n'est B</li>
+          </ul>
+          <h4>Ce qu'on peut conclure</h4>
+          <ul>
+            <li>"Tous A sont B" + "X est A" → X est B ✓</li>
+            <li>"Certains A sont B" → on ne peut PAS dire que tous A sont B ✗</li>
+            <li>"Aucun A n'est B" + "X est A" → X n'est pas B ✓</li>
+          </ul>
+          <div class="ex-box"><div class="ex-q">"Faux que toutes les grandes personnes sont maigres." Équivaut à ?</div><div class="ex-r">Il existe AU MOINS UNE grande personne qui n'est pas maigre</div></div>
+          <div class="ex-box"><div class="ex-q">"Si pas bleu → pas rouge." La contraposée ?</div><div class="ex-r">"Si rouge → bleu" (on inverse et on nie les deux membres)</div></div>
+        </div>
+      </div>
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">📖</div>
+          <div style="flex:1"><div class="cours-item-title">Synonymes & Vocabulaire</div><div class="cours-item-sub">30 mots rares · Antonymes · Paronymes</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>Méthode</h4>
+          <ul>
+            <li>Éliminer les réponses hors champ sémantique en premier</li>
+            <li>Chercher l'étymologie latine/grecque (pro-hibere = retenir en avant = interdire)</li>
+            <li>Choisir le synonyme le plus EXACT, pas juste le plus proche</li>
+          </ul>
+          <h4>Vocabulaire ESSEC — À mémoriser</h4>
+          <ul>
+            <li>PROHIBER → interdire | DÉLECTATION → plaisir intense | SÉRÉNITÉ → tranquillité</li>
+            <li>ENTREGENT → diplomatie relationnelle | LUBIE → caprice bizarre | JADIS → autrefois</li>
+            <li>RUBIGINEUX → rouillé | COMMISÉRATION → compassion | PAMPHLET → texte satirique</li>
+            <li>CONSOMPTION → dépérissement | COMPLEXION → tempérament | INTERPOLER → intercaler</li>
+            <li>SIMULER → feindre | EXIGU → très petit | TAPAGE → vacarme | GALANTERIE → courtoisie</li>
+            <li>IRASCIBLE → coléreux | VOLUBILE → qui parle vite | MORIGÉNER → réprimander</li>
+            <li>DILETTANTE → amateur (péjoratif) | ÉHONTÉ → scandaleux | ATERMOIEMENT → procrastination</li>
+          </ul>
+          <h4>Antonymes fréquents</h4>
+          <ul>
+            <li>ABROGER ↔ RÉTABLIR | SIBYLLIN ↔ CLAIR | BASANÉ ↔ PÂLE | ANACHRONIQUE ↔ ACTUEL</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">🔗</div>
+          <div style="flex:1"><div class="cours-item-title">Analogies verbales</div><div class="cours-item-sub">8 types de rapports · Méthode en 3 temps</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>Méthode</h4>
+          <ul>
+            <li>1. Formuler le lien : "X est à Y ce que..."</li>
+            <li>2. Appliquer ce même lien à chaque option proposée</li>
+            <li>3. La bonne réponse respecte le même rapport ET la même direction</li>
+          </ul>
+          <h4>Les 8 types de rapports</h4>
+          <ul>
+            <li><strong>Passionné/Objet</strong> : mélomane→musique, cinéphile→cinéma</li>
+            <li><strong>Créateur/Création</strong> : compositeur→symphonie, sculpteur→statue</li>
+            <li><strong>Outil/Utilisateur</strong> : microscope→biologiste, gants→boxeur</li>
+            <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
+            <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
+            <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur, compositeur→auditeur</li>
+            <li><strong>Intensificateur</strong> : torride→chaud, exquis→bon</li>
+            <li><strong>Violation/Règle</strong> : fraude→examen, anomalie→normalité</li>
+          </ul>
+          <div class="ex-box"><div class="ex-q">MÉLOMANE – MUSIQUE, comme ?</div><div class="ex-r">Passionné/objet → cinéphile–cinéma ✓</div></div>
+          <div class="ex-box"><div class="ex-q">MITE – VÊTEMENT, comme ?</div><div class="ex-r">Nuisible/victime → calomnie–réputation ✓</div></div>
+        </div>
+      </div>
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">🔐</div>
+          <div style="flex:1"><div class="cours-item-title">Codes & Chiffrements</div><div class="cours-item-sub">Correspondances · Anagrammes · Liaisons · Valeurs</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>Méthode universelle</h4>
+          <ul>
+            <li>Lister les lettres communes entre les mots exemples</li>
+            <li>Tester : position normale A=1, inversée A=26, décalage +k</li>
+            <li>Vérifier la cohérence sur TOUS les exemples avant de répondre</li>
+          </ul>
+          <div class="ex-box"><div class="ex-q">TOISE=67851, GOMME=47221, PIEGE=38141 → TEMPO=?</div><div class="ex-r">T=6,E=1,M=2,P=3,O=7 → 61237</div></div>
+          <div class="ex-box"><div class="ex-q">(A-2)–(E-5)–(I-11)–(?-?)–(U-47)</div><div class="ex-r">Voyelles A,E,I,O,U · nombres ×2+1 : 11×2+1=23 → (O-23)</div></div>
+          <div class="ex-box"><div class="ex-q">4(12)8 – 5(30)6 – 3(21)?</div><div class="ex-r">premier × second = résultat → 3×7=21 → 7</div></div>
+        </div>
+      </div>
+
+      <div class="cours-item" onclick="coursToggle(this)">
+        <div class="cours-item-header">
+          <div class="cours-item-icon">⏱</div>
+          <div style="flex:1"><div class="cours-item-title">Stratégie & Gestion du temps</div><div class="cours-item-sub">Ordre de traitement · Pénalités · Barème relatif</div></div>
+          <div class="cours-item-arrow">▼</div>
+        </div>
+        <div class="cours-item-body">
+          <h4>Règles d'or</h4>
+          <ul>
+            <li>Ne jamais bloquer plus de <strong>60-90 secondes</strong> sur une question : passer</li>
+            <li>Reporter les réponses sur le livret au fur et à mesure</li>
+            <li>Apporter une montre — les surveillants ne donnent pas le temps restant</li>
+            <li>Réponse au hasard = risque de pénalité (−0.25 à −1 selon le test)</li>
+            <li>Blanc = 0 point — souvent préférable à une réponse aléatoire</li>
+          </ul>
+          <h4>Ordre optimal</h4>
+          <ul>
+            <li>1er passage : tout ce qu'on sait en moins de 30 secondes</li>
+            <li>2ème passage : revenir sur les questions sautées</li>
+            <li>Ne jamais changer une réponse sans raison solide</li>
+          </ul>
+          <h4>Important</h4>
+          <p>Aucun candidat ne finit tous les tests. C'est voulu. Le barème est relatif — tes scores comparés aux autres candidats comptent, pas ton score absolu.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EXERCICES -->
+  <div id="psycho-exos" class="psycho-panel">
+    <div class="exo-filters">
+      <button class="exo-filter active" onclick="exoSetType('all',this)">Tout mélanger</button>
+      <button class="exo-filter" onclick="exoSetType('num',this)">Séries numériques</button>
+      <button class="exo-filter" onclick="exoSetType('lettres',this)">Séries de lettres</button>
+      <button class="exo-filter" onclick="exoSetType('quant',this)">Quantitatif</button>
+      <button class="exo-filter" onclick="exoSetType('deductif',this)">Déductif</button>
+      <button class="exo-filter" onclick="exoSetType('vocab',this)">Vocabulaire</button>
+      <button class="exo-filter" onclick="exoSetType('analogie',this)">Analogies</button>
+      <button class="exo-filter" onclick="exoSetType('code',this)">Codes</button>
+    </div>
+    <div class="exo-score-bar">
+      <div>
+        <div class="exo-score-num" id="exo-score">0/0</div>
+        <div style="font-size:0.72rem;color:var(--muted2);">réponses correctes</div>
+      </div>
+      <div style="display:flex;gap:20px;">
+        <span style="font-size:0.82rem;color:var(--green)">✓ <span id="exo-ok">0</span></span>
+        <span style="font-size:0.82rem;color:var(--red)">✗ <span id="exo-ko">0</span></span>
+      </div>
+    </div>
+    <div id="exo-container"></div>
+  </div>
+
+  <!-- TEST CHRONOMÉTRÉ -->
+  <div id="psycho-test" class="psycho-panel">
+    <div id="chrono-config" class="chrono-config">
+      <div class="chrono-config-title">⚙️ Configurer le test</div>
+      <div class="chrono-row">
+        <div class="chrono-label">Durée</div>
+        <div class="chrono-opts">
+          <div class="chrono-opt sel" onclick="chronoCfg(this,'dur','5')">5 min</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'dur','10')">10 min</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'dur','15')">15 min ← ESSEC</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'dur','20')">20 min</div>
+        </div>
+      </div>
+      <div class="chrono-row">
+        <div class="chrono-label">Type de questions</div>
+        <div class="chrono-opts">
+          <div class="chrono-opt sel" onclick="chronoCfg(this,'type','all')">Tout mélanger</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'type','num')">Séries numériques</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'type','quant')">Quantitatif</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'type','deductif')">Déductif</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'type','vocab')">Vocabulaire</div>
+        </div>
+      </div>
+      <div class="chrono-row">
+        <div class="chrono-label">Pénalité pour mauvaise réponse</div>
+        <div class="chrono-opts">
+          <div class="chrono-opt sel" onclick="chronoCfg(this,'pen','0.25')">−¼ point</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'pen','0.5')">−½ point</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'pen','1')">−1 point</div>
+          <div class="chrono-opt" onclick="chronoCfg(this,'pen','0')">Sans pénalité</div>
+        </div>
+      </div>
+      <button class="chrono-start" onclick="chronoStart()">🚀 Lancer le test</button>
+    </div>
+
+    <div id="chrono-running" style="display:none;">
+      <div class="chrono-bar">
+        <div>
+          <div id="chrono-time" class="chrono-time">15:00</div>
+          <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;"><span id="chrono-qn">0</span>/<span id="chrono-qt">0</span> questions</div>
+        </div>
+        <div style="font-size:0.85rem;color:var(--muted2);">Score : <span id="chrono-score-live" style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span></div>
+        <button class="chrono-stop" onclick="chronoStop()">Arrêter</button>
+      </div>
+      <div id="chrono-q-container"></div>
+    </div>
+
+    <div id="chrono-results" class="chrono-results">
+      <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Score final</div>
+      <div class="chrono-score" id="chrono-score-final">0</div>
+      <div style="font-size:0.78rem;color:var(--muted2);">points sur <span id="chrono-max">0</span></div>
+      <div class="chrono-verdict" id="chrono-verdict"></div>
+      <div class="chrono-stats">
+        <div class="chrono-stat"><div class="chrono-stat-n" id="cr-ok" style="color:var(--green)">0</div><div class="chrono-stat-l">Bonnes</div></div>
+        <div class="chrono-stat"><div class="chrono-stat-n" id="cr-ko" style="color:var(--red)">0</div><div class="chrono-stat-l">Mauvaises</div></div>
+        <div class="chrono-stat"><div class="chrono-stat-n" id="cr-skip" style="color:var(--muted)">0</div><div class="chrono-stat-l">Passées</div></div>
+      </div>
+      <button class="chrono-retry" onclick="chronoReset()">🔁 Nouveau test</button>
+    </div>
+  </div>
+
+</div><!-- /essec-view-psycho -->
 ```
 
-  </div>
+  </div><!-- /contentESSEC -->
 
 </main>
 
@@ -925,23 +919,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   }
 
   function switchTab(tab) {
-    document.querySelectorAll('.tab').forEach(t => t.className = 'tab');
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab);
-    document.getElementById('content' + tab.toUpperCase()).classList.add('active');
-    if (tab === 'essec') {
-      // Forcer le premier sous-onglet actif avec style.display direct
-      var allPanels = ['cours','entrainement','test','oral'];
-      for (var pi = 0; pi < allPanels.length; pi++) {
-        var pp = document.getElementById('essec-panel-' + allPanels[pi]);
-        if (pp) pp.style.display = 'none';
-      }
-      var coursPanel = document.getElementById('essec-panel-cours');
-      if (coursPanel) coursPanel.style.display = 'block';
-      document.querySelectorAll('.essec-subtab').forEach(function(t) { t.classList.remove('active'); });
-      var firstSubtab = document.querySelector('.essec-subtab');
-      if (firstSubtab) firstSubtab.classList.add('active');
-    }
+    document.querySelectorAll('.tab').forEach(function(t){t.className='tab';});
+    document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active');});
+    document.getElementById('tab'+tab.toUpperCase()).classList.add('active-'+tab);
+    document.getElementById('content'+tab.toUpperCase()).classList.add('active');
   }
 
   async function loadCredits() {
@@ -1121,37 +1102,37 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   loadFeedbacks()
 
 
-  // ===== ESSEC EMBEDDED =====
+  
+  // ===== ESSEC JS =====
 
-  function essecToggleCours(card) {
-    var isOpen = card.classList.contains('open');
-    // Fermer toutes les fiches
-    var allCards = document.querySelectorAll('#essec-panel-cours .cours-card');
-    allCards.forEach(function(c) { c.classList.remove('open'); });
-    // Ouvrir celle-ci si elle était fermée
-    if (!isOpen) {
-      card.classList.add('open');
+  function essecNav(view, el) {
+    document.querySelectorAll('.essec-nav-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.essec-view').forEach(function(v){v.style.display='none';v.classList.remove('active');});
+    el.classList.add('active');
+    var target = document.getElementById('essec-view-' + view);
+    if(target){target.style.display='block';target.classList.add('active');}
+    if(view==='psycho'){
+      // Init exercices
+      if(exoFiltered.length===0) exoInit();
     }
   }
 
-  function showEssecTab(name, el) {
-    // Cacher tous les panels
-    var panels = ['cours','entrainement','test','oral'];
-    for (var i = 0; i < panels.length; i++) {
-      var p = document.getElementById('essec-panel-' + panels[i]);
-      if (p) { p.style.display = 'none'; p.classList.remove('active'); }
-    }
-    // Desactiver tous les sous-onglets
-    document.querySelectorAll('.essec-subtab').forEach(function(t) { t.classList.remove('active'); });
-    // Afficher le panel sélectionné
-    var target = document.getElementById('essec-panel-' + name);
-    if (target) { target.style.display = 'block'; target.classList.add('active'); }
-    // Activer le sous-onglet
-    if (el) el.classList.add('active');
-    // Init si nécessaire
-    if (name === 'entrainement') essecInitEntrainement();
+  function psychoNav(panel, el) {
+    document.querySelectorAll('.psycho-subnav-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.psycho-panel').forEach(function(p){p.style.display='none';p.classList.remove('active');});
+    el.classList.add('active');
+    var target = document.getElementById('psycho-' + panel);
+    if(target){target.style.display='block';target.classList.add('active');}
+    if(panel==='exos' && exoFiltered.length===0) exoInit();
   }
 
+  function coursToggle(item) {
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.cours-item.open').forEach(function(c){c.classList.remove('open');});
+    if(!isOpen) item.classList.add('open');
+  }
+
+  // === EXERCICES ===
   const QUESTIONS = [
   // SÉRIES NUMÉRIQUES (25 questions)
   {type:'num',q:'Quelle est la suite logique ? 48, 8, 35, 7, 24, …',opts:['17','6','19','18'],ans:1,exp:'Deux suites entrelacées : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6.'},
@@ -1288,179 +1269,138 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   {type:'code',q:'Quel nombre remplace le ? : 4 (12) 8 – 5 (30) 6 – 3 (21) ?',opts:['6','7','8','9'],ans:1,exp:'4×8−(8−4) = 32−4=28? Non. 4×8=32/2=16? 5×6=30 ✓. Règle : premier × second = résultat. 3×? = 21 → 7. Réponse : 7.'},
 ]
 
-function shuffle(arr){const a=[...arr]
+  function eShuffle(arr){var a=[...arr];for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 
-    return a;
-  }
+  var exoType='all', exoIdx=0, exoOk=0, exoKo=0, exoFiltered=[];
 
-
-  function essecShuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-  let essecType = 'all', essecQIdx = 0, essecOk = 0, essecKo = 0, essecFiltered = [];
-
-  function essecSetType(type, btn) {
-    essecType = type;
-    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  function exoSetType(type,btn){
+    exoType=type;
+    document.querySelectorAll('.exo-filter').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');
-    essecOk = 0; essecKo = 0; essecQIdx = 0;
-    essecInitEntrainement();
+    exoOk=0;exoKo=0;exoIdx=0;
+    exoInit();
   }
 
-  function essecInitEntrainement() {
-    essecFiltered = essecShuffle(essecType === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.type === essecType));
-    essecQIdx = 0;
-    essecUpdateScore();
-    essecRenderQ();
+  function exoInit(){
+    exoFiltered=eShuffle(exoType==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.type===exoType;}));
+    exoIdx=0;exoUpdateScore();exoRender();
   }
 
-  function essecUpdateScore() {
-    const t = essecOk + essecKo;
-    document.getElementById('score-display').textContent = essecOk + '/' + t;
-    document.getElementById('correct-count').textContent = essecOk;
-    document.getElementById('wrong-count').textContent = essecKo;
+  function exoUpdateScore(){
+    var t=exoOk+exoKo;
+    document.getElementById('exo-score').textContent=exoOk+'/'+t;
+    document.getElementById('exo-ok').textContent=exoOk;
+    document.getElementById('exo-ko').textContent=exoKo;
   }
 
-  function essecRenderQ() {
-    const c = document.getElementById('q-container');
-    if (!c) return;
-    if (essecQIdx >= essecFiltered.length) {
-      c.innerHTML = '<div class="empty-state"><div class="empty-icon">🎉</div><div>Tu as fini toutes les questions !<br><br><button onclick="essecInitEntrainement()" style="margin-top:12px;background:var(--gradient);color:var(--bg);border:none;padding:10px 24px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:600;">Recommencer</button></div></div>';
+  function exoRender(){
+    var c=document.getElementById('exo-container');
+    if(!c)return;
+    if(exoIdx>=exoFiltered.length){
+      c.innerHTML='<div class="empty-q">🎉 Tu as terminé toutes les questions !<br><br><button onclick="exoInit()" style="margin-top:14px;background:var(--gradient);color:var(--bg);border:none;padding:10px 24px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:600;">Recommencer</button></div>';
       return;
     }
-    const q = essecFiltered[essecQIdx];
-    const labels = {num:'Séries numériques', lettres:'Séries de lettres', quant:'Quantitatif', deductif:'Déductif', vocab:'Vocabulaire', analogie:'Analogies', code:'Codes'};
-    const L = ['A','B','C','D'];
-    c.innerHTML = '<div class="q-card">' +
-      '<div class="q-type-tag">' + (labels[q.type] || q.type) + '</div>' +
-      '<div class="q-text">' + q.q + '</div>' +
-      '<div class="q-options">' +
-      q.opts.map((o, i) => '<button class="q-option" onclick="essecAnswerQ(this,' + i + ',' + essecQIdx + ')">' +
-        '<div class="opt-letter">' + L[i] + '</div><span>' + o + '</span></button>').join('') +
-      '</div>' +
-      '<div class="q-feedback" id="qfb-' + essecQIdx + '"></div>' +
-      '<button class="next-btn" id="qnb-' + essecQIdx + '" onclick="essecNextQ()">Question suivante →</button>' +
-      '</div>';
+    var q=exoFiltered[exoIdx];
+    var labels={num:'Séries numériques',lettres:'Séries de lettres',quant:'Quantitatif',deductif:'Déductif',vocab:'Vocabulaire',analogie:'Analogies',code:'Codes'};
+    var L=['A','B','C','D'];
+    var opts=q.opts.map(function(o,i){return '<button class="q-opt" onclick="exoAnswer(this,'+i+','+exoIdx+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>';}).join('');
+    c.innerHTML='<div class="q-card"><div class="q-tag">'+(labels[q.type]||q.type)+'</div><div class="q-text">'+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="qfb'+exoIdx+'"></div><button class="q-next" id="qnxt'+exoIdx+'" onclick="exoNext()">Question suivante →</button></div>';
   }
 
-  function essecAnswerQ(btn, chosen, idx) {
-    const q = essecFiltered[idx];
-    btn.parentElement.querySelectorAll('.q-option').forEach(o => { o.classList.add('disabled'); o.onclick = null; });
-    const ok = chosen === q.ans;
-    if (ok) { btn.classList.add('correct'); essecOk++; }
-    else { btn.classList.add('wrong'); btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct'); essecKo++; }
-    const fb = document.getElementById('qfb-' + idx);
-    fb.className = 'q-feedback ' + (ok ? 'correct' : 'wrong');
-    fb.style.display = 'block';
-    fb.innerHTML = (ok ? '✅ ' : '❌ Bonne réponse : <strong>' + ['A','B','C','D'][q.ans] + '</strong>. ') + q.exp;
-    document.getElementById('qnb-' + idx).style.display = 'inline-block';
-    essecUpdateScore();
+  function exoAnswer(btn,chosen,idx){
+    var q=exoFiltered[idx];
+    btn.parentElement.querySelectorAll('.q-opt').forEach(function(o){o.classList.add('disabled');o.onclick=null;});
+    var ok=chosen===q.ans;
+    if(ok){btn.classList.add('correct');exoOk++;}
+    else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('correct');exoKo++;}
+    var fb=document.getElementById('qfb'+idx);
+    fb.className='q-fb '+(ok?'correct':'wrong');fb.style.display='block';
+    fb.innerHTML=(ok?'✅ ':'❌ Bonne réponse : <strong>'+['A','B','C','D'][q.ans]+'</strong>. ')+q.exp;
+    document.getElementById('qnxt'+idx).style.display='inline-block';
+    exoUpdateScore();
   }
 
-  function essecNextQ() { essecQIdx++; essecRenderQ(); }
+  function exoNext(){exoIdx++;exoRender();}
 
-  // TEST CHRONO
-  let essecTCfg = {duration:5, qtype:'all', penalty:0.25};
-  let essecTimer = null, essecSecs = 0, essecTQ = [], essecTIdx = 0;
-  let essecTScore = 0, essecTOk = 0, essecTKo = 0, essecTAns = 0;
+  // === TEST CHRONOMÉTRÉ ===
+  var cCfg={dur:5,type:'all',pen:0.25};
+  var cTimer=null,cSecs=0,cTQ=[],cIdx=0,cScore=0,cOk=0,cKo=0,cAns=0;
 
-  function essecSelectConfig(el, k, v) {
-    el.closest('.config-options').querySelectorAll('.config-opt').forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-    essecTCfg[k] = (k === 'duration' || k === 'penalty') ? parseFloat(v) : v;
+  function chronoCfg(el,k,v){
+    el.closest('.chrono-opts').querySelectorAll('.chrono-opt').forEach(function(o){o.classList.remove('sel');});
+    el.classList.add('sel');
+    if(k==='dur'||k==='pen') cCfg[k]=parseFloat(v); else cCfg[k]=v;
   }
 
-  function essecStartTest() {
-    essecTQ = essecShuffle(essecTCfg.qtype === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.type === essecTCfg.qtype));
-    essecTIdx = 0; essecTScore = 0; essecTOk = 0; essecTKo = 0; essecTAns = 0;
-    essecSecs = essecTCfg.duration * 60;
-    document.getElementById('test-config-panel').classList.add('hidden');
-    document.getElementById('test-running-panel').classList.remove('hidden');
-    document.getElementById('results-panel').style.display = 'none';
-    document.getElementById('test-q-total').textContent = essecTQ.length;
-    essecUpdateTimer();
-    essecRenderTQ();
-    essecTimer = setInterval(essecTick, 1000);
+  function chronoStart(){
+    cTQ=eShuffle(cCfg.type==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.type===cCfg.type;}));
+    cIdx=0;cScore=0;cOk=0;cKo=0;cAns=0;cSecs=cCfg.dur*60;
+    document.getElementById('chrono-config').style.display='none';
+    document.getElementById('chrono-running').style.display='block';
+    document.getElementById('chrono-results').style.display='none';
+    document.getElementById('chrono-qt').textContent=cTQ.length;
+    cTick2();chronoRenderQ();
+    cTimer=setInterval(cTick2,1000);
   }
 
-  function essecTick() {
-    essecSecs--;
-    essecUpdateTimer();
-    if (essecSecs <= 0) { clearInterval(essecTimer); essecShowResults(); }
+  function cTick2(){
+    var m=Math.floor(cSecs/60),s=cSecs%60;
+    var el=document.getElementById('chrono-time');
+    if(el){el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;el.className='chrono-time'+(cSecs<60?' urgent':'');}
+    var sl=document.getElementById('chrono-score-live');
+    if(sl)sl.textContent=cScore.toFixed(2);
+    if(cSecs<=0){clearInterval(cTimer);chronoShowResults();}
+    cSecs--;
   }
 
-  function essecUpdateTimer() {
-    const m = Math.floor(essecSecs / 60), s = essecSecs % 60;
-    const el = document.getElementById('timer-display');
-    if (!el) return;
-    el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-    el.className = 'timer-display' + (essecSecs < 60 ? ' urgent' : '');
-    const sl = document.getElementById('test-score-live');
-    if (sl) sl.textContent = essecTScore.toFixed(2);
+  function chronoRenderQ(){
+    var c=document.getElementById('chrono-q-container');
+    if(!c)return;
+    if(cIdx>=cTQ.length){chronoShowResults();return;}
+    var q=cTQ[cIdx];
+    document.getElementById('chrono-qn').textContent=cIdx+1;
+    var L=['A','B','C','D'];
+    var opts=q.opts.map(function(o,i){return '<button class="q-opt" onclick="chronoAnswer(this,'+i+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>';}).join('');
+    c.innerHTML='<div class="q-card"><div class="q-text">'+q.q+'</div><div class="q-opts">'+opts+'</div><div style="margin-top:14px;"><button onclick="chronoSkip()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:8px 16px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">Passer →</button></div></div>';
   }
 
-  function essecRenderTQ() {
-    const c = document.getElementById('test-q-container');
-    if (!c) return;
-    if (essecTIdx >= essecTQ.length) { essecShowResults(); return; }
-    const q = essecTQ[essecTIdx];
-    const n = document.getElementById('test-q-num');
-    if (n) n.textContent = essecTIdx + 1;
-    const L = ['A','B','C','D'];
-    c.innerHTML = '<div class="q-card">' +
-      '<div class="q-text">' + q.q + '</div>' +
-      '<div class="q-options">' +
-      q.opts.map((o,i) => '<button class="q-option" onclick="essecAnswerTQ(this,' + i + ')">' +
-        '<div class="opt-letter">' + L[i] + '</div><span>' + o + '</span></button>').join('') +
-      '</div>' +
-      '<div style="margin-top:14px;"><button onclick="essecSkipTQ()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">Passer →</button></div>' +
-      '</div>';
+  function chronoAnswer(btn,chosen){
+    var q=cTQ[cIdx];
+    btn.parentElement.querySelectorAll('.q-opt').forEach(function(o){o.classList.add('disabled');o.onclick=null;});
+    if(chosen===q.ans){btn.classList.add('correct');cScore+=1;cOk++;}
+    else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('correct');cScore-=cCfg.pen;cKo++;}
+    cAns++;
+    setTimeout(function(){cIdx++;chronoRenderQ();},700);
   }
 
-  function essecAnswerTQ(btn, chosen) {
-    const q = essecTQ[essecTIdx];
-    btn.parentElement.querySelectorAll('.q-option').forEach(o => { o.classList.add('disabled'); o.onclick = null; });
-    if (chosen === q.ans) { btn.classList.add('correct'); essecTScore += 1; essecTOk++; }
-    else { btn.classList.add('wrong'); btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct'); essecTScore -= essecTCfg.penalty; essecTKo++; }
-    essecTAns++;
-    setTimeout(() => { essecTIdx++; essecRenderTQ(); }, 700);
+  function chronoSkip(){cIdx++;chronoRenderQ();}
+  function chronoStop(){clearInterval(cTimer);chronoShowResults();}
+
+  function chronoShowResults(){
+    clearInterval(cTimer);
+    document.getElementById('chrono-running').style.display='none';
+    document.getElementById('chrono-results').style.display='block';
+    var skip=cIdx-cAns,max=cIdx,pct=max>0?(cScore/max)*100:0;
+    var v=pct>=70?'Excellent niveau !':pct>=45?'Bon niveau, continue !':'Continue, la regularite paie !';
+    document.getElementById('chrono-score-final').textContent=cScore.toFixed(2);
+    document.getElementById('chrono-max').textContent=max;
+    document.getElementById('chrono-verdict').textContent=v;
+    document.getElementById('cr-ok').textContent=cOk;
+    document.getElementById('cr-ko').textContent=cKo;
+    document.getElementById('cr-skip').textContent=skip;
   }
 
-  function essecSkipTQ() { essecTIdx++; essecRenderTQ(); }
-  function essecStopTest() { clearInterval(essecTimer); essecShowResults(); }
-
-  function essecShowResults() {
-    clearInterval(essecTimer);
-    document.getElementById('test-running-panel').classList.add('hidden');
-    document.getElementById('results-panel').style.display = 'block';
-    const skip = essecTIdx - essecTAns, max = essecTIdx;
-    const pct = max > 0 ? (essecTScore / max) * 100 : 0;
-    let v = pct >= 70 ? 'Excellent niveau !' : pct >= 45 ? 'Bon niveau, continue !' : 'Continue, la regularite paie !';
-    document.getElementById('results-score').textContent = essecTScore.toFixed(2);
-    document.getElementById('results-max').textContent = max;
-    document.getElementById('results-verdict').textContent = v;
-    document.getElementById('res-correct').textContent = essecTOk;
-    document.getElementById('res-wrong').textContent = essecTKo;
-    document.getElementById('res-skip').textContent = skip;
+  function chronoReset(){
+    document.getElementById('chrono-results').style.display='none';
+    document.getElementById('chrono-config').style.display='block';
+    document.getElementById('chrono-running').style.display='none';
   }
 
-  function essecResetTest() {
-    document.getElementById('results-panel').style.display = 'none';
-    document.getElementById('test-config-panel').classList.remove('hidden');
-    document.getElementById('test-running-panel').classList.add('hidden');
-  }
-
-  // Init entraînement quand on charge l'onglet ESSEC par défaut
-  document.addEventListener('DOMContentLoaded', function() {
-    // Pre-load questions so first click on Entraînement is instant
-    essecFiltered = essecShuffle(QUESTIONS);
+  // Auto-init exercices au chargement
+  document.addEventListener('DOMContentLoaded', function(){
+    exoFiltered = eShuffle(QUESTIONS);
+    exoIdx=0;
   });
-
 
 </script>
 
