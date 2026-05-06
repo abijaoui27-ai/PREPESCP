@@ -74,221 +74,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .btn-emlyon:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,57,42,0.35); }
 .btn-disabled { opacity: 0.4; pointer-events: none; }
 
-
-
-/* ===== ESSEC REDESIGN ===== */
-.essec-nav { display: flex; gap: 0; margin-bottom: 0; }
-.essec-nav-btn {
-  flex: 1; padding: 14px 20px; text-align: center; cursor: pointer;
-  font-size: 0.82rem; font-weight: 600; background: var(--surface2);
-  color: var(--muted2); transition: all 0.25s; border-bottom: 3px solid transparent;
-  letter-spacing: 0.5px;
-}
-.essec-nav-btn:hover { color: var(--text); background: var(--surface3); }
-.essec-nav-btn.active { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface3); }
-
-.essec-view { display: none; }
-.essec-view.active { display: block; }
-
-/* Oral view */
-.oral-hero {
-  background: linear-gradient(135deg, rgba(0,59,122,0.15), rgba(0,85,179,0.08));
-  border: 1px solid var(--essec-border); padding: 40px;
-  margin-bottom: 24px; position: relative; overflow: hidden;
-}
-.oral-hero::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--essec), var(--essec2));
-}
-.oral-hero-title {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700;
-  margin-bottom: 8px;
-}
-.oral-hero-sub { font-size: 0.85rem; color: var(--muted2); line-height: 1.7; margin-bottom: 28px; }
-.oral-info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
-.oral-info-item {
-  background: rgba(0,85,179,0.08); border: 1px solid var(--essec-border);
-  padding: 16px; text-align: center;
-}
-.oral-info-num {
-  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700;
-  color: var(--essec2); line-height: 1;
-}
-.oral-info-label { font-size: 0.68rem; color: var(--muted2); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-.oral-tips {
-  background: var(--surface2); border: 1px solid var(--border);
-  border-left: 3px solid var(--essec2); padding: 16px 20px; margin-bottom: 28px;
-}
-.oral-tips-title { font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 10px; }
-.oral-tips ul { padding-left: 16px; }
-.oral-tips li { font-size: 0.83rem; color: var(--muted2); line-height: 1.8; }
-.oral-widget-box {
-  background: var(--surface2); border: 1px solid var(--border);
-  padding: 40px 24px; text-align: center;
-}
-.oral-widget-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
-
-/* Psycho nav */
-.psycho-subnav { display: flex; gap: 2px; background: var(--border2); margin-bottom: 0; }
-.psycho-subnav-btn {
-  flex: 1; padding: 11px 16px; text-align: center; cursor: pointer;
-  font-size: 0.78rem; font-weight: 500; background: var(--surface);
-  color: var(--muted2); transition: all 0.2s; border-bottom: 2px solid transparent;
-}
-.psycho-subnav-btn:hover { color: var(--text); }
-.psycho-subnav-btn.active { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface2); }
-
-.psycho-panel { display: none; padding: 28px 0 0; }
-.psycho-panel.active { display: block; }
-
-/* Cours accordéon */
-.cours-list { display: flex; flex-direction: column; gap: 2px; }
-.cours-item { background: var(--surface2); border: 1px solid var(--border); overflow: hidden; }
-.cours-item-header {
-  display: flex; align-items: center; gap: 16px; padding: 20px 24px;
-  cursor: pointer; transition: background 0.2s; user-select: none;
-}
-.cours-item-header:hover { background: var(--surface3); }
-.cours-item.open .cours-item-header { background: var(--surface3); border-bottom: 1px solid var(--border); }
-.cours-item-icon {
-  width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; background: var(--essec-bg); border: 1px solid var(--essec-border); flex-shrink: 0;
-}
-.cours-item-title { font-size: 0.92rem; font-weight: 600; flex: 1; }
-.cours-item-sub { font-size: 0.75rem; color: var(--muted2); margin-top: 2px; }
-.cours-item-arrow { color: var(--muted); font-size: 0.75rem; transition: transform 0.25s; flex-shrink: 0; }
-.cours-item.open .cours-item-arrow { transform: rotate(180deg); }
-.cours-item-body { display: none; padding: 28px 32px; }
-.cours-item.open .cours-item-body { display: block; }
-.cours-item-body h4 {
-  font-size: 0.65rem; font-weight: 700; color: var(--essec2);
-  text-transform: uppercase; letter-spacing: 2px; margin: 20px 0 10px;
-}
-.cours-item-body h4:first-child { margin-top: 0; }
-.cours-item-body p, .cours-item-body li { font-size: 0.85rem; color: var(--muted2); line-height: 1.75; }
-.cours-item-body ul { padding-left: 18px; margin-bottom: 8px; }
-.cours-item-body li { margin-bottom: 6px; }
-.ex-box {
-  background: var(--surface); border-left: 3px solid var(--essec2);
-  padding: 14px 18px; margin: 10px 0; font-size: 0.83rem;
-}
-.ex-q { color: var(--muted2); margin-bottom: 6px; font-weight: 500; }
-.ex-r { color: var(--accent); font-weight: 600; }
-
-/* Exercices */
-.exo-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-.exo-filter {
-  padding: 7px 16px; background: var(--surface2); border: 1px solid var(--border);
-  color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif;
-  font-size: 0.78rem; font-weight: 500; transition: all 0.2s;
-}
-.exo-filter:hover { border-color: var(--essec2); color: var(--text); }
-.exo-filter.active { background: var(--essec2); border-color: var(--essec2); color: #fff; }
-.exo-score-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--surface2); border: 1px solid var(--border);
-  padding: 14px 20px; margin-bottom: 20px;
-}
-.exo-score-num {
-  font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700;
-  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.q-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px; margin-bottom: 16px; }
-.q-tag {
-  display: inline-block; font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 1.5px; color: var(--essec2); background: var(--essec-bg);
-  border: 1px solid var(--essec-border); padding: 3px 10px; margin-bottom: 14px;
-}
-.q-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 18px; font-weight: 500; }
-.q-opts { display: flex; flex-direction: column; gap: 8px; }
-.q-opt {
-  display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px;
-  background: var(--surface); border: 1px solid var(--border2);
-  cursor: pointer; font-size: 0.85rem; line-height: 1.5; text-align: left;
-  width: 100%; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300;
-  transition: all 0.15s;
-}
-.q-opt:hover:not(.disabled) { border-color: var(--essec2); background: var(--essec-bg); }
-.q-opt.correct { border-color: var(--green); background: rgba(74,222,128,0.06); color: var(--green); }
-.q-opt.wrong { border-color: var(--red); background: rgba(224,92,92,0.06); color: var(--red); }
-.q-opt.disabled { cursor: default; }
-.q-letter {
-  width: 24px; height: 24px; border: 1px solid var(--border); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; font-weight: 700; color: var(--muted2);
-}
-.q-fb { display: none; margin-top: 14px; padding: 12px 16px; font-size: 0.83rem; line-height: 1.6; }
-.q-fb.correct { background: rgba(74,222,128,0.06); border-left: 2px solid var(--green); color: #a0f0b0; }
-.q-fb.wrong { background: rgba(224,92,92,0.06); border-left: 2px solid var(--red); color: #f0a0a0; }
-.q-next {
-  display: none; margin-top: 14px; padding: 10px 24px;
-  background: var(--gradient); border: none; color: var(--bg);
-  cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600;
-}
-
-/* Test chrono */
-.chrono-config { background: var(--surface2); border: 1px solid var(--border); padding: 32px; margin-bottom: 20px; }
-.chrono-config-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 24px; }
-.chrono-row { margin-bottom: 20px; }
-.chrono-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 10px; }
-.chrono-opts { display: flex; flex-wrap: wrap; gap: 8px; }
-.chrono-opt {
-  padding: 8px 18px; background: var(--surface); border: 1px solid var(--border);
-  color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif;
-  font-size: 0.8rem; transition: all 0.15s;
-}
-.chrono-opt:hover { border-color: var(--essec2); color: var(--text); }
-.chrono-opt.sel { background: var(--essec2); border-color: var(--essec2); color: #fff; }
-.chrono-start {
-  width: 100%; padding: 15px; background: linear-gradient(135deg, #003b7a, #0055b3);
-  border: none; color: #fff; font-family: 'Outfit', sans-serif;
-  font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: opacity 0.2s;
-}
-.chrono-start:hover { opacity: 0.9; }
-.chrono-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--surface2); border: 1px solid var(--border); padding: 16px 24px; margin-bottom: 20px;
-}
-.chrono-time {
-  font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700;
-  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.chrono-time.urgent { background: none; -webkit-text-fill-color: var(--red); color: var(--red); }
-.chrono-stop {
-  background: transparent; border: 1px solid var(--border); color: var(--muted2);
-  padding: 8px 18px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem;
-}
-.chrono-results {
-  display: none; background: var(--surface2); border: 1px solid var(--border);
-  padding: 48px 40px; text-align: center; position: relative; overflow: hidden;
-}
-.chrono-results::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--gradient);
-}
-.chrono-score {
-  font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700;
-  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  line-height: 1; margin: 8px 0;
-}
-.chrono-verdict {
-  font-size: 0.88rem; color: var(--text); padding: 14px 18px;
-  background: var(--surface); border-left: 2px solid var(--accent);
-  margin: 20px 0; text-align: left;
-}
-.chrono-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 20px 0; }
-.chrono-stat { background: var(--surface); padding: 20px; }
-.chrono-stat-n { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; }
-.chrono-stat-l { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-.chrono-retry {
-  margin-top: 16px; padding: 12px 32px; background: var(--gradient);
-  border: none; color: var(--bg); font-family: 'Outfit', sans-serif;
-  font-size: 0.88rem; font-weight: 600; cursor: pointer;
-}
-.empty-q { text-align: center; padding: 40px 20px; color: var(--muted2); background: var(--surface2); border: 1px solid var(--border); }
-
-
-.tab-content.escp-content { border-top: 2px solid var(--escp); }
 .questionnaire-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 32px; }
 .questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
 .questionnaire-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; margin-bottom: 24px; }
@@ -310,6 +95,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .q-save-msg { font-size: 0.75rem; color: var(--green); display: none; }
 .q-save-msg.show { display: block; }
 .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--green); }
+
 .section-eyebrow { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
 .entretien-list { display: flex; flex-direction: column; gap: 8px; }
 .entretien-item { background: var(--surface2); border: 1px solid var(--border); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: background 0.3s; cursor: pointer; }
@@ -321,6 +107,158 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .empty-state { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; line-height: 1.7; background: var(--surface2); border: 1px solid var(--border); }
 .empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
 
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 700px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+.modal-close { position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
+.modal-top-bar { height: 2px; position: absolute; top: 0; left: 0; right: 0; }
+.modal-top-bar.escp { background: var(--gradient); }
+.modal-top-bar.emlyon { background: var(--emlyon); }
+.modal-school-badge { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
+.modal-school-badge.escp { color: var(--escp); border: 1px solid var(--escp-border); background: var(--escp-bg); }
+.modal-school-badge.emlyon { color: var(--emlyon); border: 1px solid var(--emlyon-border); background: var(--emlyon-bg); }
+.modal-header { text-align: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.modal-note { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
+.modal-note-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
+.modal-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface2); padding: 14px 18px; text-align: left; }
+.modal-verdict.escp { border-left: 3px solid var(--escp); }
+.modal-verdict.emlyon { border-left: 3px solid var(--emlyon); }
+.fb-section { margin-bottom: 16px; }
+.fb-section h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+.fb-section h4.escp { color: var(--escp); }
+.fb-section h4.emlyon { color: var(--emlyon); }
+.fb-section p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
+.fb-divider { height: 1px; background: var(--border); margin: 22px 0; }
+.fb-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+.analyse-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 16px 20px; margin-bottom: 16px; font-size: 0.83rem; color: var(--text); line-height: 1.8; }
+.analyse-box.emlyon { border-left-color: var(--emlyon); }
+.comp-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 16px; }
+.comp-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
+.comp-card p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; }
+.cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.carte-fb { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--emlyon-border); }
+.carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
+.carte-fb-text { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
+
+/* ===== ESSEC ===== */
+.essec-nav { display: flex; gap: 2px; background: var(--border2); margin-bottom: 0; }
+.essec-nav-btn { flex: 1; padding: 14px 20px; text-align: center; cursor: pointer; font-size: 0.85rem; font-weight: 600; background: var(--surface2); color: var(--muted2); transition: all 0.25s; border-bottom: 3px solid transparent; }
+.essec-nav-btn:hover { color: var(--text); background: var(--surface3); }
+.essec-nav-btn.on { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface3); }
+.essec-view { display: none; padding-top: 28px; }
+.essec-view.on { display: block; }
+
+/* Oral */
+.oral-hero { background: linear-gradient(135deg, rgba(0,59,122,0.15), rgba(0,85,179,0.06)); border: 1px solid var(--essec-border); padding: 36px; margin-bottom: 20px; position: relative; }
+.oral-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--essec), var(--essec2)); }
+.oral-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+.oral-sub { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; margin-bottom: 24px; }
+.oral-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 24px; }
+.oral-stat { background: rgba(0,85,179,0.08); border: 1px solid var(--essec-border); padding: 14px; text-align: center; }
+.oral-stat-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--essec2); line-height: 1; }
+.oral-stat-l { font-size: 0.65rem; color: var(--muted2); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.oral-tips { background: var(--surface2); border-left: 3px solid var(--essec2); padding: 14px 18px; margin-bottom: 24px; }
+.oral-tips-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 8px; }
+.oral-tips li { font-size: 0.82rem; color: var(--muted2); line-height: 1.8; }
+.oral-widget { background: var(--surface2); border: 1px solid var(--border); padding: 36px 24px; text-align: center; }
+.oral-widget-label { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+
+/* Psycho sous-nav */
+.psycho-nav { display: flex; gap: 2px; background: var(--border2); }
+.psycho-nav-btn { flex: 1; padding: 11px 16px; text-align: center; cursor: pointer; font-size: 0.78rem; font-weight: 500; background: var(--surface); color: var(--muted2); transition: all 0.2s; border-bottom: 2px solid transparent; }
+.psycho-nav-btn:hover { color: var(--text); }
+.psycho-nav-btn.on { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface2); }
+.psycho-panel { display: none; padding-top: 24px; }
+.psycho-panel.on { display: block; }
+
+/* Cours accordéon */
+.cours-list { display: flex; flex-direction: column; gap: 2px; }
+.cours-item { background: var(--surface2); border: 1px solid var(--border); }
+.cours-item-hd { display: flex; align-items: center; gap: 14px; padding: 18px 22px; cursor: pointer; user-select: none; transition: background 0.2s; }
+.cours-item-hd:hover { background: var(--surface3); }
+.cours-item.on .cours-item-hd { background: var(--surface3); border-bottom: 1px solid var(--border); }
+.cours-item-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; background: var(--essec-bg); border: 1px solid var(--essec-border); flex-shrink: 0; }
+.cours-item-title { font-size: 0.9rem; font-weight: 600; flex: 1; }
+.cours-item-sub { font-size: 0.73rem; color: var(--muted2); margin-top: 2px; }
+.cours-arrow { color: var(--muted); font-size: 0.72rem; transition: transform 0.2s; }
+.cours-item.on .cours-arrow { transform: rotate(180deg); }
+.cours-item-body { display: none; padding: 24px 28px; }
+.cours-item.on .cours-item-body { display: block; }
+.cours-item-body h4 { font-size: 0.63rem; font-weight: 700; color: var(--essec2); text-transform: uppercase; letter-spacing: 2px; margin: 18px 0 9px; }
+.cours-item-body h4:first-child { margin-top: 0; }
+.cours-item-body p, .cours-item-body li { font-size: 0.84rem; color: var(--muted2); line-height: 1.75; }
+.cours-item-body ul { padding-left: 16px; margin-bottom: 6px; }
+.cours-item-body li { margin-bottom: 5px; }
+.ex { background: var(--surface); border-left: 3px solid var(--essec2); padding: 12px 16px; margin: 8px 0; font-size: 0.82rem; }
+.ex-q { color: var(--muted2); margin-bottom: 5px; font-weight: 500; }
+.ex-r { color: var(--accent); font-weight: 600; }
+
+/* Exercices */
+.exo-themes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.exo-theme-card { background: var(--surface2); border: 1px solid var(--border); padding: 18px 20px; cursor: pointer; transition: all 0.2s; }
+.exo-theme-card:hover { border-color: var(--essec2); }
+.exo-theme-card.done { border-color: rgba(74,222,128,0.35); }
+.exo-theme-icon { font-size: 1.3rem; margin-bottom: 8px; }
+.exo-theme-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 3px; }
+.exo-theme-sub { font-size: 0.73rem; color: var(--muted2); margin-bottom: 10px; }
+.exo-theme-bar { background: var(--surface3); height: 4px; margin-top: 8px; }
+.exo-theme-fill { height: 100%; transition: width 0.4s; }
+.exo-theme-stat { font-size: 0.7rem; color: var(--muted2); margin-top: 5px; }
+.exo-done-badge { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 4px; }
+
+/* Q card */
+.q-card { background: var(--surface2); border: 1px solid var(--border); padding: 26px; margin-bottom: 14px; }
+.q-num { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--essec2); background: var(--essec-bg); border: 1px solid var(--essec-border); display: inline-block; padding: 3px 10px; margin-bottom: 12px; }
+.q-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 16px; font-weight: 500; }
+.q-opts { display: flex; flex-direction: column; gap: 8px; }
+.q-opt { display: flex; align-items: flex-start; gap: 10px; padding: 11px 15px; background: var(--surface); border: 1px solid var(--border2); cursor: pointer; font-size: 0.85rem; line-height: 1.5; text-align: left; width: 100%; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; transition: all 0.15s; }
+.q-opt:hover:not(.dis) { border-color: var(--essec2); background: var(--essec-bg); }
+.q-opt.ok { border-color: var(--green); background: rgba(74,222,128,0.06); color: var(--green); }
+.q-opt.ko { border-color: var(--red); background: rgba(224,92,92,0.06); color: var(--red); }
+.q-opt.dis { cursor: default; }
+.q-letter { width: 22px; height: 22px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0; color: var(--muted2); }
+.q-fb { display: none; margin-top: 12px; padding: 11px 15px; font-size: 0.82rem; line-height: 1.6; }
+.q-fb.ok { background: rgba(74,222,128,0.06); border-left: 2px solid var(--green); color: #a0f0b0; }
+.q-fb.ko { background: rgba(224,92,92,0.06); border-left: 2px solid var(--red); color: #f0a0a0; }
+.q-nxt { display: none; margin-top: 12px; padding: 9px 22px; background: var(--gradient); border: none; color: var(--bg); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; }
+
+/* Score bar exo */
+.exo-score-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); padding: 12px 18px; margin-bottom: 18px; }
+.exo-score-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+
+/* Résultats exo */
+.exo-res { background: var(--surface2); border: 1px solid var(--border); padding: 36px; text-align: center; position: relative; }
+.exo-res::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
+.exo-res-score { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 8px 0; }
+.exo-res-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 20px 0; }
+.exo-res-cell { background: var(--surface); padding: 16px; }
+.exo-res-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; }
+.exo-res-l { font-size: 0.63rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+/* Chrono */
+.chrono-cfg { background: var(--surface2); border: 1px solid var(--border); padding: 28px; }
+.chrono-cfg-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+.chrono-row { margin-bottom: 16px; }
+.chrono-lbl { font-size: 0.63rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 8px; }
+.chrono-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.chrono-opt { padding: 7px 15px; background: var(--surface); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; transition: all 0.15s; }
+.chrono-opt:hover { border-color: var(--essec2); color: var(--text); }
+.chrono-opt.sel { background: var(--essec2); border-color: var(--essec2); color: #fff; }
+.chrono-start { width: 100%; padding: 14px; background: linear-gradient(135deg, #003b7a, #0055b3); border: none; color: #fff; font-family: 'Outfit', sans-serif; font-size: 0.92rem; font-weight: 700; cursor: pointer; margin-top: 8px; }
+.chrono-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 18px; }
+.chrono-time { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.chrono-time.urg { background: none; -webkit-text-fill-color: var(--red); }
+.chrono-stop { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 14px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.76rem; }
+.chrono-res { display: none; background: var(--surface2); border: 1px solid var(--border); padding: 40px; text-align: center; position: relative; }
+.chrono-res::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
+.chrono-res-score { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 8px 0; }
+.chrono-res-verdict { font-size: 0.85rem; color: var(--text); padding: 12px 16px; background: var(--surface); border-left: 2px solid var(--accent); margin: 16px 0; text-align: left; }
+.chrono-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 16px 0; }
+.chrono-stat { background: var(--surface); padding: 16px; }
+.chrono-stat-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; }
+.chrono-stat-l { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+.chrono-retry { margin-top: 14px; padding: 11px 28px; background: var(--gradient); border: none; color: var(--bg); font-family: 'Outfit', sans-serif; font-size: 0.86rem; font-weight: 600; cursor: pointer; }
+
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
   .main { padding: 80px 16px 40px; }
@@ -329,20 +267,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   .modal { padding: 28px 20px; }
   .cartes-grid { grid-template-columns: 1fr; }
   .tabs { flex-direction: column; gap: 1px; }
-  .essec-actions { flex-direction: column; }
-  .btn-essec-oral, .btn-essec-psycho { width: 100%; justify-content: center; }
+  .exo-themes { grid-template-columns: 1fr; }
+  .oral-stats { grid-template-columns: 1fr; }
 }
-
-/* ESSEC sub-tabs */
-.essec-subtabs { display: flex; gap: 2px; background: var(--border2); margin-bottom: 0; }
-.essec-subtab { flex: 1; padding: 12px 16px; text-align: center; cursor: pointer; font-size: 0.78rem; font-weight: 500; background: var(--surface2); color: var(--muted2); transition: all 0.3s; border-bottom: 2px solid transparent; }
-.essec-subtab:hover { color: var(--text); }
-.essec-subtab.active { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface3); }
-.essec-panel { display: none; padding: 28px 0 0; } /* hidden by default */
-.essec-panel.active { display: block; }
-/* ESSEC score bar */
-.score-bar { display: flex; align-items: center; gap: 16px; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 20px; }
-.score-num { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.6rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
 ```
 
   </style>
@@ -413,36 +340,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       </div>
       <p class="questionnaire-desc" style="margin-top:10px;">Transmis à Jean-Marc avant l'entretien. <strong>Il personnalisera ses questions en fonction de vos réponses.</strong> Optionnel mais fortement recommandé.</p>
       <div class="questionnaire-form" id="questionnaireForm">
-        <div class="q-group">
-          <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
-          <div class="q-hint">Précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
-          <textarea class="q-textarea" id="q1" placeholder="Ex: Tennis en compétition depuis 8 ans…"></textarea>
-        </div>
-        <div class="q-group">
-          <div class="q-label">2. Réalisation dont vous êtes fier(e)</div>
-          <div class="q-hint">Succès ou échec — ce que vous en avez appris.</div>
-          <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif…"></textarea>
-        </div>
-        <div class="q-group">
-          <div class="q-label">3. Expérience du monde du travail</div>
-          <div class="q-hint">Stages, jobs, rencontres. Précisez lieu et durée.</div>
-          <textarea class="q-textarea" id="q3" placeholder="Ex: Stage chez un cabinet comptable…"></textarea>
-        </div>
-        <div class="q-group">
-          <div class="q-label">4. Expériences de différentes cultures</div>
-          <div class="q-hint">Voyages, lectures, rencontres, expositions…</div>
-          <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour à Dublin, correspondant allemand…"></textarea>
-        </div>
-        <div class="q-group">
-          <div class="q-label">5. Une expérience marquante</div>
-          <div class="q-hint">Ce qu'elle vous a appris sur vous-même.</div>
-          <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris…"></textarea>
-        </div>
-        <div class="q-group">
-          <div class="q-label">6. Autres informations pour le jury</div>
-          <div class="q-hint">Tout ce que vous jugez utile.</div>
-          <textarea class="q-textarea" id="q6" placeholder="Ex: Président du BDE depuis septembre…"></textarea>
-        </div>
+        <div class="q-group"><div class="q-label">1. Centres d'intérêt & activités extrascolaires</div><div class="q-hint">Précis : depuis combien de temps, quelle fréquence, exemples concrets.</div><textarea class="q-textarea" id="q1" placeholder="Ex: Tennis en compétition depuis 8 ans…"></textarea></div>
+        <div class="q-group"><div class="q-label">2. Réalisation dont vous êtes fier(e)</div><div class="q-hint">Succès ou échec — ce que vous en avez appris.</div><textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif…"></textarea></div>
+        <div class="q-group"><div class="q-label">3. Expérience du monde du travail</div><div class="q-hint">Stages, jobs, rencontres. Précisez lieu et durée.</div><textarea class="q-textarea" id="q3" placeholder="Ex: Stage chez un cabinet comptable…"></textarea></div>
+        <div class="q-group"><div class="q-label">4. Expériences de différentes cultures</div><div class="q-hint">Voyages, lectures, rencontres, expositions…</div><textarea class="q-textarea" id="q4" placeholder="Ex: Séjour à Dublin, correspondant allemand…"></textarea></div>
+        <div class="q-group"><div class="q-label">5. Une expérience marquante</div><div class="q-hint">Ce qu'elle vous a appris sur vous-même.</div><textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris…"></textarea></div>
+        <div class="q-group"><div class="q-label">6. Autres informations pour le jury</div><div class="q-hint">Tout ce que vous jugez utile.</div><textarea class="q-textarea" id="q6" placeholder="Ex: Président du BDE depuis septembre…"></textarea></div>
         <div class="q-actions">
           <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
           <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé !</span>
@@ -450,9 +353,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       </div>
     </div>
     <div class="section-eyebrow">Historique ESCP</div>
-    <div class="entretien-list" id="listESCP">
-      <div class="empty-state"><div class="empty-icon">🎙️</div><div>Aucun entretien ESCP pour l'instant.</div></div>
-    </div>
+    <div class="entretien-list" id="listESCP"><div class="empty-state"><div class="empty-icon">🎙️</div><div>Aucun entretien ESCP pour l'instant.</div></div></div>
   </div>
 
   <!-- EM LYON -->
@@ -460,41 +361,28 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   <div class="tab-content emlyon-content" id="contentEMLYON">
     <a href="/entretien-emlyon" class="btn-lancer btn-emlyon" id="btnEMLYON">🃏 Lancer un entretien EM Lyon</a>
     <div class="section-eyebrow">Historique EM Lyon</div>
-    <div class="entretien-list" id="listEMLYON">
-      <div class="empty-state"><div class="empty-icon">🃏</div><div>Aucun entretien EM Lyon pour l'instant.</div></div>
-    </div>
+    <div class="entretien-list" id="listEMLYON"><div class="empty-state"><div class="empty-icon">🃏</div><div>Aucun entretien EM Lyon pour l'instant.</div></div></div>
   </div>
 
   <!-- ESSEC -->
 
   <div class="tab-content essec-content" id="contentESSEC">
+    <div class="essec-nav">
+      <div class="essec-nav-btn on" onclick="essecNav('oral',this)">🎙️ Entretien oral</div>
+      <div class="essec-nav-btn" onclick="essecNav('psycho',this)">📊 Tests psychotechniques</div>
+    </div>
 
 ```
-<!-- Navigation principale ESSEC : 2 onglets -->
-<div class="essec-nav">
-  <div class="essec-nav-btn active" id="essecNavOral" onclick="essecNav('oral',this)">🎙️ Entretien oral</div>
-  <div class="essec-nav-btn" id="essecNavPsycho" onclick="essecNav('psycho',this)">📊 Tests psychotechniques</div>
-</div>
-
-<!-- ========== VUE ENTRETIEN ORAL ========== -->
-<div id="essec-view-oral" class="essec-view active">
+<!-- ORAL -->
+<div id="ev-oral" class="essec-view on">
   <div class="oral-hero">
-    <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--essec2);margin-bottom:12px;">ESSEC Business School · Jury IA</div>
-    <div class="oral-hero-title">Entretien de personnalité ESSEC</div>
-    <div class="oral-hero-sub">Simulation immersive avec un jury IA calibré sur le vrai format ESSEC — questions ouvertes, mise en situation professionnelle, 9 critères évalués.</div>
-    <div class="oral-info-grid">
-      <div class="oral-info-item">
-        <div class="oral-info-num">30'</div>
-        <div class="oral-info-label">Durée réelle</div>
-      </div>
-      <div class="oral-info-item">
-        <div class="oral-info-num">9</div>
-        <div class="oral-info-label">Critères évalués</div>
-      </div>
-      <div class="oral-info-item">
-        <div class="oral-info-num">Coeff 10</div>
-        <div class="oral-info-label">Importance</div>
-      </div>
+    <div style="font-size:0.63rem;letter-spacing:2px;text-transform:uppercase;color:var(--essec2);margin-bottom:10px;">ESSEC · Jury IA</div>
+    <div class="oral-title">Entretien de personnalité ESSEC</div>
+    <div class="oral-sub">Simulation immersive calibrée sur le vrai format ESSEC — questions ouvertes, mise en situation, 9 critères évalués.</div>
+    <div class="oral-stats">
+      <div class="oral-stat"><div class="oral-stat-n">30'</div><div class="oral-stat-l">Durée réelle</div></div>
+      <div class="oral-stat"><div class="oral-stat-n">9</div><div class="oral-stat-l">Critères évalués</div></div>
+      <div class="oral-stat"><div class="oral-stat-n">Coeff 10</div><div class="oral-stat-l">Importance</div></div>
     </div>
     <div class="oral-tips">
       <div class="oral-tips-title">Avant de commencer</div>
@@ -506,234 +394,158 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       </ul>
     </div>
   </div>
-  <div class="oral-widget-box">
+  <div class="oral-widget">
     <div class="oral-widget-label">Jury ESSEC — Intelligence artificielle</div>
     <elevenlabs-convai agent-id="agent_6201kqyj4vwkerkt0faxgk2zn3ed"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-    <div style="margin-top:20px;font-size:0.75rem;color:var(--muted);line-height:1.7;">Le jury va vous accueillir et conduire l'entretien.<br>Parlez naturellement — il s'adapte à vos réponses.</div>
+    <div style="margin-top:18px;font-size:0.74rem;color:var(--muted);line-height:1.6;">Le jury va vous accueillir et conduire l'entretien.<br>Il s'adapte à vos réponses.</div>
   </div>
 </div>
 
-<!-- ========== VUE TESTS PSYCHOTECHNIQUES ========== -->
-<div id="essec-view-psycho" class="essec-view">
-
-  <div class="psycho-subnav">
-    <div class="psycho-subnav-btn active" onclick="psychoNav('cours',this)">📚 Cours & Techniques</div>
-    <div class="psycho-subnav-btn" onclick="psychoNav('exos',this)">⚡ Exercices par thème</div>
-    <div class="psycho-subnav-btn" onclick="psychoNav('test',this)">⏱ Test chronométré</div>
+<!-- PSYCHO -->
+<div id="ev-psycho" class="essec-view">
+  <div class="psycho-nav">
+    <div class="psycho-nav-btn on" onclick="psychoNav('cours',this)">📚 Cours & Techniques</div>
+    <div class="psycho-nav-btn" onclick="psychoNav('exos',this)">⚡ Exercices par thème</div>
+    <div class="psycho-nav-btn" onclick="psychoNav('test',this)">⏱ Test chronométré</div>
   </div>
 
   <!-- COURS -->
-  <div id="psycho-cours" class="psycho-panel active">
+  <div id="pp-cours" class="psycho-panel on">
     <div class="cours-list">
 
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">🔢</div>
-          <div style="flex:1"><div class="cours-item-title">Séries numériques</div><div class="cours-item-sub">Arithmétique · Géométrique · Entrelacées · Différences</div></div>
-          <div class="cours-item-arrow">▼</div>
-        </div>
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">🔢</div><div style="flex:1"><div class="cours-item-title">Séries numériques</div><div class="cours-item-sub">Arithmétique · Géométrique · Entrelacées · Différences</div></div><div class="cours-arrow">▼</div></div>
         <div class="cours-item-body">
           <h4>5 types à maîtriser</h4>
           <ul>
-            <li><strong>Arithmétique</strong> : différence constante. Ex : 3, 7, 11, 15 → +4 à chaque fois</li>
-            <li><strong>Géométrique</strong> : on multiplie par un facteur fixe. Ex : 2, 6, 18, 54 → ×3</li>
-            <li><strong>Deux suites entrelacées</strong> : séparer les rangs pairs et impairs. Ex : 48, 8, 35, 7, 24, ? → suite 1 : 48→35→24 (−13,−11) / suite 2 : 8→7→6 (−1) → réponse : 6</li>
-            <li><strong>Différences croissantes</strong> : les écarts forment eux-mêmes une suite. Ex : 1, 2, 4, 7, 11, 16 → écarts : +1,+2,+3,+4,+5</li>
-            <li><strong>Règles alternées</strong> : ex. +2,×3,+2,×3 ou séquences palindromiques</li>
+            <li><strong>Arithmétique</strong> : différence constante. Ex : 3, 7, 11, 15 → +4</li>
+            <li><strong>Géométrique</strong> : facteur fixe. Ex : 2, 6, 18, 54 → ×3</li>
+            <li><strong>Deux suites entrelacées</strong> : séparer rangs pairs et impairs. Ex : 48, 8, 35, 7, 24, ? → suite A : 48→35→24 (−13,−11) / suite B : 8→7→6 → réponse : 6</li>
+            <li><strong>Différences croissantes</strong> : les écarts forment une suite. Ex : 1, 2, 4, 7, 11, 16 → écarts +1,+2,+3,+4,+5</li>
+            <li><strong>Règles alternées</strong> : +2,×3,+2,×3 ou palindromes</li>
           </ul>
           <h4>Méthode en 4 étapes</h4>
           <ul>
             <li>1 → Calculer les différences entre termes consécutifs</li>
-            <li>2 → Si pas de loi évidente, calculer les différences des différences</li>
-            <li>3 → Si toujours rien, séparer les rangs pairs et impairs</li>
-            <li>4 → Tester ×2, ×3, ÷2, ÷3 entre les termes</li>
+            <li>2 → Si rien, calculer les différences des différences</li>
+            <li>3 → Séparer rangs pairs et impairs</li>
+            <li>4 → Tester ×2, ×3, ÷2 entre termes</li>
           </ul>
           <h4>Exemples corrigés</h4>
-          <div class="ex-box"><div class="ex-q">7 – 13 – 24 – 45 – ?</div><div class="ex-r">×2−1=13, ×2−2=24, ×2−3=45, ×2−4 → 86</div></div>
-          <div class="ex-box"><div class="ex-q">9, 54, 18, 45, 27, ?</div><div class="ex-r">Deux suites : 9,18,27 (+9) et 54,45,36 (−9) → 36</div></div>
-          <div class="ex-box"><div class="ex-q">6, 8, 12, 20, ?</div><div class="ex-r">Différences : 2, 4, 8 → elles doublent → +16 → 36</div></div>
-          <h4>Astuce chrono</h4>
-          <p>Si tu bloques après 30s → sépare immédiatement pairs/impairs. Ça résout 80% des séries difficiles.</p>
+          <div class="ex"><div class="ex-q">7 – 13 – 24 – 45 – ?</div><div class="ex-r">×2−1=13, ×2−2=24, ×2−3=45, ×2−4 → 86</div></div>
+          <div class="ex"><div class="ex-q">9, 54, 18, 45, 27, ?</div><div class="ex-r">Deux suites : 9→18→27 (+9) et 54→45→36 (−9) → 36</div></div>
         </div>
       </div>
 
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">🔤</div>
-          <div style="flex:1"><div class="cours-item-title">Séries de lettres</div><div class="cours-item-sub">Positions · Initiales · Groupes · Suites alternées</div></div>
-          <div class="cours-item-arrow">▼</div>
-        </div>
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">🔤</div><div style="flex:1"><div class="cours-item-title">Séries de lettres</div><div class="cours-item-sub">Positions · Initiales · Groupes · Alternées</div></div><div class="cours-arrow">▼</div></div>
         <div class="cours-item-body">
           <h4>Règle de base</h4>
-          <p>Convertis toujours les lettres en numéros : A=1, B=2, C=3... Z=26. La loi se lit ensuite comme une série numérique.</p>
+          <p>Convertis toujours les lettres en numéros : A=1, B=2… Z=26. La loi se lit comme une série numérique.</p>
           <h4>4 types courants</h4>
           <ul>
-            <li><strong>Suite simple</strong> : A, C, E, G → +2 (on saute une lettre)</li>
-            <li><strong>Groupe fixe + variable</strong> : BCD Z, BCD Y, BCD X → groupe fixe, 4e lettre descend</li>
-            <li><strong>Initiales de mots</strong> : U-D-T-Q-C-S-S-H-? → Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit → N (Neuf)</li>
-            <li><strong>Suites entrelacées</strong> : M,V,N,W,O,X → suite 1 : M,N,O (+1) / suite 2 : V,W,X (+1)</li>
+            <li><strong>Suite simple</strong> : A, C, E, G → +2</li>
+            <li><strong>Groupe fixe + variable</strong> : BCD Z, BCD Y, BCD X → 4e lettre descend</li>
+            <li><strong>Initiales de mots</strong> : U-D-T-Q-C-S-S-H-? → Un,Deux…Huit → N (Neuf)</li>
+            <li><strong>Suites entrelacées</strong> : M,V,N,W,O,X → M,N,O (+1) et V,W,X (+1)</li>
           </ul>
           <h4>Exemples corrigés</h4>
-          <div class="ex-box"><div class="ex-q">A D H K O ?</div><div class="ex-r">A=1,D=4,H=8,K=11,O=15 → +3,+4,+3,+4 → +4 → S=19 → S</div></div>
-          <div class="ex-box"><div class="ex-q">B D G K ?</div><div class="ex-r">Positions : 2,4,7,11 → écarts +2,+3,+4 → +5 → P=16 → P</div></div>
-          <div class="ex-box"><div class="ex-q">DIKA – EKNE – FMQI – ?</div><div class="ex-r">D→G(+1×3), I→O(+2×3), K→T(+3×3), A→M(+4×3) → GOTM</div></div>
-          <h4>Astuce</h4>
-          <p>Écris toujours A=1 à Z=26 en marge. Pour les initiales : pense aux chiffres, jours, mois, planètes.</p>
+          <div class="ex"><div class="ex-q">A D H K O ?</div><div class="ex-r">1,4,8,11,15 → +3,+4,+3,+4 → +4 → 19 → S</div></div>
+          <div class="ex"><div class="ex-q">B D G K ?</div><div class="ex-r">2,4,7,11 → +2,+3,+4 → +5 → 16 → P</div></div>
         </div>
       </div>
 
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">📐</div>
-          <div style="flex:1"><div class="cours-item-title">Raisonnement quantitatif</div><div class="cours-item-sub">Maths appliquées · Pièges logiques · Probabilités</div></div>
-          <div class="cours-item-arrow">▼</div>
-        </div>
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">📐</div><div style="flex:1"><div class="cours-item-title">Raisonnement quantitatif</div><div class="cours-item-sub">Maths · Pièges logiques · Probabilités</div></div><div class="cours-arrow">▼</div></div>
         <div class="cours-item-body">
-          <h4>Les 6 pièges classiques ESSEC</h4>
+          <h4>Les 5 pièges classiques ESSEC</h4>
           <ul>
-            <li><strong>Le nénuphar</strong> : double chaque jour, couvre en 100 jours. Avec 2 nénuphars → surface déjà double → 99 jours. La clé : raisonner à rebours.</li>
-            <li><strong>La course</strong> : tu doubles le 2ème → tu prends SA place → tu es 2ème, pas 1er !</li>
-            <li><strong>Les pots</strong> : 15 pots, 2 à la fois → 7 voyages = 14 pots, il reste 1 → 8ème voyage obligatoire.</li>
-            <li><strong>L'escargot</strong> : monte 3m/jour, descend 2m/nuit sur 12m → le 10ème jour il atteint 12m avant de redescendre → 10 jours.</li>
-            <li><strong>Les chaussettes</strong> : 10 paires noires + 10 blanches dans le noir → principe du pigeonhole → 3 suffisent pour garantir une paire.</li>
-            <li><strong>Le calendrier</strong> : 5 lundis, mardis, mercredis en janvier (31j) → janvier finit un mercredi → 1er février = jeudi.</li>
+            <li><strong>Nénuphar</strong> : double/jour, 100j → avec 2 nénuphars = 99 jours (pas 50 !)</li>
+            <li><strong>Course</strong> : doubler le 2ème → tu prends sa place → tu es 2ème, pas 1er !</li>
+            <li><strong>Pots de peinture</strong> : 15 pots, 2 à la fois → 8 voyages (pas 7,5)</li>
+            <li><strong>Escargot</strong> : monte 3m/j, descend 2m/nuit, poteau 12m → 10 jours</li>
+            <li><strong>Chaussettes</strong> : 10 paires noires + 10 blanches → 3 suffisent pour garantir une paire</li>
           </ul>
-          <h4>Formules essentielles</h4>
-          <ul>
-            <li>Périmètre rectangle : 2×(L+l). Surface : L×l</li>
-            <li>Série géométrique infinie : S = a/(1−r) si |r|&lt;1. Ex : 1+½+¼+... = 2</li>
-          </ul>
-          <div class="ex-box"><div class="ex-q">Jardin 21m×15m, poteaux tous les 3m, portail = 3m. Combien de poteaux ?</div><div class="ex-r">Périmètre = 72m → 72÷3=24 intervalles → portail enlève 1 poteau → 23</div></div>
+          <div class="ex"><div class="ex-q">Jardin 21×15m, poteaux tous les 3m, portail 3m. Combien de poteaux ?</div><div class="ex-r">Périmètre=72m → 72÷3=24 → portail enlève 1 → 23 poteaux</div></div>
         </div>
       </div>
 
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">🧠</div>
-          <div style="flex:1"><div class="cours-item-title">Raisonnement déductif</div><div class="cours-item-sub">Syllogismes · Contraposée · Quantificateurs</div></div>
-          <div class="cours-item-arrow">▼</div>
-        </div>
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">🧠</div><div style="flex:1"><div class="cours-item-title">Raisonnement déductif</div><div class="cours-item-sub">Syllogismes · Contraposée · Quantificateurs</div></div><div class="cours-arrow">▼</div></div>
         <div class="cours-item-body">
-          <h4>Les 4 règles fondamentales</h4>
+          <h4>4 règles fondamentales</h4>
           <ul>
-            <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B. (Tous les bruns aiment le chocolat + Paul est brun → Paul aime le chocolat)</li>
-            <li><strong>Contraposée</strong> : A→B est équivalent à ¬B→¬A. ("Pas bleu → pas rouge" ≡ "rouge → bleu")</li>
-            <li><strong>Négation de "tous"</strong> : ¬(tous A sont B) = il existe AU MOINS UN A qui n'est pas B (pas "aucun" !)</li>
-            <li><strong>Négation de "certains"</strong> : ¬(certains A sont B) = aucun A n'est B</li>
+            <li><strong>Syllogisme</strong> : Tous A→B + X est A → X est B</li>
+            <li><strong>Contraposée</strong> : A→B ≡ ¬B→¬A. "Pas bleu → pas rouge" ≡ "rouge → bleu"</li>
+            <li><strong>¬(tous A sont B)</strong> = il existe AU MOINS UN A qui n'est pas B</li>
+            <li><strong>¬(certains A sont B)</strong> = aucun A n'est B</li>
           </ul>
-          <h4>Ce qu'on peut conclure</h4>
-          <ul>
-            <li>"Tous A sont B" + "X est A" → X est B ✓</li>
-            <li>"Certains A sont B" → on ne peut PAS dire que tous A sont B ✗</li>
-            <li>"Aucun A n'est B" + "X est A" → X n'est pas B ✓</li>
-          </ul>
-          <div class="ex-box"><div class="ex-q">"Faux que toutes les grandes personnes sont maigres." Équivaut à ?</div><div class="ex-r">Il existe AU MOINS UNE grande personne qui n'est pas maigre</div></div>
-          <div class="ex-box"><div class="ex-q">"Si pas bleu → pas rouge." La contraposée ?</div><div class="ex-r">"Si rouge → bleu" (on inverse et on nie les deux membres)</div></div>
+          <div class="ex"><div class="ex-q">"Faux que toutes les grandes personnes sont maigres" équivaut à ?</div><div class="ex-r">Il existe au moins une grande personne qui n'est pas maigre</div></div>
         </div>
       </div>
 
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">📖</div>
-          <div style="flex:1"><div class="cours-item-title">Synonymes & Vocabulaire</div><div class="cours-item-sub">30 mots rares · Antonymes · Paronymes</div></div>
-          <div class="cours-item-arrow">▼</div>
-        </div>
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">📖</div><div style="flex:1"><div class="cours-item-title">Synonymes & Vocabulaire</div><div class="cours-item-sub">30 mots rares · Antonymes · Méthode</div></div><div class="cours-arrow">▼</div></div>
         <div class="cours-item-body">
-          <h4>Méthode</h4>
+          <h4>Mots à mémoriser</h4>
           <ul>
-            <li>Éliminer les réponses hors champ sémantique en premier</li>
-            <li>Chercher l'étymologie latine/grecque (pro-hibere = retenir en avant = interdire)</li>
-            <li>Choisir le synonyme le plus EXACT, pas juste le plus proche</li>
-          </ul>
-          <h4>Vocabulaire ESSEC — À mémoriser</h4>
-          <ul>
-            <li>PROHIBER → interdire | DÉLECTATION → plaisir intense | SÉRÉNITÉ → tranquillité</li>
-            <li>ENTREGENT → diplomatie relationnelle | LUBIE → caprice bizarre | JADIS → autrefois</li>
-            <li>RUBIGINEUX → rouillé | COMMISÉRATION → compassion | PAMPHLET → texte satirique</li>
-            <li>CONSOMPTION → dépérissement | COMPLEXION → tempérament | INTERPOLER → intercaler</li>
-            <li>SIMULER → feindre | EXIGU → très petit | TAPAGE → vacarme | GALANTERIE → courtoisie</li>
-            <li>IRASCIBLE → coléreux | VOLUBILE → qui parle vite | MORIGÉNER → réprimander</li>
-            <li>DILETTANTE → amateur (péjoratif) | ÉHONTÉ → scandaleux | ATERMOIEMENT → procrastination</li>
+            <li>PROHIBER → interdire | DÉLECTATION → plaisir intense | ENTREGENT → diplomatie</li>
+            <li>LUBIE → caprice | RUBIGINEUX → rouillé | COMMISÉRATION → compassion</li>
+            <li>CONSOMPTION → dépérissement | INTERPOLER → intercaler | SIMULER → feindre</li>
+            <li>EXIGU → très petit | IRASCIBLE → coléreux | VOLUBILE → qui parle vite</li>
+            <li>ÉHONTÉ → scandaleux | ATERMOIEMENT → procrastination | GALANTERIE → courtoisie</li>
           </ul>
           <h4>Antonymes fréquents</h4>
-          <ul>
-            <li>ABROGER ↔ RÉTABLIR | SIBYLLIN ↔ CLAIR | BASANÉ ↔ PÂLE | ANACHRONIQUE ↔ ACTUEL</li>
-          </ul>
+          <ul><li>ABROGER ↔ RÉTABLIR | SIBYLLIN ↔ CLAIR | BASANÉ ↔ PÂLE</li></ul>
         </div>
       </div>
 
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">🔗</div>
-          <div style="flex:1"><div class="cours-item-title">Analogies verbales</div><div class="cours-item-sub">8 types de rapports · Méthode en 3 temps</div></div>
-          <div class="cours-item-arrow">▼</div>
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">🔗</div><div style="flex:1"><div class="cours-item-title">Analogies verbales</div><div class="cours-item-sub">8 types de rapports à identifier</div></div><div class="cours-arrow">▼</div></div>
+        <div class="cours-item-body">
+          <h4>8 types de rapports</h4>
+          <ul>
+            <li><strong>Passionné/Objet</strong> : mélomane→musique, cinéphile→cinéma</li>
+            <li><strong>Créateur/Création</strong> : compositeur→symphonie</li>
+            <li><strong>Outil/Utilisateur</strong> : microscope→biologiste</li>
+            <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
+            <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
+            <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur</li>
+            <li><strong>Intensificateur</strong> : torride→chaud</li>
+            <li><strong>Violation/Règle</strong> : fraude→examen, anomalie→normalité</li>
+          </ul>
+          <div class="ex"><div class="ex-q">MITE – VÊTEMENT, comme ?</div><div class="ex-r">Nuisible/victime → calomnie–réputation</div></div>
         </div>
+      </div>
+
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">🔐</div><div style="flex:1"><div class="cours-item-title">Codes & Chiffrements</div><div class="cours-item-sub">Correspondances · Anagrammes · Valeurs</div></div><div class="cours-arrow">▼</div></div>
         <div class="cours-item-body">
           <h4>Méthode</h4>
           <ul>
-            <li>1. Formuler le lien : "X est à Y ce que..."</li>
-            <li>2. Appliquer ce même lien à chaque option proposée</li>
-            <li>3. La bonne réponse respecte le même rapport ET la même direction</li>
+            <li>Identifier les lettres communes entre les exemples</li>
+            <li>Tester : A=1, A=26, décalage +k</li>
+            <li>Vérifier sur tous les exemples avant de répondre</li>
           </ul>
-          <h4>Les 8 types de rapports</h4>
-          <ul>
-            <li><strong>Passionné/Objet</strong> : mélomane→musique, cinéphile→cinéma</li>
-            <li><strong>Créateur/Création</strong> : compositeur→symphonie, sculpteur→statue</li>
-            <li><strong>Outil/Utilisateur</strong> : microscope→biologiste, gants→boxeur</li>
-            <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
-            <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
-            <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur, compositeur→auditeur</li>
-            <li><strong>Intensificateur</strong> : torride→chaud, exquis→bon</li>
-            <li><strong>Violation/Règle</strong> : fraude→examen, anomalie→normalité</li>
-          </ul>
-          <div class="ex-box"><div class="ex-q">MÉLOMANE – MUSIQUE, comme ?</div><div class="ex-r">Passionné/objet → cinéphile–cinéma ✓</div></div>
-          <div class="ex-box"><div class="ex-q">MITE – VÊTEMENT, comme ?</div><div class="ex-r">Nuisible/victime → calomnie–réputation ✓</div></div>
+          <div class="ex"><div class="ex-q">TOISE=67851, GOMME=47221 → TEMPO=?</div><div class="ex-r">T=6,E=1,M=2,P=3,O=7 → 61237</div></div>
+          <div class="ex"><div class="ex-q">(A-2)–(E-5)–(I-11)–(?-?)–(U-47)</div><div class="ex-r">Voyelles, ×2+1 : 23 → (O-23)</div></div>
         </div>
       </div>
 
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">🔐</div>
-          <div style="flex:1"><div class="cours-item-title">Codes & Chiffrements</div><div class="cours-item-sub">Correspondances · Anagrammes · Liaisons · Valeurs</div></div>
-          <div class="cours-item-arrow">▼</div>
-        </div>
-        <div class="cours-item-body">
-          <h4>Méthode universelle</h4>
-          <ul>
-            <li>Lister les lettres communes entre les mots exemples</li>
-            <li>Tester : position normale A=1, inversée A=26, décalage +k</li>
-            <li>Vérifier la cohérence sur TOUS les exemples avant de répondre</li>
-          </ul>
-          <div class="ex-box"><div class="ex-q">TOISE=67851, GOMME=47221, PIEGE=38141 → TEMPO=?</div><div class="ex-r">T=6,E=1,M=2,P=3,O=7 → 61237</div></div>
-          <div class="ex-box"><div class="ex-q">(A-2)–(E-5)–(I-11)–(?-?)–(U-47)</div><div class="ex-r">Voyelles A,E,I,O,U · nombres ×2+1 : 11×2+1=23 → (O-23)</div></div>
-          <div class="ex-box"><div class="ex-q">4(12)8 – 5(30)6 – 3(21)?</div><div class="ex-r">premier × second = résultat → 3×7=21 → 7</div></div>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="coursToggle(this)">
-        <div class="cours-item-header">
-          <div class="cours-item-icon">⏱</div>
-          <div style="flex:1"><div class="cours-item-title">Stratégie & Gestion du temps</div><div class="cours-item-sub">Ordre de traitement · Pénalités · Barème relatif</div></div>
-          <div class="cours-item-arrow">▼</div>
-        </div>
+      <div class="cours-item" onclick="cToggle(this)">
+        <div class="cours-item-hd"><div class="cours-item-icon">⏱</div><div style="flex:1"><div class="cours-item-title">Stratégie & Gestion du temps</div><div class="cours-item-sub">Ordre · Pénalités · Barème relatif</div></div><div class="cours-arrow">▼</div></div>
         <div class="cours-item-body">
           <h4>Règles d'or</h4>
           <ul>
-            <li>Ne jamais bloquer plus de <strong>60-90 secondes</strong> sur une question : passer</li>
-            <li>Reporter les réponses sur le livret au fur et à mesure</li>
-            <li>Apporter une montre — les surveillants ne donnent pas le temps restant</li>
-            <li>Réponse au hasard = risque de pénalité (−0.25 à −1 selon le test)</li>
-            <li>Blanc = 0 point — souvent préférable à une réponse aléatoire</li>
-          </ul>
-          <h4>Ordre optimal</h4>
-          <ul>
-            <li>1er passage : tout ce qu'on sait en moins de 30 secondes</li>
-            <li>2ème passage : revenir sur les questions sautées</li>
-            <li>Ne jamais changer une réponse sans raison solide</li>
+            <li>Bloquer max 60-90s sur une question → passer</li>
+            <li>Reporter les réponses au fur et à mesure</li>
+            <li>Amener une montre — les surveillants ne donnent pas le temps</li>
+            <li>Réponse au hasard : pénalité −¼ point (ESSEC réel)</li>
+            <li>Blanc = 0 point → souvent préférable au hasard</li>
           </ul>
           <h4>Important</h4>
-          <p>Aucun candidat ne finit tous les tests. C'est voulu. Le barème est relatif — tes scores comparés aux autres candidats comptent, pas ton score absolu.</p>
+          <p>Aucun candidat ne finit tous les tests. Le barème est relatif — tes scores comparés aux autres comptent.</p>
         </div>
       </div>
 
@@ -741,127 +553,98 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   </div>
 
   <!-- EXERCICES -->
-  <div id="psycho-exos" class="psycho-panel">
-
-    <!-- Header progression globale -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
-      <div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">Exercices par thème</div>
-        <div style="font-size:0.78rem;color:var(--muted2);margin-top:4px;">Réponds à toutes les questions de chaque section pour valider le thème</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;" id="exo-global-score">0/0</div>
-        <div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Score global</div>
-      </div>
+  <div id="pp-exos" class="psycho-panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">Exercices par thème</div><div style="font-size:0.76rem;color:var(--muted2);margin-top:3px;">Complète chaque thème pour valider ta progression</div></div>
+      <div style="text-align:right;"><div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;" id="gScore">0/0</div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Score global</div></div>
     </div>
-
-    <!-- Vue sélection des thèmes -->
-    <div id="exo-theme-selector">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;" id="exo-themes-grid">
-        <!-- Généré par JS -->
-      </div>
-    </div>
-
-    <!-- Vue entraînement d'un thème -->
-    <div id="exo-training-view" style="display:none;">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
-        <button onclick="exoBackToThemes()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:8px 16px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.8rem;">← Retour aux thèmes</button>
-        <div id="exo-theme-title" style="font-size:0.92rem;font-weight:600;"></div>
-        <div style="margin-left:auto;font-size:0.82rem;color:var(--muted2);"><span id="exo-q-progress">0</span>/<span id="exo-q-total">0</span> questions</div>
+    <div id="exo-selector"><div class="exo-themes" id="exo-grid"></div></div>
+    <div id="exo-train" style="display:none;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
+        <button onclick="exoBack()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">← Retour</button>
+        <div id="exo-train-title" style="font-size:0.9rem;font-weight:600;flex:1;"></div>
+        <div style="font-size:0.78rem;color:var(--muted2);"><span id="exo-qi">0</span>/<span id="exo-qt">0</span></div>
       </div>
       <div class="exo-score-bar">
-        <div><div class="exo-score-num" id="exo-score">0/0</div><div style="font-size:0.72rem;color:var(--muted2);">réponses correctes</div></div>
-        <div style="display:flex;gap:20px;">
-          <span style="font-size:0.82rem;color:var(--green)">✓ <span id="exo-ok">0</span></span>
-          <span style="font-size:0.82rem;color:var(--red)">✗ <span id="exo-ko">0</span></span>
-        </div>
+        <div><div class="exo-score-n" id="exo-sn">0/0</div><div style="font-size:0.7rem;color:var(--muted2);">correctes</div></div>
+        <div style="display:flex;gap:16px;"><span style="font-size:0.8rem;color:var(--green)">✓ <span id="exo-ok">0</span></span><span style="font-size:0.8rem;color:var(--red)">✗ <span id="exo-ko">0</span></span></div>
       </div>
-      <div id="exo-container"></div>
+      <div id="exo-qc"></div>
     </div>
-
-    <!-- Vue résultats d'un thème -->
-    <div id="exo-results-view" style="display:none;">
-      <div style="background:var(--surface2);border:1px solid var(--border);padding:40px;text-align:center;position:relative;overflow:hidden;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);"></div>
-        <div id="exo-res-icon" style="font-size:3rem;margin-bottom:12px;"></div>
-        <div id="exo-res-title" style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;margin-bottom:8px;"></div>
-        <div id="exo-res-detail" style="font-size:0.85rem;color:var(--muted2);margin-bottom:24px;"></div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border2);margin-bottom:24px;">
-          <div style="background:var(--surface);padding:16px;"><div id="exo-r-ok" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--green)">0</div><div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Bonnes</div></div>
-          <div style="background:var(--surface);padding:16px;"><div id="exo-r-ko" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--red)">0</div><div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Mauvaises</div></div>
-          <div style="background:var(--surface);padding:16px;"><div id="exo-r-pct" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0%</div><div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">Score</div></div>
+    <div id="exo-res" style="display:none;">
+      <div class="exo-res">
+        <div id="exo-res-icon" style="font-size:2.8rem;margin-bottom:10px;"></div>
+        <div id="exo-res-title" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;margin-bottom:6px;"></div>
+        <div id="exo-res-detail" style="font-size:0.82rem;color:var(--muted2);margin-bottom:20px;"></div>
+        <div class="exo-res-grid">
+          <div class="exo-res-cell"><div class="exo-res-n" id="rOk" style="color:var(--green)">0</div><div class="exo-res-l">Bonnes</div></div>
+          <div class="exo-res-cell"><div class="exo-res-n" id="rKo" style="color:var(--red)">0</div><div class="exo-res-l">Mauvaises</div></div>
+          <div class="exo-res-cell"><div class="exo-res-n" id="rPct" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0%</div><div class="exo-res-l">Score</div></div>
         </div>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-          <button onclick="exoRetryTheme()" style="padding:12px 28px;background:var(--essec2);border:none;color:#fff;font-family:Outfit,sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;">🔁 Refaire ce thème</button>
-          <button onclick="exoBackToThemes()" style="padding:12px 28px;background:transparent;border:1px solid var(--border);color:var(--muted2);font-family:Outfit,sans-serif;font-size:0.88rem;cursor:pointer;">← Choisir un autre thème</button>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="exoRetry()" style="padding:10px 24px;background:var(--essec2);border:none;color:#fff;font-family:Outfit,sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;">🔁 Refaire</button>
+          <button onclick="exoBack()" style="padding:10px 24px;background:transparent;border:1px solid var(--border);color:var(--muted2);font-family:Outfit,sans-serif;font-size:0.85rem;cursor:pointer;">← Autres thèmes</button>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- TEST CHRONOMÉTRÉ -->
-  <div id="psycho-test" class="psycho-panel">
-    <div id="chrono-config" class="chrono-config">
-      <div class="chrono-config-title">⚙️ Configurer le test</div>
+  <!-- TEST CHRONO -->
+  <div id="pp-test" class="psycho-panel">
+    <div id="cc" class="chrono-cfg">
+      <div class="chrono-cfg-title">⚙️ Configurer le test</div>
       <div class="chrono-row">
-        <div class="chrono-label">Durée</div>
+        <div class="chrono-lbl">Durée</div>
         <div class="chrono-opts">
-          <div class="chrono-opt sel" onclick="chronoCfg(this,'dur','5')">5 min</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'dur','10')">10 min</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'dur','15')">15 min ← ESSEC</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'dur','20')">20 min</div>
+          <div class="chrono-opt sel" onclick="cCfg(this,'dur',5)">5 min</div>
+          <div class="chrono-opt" onclick="cCfg(this,'dur',10)">10 min</div>
+          <div class="chrono-opt" onclick="cCfg(this,'dur',15)">15 min ← ESSEC</div>
+          <div class="chrono-opt" onclick="cCfg(this,'dur',20)">20 min</div>
         </div>
       </div>
       <div class="chrono-row">
-        <div class="chrono-label">Type de questions</div>
+        <div class="chrono-lbl">Type de questions</div>
         <div class="chrono-opts">
-          <div class="chrono-opt sel" onclick="chronoCfg(this,'type','all')">Tout mélanger</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'type','num')">Séries numériques</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'type','quant')">Quantitatif</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'type','deductif')">Déductif</div>
-          <div class="chrono-opt" onclick="chronoCfg(this,'type','vocab')">Vocabulaire</div>
+          <div class="chrono-opt sel" onclick="cCfg(this,'type','all')">Tout mélanger</div>
+          <div class="chrono-opt" onclick="cCfg(this,'type','num')">Séries numériques</div>
+          <div class="chrono-opt" onclick="cCfg(this,'type','quant')">Quantitatif</div>
+          <div class="chrono-opt" onclick="cCfg(this,'type','deductif')">Déductif</div>
+          <div class="chrono-opt" onclick="cCfg(this,'type','vocab')">Vocabulaire</div>
         </div>
       </div>
       <div class="chrono-row">
-        <div class="chrono-label">Notation ESSEC réelle</div>
-        <div style="background:var(--essec-bg);border:1px solid var(--essec-border);padding:12px 16px;font-size:0.82rem;color:var(--muted2);line-height:1.7;">
-          ✅ <strong style="color:var(--text)">Bonne réponse</strong> : +1 point<br>
-          ⬜ <strong style="color:var(--text)">Sans réponse</strong> : 0 point<br>
-          ❌ <strong style="color:var(--text)">Mauvaise réponse</strong> : −¼ point (pénalité réelle ESSEC)<br>
-          <span style="font-size:0.75rem;color:var(--muted);margin-top:6px;display:block;">Ce test simule exactement le barème officiel des épreuves psychotechniques ESSEC.</span>
+        <div class="chrono-lbl">Notation réelle ESSEC</div>
+        <div style="background:var(--essec-bg);border:1px solid var(--essec-border);padding:11px 14px;font-size:0.81rem;color:var(--muted2);line-height:1.7;">
+          ✅ Bonne réponse : <strong style="color:var(--text)">+1 point</strong> &nbsp;·&nbsp;
+          ⬜ Sans réponse : <strong style="color:var(--text)">0 point</strong> &nbsp;·&nbsp;
+          ❌ Mauvaise réponse : <strong style="color:var(--text)">−¼ point</strong>
         </div>
       </div>
-      <button class="chrono-start" onclick="chronoStart()">🚀 Lancer le test</button>
+      <button class="chrono-start" onclick="cStart()">🚀 Lancer le test</button>
     </div>
-
-    <div id="chrono-running" style="display:none;">
+    <div id="cr" style="display:none;">
       <div class="chrono-bar">
-        <div>
-          <div id="chrono-time" class="chrono-time">15:00</div>
-          <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;"><span id="chrono-qn">0</span>/<span id="chrono-qt">0</span> questions</div>
-        </div>
-        <div style="font-size:0.85rem;color:var(--muted2);">Score : <span id="chrono-score-live" style="font-family:Cormorant Garamond,serif;font-size:1.3rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span></div>
-        <button class="chrono-stop" onclick="chronoStop()">Arrêter</button>
+        <div><div id="ct" class="chrono-time">15:00</div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;"><span id="cqn">0</span>/<span id="cqt">0</span> questions</div></div>
+        <div style="font-size:0.82rem;color:var(--muted2);">Score : <span id="csl" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span></div>
+        <button class="chrono-stop" onclick="cStop()">Arrêter</button>
       </div>
-      <div id="chrono-q-container"></div>
+      <div id="cqc"></div>
     </div>
-
-    <div id="chrono-results" class="chrono-results">
-      <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Score final</div>
-      <div class="chrono-score" id="chrono-score-final">0</div>
-      <div style="font-size:0.78rem;color:var(--muted2);">points sur <span id="chrono-max">0</span></div>
-      <div class="chrono-verdict" id="chrono-verdict"></div>
+    <div id="crs" class="chrono-res">
+      <div style="font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Score final</div>
+      <div class="chrono-res-score" id="crf">0</div>
+      <div style="font-size:0.76rem;color:var(--muted2);">points sur <span id="crm">0</span></div>
+      <div class="chrono-res-verdict" id="crv"></div>
       <div class="chrono-stats">
-        <div class="chrono-stat"><div class="chrono-stat-n" id="cr-ok" style="color:var(--green)">0</div><div class="chrono-stat-l">Bonnes</div></div>
-        <div class="chrono-stat"><div class="chrono-stat-n" id="cr-ko" style="color:var(--red)">0</div><div class="chrono-stat-l">Mauvaises</div></div>
-        <div class="chrono-stat"><div class="chrono-stat-n" id="cr-skip" style="color:var(--muted)">0</div><div class="chrono-stat-l">Passées</div></div>
+        <div class="chrono-stat"><div class="chrono-stat-n" id="crok" style="color:var(--green)">0</div><div class="chrono-stat-l">Bonnes</div></div>
+        <div class="chrono-stat"><div class="chrono-stat-n" id="crko" style="color:var(--red)">0</div><div class="chrono-stat-l">Mauvaises</div></div>
+        <div class="chrono-stat"><div class="chrono-stat-n" id="crsk" style="color:var(--muted)">0</div><div class="chrono-stat-l">Passées</div></div>
       </div>
-      <button class="chrono-retry" onclick="chronoReset()">🔁 Nouveau test</button>
+      <button class="chrono-retry" onclick="cReset()">🔁 Nouveau test</button>
     </div>
   </div>
 
-</div><!-- /essec-view-psycho -->
+</div><!-- /ev-psycho -->
 ```
 
   </div><!-- /contentESSEC -->
@@ -874,97 +657,50 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   <div class="modal" id="modalContent">
     <div class="modal-top-bar escp" id="modalTopBar"></div>
     <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
-
-```
-<div class="modal-header">
-  <div class="modal-school-badge escp" id="modalSchoolBadge">ESCP</div>
-  <div class="modal-note" id="modalNote">—</div>
-  <div class="modal-note-label">Note sur 20</div>
-  <div class="modal-verdict escp" id="modalVerdict">—</div>
-</div>
-
-<div class="fb-group-title">📋 Analyse de l'entretien</div>
-<div class="fb-section">
-  <h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4>
-  <p id="modalPresentation">—</p>
-</div>
-<div class="fb-section">
-  <h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4>
-  <p id="modalExpression">—</p>
-</div>
-<div class="fb-section">
-  <h4 class="escp" id="h4Connaissance">🏛️ Connaissance de l'école</h4>
-  <p id="modalConnaissance">—</p>
-</div>
-
-<div id="sectionESCP">
-  <div class="fb-section">
-    <h4 class="escp">⚡ Dynamique de l'échange</h4>
-    <p id="modalDynamique">—</p>
-  </div>
-  <div class="fb-divider"></div>
-  <div class="fb-group-title">🔺 Triangle Personnalité — Projet — ESCP</div>
-  <div class="fb-section"><p id="modalTriangle">—</p></div>
-  <div class="fb-divider"></div>
-  <div class="fb-group-title">📚 Fond & Contenu</div>
-  <div class="fb-section">
-    <h4 class="escp">🎯 Motivation & fond ESCP</h4>
-    <p id="modalFond">—</p>
-  </div>
-  <div class="fb-section">
-    <h4 class="escp">📝 Exploitation du questionnaire</h4>
-    <p id="modalQuestionnaire">—</p>
-  </div>
-</div>
-
-<div id="sectionEMLYON" style="display:none;">
-  <div class="fb-divider"></div>
-  <div class="fb-group-title">🃏 Réactivité aux cartes</div>
-  <div class="cartes-grid">
-    <div class="carte-fb"><div class="carte-fb-cat">Personnalité</div><div class="carte-fb-text" id="modalCarteP">—</div></div>
-    <div class="carte-fb"><div class="carte-fb-cat">Expériences</div><div class="carte-fb-text" id="modalCarteE">—</div></div>
-    <div class="carte-fb"><div class="carte-fb-cat">Projets futurs</div><div class="carte-fb-text" id="modalCartePr">—</div></div>
-    <div class="carte-fb"><div class="carte-fb-cat">Créativité</div><div class="carte-fb-text" id="modalCarteC">—</div></div>
-  </div>
-  <div class="fb-divider"></div>
-  <div class="fb-group-title">🌟 Les 5 valeurs emlyon</div>
-  <div class="fb-section"><p id="modalValeurs">—</p></div>
-  <div class="fb-section">
-    <h4 class="emlyon">🗣️ Échange final</h4>
-    <p id="modalEchangeFinal">—</p>
-  </div>
-</div>
-
-<div class="fb-divider"></div>
-<div class="fb-group-title">🔍 Analyse personnalisée</div>
-<div class="analyse-box" id="modalAnalyse">—</div>
-
-<div class="fb-section">
-  <h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4>
-  <p id="modalQuestionFinale">—</p>
-</div>
-
-<div class="comp-card">
-  <div class="comp-label">📈 Comparaison avec l'entretien précédent</div>
-  <p id="modalComparaison">—</p>
-</div>
-
-<div class="fb-divider"></div>
-<div class="fb-group-title">🚀 Pour progresser</div>
-<div class="fb-section">
-  <h4 class="escp" id="h4Forts">✅ Points forts</h4>
-  <p id="modalForts">—</p>
-</div>
-<div class="fb-section">
-  <h4 class="escp" id="h4Faibles">⚠️ Points faibles</h4>
-  <p id="modalFaibles">—</p>
-</div>
-<div class="fb-section">
-  <h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4>
-  <p id="modalAxes">—</p>
-</div>
-```
-
+    <div class="modal-header">
+      <div class="modal-school-badge escp" id="modalSchoolBadge">ESCP</div>
+      <div class="modal-note" id="modalNote">—</div>
+      <div class="modal-note-label">Note sur 20</div>
+      <div class="modal-verdict escp" id="modalVerdict">—</div>
+    </div>
+    <div class="fb-group-title">📋 Analyse de l'entretien</div>
+    <div class="fb-section"><h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4><p id="modalPresentation">—</p></div>
+    <div class="fb-section"><h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4><p id="modalExpression">—</p></div>
+    <div class="fb-section"><h4 class="escp" id="h4Connaissance">🏛️ Connaissance de l'école</h4><p id="modalConnaissance">—</p></div>
+    <div id="sectionESCP">
+      <div class="fb-section"><h4 class="escp">⚡ Dynamique de l'échange</h4><p id="modalDynamique">—</p></div>
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">🔺 Triangle Personnalité — Projet — ESCP</div>
+      <div class="fb-section"><p id="modalTriangle">—</p></div>
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">📚 Fond & Contenu</div>
+      <div class="fb-section"><h4 class="escp">🎯 Motivation & fond ESCP</h4><p id="modalFond">—</p></div>
+      <div class="fb-section"><h4 class="escp">📝 Exploitation du questionnaire</h4><p id="modalQuestionnaire">—</p></div>
+    </div>
+    <div id="sectionEMLYON" style="display:none;">
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">🃏 Réactivité aux cartes</div>
+      <div class="cartes-grid">
+        <div class="carte-fb"><div class="carte-fb-cat">Personnalité</div><div class="carte-fb-text" id="modalCarteP">—</div></div>
+        <div class="carte-fb"><div class="carte-fb-cat">Expériences</div><div class="carte-fb-text" id="modalCarteE">—</div></div>
+        <div class="carte-fb"><div class="carte-fb-cat">Projets futurs</div><div class="carte-fb-text" id="modalCartePr">—</div></div>
+        <div class="carte-fb"><div class="carte-fb-cat">Créativité</div><div class="carte-fb-text" id="modalCarteC">—</div></div>
+      </div>
+      <div class="fb-divider"></div>
+      <div class="fb-group-title">🌟 Les 5 valeurs emlyon</div>
+      <div class="fb-section"><p id="modalValeurs">—</p></div>
+      <div class="fb-section"><h4 class="emlyon">🗣️ Échange final</h4><p id="modalEchangeFinal">—</p></div>
+    </div>
+    <div class="fb-divider"></div>
+    <div class="fb-group-title">🔍 Analyse personnalisée</div>
+    <div class="analyse-box" id="modalAnalyse">—</div>
+    <div class="fb-section"><h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4><p id="modalQuestionFinale">—</p></div>
+    <div class="comp-card"><div class="comp-label">📈 Comparaison avec l'entretien précédent</div><p id="modalComparaison">—</p></div>
+    <div class="fb-divider"></div>
+    <div class="fb-group-title">🚀 Pour progresser</div>
+    <div class="fb-section"><h4 class="escp" id="h4Forts">✅ Points forts</h4><p id="modalForts">—</p></div>
+    <div class="fb-section"><h4 class="escp" id="h4Faibles">⚠️ Points faibles</h4><p id="modalFaibles">—</p></div>
+    <div class="fb-section"><h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4><p id="modalAxes">—</p></div>
   </div>
 </div>
 
@@ -972,44 +708,37 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   const student_id = localStorage.getItem('student_id')
   const email = localStorage.getItem('email')
   if (!student_id) window.location.href = '/'
-
   document.getElementById('navEmail').textContent = email || ''
-
   if (email === 'abijaoui@icloud.com') {
     const adminBtn = document.createElement('a')
     adminBtn.href = '/admin'
-    adminBtn.textContent = '⚙️ Admin'
+    adminBtn.textContent = 'Admin'
     adminBtn.style.cssText = 'font-size:0.75rem;color:#9994aa;text-decoration:none;border:1px solid rgba(200,169,110,0.12);padding:5px 14px;font-family:Outfit,sans-serif;'
     document.querySelector('.nav-logout').before(adminBtn)
   }
-
-  if (window.location.search.includes('no_credits')) {
-    document.getElementById('noCreditsAlert').classList.add('show')
-  }
+  if (window.location.search.includes('no_credits')) document.getElementById('noCreditsAlert').classList.add('show')
 
   function switchTab(tab) {
-    document.querySelectorAll('.tab').forEach(function(t){t.className='tab';});
-    document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active');});
-    document.getElementById('tab'+tab.toUpperCase()).classList.add('active-'+tab);
-    document.getElementById('content'+tab.toUpperCase()).classList.add('active');
+    document.querySelectorAll('.tab').forEach(t => t.className = 'tab')
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
+    document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab)
+    document.getElementById('content' + tab.toUpperCase()).classList.add('active')
   }
 
   async function loadCredits() {
     try {
-      const res = await fetch(`/api/credits?student_id=${student_id}`)
+      const res = await fetch('/api/credits?student_id=' + student_id)
       const data = await res.json()
       const credits = data.credits || 0
       localStorage.setItem('credits', credits)
       document.getElementById('sessionsNum').textContent = credits
-      document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 10) * 100)}%`
+      document.getElementById('progressFill').style.width = Math.min(100, (credits/10)*100) + '%'
       if (credits <= 0) {
         document.getElementById('btnESCP').classList.add('btn-disabled')
         document.getElementById('btnEMLYON').classList.add('btn-disabled')
         document.getElementById('rechargeBanner').classList.add('show')
       }
-    } catch(e) {
-      document.getElementById('sessionsNum').textContent = localStorage.getItem('credits') || '0'
-    }
+    } catch(e) { document.getElementById('sessionsNum').textContent = localStorage.getItem('credits') || '0' }
   }
 
   function logout() { localStorage.clear() }
@@ -1017,14 +746,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   function toggleQuestionnaire() {
     const form = document.getElementById('questionnaireForm')
     const btn = document.getElementById('qToggle')
-    const isOpen = form.classList.contains('open')
     form.classList.toggle('open')
-    btn.textContent = isOpen ? 'Remplir ↓' : 'Réduire ↑'
+    btn.textContent = form.classList.contains('open') ? 'Réduire ↑' : 'Remplir ↓'
   }
 
   async function loadQuestionnaire() {
     try {
-      const res = await fetch(`/api/questionnaire?student_id=${student_id}`)
+      const res = await fetch('/api/questionnaire?student_id=' + student_id)
       const data = await res.json()
       if (!data) return
       document.getElementById('q1').value = data.centres_interet || ''
@@ -1033,105 +761,59 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       document.getElementById('q4').value = data.experience_cultures || ''
       document.getElementById('q5').value = data.experience_marquante || ''
       document.getElementById('q6').value = data.autres_infos || ''
-      const hasContent = [data.centres_interet, data.fierte, data.experience_travail,
-        data.experience_cultures, data.experience_marquante, data.autres_infos].some(v => v && v.trim())
-      if (hasContent) {
-        document.getElementById('qFilledIndicator').style.display = 'inline-flex'
-        document.getElementById('qToggle').textContent = 'Modifier ↓'
-      }
-    } catch(e) { console.error(e) }
+      const has = [data.centres_interet,data.fierte,data.experience_travail,data.experience_cultures,data.experience_marquante,data.autres_infos].some(v=>v&&v.trim())
+      if (has) { document.getElementById('qFilledIndicator').style.display='inline-flex'; document.getElementById('qToggle').textContent='Modifier ↓' }
+    } catch(e) {}
   }
 
   async function saveQuestionnaire() {
     const btn = document.getElementById('btnSaveQ')
     const msg = document.getElementById('qSaveMsg')
-    btn.disabled = true
-    btn.textContent = 'Sauvegarde…'
-    msg.classList.remove('show')
+    btn.disabled = true; btn.textContent = 'Sauvegarde…'; msg.classList.remove('show')
     try {
-      const res = await fetch('/api/questionnaire', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          student_id,
-          centres_interet: document.getElementById('q1').value,
-          fierte: document.getElementById('q2').value,
-          experience_travail: document.getElementById('q3').value,
-          experience_cultures: document.getElementById('q4').value,
-          experience_marquante: document.getElementById('q5').value,
-          autres_infos: document.getElementById('q6').value
-        })
-      })
-      if (res.ok) {
-        msg.classList.add('show')
-        document.getElementById('qFilledIndicator').style.display = 'inline-flex'
-        document.getElementById('qToggle').textContent = 'Modifier ↓'
-        setTimeout(() => { msg.classList.remove('show') }, 3000)
-      }
-    } catch(e) { console.error(e) }
-    btn.disabled = false
-    btn.textContent = 'Sauvegarder'
+      const res = await fetch('/api/questionnaire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ student_id, centres_interet:document.getElementById('q1').value, fierte:document.getElementById('q2').value, experience_travail:document.getElementById('q3').value, experience_cultures:document.getElementById('q4').value, experience_marquante:document.getElementById('q5').value, autres_infos:document.getElementById('q6').value }) })
+      if (res.ok) { msg.classList.add('show'); document.getElementById('qFilledIndicator').style.display='inline-flex'; document.getElementById('qToggle').textContent='Modifier ↓'; setTimeout(()=>msg.classList.remove('show'),3000) }
+    } catch(e) {}
+    btn.disabled = false; btn.textContent = 'Sauvegarder'
   }
 
   async function loadFeedbacks() {
     try {
-      const res = await fetch(`/api/feedbacks?student_id=${student_id}`)
+      const res = await fetch('/api/feedbacks?student_id=' + student_id)
       const data = await res.json()
-      if (!data || data.length === 0) return
-      const escpFeedbacks = data.filter(fb => !fb.ecole || fb.ecole === 'ESCP')
-      const emlFeedbacks = data.filter(fb => fb.ecole === 'EM Lyon')
-      renderList(escpFeedbacks, 'listESCP', 'Jean-Marc Delaunay')
-      renderList(emlFeedbacks, 'listEMLYON', 'Sophie Marchand')
-    } catch(e) { console.error(e) }
+      if (!data || !data.length) return
+      renderList(data.filter(fb=>!fb.ecole||fb.ecole==='ESCP'), 'listESCP', 'Jean-Marc Delaunay')
+      renderList(data.filter(fb=>fb.ecole==='EM Lyon'), 'listEMLYON', 'Sophie Marchand')
+    } catch(e) {}
   }
 
   function renderList(feedbacks, listId, agent) {
     if (!feedbacks.length) return
     const list = document.getElementById(listId)
     list.innerHTML = ''
-    feedbacks.forEach((fb, i) => {
-      const date = new Date(fb.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+    feedbacks.forEach((fb,i) => {
+      const date = new Date(fb.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})
       const item = document.createElement('div')
       item.className = 'entretien-item'
       item.onclick = () => openModal(fb)
-      item.innerHTML = `
-        <div>
-          <div class="entretien-date">${date}</div>
-          <div class="entretien-title">Entretien #${feedbacks.length - i} — ${agent}</div>
-        </div>
-        <div style="text-align:right;">
-          <div class="note-badge">${fb.note}/20</div>
-          <div class="note-label">voir détails →</div>
-        </div>
-      `
+      item.innerHTML = '<div><div class="entretien-date">'+date+'</div><div class="entretien-title">Entretien #'+(feedbacks.length-i)+' — '+agent+'</div></div><div style="text-align:right"><div class="note-badge">'+fb.note+'/20</div><div class="note-label">voir détails →</div></div>'
       list.appendChild(item)
     })
   }
 
   function openModal(fb) {
     const ecole = fb.ecole || 'ESCP'
-    const isEmlyon = ecole === 'EM Lyon'
-    const cls = isEmlyon ? 'emlyon' : 'escp'
-
-    document.getElementById('modalTopBar').className = `modal-top-bar ${cls}`
+    const isEm = ecole === 'EM Lyon'
+    const cls = isEm ? 'emlyon' : 'escp'
+    document.getElementById('modalTopBar').className = 'modal-top-bar ' + cls
     const badge = document.getElementById('modalSchoolBadge')
-    badge.className = `modal-school-badge ${cls}`
-    badge.textContent = ecole
-    document.getElementById('modalVerdict').className = `modal-verdict ${cls}`
-
-    document.getElementById('sectionESCP').style.display = isEmlyon ? 'none' : 'block'
-    document.getElementById('sectionEMLYON').style.display = isEmlyon ? 'block' : 'none'
-
-    document.getElementById('h4Presentation').className = cls
-    document.getElementById('h4Expression').className = cls
-    document.getElementById('h4Connaissance').className = cls
-    document.getElementById('h4QuestionFinale').className = cls
-    document.getElementById('h4Forts').className = cls
-    document.getElementById('h4Faibles').className = cls
-    document.getElementById('h4Axes').className = cls
-    document.getElementById('modalAnalyse').className = `analyse-box ${isEmlyon ? 'emlyon' : ''}`
-
-    document.getElementById('modalNote').textContent = `${fb.note}/20`
+    badge.className = 'modal-school-badge ' + cls; badge.textContent = ecole
+    document.getElementById('modalVerdict').className = 'modal-verdict ' + cls
+    document.getElementById('sectionESCP').style.display = isEm ? 'none' : 'block'
+    document.getElementById('sectionEMLYON').style.display = isEm ? 'block' : 'none'
+    ;['h4Presentation','h4Expression','h4Connaissance','h4QuestionFinale','h4Forts','h4Faibles','h4Axes'].forEach(id => document.getElementById(id).className = cls)
+    document.getElementById('modalAnalyse').className = 'analyse-box' + (isEm ? ' emlyon' : '')
+    document.getElementById('modalNote').textContent = fb.note + '/20'
     document.getElementById('modalVerdict').textContent = fb.verdict_jury || '—'
     document.getElementById('modalPresentation').textContent = fb.presentation_initiale || '—'
     document.getElementById('modalExpression').textContent = fb.qualite_expression || '—'
@@ -1142,8 +824,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     document.getElementById('modalForts').textContent = fb.points_forts || '—'
     document.getElementById('modalFaibles').textContent = fb.points_faibles || '—'
     document.getElementById('modalAxes').textContent = fb.axes_amelioration || '—'
-
-    if (isEmlyon) {
+    if (isEm) {
       document.getElementById('modalCarteP').textContent = fb.carte_personnalite || '—'
       document.getElementById('modalCarteE').textContent = fb.carte_experiences || '—'
       document.getElementById('modalCartePr').textContent = fb.carte_projets || '—'
@@ -1156,51 +837,37 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       document.getElementById('modalFond').textContent = fb.fond_escp || '—'
       document.getElementById('modalQuestionnaire').textContent = fb.exploitation_questionnaire || '—'
     }
-
     document.getElementById('modalOverlay').classList.add('show')
   }
 
-  function closeModal(e) {
-    if (e.target === document.getElementById('modalOverlay')) {
-      document.getElementById('modalOverlay').classList.remove('show')
-    }
-  }
+  function closeModal(e) { if (e.target===document.getElementById('modalOverlay')) document.getElementById('modalOverlay').classList.remove('show') }
 
-  loadCredits()
-  loadQuestionnaire()
-  loadFeedbacks()
-
-
-  
-  // ===== ESSEC JS =====
+  // ===== ESSEC =====
 
   function essecNav(view, el) {
-    document.querySelectorAll('.essec-nav-btn').forEach(function(b){b.classList.remove('active');});
-    document.querySelectorAll('.essec-view').forEach(function(v){v.style.display='none';v.classList.remove('active');});
-    el.classList.add('active');
-    var target = document.getElementById('essec-view-' + view);
-    if(target){target.style.display='block';target.classList.add('active');}
-    if(view==='psycho'){ exoRenderThemes(); }
+    document.querySelectorAll('.essec-nav-btn').forEach(b => b.classList.remove('on'))
+    document.querySelectorAll('.essec-view').forEach(v => { v.classList.remove('on'); v.style.display = 'none'; })
+    el.classList.add('on')
+    const t = document.getElementById('ev-' + view)
+    t.classList.add('on'); t.style.display = 'block'
   }
 
   function psychoNav(panel, el) {
-    document.querySelectorAll('.psycho-subnav-btn').forEach(function(b){b.classList.remove('active');});
-    document.querySelectorAll('.psycho-panel').forEach(function(p){p.style.display='none';p.classList.remove('active');});
-    el.classList.add('active');
-    var target = document.getElementById('psycho-' + panel);
-    if(target){target.style.display='block';target.classList.add('active');}
-    if(panel==='exos') { exoRenderThemes(); }
+    document.querySelectorAll('.psycho-nav-btn').forEach(b => b.classList.remove('on'))
+    document.querySelectorAll('.psycho-panel').forEach(p => { p.classList.remove('on'); p.style.display = 'none'; })
+    el.classList.add('on')
+    const t = document.getElementById('pp-' + panel)
+    t.classList.add('on'); t.style.display = 'block'
+    if (panel === 'exos') renderExoGrid()
   }
 
-  function coursToggle(item) {
-    var isOpen = item.classList.contains('open');
-    document.querySelectorAll('.cours-item.open').forEach(function(c){c.classList.remove('open');});
-    if(!isOpen) item.classList.add('open');
+  function cToggle(item) {
+    const open = item.classList.contains('on')
+    document.querySelectorAll('.cours-item.on').forEach(c => c.classList.remove('on'))
+    if (!open) item.classList.add('on')
   }
 
-  // === EXERCICES PAR THÈME ===
-
-
+  // QUESTIONS
   const QUESTIONS = [
   // SÉRIES NUMÉRIQUES (25 questions)
   {type:'num',q:'Quelle est la suite logique ? 48, 8, 35, 7, 24, …',opts:['17','6','19','18'],ans:1,exp:'Deux suites entrelacées : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6.'},
@@ -1341,211 +1008,174 @@ function shuffle(arr){const a=[...arr]
 
     return a;
   }
-  function eShuffle(arr){var a=[...arr];for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 
-  var EXO_THEMES = [
-    { id:'num',    label:'Séries numériques',   icon:'🔢', desc:'Arithmétique, géométrique, entrelacées' },
-    { id:'lettres',label:'Séries de lettres',    icon:'🔤', desc:'Positions, initiales, suites alternées' },
-    { id:'quant',  label:'Raisonnement quantitatif', icon:'📐', desc:'Maths appliquées, pièges logiques' },
-    { id:'deductif',label:'Raisonnement déductif',  icon:'🧠', desc:'Syllogismes, contraposée, quantificateurs' },
-    { id:'vocab',  label:'Synonymes & Vocabulaire', icon:'📖', desc:'Mots rares, antonymes, paronymes' },
-    { id:'analogie',label:'Analogies verbales',     icon:'🔗', desc:'8 types de rapports à identifier' },
-    { id:'code',   label:'Codes & Chiffrements',    icon:'🔐', desc:'Correspondances, anagrammes, liaisons' },
-  ];
 
-  // Scores par thème stockés localement
-  var exoThemeScores = {};
-  EXO_THEMES.forEach(function(t){ exoThemeScores[t.id] = {done:0, ok:0, total:0}; });
+  function sh(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-  var exoCurTheme = null, exoIdx=0, exoOk=0, exoKo=0, exoFiltered=[];
+  const THEMES = [
+    {id:'num',    icon:'🔢', label:'Séries numériques',        desc:'Arithmétique, géométrique, entrelacées'},
+    {id:'lettres',icon:'🔤', label:'Séries de lettres',         desc:'Positions, initiales, alternées'},
+    {id:'quant',  icon:'📐', label:'Raisonnement quantitatif',  desc:'Maths appliquées, pièges logiques'},
+    {id:'deductif',icon:'🧠',label:'Raisonnement déductif',     desc:'Syllogismes, contraposée'},
+    {id:'vocab',  icon:'📖', label:'Synonymes & Vocabulaire',   desc:'Mots rares, antonymes'},
+    {id:'analogie',icon:'🔗',label:'Analogies verbales',        desc:'8 types de rapports'},
+    {id:'code',   icon:'🔐', label:'Codes & Chiffrements',      desc:'Correspondances, anagrammes'},
+  ]
+  const tScores = {}
+  THEMES.forEach(t => tScores[t.id] = {ok:0, total:0, done:false})
 
-  function exoRenderThemes() {
-    var grid = document.getElementById('exo-themes-grid');
-    if(!grid) return;
-    var totalDone=0, totalOk=0, totalQ=0;
-    grid.innerHTML = EXO_THEMES.map(function(t) {
-      var sc = exoThemeScores[t.id];
-      var pct = sc.total>0 ? Math.round((sc.ok/sc.total)*100) : -1;
-      var done = sc.done >= QUESTIONS.filter(function(q){return q.type===t.id;}).length && sc.total>0;
-      totalDone += sc.ok; totalOk += sc.ok; totalQ += sc.total;
-      var badge = done
-        ? '<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:6px;">✓ Terminé</div>'
-        : sc.total>0
-          ? '<div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--warning);margin-bottom:6px;">En cours</div>'
-          : '';
-      var scoreBar = sc.total>0
-        ? '<div style="margin-top:10px;"><div style="background:var(--surface3);height:4px;border-radius:2px;overflow:hidden;"><div style="background:'+(pct>=70?'var(--green)':pct>=40?'#ffa94d':'var(--red)')
-          +';height:100%;width:'+pct+'%;transition:width 0.5s;"></div></div><div style="font-size:0.72rem;color:var(--muted2);margin-top:4px;">'+sc.ok+'/'+sc.total+' correctes ('+pct+'%)</div></div>'
-        : '<div style="margin-top:10px;font-size:0.72rem;color:var(--muted);">'+QUESTIONS.filter(function(q){return q.type===t.id;}).length+' questions disponibles</div>';
-      return '<div onclick="exoStartTheme(''+t.id+'')" style="background:var(--surface2);border:1px solid '+(done?'rgba(74,222,128,0.3)':'var(--border)')+';padding:20px 22px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--essec2)'" onmouseout="this.style.borderColor=''+(done?'rgba(74,222,128,0.3)':'var(--border)')+''">'+badge+'<div style="display:flex;align-items:center;gap:10px;"><div style="font-size:1.4rem;">'+t.icon+'</div><div><div style="font-size:0.9rem;font-weight:600;">'+t.label+'</div><div style="font-size:0.75rem;color:var(--muted2);margin-top:2px;">'+t.desc+'</div></div></div>'+scoreBar+'</div>';
-    }).join('');
-    // Update global score
-    var gEl = document.getElementById('exo-global-score');
-    if(gEl && totalQ>0) gEl.textContent = totalOk+'/'+totalQ;
+  let curTheme=null, eIdx=0, eOk=0, eKo=0, eQ=[]
+
+  function renderExoGrid() {
+    const grid = document.getElementById('exo-grid')
+    let gOk=0, gTot=0
+    grid.innerHTML = THEMES.map(t => {
+      const sc = tScores[t.id]
+      const pct = sc.total > 0 ? Math.round(sc.ok/sc.total*100) : 0
+      const col = pct>=70?'var(--green)':pct>=40?'#ffa94d':'var(--red)'
+      gOk += sc.ok; gTot += sc.total
+      return '<div class="exo-theme-card'+(sc.done?' done':'')+'" onclick="startTheme(''+t.id+'')">'
+        +(sc.done?'<div class="exo-done-badge">✓ Terminé</div>':'')
+        +'<div class="exo-theme-icon">'+t.icon+'</div>'
+        +'<div class="exo-theme-title">'+t.label+'</div>'
+        +'<div class="exo-theme-sub">'+t.desc+'</div>'
+        +(sc.total>0
+          ?'<div class="exo-theme-bar"><div class="exo-theme-fill" style="width:'+pct+'%;background:'+col+'"></div></div><div class="exo-theme-stat">'+sc.ok+'/'+sc.total+' correctes ('+pct+'%)</div>'
+          :'<div class="exo-theme-stat" style="color:var(--muted)">'+QUESTIONS.filter(q=>q.type===t.id).length+' questions</div>')
+        +'</div>'
+    }).join('')
+    const gs = document.getElementById('gScore')
+    if (gs) gs.textContent = gTot > 0 ? gOk+'/'+gTot : '0/0'
   }
 
-  function exoStartTheme(typeId) {
-    exoCurTheme = typeId;
-    var theme = EXO_THEMES.find(function(t){return t.id===typeId;});
-    exoFiltered = eShuffle(QUESTIONS.filter(function(q){return q.type===typeId;}));
-    exoIdx=0; exoOk=0; exoKo=0;
-    // Reset scores for this attempt
-    exoThemeScores[typeId] = {done:0, ok:0, total:exoFiltered.length};
-    // Update UI
-    document.getElementById('exo-theme-selector').style.display='none';
-    document.getElementById('exo-results-view').style.display='none';
-    document.getElementById('exo-training-view').style.display='block';
-    document.getElementById('exo-theme-title').innerHTML = theme.icon+' '+theme.label;
-    document.getElementById('exo-q-total').textContent = exoFiltered.length;
-    exoUpdateScore(); exoRender();
+  function startTheme(id) {
+    curTheme = id
+    const t = THEMES.find(x=>x.id===id)
+    eQ = sh(QUESTIONS.filter(q=>q.type===id))
+    eIdx=0; eOk=0; eKo=0
+    tScores[id] = {ok:0, total:eQ.length, done:false}
+    document.getElementById('exo-selector').style.display='none'
+    document.getElementById('exo-res').style.display='none'
+    document.getElementById('exo-train').style.display='block'
+    document.getElementById('exo-train-title').textContent = t.icon+' '+t.label
+    document.getElementById('exo-qt').textContent = eQ.length
+    updExoScore(); renderExoQ()
   }
 
-  function exoUpdateScore() {
-    var t=exoOk+exoKo;
-    document.getElementById('exo-score').textContent=exoOk+'/'+t;
-    document.getElementById('exo-ok').textContent=exoOk;
-    document.getElementById('exo-ko').textContent=exoKo;
-    document.getElementById('exo-q-progress').textContent=exoIdx;
+  function updExoScore() {
+    document.getElementById('exo-sn').textContent = eOk+'/'+(eOk+eKo)
+    document.getElementById('exo-ok').textContent = eOk
+    document.getElementById('exo-ko').textContent = eKo
+    document.getElementById('exo-qi').textContent = eIdx
   }
 
-  function exoRender() {
-    var c=document.getElementById('exo-container');
-    if(!c) return;
-    if(exoIdx>=exoFiltered.length) {
-      // Thème terminé → afficher résultats
-      exoThemeScores[exoCurTheme] = {done:exoFiltered.length, ok:exoOk, total:exoFiltered.length};
-      exoShowResults();
-      return;
-    }
-    var q=exoFiltered[exoIdx];
-    var L=['A','B','C','D'];
-    var opts=q.opts.map(function(o,i){
-      return '<button class="q-opt" onclick="exoAnswer(this,'+i+','+exoIdx+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>';
-    }).join('');
-    c.innerHTML='<div class="q-card"><div class="q-tag">Question '+(exoIdx+1)+' / '+exoFiltered.length+'</div><div class="q-text">'+q.q+'</div><div class="q-opts">'+opts+'</div><div class="q-fb" id="qfb'+exoIdx+'"></div><button class="q-next" id="qnxt'+exoIdx+'" onclick="exoNext()">Question suivante →</button></div>';
+  function renderExoQ() {
+    const c = document.getElementById('exo-qc')
+    if (eIdx >= eQ.length) { showExoRes(); return; }
+    const q = eQ[eIdx]
+    const L = ['A','B','C','D']
+    c.innerHTML = '<div class="q-card"><div class="q-num">Question '+(eIdx+1)+'/'+eQ.length+'</div><div class="q-text">'+q.q+'</div><div class="q-opts">'+q.opts.map((o,i)=>'<button class="q-opt" onclick="ansExo(this,'+i+','+eIdx+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div class="q-fb" id="efb'+eIdx+'"></div><button class="q-nxt" id="enxt'+eIdx+'" onclick="nextExoQ()">Question suivante →</button></div>'
   }
 
-  function exoAnswer(btn,chosen,idx) {
-    var q=exoFiltered[idx];
-    btn.parentElement.querySelectorAll('.q-opt').forEach(function(o){o.classList.add('disabled');o.onclick=null;});
-    var ok=chosen===q.ans;
-    if(ok){btn.classList.add('correct');exoOk++;}
-    else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('correct');exoKo++;}
-    var fb=document.getElementById('qfb'+idx);
-    fb.className='q-fb '+(ok?'correct':'wrong');fb.style.display='block';
-    fb.innerHTML=(ok?'✅ ':'❌ Bonne réponse : <strong>'+['A','B','C','D'][q.ans]+'</strong>. ')+q.exp;
-    document.getElementById('qnxt'+idx).style.display='inline-block';
-    exoUpdateScore();
+  function ansExo(btn,chosen,idx) {
+    const q = eQ[idx]
+    btn.parentElement.querySelectorAll('.q-opt').forEach(o=>{o.classList.add('dis');o.onclick=null})
+    const ok = chosen===q.ans
+    if(ok){btn.classList.add('ok');eOk++;}else{btn.classList.add('ko');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('ok');eKo++;}
+    const fb = document.getElementById('efb'+idx)
+    fb.className='q-fb '+(ok?'ok':'ko'); fb.style.display='block'
+    fb.innerHTML=(ok?'✅ ':'❌ Bonne : <strong>'+['A','B','C','D'][q.ans]+'</strong>. ')+q.exp
+    document.getElementById('enxt'+idx).style.display='inline-block'
+    updExoScore()
   }
 
-  function exoNext() { exoIdx++; exoRender(); }
+  function nextExoQ(){eIdx++;renderExoQ();}
 
-  function exoShowResults() {
-    document.getElementById('exo-training-view').style.display='none';
-    document.getElementById('exo-results-view').style.display='block';
-    var pct = exoFiltered.length>0 ? Math.round((exoOk/exoFiltered.length)*100) : 0;
-    var theme = EXO_THEMES.find(function(t){return t.id===exoCurTheme;});
-    var icon = pct>=80 ? '🏆' : pct>=50 ? '👍' : '📚';
-    var title = pct>=80 ? 'Excellent !' : pct>=50 ? 'Bon travail' : 'Continue à t'entraîner';
-    document.getElementById('exo-res-icon').textContent = icon;
-    document.getElementById('exo-res-title').textContent = title;
-    document.getElementById('exo-res-detail').textContent = 'Tu as répondu correctement à '+exoOk+' question'+(exoOk>1?'s':'')+ ' sur '+exoFiltered.length+' en '+theme.label;
-    document.getElementById('exo-r-ok').textContent = exoOk;
-    document.getElementById('exo-r-ko').textContent = exoKo;
-    document.getElementById('exo-r-pct').textContent = pct+'%';
-    exoRenderThemes();
+  function showExoRes() {
+    tScores[curTheme]={ok:eOk,total:eQ.length,done:true}
+    document.getElementById('exo-train').style.display='none'
+    document.getElementById('exo-res').style.display='block'
+    const pct=eQ.length>0?Math.round(eOk/eQ.length*100):0
+    document.getElementById('exo-res-icon').textContent=pct>=80?'🏆':pct>=50?'👍':'📚'
+    document.getElementById('exo-res-title').textContent=pct>=80?'Excellent !':pct>=50?'Bon travail !':'Continue !'
+    document.getElementById('exo-res-detail').textContent=eOk+' bonne'+(eOk>1?'s':'')+' sur '+eQ.length+' — '+THEMES.find(t=>t.id===curTheme).label
+    document.getElementById('rOk').textContent=eOk
+    document.getElementById('rKo').textContent=eKo
+    document.getElementById('rPct').textContent=pct+'%'
   }
 
-  function exoRetryTheme() { exoStartTheme(exoCurTheme); }
+  function exoRetry(){startTheme(curTheme);}
+  function exoBack(){document.getElementById('exo-train').style.display='none';document.getElementById('exo-res').style.display='none';document.getElementById('exo-selector').style.display='block';renderExoGrid();}
 
-  function exoBackToThemes() {
-    document.getElementById('exo-training-view').style.display='none';
-    document.getElementById('exo-results-view').style.display='none';
-    document.getElementById('exo-theme-selector').style.display='block';
-    exoRenderThemes();
+  // CHRONO
+  let cCfg_={dur:5,type:'all'}, cTimer=null, cSecs=0, cTQ=[], cIdx=0, cScore=0, cOk=0, cKo=0, cAns=0
+
+  function cCfg(el,k,v){
+    el.closest('.chrono-opts').querySelectorAll('.chrono-opt').forEach(o=>o.classList.remove('sel'))
+    el.classList.add('sel'); cCfg_[k]=v
   }
 
-  function exoInit() {
-    exoRenderThemes();
+  function cStart(){
+    cTQ=sh(cCfg_.type==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===cCfg_.type))
+    cIdx=0;cScore=0;cOk=0;cKo=0;cAns=0;cSecs=cCfg_.dur*60
+    document.getElementById('cc').style.display='none'
+    document.getElementById('cr').style.display='block'
+    document.getElementById('crs').style.display='none'
+    document.getElementById('cqt').textContent=cTQ.length
+    cTick();cRenderQ()
+    cTimer=setInterval(cTick,1000)
   }
 
-  // === TEST CHRONOMÉTRÉ ===
-  var cCfg={dur:5,type:'all',pen:0.25};
-  var cTimer=null,cSecs=0,cTQ=[],cIdx=0,cScore=0,cOk=0,cKo=0,cAns=0;
-
-  function chronoCfg(el,k,v){
-    el.closest('.chrono-opts').querySelectorAll('.chrono-opt').forEach(function(o){o.classList.remove('sel');});
-    el.classList.add('sel');
-    if(k==='dur'||k==='pen') cCfg[k]=parseFloat(v); else cCfg[k]=v;
+  function cTick(){
+    const m=Math.floor(cSecs/60),s=cSecs%60
+    const el=document.getElementById('ct')
+    if(el){el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;el.className='chrono-time'+(cSecs<60?' urg':'')}
+    const sl=document.getElementById('csl');if(sl)sl.textContent=cScore.toFixed(2)
+    if(cSecs<=0){clearInterval(cTimer);cShowRes();}
+    cSecs--
   }
 
-  function chronoStart(){
-    cTQ=eShuffle(cCfg.type==='all'?QUESTIONS:QUESTIONS.filter(function(q){return q.type===cCfg.type;}));
-    cIdx=0;cScore=0;cOk=0;cKo=0;cAns=0;cSecs=cCfg.dur*60;
-    document.getElementById('chrono-config').style.display='none';
-    document.getElementById('chrono-running').style.display='block';
-    document.getElementById('chrono-results').style.display='none';
-    document.getElementById('chrono-qt').textContent=cTQ.length;
-    cTick2();chronoRenderQ();
-    cTimer=setInterval(cTick2,1000);
+  function cRenderQ(){
+    const c=document.getElementById('cqc');if(!c)return
+    if(cIdx>=cTQ.length){cShowRes();return;}
+    const q=cTQ[cIdx];document.getElementById('cqn').textContent=cIdx+1
+    const L=['A','B','C','D']
+    c.innerHTML='<div class="q-card"><div class="q-text">'+q.q+'</div><div class="q-opts">'+q.opts.map((o,i)=>'<button class="q-opt" onclick="cAns_(this,'+i+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div style="margin-top:12px"><button onclick="cSkip()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:6px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.76rem;">Passer →</button></div></div>'
   }
 
-  function cTick2(){
-    var m=Math.floor(cSecs/60),s=cSecs%60;
-    var el=document.getElementById('chrono-time');
-    if(el){el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;el.className='chrono-time'+(cSecs<60?' urgent':'');}
-    var sl=document.getElementById('chrono-score-live');
-    if(sl)sl.textContent=cScore.toFixed(2);
-    if(cSecs<=0){clearInterval(cTimer);chronoShowResults();}
-    cSecs--;
+  function cAns_(btn,chosen){
+    const q=cTQ[cIdx]
+    btn.parentElement.querySelectorAll('.q-opt').forEach(o=>{o.classList.add('dis');o.onclick=null})
+    if(chosen===q.ans){btn.classList.add('ok');cScore+=1;cOk++;}else{btn.classList.add('ko');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('ok');cScore-=0.25;cKo++;}
+    cAns++;setTimeout(()=>{cIdx++;cRenderQ();},700)
   }
 
-  function chronoRenderQ(){
-    var c=document.getElementById('chrono-q-container');
-    if(!c)return;
-    if(cIdx>=cTQ.length){chronoShowResults();return;}
-    var q=cTQ[cIdx];
-    document.getElementById('chrono-qn').textContent=cIdx+1;
-    var L=['A','B','C','D'];
-    var opts=q.opts.map(function(o,i){return '<button class="q-opt" onclick="chronoAnswer(this,'+i+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>';}).join('');
-    c.innerHTML='<div class="q-card"><div class="q-text">'+q.q+'</div><div class="q-opts">'+opts+'</div><div style="margin-top:14px;"><button onclick="chronoSkip()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:8px 16px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">Passer →</button></div></div>';
+  function cSkip(){cIdx++;cRenderQ();}
+  function cStop(){clearInterval(cTimer);cShowRes();}
+
+  function cShowRes(){
+    clearInterval(cTimer)
+    document.getElementById('cr').style.display='none'
+    document.getElementById('crs').style.display='block'
+    const skip=cIdx-cAns,max=cIdx,pct=max>0?(cScore/max)*100:0
+    document.getElementById('crf').textContent=cScore.toFixed(2)
+    document.getElementById('crm').textContent=max
+    document.getElementById('crv').textContent=pct>=70?'Excellent niveau !':pct>=45?'Bon niveau, continue !':'Continue a entrainer !'
+    document.getElementById('crok').textContent=cOk
+    document.getElementById('crko').textContent=cKo
+    document.getElementById('crsk').textContent=skip
   }
 
-  function chronoAnswer(btn,chosen){
-    var q=cTQ[cIdx];
-    btn.parentElement.querySelectorAll('.q-opt').forEach(function(o){o.classList.add('disabled');o.onclick=null;});
-    if(chosen===q.ans){btn.classList.add('correct');cScore+=1;cOk++;}
-    else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('correct');cScore-=cCfg.pen;cKo++;}
-    cAns++;
-    setTimeout(function(){cIdx++;chronoRenderQ();},700);
+  function cReset(){
+    document.getElementById('crs').style.display='none'
+    document.getElementById('cr').style.display='none'
+    document.getElementById('cc').style.display='block'
   }
 
-  function chronoSkip(){cIdx++;chronoRenderQ();}
-  function chronoStop(){clearInterval(cTimer);chronoShowResults();}
-
-  function chronoShowResults(){
-    clearInterval(cTimer);
-    document.getElementById('chrono-running').style.display='none';
-    document.getElementById('chrono-results').style.display='block';
-    var skip=cIdx-cAns,max=cIdx,pct=max>0?(cScore/max)*100:0;
-    var v=pct>=70?'Excellent niveau !':pct>=45?'Bon niveau, continue !':'Continue, la regularite paie !';
-    document.getElementById('chrono-score-final').textContent=cScore.toFixed(2);
-    document.getElementById('chrono-max').textContent=max;
-    document.getElementById('chrono-verdict').textContent=v;
-    document.getElementById('cr-ok').textContent=cOk;
-    document.getElementById('cr-ko').textContent=cKo;
-    document.getElementById('cr-skip').textContent=skip;
-  }
-
-  function chronoReset(){
-    document.getElementById('chrono-results').style.display='none';
-    document.getElementById('chrono-config').style.display='block';
-    document.getElementById('chrono-running').style.display='none';
-  }
-
-  // Auto-init exercices au chargement
-  document.addEventListener('DOMContentLoaded', function(){ exoRenderThemes(); });
-
+  loadCredits()
+  loadQuestionnaire()
+  loadFeedbacks()
+  renderExoGrid()
 </script>
 
 </body>
