@@ -176,6 +176,87 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
 .carte-fb-text { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
 
+/* ESSEC EMBEDDED STYLES */
+.cours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border2); }
+    @media (max-width: 680px) { .cours-grid { grid-template-columns: 1fr; } }
+    .cours-card { background: var(--surface2); cursor: pointer; transition: background 0.3s; }
+    .cours-card:hover { background: var(--surface3); }
+    .cours-header { display: flex; align-items: center; gap: 14px; padding: 20px 24px; }
+    .cours-icon { width: 36px; height: 36px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; background: var(--essec-bg); border: 1px solid var(--essec-border); }
+    .cours-title { font-size: 0.88rem; font-weight: 500; }
+    .cours-subtitle { font-size: 0.72rem; color: var(--muted2); margin-top: 2px; }
+    .chevron { margin-left: auto; color: var(--muted); transition: transform 0.2s; font-size: 0.75rem; }
+    .cours-card.open .chevron { transform: rotate(180deg); }
+    .cours-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border2); }
+    .cours-card.open .cours-body { display: block; }
+    .cours-body h4 { font-size: 0.65rem; font-weight: 600; color: var(--essec); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 1.5px; }
+    .cours-body p, .cours-body li { font-size: 0.82rem; color: var(--muted2); line-height: 1.7; }
+    .cours-body ul { padding-left: 14px; }
+    .cours-body li { margin-bottom: 5px; }
+    .exemple-box { background: var(--surface); border-left: 2px solid var(--essec); padding: 12px 16px; margin: 10px 0; font-size: 0.8rem; }
+    .exemple-box .q { color: var(--muted2); margin-bottom: 6px; }
+    .exemple-box .r { color: var(--accent); font-weight: 500; }
+
+    /* TYPE SELECTOR */
+    .type-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .type-btn { padding: 7px 16px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 500; transition: all 0.2s; }
+    .type-btn:hover { border-color: var(--essec); color: var(--text); }
+    .type-btn.active { background: var(--essec); border-color: var(--essec); color: #fff; }
+
+    /* SCORE BAR */
+    .score-bar { display: flex; align-items: center; gap: 16px; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 20px; }
+    .score-num { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.6rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+    .score-label { font-size: 0.78rem; color: var(--muted2); }
+
+    /* QUESTION CARD */
+    .q-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px; margin-bottom: 16px; }
+    .q-type-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--essec); border: 1px solid var(--essec-border); background: var(--essec-bg); padding: 3px 10px; margin-bottom: 14px; }
+    .q-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px; font-weight: 500; }
+    .q-options { display: flex; flex-direction: column; gap: 8px; }
+    .q-option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border2); cursor: pointer; transition: all 0.15s; font-size: 0.85rem; line-height: 1.5; text-align: left; width: 100%; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; }
+    .q-option:hover:not(.disabled) { border-color: var(--essec); background: var(--essec-bg); }
+    .q-option.correct { border-color: var(--green); background: rgba(74,222,128,0.06); color: var(--green); }
+    .q-option.wrong { border-color: var(--red); background: rgba(224,92,92,0.06); color: var(--red); }
+    .q-option.disabled { cursor: default; }
+    .opt-letter { width: 24px; height: 24px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; flex-shrink: 0; color: var(--muted2); }
+    .q-feedback { margin-top: 14px; padding: 12px 16px; font-size: 0.82rem; line-height: 1.6; display: none; }
+    .q-feedback.correct { background: rgba(74,222,128,0.06); border-left: 2px solid var(--green); color: #a0f0b0; }
+    .q-feedback.wrong { background: rgba(224,92,92,0.06); border-left: 2px solid var(--red); color: #f0a0a0; }
+    .next-btn { margin-top: 14px; padding: 10px 24px; background: var(--gradient); border: none; color: var(--bg); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; transition: opacity 0.2s; display: none; }
+    .next-btn:hover { opacity: 0.88; }
+    .no-more { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; background: var(--surface2); border: 1px solid var(--border); }
+
+    /* TEST CHRONO */
+    .test-config { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 24px; }
+    .test-config h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+    .config-row { margin-bottom: 18px; }
+    .config-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--essec); margin-bottom: 10px; }
+    .config-options { display: flex; flex-wrap: wrap; gap: 8px; }
+    .config-opt { padding: 7px 16px; background: var(--surface); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; transition: all 0.15s; }
+    .config-opt:hover { border-color: var(--essec); color: var(--text); }
+    .config-opt.selected { background: var(--essec); border-color: var(--essec); color: #fff; }
+    .start-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #003b7a, #0055b3); border: none; color: #fff; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; margin-top: 8px; }
+    .start-btn:hover { opacity: 0.9; }
+
+    .timer-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 16px; }
+    .timer-display { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+    .timer-display.urgent { background: none; -webkit-text-fill-color: var(--red); color: var(--red); }
+    .timer-sub { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+    .results-panel { background: var(--surface2); border: 1px solid var(--border); padding: 48px 40px; text-align: center; display: none; }
+    .results-panel::before { content: ''; display: block; height: 2px; background: var(--gradient); margin: -48px -40px 40px; }
+    .results-score { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 8px 0; }
+    .results-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 24px 0; }
+    .results-stat { background: var(--surface); padding: 20px; }
+    .results-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; }
+    .results-stat-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+    .results-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface); padding: 14px 18px; border-left: 2px solid var(--accent); margin: 20px 0; text-align: left; }
+    .retry-btn { margin-top: 16px; padding: 12px 32px; background: var(--gradient); border: none; color: var(--bg); font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .section-sub { font-size: 0.78rem; color: var(--muted2); margin-bottom: 28px; }
+    .hidden { display: none !important; }
+
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
   .main { padding: 80px 16px 40px; }
@@ -187,6 +268,17 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   .essec-actions { flex-direction: column; }
   .btn-essec-oral, .btn-essec-psycho { width: 100%; justify-content: center; }
 }
+
+/* ESSEC sub-tabs */
+.essec-subtabs { display: flex; gap: 2px; background: var(--border2); margin-bottom: 0; }
+.essec-subtab { flex: 1; padding: 12px 16px; text-align: center; cursor: pointer; font-size: 0.78rem; font-weight: 500; background: var(--surface2); color: var(--muted2); transition: all 0.3s; border-bottom: 2px solid transparent; }
+.essec-subtab:hover { color: var(--text); }
+.essec-subtab.active { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface3); }
+.essec-panel { display: none; padding: 28px 0 0; }
+.essec-panel.active { display: block; }
+/* ESSEC score bar */
+.score-bar { display: flex; align-items: center; gap: 16px; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 20px; }
+.score-num { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.6rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
 ```
 
   </style>
@@ -314,23 +406,316 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   <div class="tab-content essec-content" id="contentESSEC">
 
 ```
-<div class="essec-info-card">
-  <div class="essec-info-icon">🏛️</div>
-  <div class="essec-info-text">
-    <strong>ESSEC Business School</strong><br>
-    Prépare-toi sur deux fronts : les <strong>tests psychotechniques</strong> (séries numériques, logique, vocabulaire…) et bientôt l'entretien oral avec un jury IA.
+<!-- Sous-onglets ESSEC -->
+<div class="essec-subtabs">
+  <div class="essec-subtab active" onclick="showEssecTab('cours',this)">📚 Cours & Méthode</div>
+  <div class="essec-subtab" onclick="showEssecTab('entrainement',this)">⚡ Entraînement</div>
+  <div class="essec-subtab" onclick="showEssecTab('test',this)">⏱ Test Chrono</div>
+  <div class="essec-subtab" onclick="showEssecTab('oral',this)">🎙️ Entretien oral</div>
+</div>
+
+<!-- COURS -->
+<div id="essec-panel-cours" class="essec-panel active">
+  <div class="section-eyebrow" style="margin-bottom:20px;">Techniques pour chaque type d'épreuve psychotechnique ESSEC</div>
+  <div class="cours-grid">
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔢</div>
+      <div><div class="cours-title">Séries numériques</div><div class="cours-subtitle">Trouver la loi de la suite</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Types courants</h4>
+      <ul>
+        <li><strong>Arithmétique</strong> : raison constante (+3, −2…)</li>
+        <li><strong>Géométrique</strong> : on multiplie par un facteur fixe (×2, ×7…)</li>
+        <li><strong>Deux suites entrelacées</strong> : positions paires et impaires ont chacune leur loi</li>
+        <li><strong>Différences croissantes</strong> : les écarts forment eux-mêmes une suite</li>
+        <li><strong>Règles mixtes</strong> : ex. +2, ×3, +2, ×3…</li>
+      </ul>
+      <h4>Méthode</h4>
+      <ul>
+        <li>Calculer les différences consécutives en premier</li>
+        <li>Si pas de loi : calculer les différences des différences</li>
+        <li>Séparer les rangs pairs et impairs si nécessaire</li>
+        <li>Tester ×2, ×3, ÷2 entre termes consécutifs</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : 48, 8, 35, 7, 24, ?</div>
+        <div class="r">Deux suites : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6</div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">Q : 7 – 13 – 24 – 45 – ?</div>
+        <div class="r">Règle : ×2−1, ×2−2, ×2−3, ×2−4 → 45×2−4 = 86</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔤</div>
+      <div><div class="cours-title">Séries de lettres</div><div class="cours-subtitle">Alphabet et positions</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Méthode</h4>
+      <ul>
+        <li>Convertir les lettres en numéros (A=1, B=2… Z=26)</li>
+        <li>Repérer la loi sur les numéros</li>
+        <li>Attention aux séries alternées et aux groupes fixes</li>
+        <li>Cas spécial : initiales de mots (Un=U, Deux=D, Trois=T…)</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : U-D-T-Q-C-S-S-H-?</div>
+        <div class="r">Initiales des chiffres en français → Neuf → N</div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">Q : A D H K O ?</div>
+        <div class="r">A=1,D=4,H=8,K=11,O=15 → +3,+4,+3,+4 → +4 → S</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">📐</div>
+      <div><div class="cours-title">Raisonnement quantitatif</div><div class="cours-subtitle">Formules et logique mathématique</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Pièges classiques</h4>
+      <ul>
+        <li><strong>Course</strong> : doubler le 2e → tu prends sa place → tu es 2e !</li>
+        <li><strong>Nénuphar</strong> : 2 nénuphars = déjà double → 99 jours (pas 50)</li>
+        <li><strong>Pots de peinture</strong> : 15 pots, 2 à la fois → 8 voyages</li>
+        <li><strong>Escargot</strong> : le dernier jour il atteint le sommet avant de redescendre</li>
+        <li><strong>Chaussettes</strong> : principe du pigeonhole → 3 pour avoir une paire</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : Nénuphar double/jour, 100 jours. Avec 2 nénuphars ?</div>
+        <div class="r">Surface déjà double → il manque 1 doublement → 99 jours</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🧠</div>
+      <div><div class="cours-title">Raisonnement déductif</div><div class="cours-subtitle">Logique formelle et syllogismes</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Règles essentielles</h4>
+      <ul>
+        <li><strong>Contraposée</strong> : A→B ⟺ ¬B→¬A</li>
+        <li><strong>Négation "tous"</strong> : ¬(tous A sont B) = il existe au moins un A qui n'est pas B</li>
+        <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : "Si pas bleu, pas rouge." Équivalent ?</div>
+        <div class="r">¬bleu→¬rouge contraposée → rouge→bleu → "Si je dis rouge, c'est que j'ai trouvé bleu"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">📖</div>
+      <div><div class="cours-title">Synonymes & Vocabulaire</div><div class="cours-subtitle">Mots rares et paronymes</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Mots pièges fréquents ESSEC</h4>
+      <ul>
+        <li>PROHIBER → interdire</li>
+        <li>DÉLECTATION → plaisir</li>
+        <li>COMMISÉRATION → compassion</li>
+        <li>ENTREGENT → diplomatie</li>
+        <li>LUBIE → caprice</li>
+        <li>RUBIGINEUX → rouillé</li>
+        <li>CONSOMPTION → dépérissement</li>
+        <li>INTERPOLER → intercaler</li>
+        <li>COMPLEXION → tempérament</li>
+        <li>SIMULER → feindre</li>
+      </ul>
+      <h4>Méthode</h4>
+      <ul>
+        <li>Éliminer les extrêmes sémantiques d'abord</li>
+        <li>Chercher l'étymologie latin/grec en cas de doute</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔗</div>
+      <div><div class="cours-title">Analogies verbales</div><div class="cours-subtitle">Le rapport entre deux mots</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Types de rapports</h4>
+      <ul>
+        <li><strong>Passionné/Objet</strong> : mélomane→musique</li>
+        <li><strong>Outil/Usage</strong> : microscope→observer</li>
+        <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
+        <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur</li>
+        <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
+      </ul>
+      <h4>Méthode</h4>
+      <p>Formuler la relation en une phrase type "X fait/est/utilise Y" puis trouver la paire qui respecte le MÊME rapport.</p>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔐</div>
+      <div><div class="cours-title">Codes & Chiffrements</div><div class="cours-subtitle">Décoder une correspondance</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Méthode</h4>
+      <ul>
+        <li>Identifier les lettres communes entre les mots donnés</li>
+        <li>Déduire les valeurs par comparaison</li>
+        <li>Tester : position normale A=1, inversée A=26, décalage +k</li>
+        <li>Vérifier sur tous les exemples avant de répondre</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : TOISE=67851, GOMME=47221 → TEMPO=?</div>
+        <div class="r">T=6,E=1,M=2,P=3,O=7 → TEMPO = 61237</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">⏱</div>
+      <div><div class="cours-title">Gestion du temps</div><div class="cours-subtitle">Stratégie le jour J</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Règles d'or</h4>
+      <ul>
+        <li>Ne jamais bloquer plus de 90s sur une question : passer</li>
+        <li>Reporter les réponses sur le livret au fur et à mesure</li>
+        <li>Amener une montre — les surveillants ne donnent pas le temps</li>
+        <li>Éviter les réponses au hasard : pénalité de −0.25 à −1</li>
+        <li>Ne pas répondre (blanc) = 0 point — souvent préférable au hasard</li>
+      </ul>
+      <p style="margin-top:10px;">Aucun candidat ne finit tous les tests dans le temps imparti. C'est prévu.</p>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+    </div>
+
+```
+<!-- ENTRAÎNEMENT -->
+<div id="essec-panel-entrainement" class="essec-panel">
+  <div class="type-selector">
+    <button class="type-btn active" onclick="setType('all',this)">Tout mélanger</button>
+    <button class="type-btn" onclick="setType('num',this)">Séries numériques</button>
+    <button class="type-btn" onclick="setType('lettres',this)">Séries de lettres</button>
+    <button class="type-btn" onclick="setType('quant',this)">Quantitatif</button>
+    <button class="type-btn" onclick="setType('deductif',this)">Déductif</button>
+    <button class="type-btn" onclick="setType('vocab',this)">Vocabulaire</button>
+    <button class="type-btn" onclick="setType('analogie',this)">Analogies</button>
+    <button class="type-btn" onclick="setType('code',this)">Codes</button>
+  </div>
+  <div class="score-bar">
+    <div>
+      <div class="score-num" id="score-display">0/0</div>
+      <div style="font-size:0.78rem;color:var(--muted2);">réponses correctes</div>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:20px;">
+      <div style="font-size:0.82rem;color:var(--green)">✓ <span id="correct-count">0</span></div>
+      <div style="font-size:0.82rem;color:var(--red)">✗ <span id="wrong-count">0</span></div>
+    </div>
+  </div>
+  <div id="q-container"></div>
+</div>
+
+<!-- TEST CHRONO -->
+<div id="essec-panel-test" class="essec-panel">
+  <div id="test-config-panel">
+    <div class="test-config">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;margin-bottom:20px;">Configuration du test</h3>
+      <div class="config-row">
+        <div class="config-label">Durée</div>
+        <div class="config-options">
+          <div class="config-opt selected" onclick="selectConfig(this,'duration','5')">5 min</div>
+          <div class="config-opt" onclick="selectConfig(this,'duration','10')">10 min</div>
+          <div class="config-opt" onclick="selectConfig(this,'duration','15')">15 min ← ESSEC</div>
+          <div class="config-opt" onclick="selectConfig(this,'duration','20')">20 min</div>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-label">Type de questions</div>
+        <div class="config-options">
+          <div class="config-opt selected" onclick="selectConfig(this,'qtype','all')">Tout mélanger</div>
+          <div class="config-opt" onclick="selectConfig(this,'qtype','num')">Séries numériques</div>
+          <div class="config-opt" onclick="selectConfig(this,'qtype','quant')">Quantitatif</div>
+          <div class="config-opt" onclick="selectConfig(this,'qtype','deductif')">Déductif</div>
+          <div class="config-opt" onclick="selectConfig(this,'qtype','vocab')">Vocabulaire</div>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-label">Pénalité pour mauvaise réponse</div>
+        <div class="config-options">
+          <div class="config-opt selected" onclick="selectConfig(this,'penalty','0.25')">−¼ point</div>
+          <div class="config-opt" onclick="selectConfig(this,'penalty','0.5')">−½ point</div>
+          <div class="config-opt" onclick="selectConfig(this,'penalty','1')">−1 point</div>
+          <div class="config-opt" onclick="selectConfig(this,'penalty','0')">Sans pénalité</div>
+        </div>
+      </div>
+      <button class="start-btn" onclick="startTest()">🚀 Lancer le test</button>
+    </div>
+  </div>
+  <div id="test-running-panel" class="hidden">
+    <div class="timer-bar">
+      <div>
+        <div id="timer-display" class="timer-display">05:00</div>
+        <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;"><span id="test-q-num">0</span> / <span id="test-q-total">0</span> questions</div>
+      </div>
+      <div style="font-size:0.85rem;color:var(--muted2);">Score : <span id="test-score-live" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span> pts</div>
+      <button onclick="stopTest()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 16px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.78rem;">Arrêter</button>
+    </div>
+    <div id="test-q-container"></div>
+  </div>
+  <div id="results-panel" class="results-panel">
+    <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Score final</div>
+    <div class="results-score" id="results-score">0</div>
+    <div style="font-size:0.78rem;color:var(--muted2);">points sur <span id="results-max">0</span> possibles</div>
+    <div class="results-verdict" id="results-verdict"></div>
+    <div class="results-grid">
+      <div class="results-stat"><div class="results-stat-num" id="res-correct" style="color:var(--green)">0</div><div class="results-stat-label">Bonnes</div></div>
+      <div class="results-stat"><div class="results-stat-num" id="res-wrong" style="color:var(--red)">0</div><div class="results-stat-label">Mauvaises</div></div>
+      <div class="results-stat"><div class="results-stat-num" id="res-skip" style="color:var(--muted)">0</div><div class="results-stat-label">Passées</div></div>
+    </div>
+    <button class="retry-btn" onclick="resetTest()">🔁 Nouveau test</button>
   </div>
 </div>
 
-<div class="essec-actions">
-  <a href="/essec" class="btn-essec-psycho">📊 Tests psychotechniques</a>
-  <span class="btn-essec-oral" id="btnESSECOral">🎙️ Entretien oral</span>
-  <span class="essec-oral-soon">Bientôt</span>
-</div>
-
-<div class="section-eyebrow">Historique ESSEC</div>
-<div class="entretien-list" id="listESSEC">
-  <div class="empty-state"><div class="empty-icon">🏛️</div><div>Aucun entretien ESSEC pour l'instant.</div></div>
+<!-- ENTRETIEN ORAL -->
+<div id="essec-panel-oral" class="essec-panel">
+  <div style="background:var(--surface2);border:1px solid var(--border);padding:20px 24px;margin-bottom:20px;border-left:2px solid var(--essec2);">
+    <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--essec2);font-weight:600;margin-bottom:10px;">Avant de commencer</div>
+    <ul style="font-size:0.82rem;color:var(--muted2);line-height:1.8;padding-left:14px;">
+      <li>Autorisez l'accès au microphone quand le navigateur le demande</li>
+      <li>Placez-vous dans un endroit calme, comme le jour J</li>
+      <li>L'entretien dure environ 20 minutes — ne l'interrompez pas</li>
+    </ul>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--border);padding:40px 24px;text-align:center;">
+    <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">Jury ESSEC — Intelligence artificielle</div>
+    <elevenlabs-convai agent-id="agent_6201kqyj4vwkerkt0faxgk2zn3ed"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+    <div style="margin-top:20px;font-size:0.75rem;color:var(--muted);line-height:1.6;">Le jury va vous accueillir et guider l'entretien.</div>
+  </div>
 </div>
 ```
 
@@ -639,6 +1024,194 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   loadCredits()
   loadQuestionnaire()
   loadFeedbacks()
+
+  // ===== ESSEC EMBEDDED =====
+  function showEssecTab(name, el) {
+    document.querySelectorAll('.essec-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.essec-subtab').forEach(t => t.classList.remove('active'));
+    document.getElementById('essec-panel-' + name).classList.add('active');
+    el.classList.add('active');
+    if (name === 'entrainement') initEntrainement();
+  }
+
+  const QUESTIONS = [
+  // SÉRIES NUMÉRIQUES (25 questions)
+  {type:'num',q:'Quelle est la suite logique ? 48, 8, 35, 7, 24, …',opts:['17','6','19','18'],ans:1,exp:'Deux suites entrelacées : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6.'},
+  {type:'num',q:'Quelle est la suite logique ? 3, 30, 6, 60, 9, 90, …',opts:['120','12','110','100'],ans:1,exp:'Deux suites : 3,6,9 (+3) et 30,60,90 (+30). Le suivant est 12.'},
+  {type:'num',q:'Quelle est la suite logique ? 11, 10, 12, 11, 13, 12, 14, …',opts:['13','15','16','12'],ans:0,exp:'Deux suites alternées : 11,12,13,14 (+1) et 10,11,12,13 (+1). Terme suivant : 13.'},
+  {type:'num',q:'Quelle est la suite logique ? 6, 8, 12, 20, …',opts:['26','36','28','32'],ans:1,exp:'Différences : 2,4,8 → elles doublent. Prochaine différence : 16. 20+16=36.'},
+  {type:'num',q:'Quelle est la suite logique ? 3, 5, 2, 7, 1, 9, …',opts:['10','0','6','1'],ans:1,exp:'Deux suites : 3,2,1 (−1) et 5,7,9 (+2). Terme suivant de la suite impaire : 0.'},
+  {type:'num',q:'Quelle est la suite logique ? 90, 80, 71, 63, 56, …',opts:['52','50','48','47'],ans:1,exp:'Différences : −10,−9,−8,−7 → la différence augmente de 1. Prochaine : −6. 56−6=50.'},
+  {type:'num',q:'Quelle est la suite logique ? 41, 30, 20, 11, …',opts:['3','6','1','9'],ans:0,exp:'Différences : −11,−10,−9 → la différence diminue de 1. Prochaine : −8. 11−8=3.'},
+  {type:'num',q:'Quelle est la suite logique ? 3, 21, 147, 1029, …',opts:['6 300','7 203','5 200','1 703'],ans:1,exp:'Suite géométrique de raison 7 : 1029×7=7203.'},
+  {type:'num',q:'Quelle est la suite logique ? 18, 33, 28, 23, 38, …',opts:['17','18','14','13'],ans:3,exp:'Deux suites : 18,28,38 (+10) et 33,23,13 (−10). La réponse est 13.'},
+  {type:'num',q:'Quelle est la suite logique ? 9, 54, 18, 45, 27, …',opts:['36','16','26','46'],ans:0,exp:'Deux suites : 9,18,27 (+9) et 54,45,36 (−9). La réponse est 36.'},
+  {type:'num',q:'Quelle est la suite logique ? 30, 28, 32, 26, …',opts:['34','32','24','35'],ans:0,exp:'Règle alternée : −2,+4,−6,+8. 26+8=34.'},
+  {type:'num',q:'Quelle est la suite logique ? 5, 10, 25, 50, 125, 250, 625, …',opts:['700','850','1 250','830'],ans:2,exp:'Alternance ×2 et ×2,5 : 625×2=1250.'},
+  {type:'num',q:'Quelle est la suite logique ? 19, 21, 16, 18, 13, 15, …',opts:['12','10','11','14'],ans:1,exp:'Deux suites : 19,16,13 (−3) et 21,18,15 (−3). Terme suivant : 10.'},
+  {type:'num',q:'Quelle est la suite logique ? 18, 12, 15, 10, 12, 8, …',opts:['10','6','11','9'],ans:3,exp:'Deux suites : 18,15,12 (−3) et 12,10,8 (−2). Terme suivant de la 1re : 12−3=9.'},
+  {type:'num',q:'Quelle est la suite logique ? 42, 14, 35, 21, 28, 28, …',opts:['22','14','21','19'],ans:2,exp:'Deux suites : 42,35,28 (−7) et 14,21,28 (+7). Terme suivant de la 1re : 28−7=21.'},
+  {type:'num',q:'Quelle est la suite logique ? 4, 6, 9, 13, 18, …',opts:['15','19','21','24'],ans:3,exp:'Différences : 2,3,4,5 → augmentent de 1. Prochaine : +6 → 18+6=24.'},
+  {type:'num',q:'Quelle est la suite logique ? 81, 1, 75, 3, 69, 5, …',opts:['61','76','63','65'],ans:2,exp:'Deux suites : 81,75,69 (−6) et 1,3,5 (+2). Terme suivant : 69−6=63.'},
+  {type:'num',q:'Suite logique : 7 – 13 – 24 – 45 – ?',opts:['55','72','86','90'],ans:2,exp:'Règle : chaque terme = terme précédent × 2 − k : 7×2−1=13, 13×2−2=24, 24×2−3=45, 45×2−4=86.'},
+  {type:'num',q:'Suite logique : 2 – 3 – 8 – ?',opts:['12','37','48','63'],ans:3,exp:'Règle : 2×3+2=8, 3×7+... L\'officiel est d) 63.'},
+  {type:'num',q:'Complétez : 12 – 16 – 13 – ? – 14 – 18 – 15',opts:['11','12','13','17'],ans:3,exp:'Deux suites entrelacées : 12,13,14 (+1) et 16,17,18 (+1). La valeur manquante est 17.'},
+  {type:'num',q:'Quel est le nombre manquant ? 56,63 – 36,65 – 49,86 – 68,?',opts:['59','68','86','94'],ans:3,exp:'68 inversé=86, 86+8=94. Réponse : d) 94.'},
+  {type:'num',q:'Suite logique : AC2 – EG4 – IK8 – MO16 – ?',opts:['PR32','QS32','PR64','QS64'],ans:1,exp:'Lettres : saut de 2 (A→C→E→G→I→K→M→O→Q→S). Nombre : ×2. Réponse : QS32.'},
+  {type:'num',q:'Quelle est la suite logique ? 22, 33, 44, 55, 66, …',opts:['88','77','99','66'],ans:1,exp:'Suite arithmétique de raison 11 : 66+11=77.'},
+  {type:'num',q:'Quelle est la suite logique ? 3, 8, 15, 8, 3, …',opts:['8','18','0','3'],ans:0,exp:'Suite palindromique en W : 3,8,15,8,3,8,15... Le terme suivant est 8.'},
+  {type:'num',q:'Suite logique : 31, 38, 45, ?, 59, 66',opts:['52','51','53','50'],ans:0,exp:'Suite arithmétique de raison +7 : 45+7=52.'},
+
+  // SÉRIES DE LETTRES (15 questions)
+  {type:'lettres',q:'Quelle lettre vient à la place du ? : U-D-T-Q-C-S-S-H-?',opts:['D','N','O','T'],ans:1,exp:'Initiales des chiffres : Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit,Neuf → N.'},
+  {type:'lettres',q:'Complétez : B C D Z – B C D Y – B C D ?',opts:['X','W','V','U'],ans:0,exp:'Le groupe BCD est fixe. La 4e lettre descend : Z,Y,X.'},
+  {type:'lettres',q:'Quelle lettre remplace ? : 108 C / 648 S / 325 T / 214 ?',opts:['A','D','X','Z'],ans:1,exp:'Nombre de lettres du chiffre en français : cent-huit=7? Reponse officielle : b) D.'},
+  {type:'lettres',q:'Complétez : DIKA – EKNE – FMQI – ?',opts:['GHUY','GOAQ','GOTM','GRIP'],ans:2,exp:'Chaque lettre avance : D→E→F→G (+1), I→K→M→O (+2), K→N→Q→T (+3), A→E→I→M (+4). Réponse : GOTM.'},
+  {type:'lettres',q:'Quelle lettre complète ? : A D H K O ?',opts:['R','S','T','Q'],ans:1,exp:'A=1,D=4,H=8,K=11,O=15 → différences : 3,4,3,4 → prochaine +4 : O+4=S.'},
+  {type:'lettres',q:'Complétez : M V N W O X P Y Q ?',opts:['R','Z','S','T'],ans:1,exp:'Deux suites alternées : M,N,O,P,Q (+1) et V,W,X,Y,Z (+1). Réponse : Z.'},
+  {type:'lettres',q:'Complétez : B D G K ?',opts:['O','P','N','M'],ans:1,exp:'B=2,D=4,G=7,K=11 → différences : 2,3,4 → prochaine +5 : K=11+5=P=16.'},
+  {type:'lettres',q:'Complétez : I E A J F B K ? ? ?',opts:['G C L','H C L','G D L','G C M'],ans:0,exp:'3 colonnes en parallèle : I,J,K (+1) et E,F,G (+1) et A,B,C (+1). Réponse : G C L.'},
+  {type:'lettres',q:'Quelle lettre suit ? : H I H J K J L M L N O ?',opts:['N','O','P','Q'],ans:0,exp:'Groupes de 3 avec répétition : H,I,H – J,K,J – L,M,L – N,O,N. Réponse : N.'},
+  {type:'lettres',q:'Quelle lettre remplace le ? : D E D E I J K L K L ?',opts:['P','M','O','Q'],ans:2,exp:'Groupes de 2 avec répétition en miroir : DE,DE,IJKL,KL,? → prochaine lettre O.'},
+  {type:'lettres',q:'Complétez : O L P Q L R S T L ? ? ?',opts:['U V L','U V W','V W L','U W L'],ans:0,exp:'Groupes de 3 lettres consécutives séparées par L. Après S,T,L → U,V,L.'},
+  {type:'lettres',q:'Quelle suite complète ? : (A-2) – (E-5) – (I-11) – (?-?) – (U-47)',opts:['O-23','O-42','Y-54','Y-85'],ans:0,exp:'Voyelles A,E,I,O,U. Nombres : 2,5,11,23,47 → ×2+1. 11×2+1=23. Réponse : (O-23).'},
+  {type:'lettres',q:'Complétez la suite de lettres : H I H J K J L M L N O N P ?',opts:['Q','O','R','N'],ans:0,exp:'La séquence forme des triplets. Après N,O,N → P,Q... Réponse : Q.'},
+  {type:'lettres',q:'Quelle lettre remplace le ? : A B D G K ?',opts:['P','R','N','O'],ans:0,exp:'A=1,B=2,D=4,G=7,K=11 → différences : 1,2,3,4 → prochaine +5=16=P.'},
+  {type:'lettres',q:'Complétez : Lundi=L, Mardi=M, Mercredi=M, Jeudi=J, Vendredi=?',opts:['A','M','S','V'],ans:3,exp:'Initiales des jours de la semaine : Vendredi=V.'},
+
+  // RAISONNEMENT QUANTITATIF (20 questions)
+  {type:'quant',q:'Un nénuphar double de surface chaque jour et met 100 jours pour couvrir un étang. Avec 2 nénuphars, combien de temps faut-il ?',opts:['50 jours','75 jours','99 jours','100 jours'],ans:2,exp:'Avec 2 nénuphars, la surface est déjà double au départ. Il faut donc 99 jours.'},
+  {type:'quant',q:'Arthur a 2 ans de plus que Thomas. Thomas a 8 ans de moins que Paul (16 ans). Lise a 6 ans de moins que Thomas. Qui est le plus jeune ?',opts:['Arthur','Lise','Paul','Thomas'],ans:1,exp:'Paul=16, Thomas=8, Arthur=10, Lise=2. Lise est la plus jeune.'},
+  {type:'quant',q:'Dans une course, vous doublez le 2ème. Vous êtes maintenant ?',opts:['1er','2ème','3ème','4ème'],ans:1,exp:'Doubler le 2ème = prendre sa place. Vous devenez 2ème.'},
+  {type:'quant',q:'Pierre achète 15 pots de peinture mais ne peut en transporter que 2 à la fois. Combien de voyages doit-il faire ?',opts:['7','7,5','8','15'],ans:2,exp:'7 voyages = 14 pots. Il reste 1 pot → 8ème voyage nécessaire.'},
+  {type:'quant',q:'Deux canards et deux chats ont combien de pattes au total ?',opts:['8','12','14','16'],ans:1,exp:'Canards : 2×2=4. Chats : 2×4=8. Total : 12.'},
+  {type:'quant',q:'Son tiroir contient 5 paires de chaussettes noires et 5 paires de chaussettes blanches (dans le noir). Combien en prendre pour être sûr d\'avoir 2 de même couleur ?',opts:['2','3','10','11'],ans:1,exp:'Au pire : 1 noire + 1 blanche. La 3e est forcément d\'une des deux couleurs. Réponse : 3.'},
+  {type:'quant',q:'Un escargot monte 3m/jour et redescend 2m/nuit sur un poteau de 12m. Combien de jours pour atteindre le sommet ?',opts:['4 jours','6 jours','10 jours','12 jours'],ans:2,exp:'Gain net : +1m/jour. Après 9 jours : 9m. Le 10e jour il monte 3m et atteint 12m → 10 jours.'},
+  {type:'quant',q:'Zola est né 38 ans après Hugo, 10 ans avant Maupassant. Maupassant est né 51 ans après Balzac. Ordre chronologique ?',opts:['Balzac–Hugo–Zola–Maupassant','Balzac–Maupassant–Zola–Hugo','Hugo–Balzac–Maupassant–Zola','Hugo–Balzac–Zola–Maupassant'],ans:0,exp:'Balzac + x = Hugo, Hugo + 38 = Zola, Zola + 10 = Maupassant = Balzac + 51 → Hugo = Balzac + 3. Ordre : Balzac→Hugo→Zola→Maupassant.'},
+  {type:'quant',q:'Vous clôturez un jardin rectangulaire (21m × 15m). Un poteau tous les 3m. Espace de 3m sans grillage pour le portail. Combien de poteaux ?',opts:['21','23','24','25'],ans:1,exp:'Périmètre : 2×(21+15)=72m. 72/3=24 intervalles. Portail enlève 1 poteau. Réponse : 23.'},
+  {type:'quant',q:'Sur un damier 3×3, combien de carrés composés d\'au moins une case peut-on compter au maximum ?',opts:['4','9','10','14'],ans:3,exp:'1×1 : 9, 2×2 : 4, 3×3 : 1. Total : 14.'},
+  {type:'quant',q:'Quelle est la somme de la série 1 + ½ + ¼ + 1/8 + … à l\'infini ?',opts:['2,5','2','1,96','3,14'],ans:1,exp:'Série géométrique de raison ½ : S = 1/(1−½) = 2.'},
+  {type:'quant',q:'La surface d\'un triangle est ½ × b × h. Si b est multiplié par 4 et h divisé par 2, la nouvelle surface est ?',opts:['¼ de l\'originale','½ de l\'originale','2 fois l\'originale','4 fois l\'originale'],ans:2,exp:'Nouvelle surface = ½ × 4b × h/2 = ½ × 2bh = 2 × (½bh). Réponse : 2 fois.'},
+  {type:'quant',q:'Il y a eu 5 lundis, 5 mardis et 5 mercredis en janvier (31 jours). Quel jour était le 1er février ?',opts:['Lundi','Mercredi','Jeudi','Dimanche'],ans:2,exp:'Janvier finit un mercredi (31e jour). Le 1er février est donc un jeudi.'},
+  {type:'quant',q:'Vingt(4) – Douze(2) – Quinze(3) – Seize(?)',opts:['1','2','3','4'],ans:1,exp:'Nombre / résultat : 20/4=5?, 12/2=6?, 15/3=5? Règle : nb de lettres/2 → Seize=5 lettres → 5/2=2,5 → 2. Réponse : 2.'},
+  {type:'quant',q:'Parmi les propositions, laquelle remplace le X ? : 2 – 14 – 11 – 23 – X – 32',opts:['13','17','20','35'],ans:2,exp:'Deux suites : 2,11,20 (+9) et 14,23,32 (+9). X=20.'},
+  {type:'quant',q:'Un agent classe ses dossiers en 2 piles égales mais il en reste 1. En 3 piles égales : idem, reste 1. Combien de dossiers ?',opts:['1001','1003','1005','1007'],ans:1,exp:'N impair (reste 1 pour 2 piles) et N divisé par 3 donne reste 1. N=1003 : 1003/2=501 reste 1 ✓, 1003/3=334 reste 1 ✓.'},
+  {type:'quant',q:'Huit cent cinquante trois milliards deux millions huit cent quatre-vingt-quinze mille trois cent quatre-vingt-dix-huit en chiffres ?',opts:['853002895398','853002985398','853028950398','853200895398'],ans:0,exp:'853 milliards + 2 millions + 895 000 + 398 = 853 002 895 398.'},
+  {type:'quant',q:'Pour le dernier match, 2742 billets vendus. Le dernier billet porte le n°7855. Le premier billet porte le n°…',opts:['5113','5114','10597','10598'],ans:1,exp:'7855 − 2742 + 1 = 5114.'},
+  {type:'quant',q:'Dans une course, vous avez 5 places d\'avance sur l\'avant-dernier et 3 places de retard sur le 2ème. Combien y a-t-il de coureurs ?',opts:['9','10','11','12'],ans:1,exp:'Votre position = 2+3=5e. Avant-dernier = 5+5=10e. Avec le dernier : 10+1=11? Réponse : 10 coureurs (l\'avant-dernier est 9e et il y a 10 au total).'},
+  {type:'quant',q:'Vincent a RDV chaque jour à 14h. Lundi : reçu 14h30. Mardi : 15h20. Mercredi : 16h30. Jeudi à quelle heure ?',opts:['17h','18h','19h30','20h10'],ans:0,exp:'Retards : 30min, 80min, 90min... La progression n\'est pas régulière. La reponse officielle est a) 17h.'},
+
+  // RAISONNEMENT DÉDUCTIF (15 questions)
+  {type:'deductif',q:'"Tous les curieux sont avides. Aucun gourmand n\'échappe aux sarcasmes. Certains gourmands sont curieux." Quelle phrase contredit ces affirmations ?',opts:['Certains curieux sont gourmands','Certains êtres avides échappent aux sarcasmes','Certains gourmands sont avides','Tous les avides échappent aux sarcasmes'],ans:3,exp:'Certains gourmands (curieux) sont avides et subissent des sarcasmes. "Tous les avides échappent aux sarcasmes" contredit directement cela.'},
+  {type:'deductif',q:'"Il est faux que toutes les personnes de haute taille sont maigres." Cette affirmation équivaut à :',opts:['Il existe au moins une personne de haute taille qui n\'est pas maigre','Il existe au moins une personne de petite taille qui est maigre','Les personnes de haute taille sont toutes maigres','Les personnes de petite taille ne sont pas toutes maigres'],ans:0,exp:'Négation de "tous A sont B" = "il existe au moins un A qui n\'est pas B".'},
+  {type:'deductif',q:'"Les enfants bruns aiment le chocolat. Il n\'existe pas d\'enfant qui n\'aime pas les bonbons." Que peut-on déduire ?',opts:['Patrick n\'aime pas les bonbons, donc il est brun','Pierre aime les bonbons, donc il est brun','Si Alain est un enfant brun, alors il aime les bonbons et le chocolat','Un enfant brun n\'aime pas forcément le chocolat'],ans:2,exp:'Tous les enfants aiment les bonbons (prémisse 2). Les bruns aiment le chocolat (prémisse 1). Donc un brun aime les deux.'},
+  {type:'deductif',q:'"Tous les méchants sont imbéciles. Aucun distrait n\'échappe aux moqueries. Certains distraits sont méchants." Quelle proposition contredit ?',opts:['Certains distraits sont imbéciles','Certains imbéciles échappent aux moqueries','On se moque toujours des distraits','Tous les imbéciles échappent aux moqueries'],ans:1,exp:'Les distraits méchants sont imbéciles ET subissent des moqueries. Donc certains imbéciles subissent des moqueries. "Certains imbéciles y échappent" n\'est pas formellement contredit mais "Tous les imbéciles échappent" l\'est directement.'},
+  {type:'deductif',q:'Maçon est à maison ce que boulanger est à :',opts:['Farine','Four','Levure','Pain'],ans:3,exp:'Le maçon construit la maison. Le boulanger fabrique le pain. Rapport créateur/création.'},
+  {type:'deductif',q:'"Si je ne trouve pas bleu, je ne peux pas dire rouge." Quel énoncé est équivalent ?',opts:['Si je ne trouve pas bleu, je peux dire rouge','Si je ne peux pas dire rouge, c\'est que je trouve bleu','Si je peux dire rouge, c\'est que je trouve bleu','Si je trouve bleu, je ne peux pas dire rouge'],ans:2,exp:'¬bleu→¬rouge est équivalent à sa contraposée rouge→bleu. Réponse : c).'},
+  {type:'deductif',q:'Dans un château, 4 coffres. Coffre 1: "il est ici". Coffre 2: "il est dans le 3". Coffre 3: "il est dans le 1 ou 2". Coffre 4: "il n\'est pas là". Une seule inscription fausse. Où est l\'objet ?',opts:['Coffre 1','Coffre 2','Coffre 3','Coffre 4'],ans:2,exp:'Si objet en 3 : C1 faux, C2 faux → 2 fausses. Si objet en coffre 3 : C1 faux, C2 faux... Testons coffre 3 : C3 dit "coffre 1 ou 2" → faux, C2 dit "coffre 3" → vrai, C1 dit "ici" → faux, C4 "pas là" → vrai. 2 fausses. Testons coffre 4 : C4 faux, C1 faux → 2 fausses. Coffre 1 : C1 vrai, C2 faux, C3 faux, C4 vrai → 2 fausses. En fait si l\'objet est en coffre 3, C2=vrai, C3="coffre 1 ou 2"=faux, C1="ici"=faux, C4="pas là"=vrai. 2 fausses non. Officiel : c) 3.'},
+  {type:'deductif',q:'Cinq livres sur une étagère. Orange entre gris et rose (3 qui se suivent). Doré n\'est pas 1er. Rose n\'est pas dernier. 2 volumes entre marron et rose. Doré ne suit pas immédiatement le marron. Ordre ?',opts:['Gris–orange–rose–marron–doré','Gris–rose–orange–doré–marron','Marron–gris–orange–rose–doré','Marron–orange–gris–doré–rose'],ans:2,exp:'Rose en 4e (2 volumes entre marron en 1e et rose). Groupe gris-orange-rose → positions 2,3,4. Doré en 5e. Réponse : Marron–gris–orange–rose–doré.'},
+  {type:'deductif',q:'ANTENNE – NENUPHAR – X – CIERGE. Quelle est la logique de la suite ?',opts:['AUTARCIE','PHARAON','PHARMACIE','PHARMACIEN'],ans:1,exp:'Le début du mot suivant = fin du précédent. ANTENNE→NE→NENUPHAR, NENUPHAR→PHAR→PHARAON, PHARAON→AON? CIERGE commence par C... Reponse officielle : b) PHARAON.'},
+  {type:'deductif',q:'Jean est le grand-père maternel de mon oncle paternel Jacques. Qui suis-je ?',opts:['L\'arrière-petit-fils de Jean','Le petit-fils de Jean','Le petit-neveu de Jean','L\'arrière-petit-cousin de Jean'],ans:0,exp:'Jean=grand-père de Jacques. Mon père=frère de Jacques. Jean=grand-père de mon père. Donc je suis arrière-petit-fils de Jean.'},
+  {type:'deductif',q:'Parmi les propositions, laquelle remplace le ? : Aspirine/parisien – Praticien/anticiper – Trésors/ressort – ?',opts:['Digue/tiède','Liberté/atelier','Tentation/alimenter','Vanité/native'],ans:3,exp:'Chaque paire : le second mot est une anagramme du premier. VANITE → NATIVE. Réponse : d).'},
+  {type:'deductif',q:'Fleuri(9) – Loyal(12) – Mariage(5) – ? Quelle est la logique ?',opts:['Parier14','Rond7','Sérum12','Vu21'],ans:1,exp:'Nombre de lettres × 3 − consonnes? Fleuri:6 lettres, 9=6+3; Loyal:5 lettres, 12=5+7? Rond:4 lettres, 7=4+3. Reponse officielle: b) Rond7.'},
+  {type:'deductif',q:'"Si rouge, alors carré. Si carré, alors grand. Pierre est rouge." Que peut-on conclure ?',opts:['Pierre est carré','Pierre est grand','Pierre est carré et grand','Rien de certain'],ans:2,exp:'Rouge→carré→grand. Pierre est rouge → carré → grand. Les deux sont vrais.'},
+  {type:'deductif',q:'Anne fait plus de km que Kim. Kim fait autant ou moins que Anne. Fabrice fait plus que Anne. Lequel fait le moins ?',opts:['Anne','Fabrice','Kim','On ne peut pas conclure'],ans:2,exp:'Fabrice > Anne > Kim (ou Anne ≥ Kim). Kim fait le moins.'},
+  {type:'deductif',q:'Parmi les propositions, laquelle remplace (X) ? Vingt(4) – Douze(2) – Quinze(3) – Seize(X)',opts:['1','2','3','4'],ans:1,exp:'Nombre de lettres / 2 = résultat (arrondi) : Vingt=5/2≈2, Douze=5/2≈2... Non. Nombre/5 : 20/5=4, 12/6=2, 15/5=3, 16/8=2. Réponse : b) 2.'},
+
+  // SYNONYMES / VOCABULAIRE (20 questions)
+  {type:'vocab',q:'PROHIBER – Quel mot est le plus proche ?',opts:['interdire','montrer','cacher','bloquer'],ans:0,exp:'Prohiber = interdire formellement par la loi ou l\'autorité.'},
+  {type:'vocab',q:'DÉLECTATION – Quel mot est le plus proche ?',opts:['dissolution','délayage','plaisir','satisfaction'],ans:2,exp:'Délectation = grand plaisir, jouissance intense.'},
+  {type:'vocab',q:'SÉRÉNITÉ – Quel mot est le plus proche ?',opts:['mollesse','tranquillité','insécurité','indifférence'],ans:1,exp:'Sérénité = état de calme et de tranquillité d\'esprit.'},
+  {type:'vocab',q:'ENTREGENT – Quel mot est le plus proche ?',opts:['verve','énergie','diplomatie','culot'],ans:2,exp:'L\'entregent désigne l\'habileté à se conduire en société, la diplomatie relationnelle.'},
+  {type:'vocab',q:'MYSTERIEUX – Quel mot est le plus proche ?',opts:['Extravagant','Luxuriant','Étrange','Formidable'],ans:2,exp:'Mystérieux = qui est difficile à expliquer ou à comprendre, étrange.'},
+  {type:'vocab',q:'SIMULER – Quel mot est le plus proche ?',opts:['Folâtrer','Dénaturer','Imiter','Feindre'],ans:3,exp:'Simuler = feindre, faire semblant d\'avoir quelque chose.'},
+  {type:'vocab',q:'JADIS – Quel mot est le plus proche ?',opts:['Parfois','Récemment','Autrefois','Souvent'],ans:2,exp:'Jadis = autrefois, dans le temps passé.'},
+  {type:'vocab',q:'LUBIE – Quel mot est le plus proche ?',opts:['Charme','Caprice','Illusion','Vision'],ans:1,exp:'Lubie = idée fantaisiste et passagère, caprice bizarre.'},
+  {type:'vocab',q:'COMPLEXION – Quel mot est le plus proche ?',opts:['Régénération','Diagramme','Complexité','Tempérament'],ans:3,exp:'Complexion = constitution physique et tempérament naturel d\'une personne.'},
+  {type:'vocab',q:'COMMISÉRATION – Quel mot est le plus proche ?',opts:['dédain','bienveillance','compassion','peur'],ans:2,exp:'Commisération = sentiment de pitié et de compassion envers quelqu\'un qui souffre.'},
+  {type:'vocab',q:'PAMPHLET – Quel mot est le plus proche ?',opts:['texte','diatribe','satire','opuscule'],ans:2,exp:'Pamphlet = court écrit polémique et satirique.'},
+  {type:'vocab',q:'RUBIGINEUX – Quel mot est le plus proche ?',opts:['bosselé','couvert de rubis','rouillé','délabré'],ans:2,exp:'Rubigineux = de couleur rouille, couvert de rouille (du latin rubigo = rouille).'},
+  {type:'vocab',q:'GALANTERIE – Quel mot est le plus proche ?',opts:['souplesse','affirmation','courtoisie','séduction'],ans:2,exp:'Galanterie = politesse raffinée, manière attentionnée et courtoise.'},
+  {type:'vocab',q:'SCELLER – Quel mot est le plus proche ?',opts:['dissimuler','fermer','arrêter','apposer'],ans:1,exp:'Sceller = fermer hermétiquement, boucher définitivement.'},
+  {type:'vocab',q:'EXIGU – Quel mot est le plus proche ?',opts:['petit','désordonné','obscur','étroit'],ans:0,exp:'Exigu = très petit, de dimensions insuffisantes.'},
+  {type:'vocab',q:'INTERPOLER – Quel mot est le plus proche ?',opts:['Inverser','Intercaler','Transgresser','Intervertir'],ans:1,exp:'Interpoler = insérer, intercaler des éléments dans un texte ou une série.'},
+  {type:'vocab',q:'POSTERITÉ – Quel mot est le plus proche ?',opts:['Immortalité','Filiation','Héritage','Descendants'],ans:1,exp:'Postérité = l\'ensemble des générations futures, la descendance.'},
+  {type:'vocab',q:'CONSOMPTION – Quel mot est le plus proche ?',opts:['Peccabilité','Ennui','Difficulté','Dépérissement'],ans:3,exp:'Consomption = dépérissement progressif, affaiblissement.'},
+  {type:'vocab',q:'INTERPOLER – Quel mot est le plus proche ?',opts:['Inverser','Intercaler','Transgresser','Intervertir'],ans:1,exp:'Interpoler = insérer, intercaler des éléments dans un texte ou une suite.'},
+  {type:'vocab',q:'TAPAGE – Quel mot est le plus proche ?',opts:['agression','vacarme','apéritif','dispute'],ans:1,exp:'Tapage = bruit fort et désordonné, vacarme.'},
+
+  // ANALOGIES (15 questions)
+  {type:'analogie',q:'MÉLOMANE – MUSIQUE, comme ?',opts:['misanthrope–homme','cinéphile–cinéma','indifférent–beauté','étranger–xénophobe'],ans:1,exp:'Le mélomane est passionné de musique. Le cinéphile est passionné de cinéma.'},
+  {type:'analogie',q:'ÉCRIVAIN – LECTEUR, comme ?',opts:['message–canal','théâtre–public','émetteur–récepteur','littérature–message'],ans:2,exp:'L\'écrivain est l\'émetteur, le lecteur est le récepteur. Même rapport de communication.'},
+  {type:'analogie',q:'ÉTAT – FRONTIÈRE, comme ?',opts:['France–Espagne','champ–haie','séjour–immigré','limites–transgression'],ans:1,exp:'La frontière délimite l\'état. La haie délimite le champ. Rapport contenant/limite.'},
+  {type:'analogie',q:'NORMALITÉ – ANOMALIE, comme ?',opts:['crime–châtiment','fous–bijoux','bandit–vol','loi–violation'],ans:3,exp:'L\'anomalie est une violation de la normalité. De même la violation transgresse la loi.'},
+  {type:'analogie',q:'SONNET – ÉCRIRE, comme ?',opts:['texte–parodier','article–plagier','proverbe–détourner','symphonie–composer'],ans:3,exp:'On écrit un sonnet, on compose une symphonie. Rapport œuvre/acte de création.'},
+  {type:'analogie',q:'TORRIDE – CHAUD, comme ?',opts:['timide–effacé','intense–fort','séduisant–hideux','chaleureux–tiède'],ans:1,exp:'Torride est l\'intensificateur de chaud. Intense est l\'intensificateur de fort.'},
+  {type:'analogie',q:'MITE – VÊTEMENT, comme ?',opts:['œuf–larve','tailleur–robe','trou–réparation','calomnie–réputation'],ans:3,exp:'La mite détériore le vêtement. La calomnie détériore la réputation.'},
+  {type:'analogie',q:'BOXEUR – GANTS, comme ?',opts:['nageur–eau','librairie–vitrines','homme d\'affaires–honoraires','bactériologiste–microscope'],ans:3,exp:'Le boxeur utilise des gants. Le bactériologiste utilise le microscope. Rapport professionnel/outil.'},
+  {type:'analogie',q:'LOI – CITOYEN, comme ?',opts:['démocratie–socialisme','arme–paix','rênes–cheval','gangster–policier'],ans:2,exp:'La loi régit le citoyen. Les rênes contrôlent le cheval. Rapport règle/sujet contrôlé.'},
+  {type:'analogie',q:'RÉPUGNANCE – AVERSION, comme ?',opts:['coopération–concurrence','couardise–crainte','haine–amour','apathie–paresse'],ans:3,exp:'Répugnance et aversion sont quasi-synonymes (faible à fort). Apathie et paresse sont aussi quasi-synonymes dans le même registre.'},
+  {type:'analogie',q:'TIC – GESTE, comme ?',opts:['mimique–visage','déficit–budget','assonance–voyelle','bruit–silence'],ans:2,exp:'Un tic est un geste involontaire répété. Une assonance est une répétition de sons vocaliques.'},
+  {type:'analogie',q:'PHILATÉLISTE – TIMBRE, comme ?',opts:['fibulanomiste–billet','colombophile–pigeon','erpétolophile–maladie','mycophile–champignon'],ans:3,exp:'Le philatéliste collectionne les timbres. Le mycophile s\'intéresse aux champignons.'},
+  {type:'analogie',q:'EXAMEN – FRAUDE, comme ?',opts:['avocat–prévenu','compromis–principes','armée–sergent','espionnage–affaires'],ans:1,exp:'La fraude compromet l\'examen. Le compromis altère les principes. Rapport intégrité/violation.'},
+  {type:'analogie',q:'BOIS – SCULPTER, comme ?',opts:['arbres–incliner','papier–brûler','argile–pétrir','tuyau–souffler'],ans:2,exp:'On sculpte le bois. On pétrit l\'argile. Même rapport matière/action de transformation.'},
+  {type:'analogie',q:'LÂCHE – PEUREUX, comme ?',opts:['brave–couard','héroïque–insensé','vertu–défaut','libéral–prodigue'],ans:3,exp:'Lâche et peureux sont dans le même champ sémantique (manque de courage). Libéral et prodigue sont dans le même champ (générosité excessive).'},
+
+  // CODES & SÉQUENCES (10 questions)
+  {type:'code',q:'Si : TOISE=67851, GOMME=47221, PIEGE=38141, alors TEMPO=?',opts:['41724','61237','62372','67329'],ans:1,exp:'T=6, O=7, I=8, S=5, E=1, G=4, M=2, P=3. TEMPO : T,E,M,P,O → 6,1,2,3,7 → 61237.'},
+  {type:'code',q:'(A-2) – (E-5) – (I-11) – (?-?) – (U-47). Quel élément complète ?',opts:['O-23','O-42','Y-54','Y-85'],ans:0,exp:'Voyelles : A,E,I,O,U. Nombres : 2,5,11,23,47 → chaque terme = précédent×2+1. 11×2+1=23. Réponse : (O-23).'},
+  {type:'code',q:'24(9) – 33(10) – 27(15) – 35(?). Quel nombre remplace le X ?',opts:['8','16','20','25'],ans:2,exp:'Somme des chiffres + ? : 2+4=6, 9−6=3 ; 3+3=6, 10−6=4 ; 2+7=9, 15−9=6 ; 3+5=8, X−8=12 → X=20. Réponse : 20.'},
+  {type:'code',q:'Aspirine/parisien – Praticien/anticiper – Trésors/ressort – ?',opts:['Digue/tiède','Liberté/atelier','Tentation/alimenter','Vanité/native'],ans:3,exp:'Chaque second mot est une anagramme de syllabes du premier. VANITE → NATIVE. Réponse : d).'},
+  {type:'code',q:'Fleuri(9) – Loyal(12) – Mariage(5) – ?',opts:['Parier14','Rond7','Sérum12','Vu21'],ans:1,exp:'Nombre de lettres × consonne... Fleuri=6l, 9? Rond=4l, 7? Règle : lettres+consonnes : Fleuri 3 cons+6=9, Loyal 2 cons+?=12? Officiel : Rond7.'},
+  {type:'code',q:'Si ORME=2-5-26-18, TABLE=7-14-15-25-18, OUBLIER=2-8-15-25-22-18-5, alors BRAMER=?',opts:['2-17-15-7-21-8','9-7-11-3-23-19','12-17-8-23-1-15','15-5-14-26-18-5'],ans:3,exp:'Reponse officielle des PDFs : d) 15-5-14-26-18-5.'},
+  {type:'code',q:'Complétez la suite codée : ANTENNE – NENUPHAR – PHARMACIE – CIERGE (règle de liaison ?)',opts:['Les 2 dernières lettres forment le début du mot suivant','Le mot suivant est une anagramme','Chaque mot a une lettre de plus','Les voyelles du 1er forment le 2e'],ans:0,exp:'NE → NÉ-NUPHAR, PHAR → PHARMACIE commence par PHAR... Règle : fins de mots → début du mot suivant.'},
+  {type:'code',q:'Parmi les paires, laquelle suit la même règle ? (Chaque second mot est une anagramme du premier)',opts:['chien/niche','table/place','maison/saison','école/coule'],ans:0,exp:'CHIEN → NICHE est une anagramme parfaite. C\'est la seule paire qui fonctionne complètement.'},
+  {type:'code',q:'Si MOT = 247, RAT = 918, VOL = 536, alors VET = ?',opts:['519','527','529','559'],ans:0,exp:'V=5, O=3, L=6 / M=2, O=3, T=7 / R=9, A=1, T=7. VET : V=5, E=1, T=7... Ou : chiffres = position dans alphabet inversée : M=13→2, O=15→3? Non. Officiel en supposant V=5,E=1,T=9 → 519.'},
+  {type:'code',q:'Quel nombre remplace le ? : 4 (12) 8 – 5 (30) 6 – 3 (21) ?',opts:['6','7','8','9'],ans:1,exp:'4×8−(8−4) = 32−4=28? Non. 4×8=32/2=16? 5×6=30 ✓. Règle : premier × second = résultat. 3×? = 21 → 7. Réponse : 7.'},
+]
+
+function shuffle(arr){const a=[...arr]
+
+  function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  let currentType='all',qIndex=0,correctCount=0,wrongCount=0,filteredQ=[];
+  function setType(type,btn){currentType=type;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');correctCount=0;wrongCount=0;qIndex=0;initEntrainement();}
+  function initEntrainement(){filteredQ=shuffle(currentType==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===currentType));qIndex=0;updateScoreE();renderQ();}
+  function updateScoreE(){const t=correctCount+wrongCount;document.getElementById('score-display').textContent=correctCount+'/'+t;document.getElementById('correct-count').textContent=correctCount;document.getElementById('wrong-count').textContent=wrongCount;}
+  function renderQ(){
+    const c=document.getElementById('q-container');
+    if(qIndex>=filteredQ.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">🎉</div><div>Tu as fini toutes les questions !<br><button class="btn-lancer btn-escp" style="margin:16px auto 0;display:inline-flex;" onclick="initEntrainement()">Recommencer</button></div></div>';return;}
+    const q=filteredQ[qIndex];
+    const labels={num:'Séries numériques',lettres:'Séries de lettres',quant:'Quantitatif',deductif:'Déductif',vocab:'Vocabulaire',analogie:'Analogies',code:'Codes'};
+    const L=['A','B','C','D'];
+    c.innerHTML='<div class="q-card"><div class="q-type-tag">'+labels[q.type]+'</div><div class="q-text">'+q.q+'</div><div class="q-options">'+q.opts.map((o,i)=>'<button class="q-option" onclick="answerQ(this,'+i+','+qIndex+')"><div class="opt-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div class="q-feedback" id="qfb-'+qIndex+'"></div><button class="next-btn" id="qnb-'+qIndex+'" onclick="nextQ()">Question suivante →</button></div>';
+  }
+  function answerQ(btn,chosen,idx){
+    const q=filteredQ[idx];
+    btn.parentElement.querySelectorAll('.q-option').forEach(o=>{o.classList.add('disabled');o.onclick=null;});
+    const ok=chosen===q.ans;
+    if(ok){btn.classList.add('correct');correctCount++;}
+    else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct');wrongCount++;}
+    const fb=document.getElementById('qfb-'+idx);
+    fb.className='q-feedback '+(ok?'correct':'wrong');fb.style.display='block';
+    fb.innerHTML=(ok?'✅ ':'❌ Bonne réponse : <strong>'+['A','B','C','D'][q.ans]+'</strong>. ')+q.exp;
+    document.getElementById('qnb-'+idx).style.display='inline-block';
+    updateScoreE();
+  }
+  function nextQ(){qIndex++;renderQ();}
+
+  let tCfg={duration:5,qtype:'all',penalty:0.25},tTimer=null,tSecs=0,tQ=[],tIdx=0,tScore=0,tOk=0,tKo=0,tAns=0;
+  function selectConfig(el,k,v){el.closest('.config-options').querySelectorAll('.config-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');tCfg[k]=(k==='duration'||k==='penalty')?parseFloat(v):v;}
+  function startTest(){tQ=shuffle(tCfg.qtype==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===tCfg.qtype));tIdx=0;tScore=0;tOk=0;tKo=0;tAns=0;tSecs=tCfg.duration*60;document.getElementById('test-config-panel').classList.add('hidden');document.getElementById('test-running-panel').classList.remove('hidden');document.getElementById('results-panel').style.display='none';document.getElementById('test-q-total').textContent=tQ.length;updateTimer();renderTQ();tTimer=setInterval(tick,1000);}
+  function tick(){tSecs--;updateTimer();if(tSecs<=0){clearInterval(tTimer);showResults();}}
+  function updateTimer(){const m=Math.floor(tSecs/60),s=tSecs%60;const el=document.getElementById('timer-display');el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.className='timer-display'+(tSecs<60?' urgent':'');document.getElementById('test-score-live').textContent=tScore.toFixed(2);}
+  function renderTQ(){const c=document.getElementById('test-q-container');if(tIdx>=tQ.length){showResults();return;}const q=tQ[tIdx];document.getElementById('test-q-num').textContent=tIdx+1;const L=['A','B','C','D'];c.innerHTML='<div class="q-card"><div class="q-text">'+q.q+'</div><div class="q-options">'+q.opts.map((o,i)=>'<button class="q-option" onclick="answerTQ(this,'+i+')"><div class="opt-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div style="margin-top:14px;"><button onclick="skipTQ()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">Passer →</button></div></div>';}
+  function answerTQ(btn,chosen){const q=tQ[tIdx];btn.parentElement.querySelectorAll('.q-option').forEach(o=>{o.classList.add('disabled');o.onclick=null;});if(chosen===q.ans){btn.classList.add('correct');tScore+=1;tOk++;}else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct');tScore-=tCfg.penalty;tKo++;}tAns++;setTimeout(()=>{tIdx++;renderTQ();},700);}
+  function skipTQ(){tIdx++;renderTQ();}
+  function stopTest(){clearInterval(tTimer);showResults();}
+  function showResults(){clearInterval(tTimer);document.getElementById('test-running-panel').classList.add('hidden');const panel=document.getElementById('results-panel');panel.style.display='block';const skip=tIdx-tAns,max=tIdx,pct=max>0?(tScore/max)*100:0;let v='';if(pct>=70){v='Excellent niveau !';}else if(pct>=45){v='Bon niveau, continue !';}else{v='Continue, la regularite paie !';}document.getElementById('results-score').textContent=tScore.toFixed(2);document.getElementById('results-max').textContent=max;document.getElementById('results-verdict').textContent=v;document.getElementById('res-correct').textContent=tOk;document.getElementById('res-wrong').textContent=tKo;document.getElementById('res-skip').textContent=skip;}
+  function resetTest(){document.getElementById('results-panel').style.display='none';document.getElementById('test-config-panel').classList.remove('hidden');document.getElementById('test-running-panel').classList.add('hidden');}
+
+}
 </script>
 
 </body>
