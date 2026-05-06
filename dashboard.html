@@ -925,10 +925,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   }
 
   function switchTab(tab) {
-    document.querySelectorAll('.tab').forEach(t => t.className = 'tab')
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
-    document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab)
-    document.getElementById('content' + tab.toUpperCase()).classList.add('active')
+    document.querySelectorAll('.tab').forEach(t => t.className = 'tab');
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab);
+    document.getElementById('content' + tab.toUpperCase()).classList.add('active');
+    if (tab === 'essec') {
+      // Forcer le premier sous-onglet actif
+      document.querySelectorAll('.essec-panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.essec-subtab').forEach(function(t) { t.classList.remove('active'); });
+      var firstPanel = document.getElementById('essec-panel-cours');
+      var firstTab = document.querySelector('.essec-subtab');
+      if (firstPanel) firstPanel.classList.add('active');
+      if (firstTab) firstTab.classList.add('active');
+    }
   }
 
   async function loadCredits() {
@@ -1111,14 +1120,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   // ===== ESSEC EMBEDDED =====
 
   function essecToggleCours(card) {
-    card.classList.toggle('open');
+    if (card.classList.contains('open')) {
+      card.classList.remove('open');
+    } else {
+      card.classList.add('open');
+    }
   }
 
   function showEssecTab(name, el) {
-    document.querySelectorAll('.essec-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.essec-subtab').forEach(t => t.classList.remove('active'));
-    document.getElementById('essec-panel-' + name).classList.add('active');
-    el.classList.add('active');
+    document.querySelectorAll('.essec-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.essec-subtab').forEach(function(t) { t.classList.remove('active'); });
+    var panel = document.getElementById('essec-panel-' + name);
+    if (panel) panel.classList.add('active');
+    if (el) el.classList.add('active');
     if (name === 'entrainement') essecInitEntrainement();
   }
 
