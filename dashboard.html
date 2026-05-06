@@ -419,212 +419,294 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   <div class="section-eyebrow" style="margin-bottom:20px;">Techniques pour chaque type d'épreuve psychotechnique ESSEC</div>
   <div class="cours-grid">
 
-  <div class="cours-card" onclick="toggleCours(this)">
+  <div class="cours-card" onclick="essecToggleCours(this)">
     <div class="cours-header">
       <div class="cours-icon">🔢</div>
       <div><div class="cours-title">Séries numériques</div><div class="cours-subtitle">Trouver la loi de la suite</div></div>
       <div class="chevron">▼</div>
     </div>
     <div class="cours-body">
-      <h4>Types courants</h4>
+      <h4>5 types à maîtriser</h4>
       <ul>
-        <li><strong>Arithmétique</strong> : raison constante (+3, −2…)</li>
-        <li><strong>Géométrique</strong> : on multiplie par un facteur fixe (×2, ×7…)</li>
-        <li><strong>Deux suites entrelacées</strong> : positions paires et impaires ont chacune leur loi</li>
-        <li><strong>Différences croissantes</strong> : les écarts forment eux-mêmes une suite</li>
-        <li><strong>Règles mixtes</strong> : ex. +2, ×3, +2, ×3…</li>
+        <li><strong>Arithmétique</strong> : différence constante entre chaque terme. Ex : 3, 7, 11, 15 → +4</li>
+        <li><strong>Géométrique</strong> : on multiplie par un facteur fixe. Ex : 2, 6, 18, 54 → ×3</li>
+        <li><strong>Deux suites entrelacées</strong> : séparer rangs pairs et impairs. Ex : 48, 8, 35, 7, 24, ? → suite 1 : 48,35,24 (−13,−11) / suite 2 : 8,7,6 (−1)</li>
+        <li><strong>Différences croissantes</strong> : les écarts forment eux-mêmes une suite. Ex : 1, 2, 4, 7, 11, 16 → écarts +1,+2,+3,+4,+5</li>
+        <li><strong>Règles alternées</strong> : +2, ×3, +2, ×3... ou palindromes</li>
       </ul>
-      <h4>Méthode</h4>
+      <h4>Méthode en 4 étapes</h4>
       <ul>
-        <li>Calculer les différences consécutives en premier</li>
-        <li>Si pas de loi : calculer les différences des différences</li>
-        <li>Séparer les rangs pairs et impairs si nécessaire</li>
-        <li>Tester ×2, ×3, ÷2 entre termes consécutifs</li>
+        <li>Étape 1 : calculer les différences entre termes consécutifs</li>
+        <li>Étape 2 : si pas de loi, calculer les différences des différences</li>
+        <li>Étape 3 : si toujours rien, séparer termes pairs et impairs</li>
+        <li>Étape 4 : tester ×2, ×3, ÷2, ÷3 entre termes</li>
       </ul>
+      <h4>Exemples corrigés</h4>
       <div class="exemple-box">
-        <div class="q">Q : 48, 8, 35, 7, 24, ?</div>
-        <div class="r">Deux suites : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6</div>
+        <div class="q">7 – 13 – 24 – 45 – ?</div>
+        <div class="r">Règle : ×2−k avec k qui augmente : 7×2−1=13, 13×2−2=24, 24×2−3=45, 45×2−4=<strong>86</strong></div>
       </div>
       <div class="exemple-box">
-        <div class="q">Q : 7 – 13 – 24 – 45 – ?</div>
-        <div class="r">Règle : ×2−1, ×2−2, ×2−3, ×2−4 → 45×2−4 = 86</div>
+        <div class="q">3, 21, 147, 1029, ?</div>
+        <div class="r">Géométrique ×7 : 1029×7=<strong>7203</strong></div>
       </div>
+      <div class="exemple-box">
+        <div class="q">66, 63, 57, 45, ?</div>
+        <div class="r">Différences : −3, −6, −12 → elles doublent → −24 → 45−24=<strong>21</strong></div>
+      </div>
+      <h4>Astuce chrono</h4>
+      <p>Si tu bloques après 30s : sépare immédiatement pairs/impairs. C'est la clé de 80% des séries difficiles.</p>
     </div>
   </div>
 
-  <div class="cours-card" onclick="toggleCours(this)">
+  <div class="cours-card" onclick="essecToggleCours(this)">
     <div class="cours-header">
       <div class="cours-icon">🔤</div>
       <div><div class="cours-title">Séries de lettres</div><div class="cours-subtitle">Alphabet et positions</div></div>
       <div class="chevron">▼</div>
     </div>
     <div class="cours-body">
-      <h4>Méthode</h4>
+      <h4>Règle de base</h4>
+      <p>Convertis toujours les lettres en numéros : A=1, B=2, C=3... Z=26. La loi se lit ensuite comme une série numérique.</p>
+      <h4>4 types courants</h4>
       <ul>
-        <li>Convertir les lettres en numéros (A=1, B=2… Z=26)</li>
-        <li>Repérer la loi sur les numéros</li>
-        <li>Attention aux séries alternées et aux groupes fixes</li>
-        <li>Cas spécial : initiales de mots (Un=U, Deux=D, Trois=T…)</li>
+        <li><strong>Suite simple</strong> : A, C, E, G → +2 (on saute une lettre)</li>
+        <li><strong>Groupe fixe + variable</strong> : BCD Z, BCD Y, BCD X → groupe fixe, 4e lettre descend</li>
+        <li><strong>Initiales de mots</strong> : U-D-T-Q-C-S-S-H-? → Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit → <strong>N</strong> (Neuf)</li>
+        <li><strong>Suites entrelacées</strong> : M,V,N,W,O,X → suite 1 : M,N,O (+1) / suite 2 : V,W,X (+1)</li>
       </ul>
+      <h4>Exemples corrigés</h4>
       <div class="exemple-box">
-        <div class="q">Q : U-D-T-Q-C-S-S-H-?</div>
-        <div class="r">Initiales des chiffres en français → Neuf → N</div>
+        <div class="q">A D H K O ?</div>
+        <div class="r">A=1,D=4,H=8,K=11,O=15 → écarts : +3,+4,+3,+4 → +4 → S=19 → <strong>S</strong></div>
       </div>
       <div class="exemple-box">
-        <div class="q">Q : A D H K O ?</div>
-        <div class="r">A=1,D=4,H=8,K=11,O=15 → +3,+4,+3,+4 → +4 → S</div>
+        <div class="q">B D G K ?</div>
+        <div class="r">B=2,D=4,G=7,K=11 → écarts : +2,+3,+4 → +5 → P=16 → <strong>P</strong></div>
       </div>
+      <div class="exemple-box">
+        <div class="q">DIKA – EKNE – FMQI – ?</div>
+        <div class="r">D→E→F→G (+1), I→K→M→O (+2), K→N→Q→T (+3), A→E→I→M (+4) → <strong>GOTM</strong></div>
+      </div>
+      <h4>Astuce</h4>
+      <p>Écris toujours A=1 à Z=26 en marge. Pour les initiales de mots : pense aux chiffres, jours, mois, planètes.</p>
     </div>
   </div>
 
-  <div class="cours-card" onclick="toggleCours(this)">
+  <div class="cours-card" onclick="essecToggleCours(this)">
     <div class="cours-header">
       <div class="cours-icon">📐</div>
-      <div><div class="cours-title">Raisonnement quantitatif</div><div class="cours-subtitle">Formules et logique mathématique</div></div>
+      <div><div class="cours-title">Raisonnement quantitatif</div><div class="cours-subtitle">Maths appliquées et logique numérique</div></div>
       <div class="chevron">▼</div>
     </div>
     <div class="cours-body">
-      <h4>Pièges classiques</h4>
+      <h4>Les 6 pièges classiques ESSEC</h4>
       <ul>
-        <li><strong>Course</strong> : doubler le 2e → tu prends sa place → tu es 2e !</li>
-        <li><strong>Nénuphar</strong> : 2 nénuphars = déjà double → 99 jours (pas 50)</li>
-        <li><strong>Pots de peinture</strong> : 15 pots, 2 à la fois → 8 voyages</li>
-        <li><strong>Escargot</strong> : le dernier jour il atteint le sommet avant de redescendre</li>
-        <li><strong>Chaussettes</strong> : principe du pigeonhole → 3 pour avoir une paire</li>
+        <li><strong>Le nénuphar</strong> : double chaque jour, 100 jours pour un étang → 2 nénuphars = surface déjà double → 99 jours (pas 50 !) La clé : réfléchir en partant de la fin.</li>
+        <li><strong>La course</strong> : tu doubles le 2ème → tu prends SA place → tu es 2ème, pas 1er !</li>
+        <li><strong>Les pots</strong> : 15 pots, 2 à la fois → 7 voyages = 14 pots, il en reste 1 → 8ème voyage.</li>
+        <li><strong>L'escargot</strong> : monte 3m/jour, descend 2m/nuit, poteau 12m → le 10ème jour il monte à 12m avant de redescendre → 10 jours (pas 12).</li>
+        <li><strong>Les chaussettes</strong> : 10 paires noires + 10 blanches dans le noir → principe du pigeonhole : 3 chaussettes garantissent une paire de même couleur.</li>
+        <li><strong>Le calendrier</strong> : 5 lundis, mardis, mercredis en janvier (31j) → janvier finit un mercredi → 1er février = jeudi.</li>
+      </ul>
+      <h4>Formules utiles</h4>
+      <ul>
+        <li>Périmètre rectangle : 2×(L+l)</li>
+        <li>Série géométrique infinie : S = a/(1−r) si |r|&lt;1. Ex : 1+½+¼+... = 1/(1−½) = 2</li>
+        <li>Probabilité : P(A ET B) = P(A)×P(B) si indépendants</li>
       </ul>
       <div class="exemple-box">
-        <div class="q">Q : Nénuphar double/jour, 100 jours. Avec 2 nénuphars ?</div>
-        <div class="r">Surface déjà double → il manque 1 doublement → 99 jours</div>
+        <div class="q">Jardin 21m×15m, un poteau tous les 3m, portail = 3m sans poteau. Combien de poteaux ?</div>
+        <div class="r">Périmètre = 2×(21+15)=72m → 72÷3=24 intervalles → portail enlève 1 poteau → <strong>23 poteaux</strong></div>
       </div>
     </div>
   </div>
 
-  <div class="cours-card" onclick="toggleCours(this)">
+  <div class="cours-card" onclick="essecToggleCours(this)">
     <div class="cours-header">
       <div class="cours-icon">🧠</div>
-      <div><div class="cours-title">Raisonnement déductif</div><div class="cours-subtitle">Logique formelle et syllogismes</div></div>
+      <div><div class="cours-title">Raisonnement déductif</div><div class="cours-subtitle">Logique formelle, syllogismes, contraposée</div></div>
       <div class="chevron">▼</div>
     </div>
     <div class="cours-body">
-      <h4>Règles essentielles</h4>
+      <h4>Les 4 règles fondamentales</h4>
       <ul>
-        <li><strong>Contraposée</strong> : A→B ⟺ ¬B→¬A</li>
-        <li><strong>Négation "tous"</strong> : ¬(tous A sont B) = il existe au moins un A qui n'est pas B</li>
-        <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B</li>
+        <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B. Ex : Tous les bruns aiment le chocolat. Paul est brun → Paul aime le chocolat.</li>
+        <li><strong>Contraposée</strong> : A→B est équivalent à ¬B→¬A. Ex : "Pas bleu → pas rouge" ≡ "rouge → bleu"</li>
+        <li><strong>Négation de "tous"</strong> : ¬(tous A sont B) = il existe AU MOINS UN A qui n'est pas B (pas "aucun A n'est B" !)</li>
+        <li><strong>Négation de "certains"</strong> : ¬(certains A sont B) = aucun A n'est B</li>
       </ul>
+      <h4>Quantificateurs : ce que vous pouvez conclure</h4>
+      <ul>
+        <li>"Tous A sont B" + "X est A" → X est B ✓</li>
+        <li>"Certains A sont B" → on ne peut pas dire que TOUS A sont B ✗</li>
+        <li>"Aucun A n'est B" + "X est A" → X n'est pas B ✓</li>
+        <li>Ce qui est vrai en général ≠ ce qui est dit dans le texte</li>
+      </ul>
+      <h4>Méthode pour les coffres / ordres</h4>
+      <p>Pour les problèmes de placement : tester chaque hypothèse une par une et compter les contradictions. Si l'énoncé dit "une seule affirmation est fausse", tester case par case.</p>
       <div class="exemple-box">
-        <div class="q">Q : "Si pas bleu, pas rouge." Équivalent ?</div>
-        <div class="r">¬bleu→¬rouge contraposée → rouge→bleu → "Si je dis rouge, c'est que j'ai trouvé bleu"</div>
+        <div class="q">"Faux que toutes les grandes personnes sont maigres." Équivaut à ?</div>
+        <div class="r">¬(tous A sont B) = il existe AU MOINS UNE grande personne qui n'est pas maigre → <strong>réponse A</strong></div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">"Si pas bleu → pas rouge." La contraposée ?</div>
+        <div class="r">¬bleu→¬rouge ≡ rouge→bleu → "Si je peux dire rouge, c'est que j'ai trouvé bleu" → <strong>réponse C</strong></div>
       </div>
     </div>
   </div>
 
-  <div class="cours-card" onclick="toggleCours(this)">
+  <div class="cours-card" onclick="essecToggleCours(this)">
     <div class="cours-header">
       <div class="cours-icon">📖</div>
-      <div><div class="cours-title">Synonymes & Vocabulaire</div><div class="cours-subtitle">Mots rares et paronymes</div></div>
+      <div><div class="cours-title">Synonymes & Vocabulaire</div><div class="cours-subtitle">100 mots rares fréquents à l'ESSEC</div></div>
       <div class="chevron">▼</div>
     </div>
     <div class="cours-body">
-      <h4>Mots pièges fréquents ESSEC</h4>
-      <ul>
-        <li>PROHIBER → interdire</li>
-        <li>DÉLECTATION → plaisir</li>
-        <li>COMMISÉRATION → compassion</li>
-        <li>ENTREGENT → diplomatie</li>
-        <li>LUBIE → caprice</li>
-        <li>RUBIGINEUX → rouillé</li>
-        <li>CONSOMPTION → dépérissement</li>
-        <li>INTERPOLER → intercaler</li>
-        <li>COMPLEXION → tempérament</li>
-        <li>SIMULER → feindre</li>
-      </ul>
       <h4>Méthode</h4>
       <ul>
-        <li>Éliminer les extrêmes sémantiques d'abord</li>
-        <li>Chercher l'étymologie latin/grec en cas de doute</li>
+        <li>Éliminer les réponses hors champ sémantique en premier</li>
+        <li>Chercher l'étymologie latine/grecque (pro-hibere = retenir en avant = interdire)</li>
+        <li>Attention aux paronymes : mots qui se ressemblent mais diffèrent (effleurer ≠ effacer)</li>
+        <li>La réponse est le synonyme le plus EXACT, pas le plus proche</li>
+      </ul>
+      <h4>Vocabulaire ESSEC — Liste complète</h4>
+      <ul>
+        <li>PROHIBER → interdire | DÉLECTATION → plaisir intense | SÉRÉNITÉ → tranquillité</li>
+        <li>ENTREGENT → diplomatie relationnelle | LUBIE → caprice bizarre | JADIS → autrefois</li>
+        <li>RUBIGINEUX → rouillé | COMMISÉRATION → compassion | PAMPHLET → texte satirique</li>
+        <li>CONSOMPTION → dépérissement | COMPLEXION → tempérament | INTERPOLER → intercaler</li>
+        <li>SIMULER → feindre | EXIGU → très petit | TAPAGE → vacarme | POSTERITÉ → descendants</li>
+        <li>GALANTERIE → courtoisie | SCELLER → fermer hermétiquement | MALÉFICE → sortilège</li>
+        <li>DÉCOCHER → envoyer | VULTUEUX → congestionné | TESSITURE → registre vocal</li>
+        <li>MORIGÉNER → réprimander | IRASCIBLE → coléreux | VOLUBILE → qui parle vite</li>
+        <li>ÉHONTÉ → honteux/scandaleux | ATERMOIEMENT → délai, procrastination</li>
+        <li>DILETTANTE → amateur (péjoratif) | MANICHÉISME → vision binaire bien/mal</li>
+      </ul>
+      <h4>Antonymes fréquents</h4>
+      <ul>
+        <li>ABROGER ↔ RÉTABLIR | ACCOMPLI ↔ INACHEVÉ | ANACHRONIQUE ↔ ACTUEL</li>
+        <li>SIBYLLIN ↔ CLAIR | MUTUEL ↔ INDIVIDUEL | BASANÉ ↔ PÂLE</li>
       </ul>
     </div>
   </div>
 
-  <div class="cours-card" onclick="toggleCours(this)">
+  <div class="cours-card" onclick="essecToggleCours(this)">
     <div class="cours-header">
       <div class="cours-icon">🔗</div>
-      <div><div class="cours-title">Analogies verbales</div><div class="cours-subtitle">Le rapport entre deux mots</div></div>
+      <div><div class="cours-title">Analogies verbales</div><div class="cours-subtitle">Identifier le rapport entre deux mots</div></div>
       <div class="chevron">▼</div>
     </div>
     <div class="cours-body">
-      <h4>Types de rapports</h4>
+      <h4>Méthode en 3 temps</h4>
       <ul>
-        <li><strong>Passionné/Objet</strong> : mélomane→musique</li>
-        <li><strong>Outil/Usage</strong> : microscope→observer</li>
-        <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
-        <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur</li>
-        <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
+        <li><strong>1. Formuler</strong> : "X est à Y ce que..." → trouver le lien précis</li>
+        <li><strong>2. Tester</strong> : appliquer ce même lien à chaque option</li>
+        <li><strong>3. Éliminer</strong> : la bonne réponse respecte le même rapport ET la même direction</li>
       </ul>
-      <h4>Méthode</h4>
-      <p>Formuler la relation en une phrase type "X fait/est/utilise Y" puis trouver la paire qui respecte le MÊME rapport.</p>
-    </div>
-  </div>
-
-  <div class="cours-card" onclick="toggleCours(this)">
-    <div class="cours-header">
-      <div class="cours-icon">🔐</div>
-      <div><div class="cours-title">Codes & Chiffrements</div><div class="cours-subtitle">Décoder une correspondance</div></div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="cours-body">
-      <h4>Méthode</h4>
+      <h4>Les 8 types de rapports</h4>
       <ul>
-        <li>Identifier les lettres communes entre les mots donnés</li>
-        <li>Déduire les valeurs par comparaison</li>
-        <li>Tester : position normale A=1, inversée A=26, décalage +k</li>
-        <li>Vérifier sur tous les exemples avant de répondre</li>
+        <li><strong>Passionné/Objet</strong> : mélomane→musique, cinéphile→cinéma, mycophile→champignons</li>
+        <li><strong>Créateur/Création</strong> : compositeur→symphonie, écrivain→roman, sculpteur→statue</li>
+        <li><strong>Outil/Utilisateur</strong> : microscope→bactériologiste, gants→boxeur</li>
+        <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation, rouille→métal</li>
+        <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie, propriété→clôture</li>
+        <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur, émetteur→récepteur, compositeur→auditeur</li>
+        <li><strong>Intensificateur</strong> : torride→chaud, intense→fort, exquis→bon</li>
+        <li><strong>Violation/Règle</strong> : anomalie→normalité, fraude→examen, violation→loi</li>
       </ul>
       <div class="exemple-box">
-        <div class="q">Q : TOISE=67851, GOMME=47221 → TEMPO=?</div>
-        <div class="r">T=6,E=1,M=2,P=3,O=7 → TEMPO = 61237</div>
+        <div class="q">MÉLOMANE – MUSIQUE, comme ?</div>
+        <div class="r">Passionné/objet → cinéphile est passionné de cinéma → <strong>cinéphile–cinéma</strong></div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">MITE – VÊTEMENT, comme ?</div>
+        <div class="r">Nuisible/victime → calomnie détériore la réputation → <strong>calomnie–réputation</strong></div>
       </div>
     </div>
   </div>
 
-  <div class="cours-card" onclick="toggleCours(this)">
+  <div class="cours-card" onclick="essecToggleCours(this)">
     <div class="cours-header">
-      <div class="cours-icon">⏱</div>
-      <div><div class="cours-title">Gestion du temps</div><div class="cours-subtitle">Stratégie le jour J</div></div>
+      <div class="cours-icon">🔐</div>
+      <div><div class="cours-title">Codes & Chiffrements</div><div class="cours-subtitle">Décoder une correspondance lettre↔chiffre</div></div>
       <div class="chevron">▼</div>
     </div>
     <div class="cours-body">
-      <h4>Règles d'or</h4>
+      <h4>Méthode universelle</h4>
       <ul>
-        <li>Ne jamais bloquer plus de 90s sur une question : passer</li>
-        <li>Reporter les réponses sur le livret au fur et à mesure</li>
-        <li>Amener une montre — les surveillants ne donnent pas le temps</li>
-        <li>Éviter les réponses au hasard : pénalité de −0.25 à −1</li>
-        <li>Ne pas répondre (blanc) = 0 point — souvent préférable au hasard</li>
+        <li>Lister les lettres communes entre les mots exemples</li>
+        <li>Identifier leur valeur numérique dans chaque mot</li>
+        <li>Tester les codes possibles : position normale (A=1), inversée (A=26), décalage +k</li>
+        <li>Vérifier la cohérence sur TOUS les exemples avant de répondre</li>
       </ul>
-      <p style="margin-top:10px;">Aucun candidat ne finit tous les tests dans le temps imparti. C'est prévu.</p>
+      <h4>Types de codes rencontrés</h4>
+      <ul>
+        <li><strong>Correspondance directe</strong> : chaque lettre a une valeur fixe à déduire</li>
+        <li><strong>Anagrammes</strong> : le second mot est une anagramme du premier (CHIEN→NICHE)</li>
+        <li><strong>Liaisons</strong> : fin d'un mot = début du suivant (ANTENNE→NE→NENUPHAR)</li>
+        <li><strong>Valeurs calculées</strong> : la valeur entre parenthèses suit une règle mathématique</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">TOISE=67851, GOMME=47221, PIEGE=38141 → TEMPO=?</div>
+        <div class="r">T=6, O=7, I=8, S=5, E=1, G=4, M=2, P=3 → TEMPO : 6,1,2,3,7 → <strong>61237</strong></div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">4(12)8 – 5(30)6 – 3(21)? </div>
+        <div class="r">Règle : premier × second = résultat → 3×?=21 → <strong>7</strong></div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">(A-2) – (E-5) – (I-11) – (?-?) – (U-47)</div>
+        <div class="r">Voyelles + nombre ×2+1 : 2→5→11→23→47. Voyelle suivante = O → <strong>(O-23)</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="essecToggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">⏱</div>
+      <div><div class="cours-title">Stratégie & Gestion du temps</div><div class="cours-subtitle">Maximiser son score le jour J</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Règles d'or ESSEC</h4>
+      <ul>
+        <li>Ne jamais bloquer plus de <strong>60-90 secondes</strong> sur une question : passer immédiatement</li>
+        <li>Reporter les réponses sur le livret <strong>au fur et à mesure</strong> (ne pas attendre la fin)</li>
+        <li>Apporter une montre — les surveillants ne donnent <strong>pas le temps restant</strong></li>
+        <li>Les réponses au hasard coûtent des points : pénalité <strong>−0.25 à −1</strong> selon le test</li>
+        <li>Ne pas répondre (blanc) = 0 point — souvent préférable à une réponse aléatoire</li>
+      </ul>
+      <h4>Ordre de traitement recommandé</h4>
+      <ul>
+        <li><strong>1er passage</strong> : répondre à tout ce qu'on sait en moins de 30s</li>
+        <li><strong>2ème passage</strong> : revenir sur les questions sautées avec le temps restant</li>
+        <li><strong>Jamais</strong> : ne pas changer une réponse dont on n'est pas sûr</li>
+      </ul>
+      <h4>Ce qu'il faut savoir</h4>
+      <p>Aucun candidat ne finit tous les tests dans le temps imparti. C'est voulu. Le barème est relatif : ce sont vos scores <strong>comparés aux autres candidats</strong> qui comptent, pas votre score absolu.</p>
+      <h4>Entraînement optimal</h4>
+      <ul>
+        <li>Faire des tests chronométrés régulièrement (utilise l'onglet Test Chrono)</li>
+        <li>Analyser chaque erreur — comprendre POURQUOI tu as échoué</li>
+        <li>Mémoriser les patterns les plus fréquents (suites entrelacées, contraposée)</li>
+      </ul>
     </div>
   </div>
 
 </div>
-```
 
-  </div>
-    </div>
-
-```
 <!-- ENTRAÎNEMENT -->
 <div id="essec-panel-entrainement" class="essec-panel">
   <div class="type-selector">
-    <button class="type-btn active" onclick="setType('all',this)">Tout mélanger</button>
-    <button class="type-btn" onclick="setType('num',this)">Séries numériques</button>
-    <button class="type-btn" onclick="setType('lettres',this)">Séries de lettres</button>
-    <button class="type-btn" onclick="setType('quant',this)">Quantitatif</button>
-    <button class="type-btn" onclick="setType('deductif',this)">Déductif</button>
-    <button class="type-btn" onclick="setType('vocab',this)">Vocabulaire</button>
-    <button class="type-btn" onclick="setType('analogie',this)">Analogies</button>
-    <button class="type-btn" onclick="setType('code',this)">Codes</button>
+    <button class="type-btn active" onclick="essecSetType('all',this)">Tout mélanger</button>
+    <button class="type-btn" onclick="essecSetType('num',this)">Séries numériques</button>
+    <button class="type-btn" onclick="essecSetType('lettres',this)">Séries de lettres</button>
+    <button class="type-btn" onclick="essecSetType('quant',this)">Quantitatif</button>
+    <button class="type-btn" onclick="essecSetType('deductif',this)">Déductif</button>
+    <button class="type-btn" onclick="essecSetType('vocab',this)">Vocabulaire</button>
+    <button class="type-btn" onclick="essecSetType('analogie',this)">Analogies</button>
+    <button class="type-btn" onclick="essecSetType('code',this)">Codes</button>
   </div>
   <div class="score-bar">
     <div>
@@ -647,32 +729,32 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       <div class="config-row">
         <div class="config-label">Durée</div>
         <div class="config-options">
-          <div class="config-opt selected" onclick="selectConfig(this,'duration','5')">5 min</div>
-          <div class="config-opt" onclick="selectConfig(this,'duration','10')">10 min</div>
-          <div class="config-opt" onclick="selectConfig(this,'duration','15')">15 min ← ESSEC</div>
-          <div class="config-opt" onclick="selectConfig(this,'duration','20')">20 min</div>
+          <div class="config-opt selected" onclick="essecSelectConfig(this,'duration','5')">5 min</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'duration','10')">10 min</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'duration','15')">15 min ← ESSEC</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'duration','20')">20 min</div>
         </div>
       </div>
       <div class="config-row">
         <div class="config-label">Type de questions</div>
         <div class="config-options">
-          <div class="config-opt selected" onclick="selectConfig(this,'qtype','all')">Tout mélanger</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','num')">Séries numériques</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','quant')">Quantitatif</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','deductif')">Déductif</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','vocab')">Vocabulaire</div>
+          <div class="config-opt selected" onclick="essecSelectConfig(this,'qtype','all')">Tout mélanger</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','num')">Séries numériques</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','quant')">Quantitatif</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','deductif')">Déductif</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'qtype','vocab')">Vocabulaire</div>
         </div>
       </div>
       <div class="config-row">
         <div class="config-label">Pénalité pour mauvaise réponse</div>
         <div class="config-options">
-          <div class="config-opt selected" onclick="selectConfig(this,'penalty','0.25')">−¼ point</div>
-          <div class="config-opt" onclick="selectConfig(this,'penalty','0.5')">−½ point</div>
-          <div class="config-opt" onclick="selectConfig(this,'penalty','1')">−1 point</div>
-          <div class="config-opt" onclick="selectConfig(this,'penalty','0')">Sans pénalité</div>
+          <div class="config-opt selected" onclick="essecSelectConfig(this,'penalty','0.25')">−¼ point</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'penalty','0.5')">−½ point</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'penalty','1')">−1 point</div>
+          <div class="config-opt" onclick="essecSelectConfig(this,'penalty','0')">Sans pénalité</div>
         </div>
       </div>
-      <button class="start-btn" onclick="startTest()">🚀 Lancer le test</button>
+      <button class="start-btn" onclick="essecStartTest()">🚀 Lancer le test</button>
     </div>
   </div>
   <div id="test-running-panel" class="hidden">
@@ -682,7 +764,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
         <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;"><span id="test-q-num">0</span> / <span id="test-q-total">0</span> questions</div>
       </div>
       <div style="font-size:0.85rem;color:var(--muted2);">Score : <span id="test-score-live" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span> pts</div>
-      <button onclick="stopTest()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 16px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.78rem;">Arrêter</button>
+      <button onclick="essecStopTest()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 16px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.78rem;">Arrêter</button>
     </div>
     <div id="test-q-container"></div>
   </div>
@@ -696,7 +778,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       <div class="results-stat"><div class="results-stat-num" id="res-wrong" style="color:var(--red)">0</div><div class="results-stat-label">Mauvaises</div></div>
       <div class="results-stat"><div class="results-stat-num" id="res-skip" style="color:var(--muted)">0</div><div class="results-stat-label">Passées</div></div>
     </div>
-    <button class="retry-btn" onclick="resetTest()">🔁 Nouveau test</button>
+    <button class="retry-btn" onclick="essecResetTest()">🔁 Nouveau test</button>
   </div>
 </div>
 
@@ -1025,13 +1107,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   loadQuestionnaire()
   loadFeedbacks()
 
+
   // ===== ESSEC EMBEDDED =====
+
+  function essecToggleCours(card) {
+    card.classList.toggle('open');
+  }
+
   function showEssecTab(name, el) {
     document.querySelectorAll('.essec-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.essec-subtab').forEach(t => t.classList.remove('active'));
     document.getElementById('essec-panel-' + name).classList.add('active');
     el.classList.add('active');
-    if (name === 'entrainement') initEntrainement();
+    if (name === 'entrainement') essecInitEntrainement();
   }
 
   const QUESTIONS = [
@@ -1172,46 +1260,178 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 
 function shuffle(arr){const a=[...arr]
 
-  function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-  let currentType='all',qIndex=0,correctCount=0,wrongCount=0,filteredQ=[];
-  function setType(type,btn){currentType=type;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');correctCount=0;wrongCount=0;qIndex=0;initEntrainement();}
-  function initEntrainement(){filteredQ=shuffle(currentType==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===currentType));qIndex=0;updateScoreE();renderQ();}
-  function updateScoreE(){const t=correctCount+wrongCount;document.getElementById('score-display').textContent=correctCount+'/'+t;document.getElementById('correct-count').textContent=correctCount;document.getElementById('wrong-count').textContent=wrongCount;}
-  function renderQ(){
-    const c=document.getElementById('q-container');
-    if(qIndex>=filteredQ.length){c.innerHTML='<div class="empty-state"><div class="empty-icon">🎉</div><div>Tu as fini toutes les questions !<br><button class="btn-lancer btn-escp" style="margin:16px auto 0;display:inline-flex;" onclick="initEntrainement()">Recommencer</button></div></div>';return;}
-    const q=filteredQ[qIndex];
-    const labels={num:'Séries numériques',lettres:'Séries de lettres',quant:'Quantitatif',deductif:'Déductif',vocab:'Vocabulaire',analogie:'Analogies',code:'Codes'};
-    const L=['A','B','C','D'];
-    c.innerHTML='<div class="q-card"><div class="q-type-tag">'+labels[q.type]+'</div><div class="q-text">'+q.q+'</div><div class="q-options">'+q.opts.map((o,i)=>'<button class="q-option" onclick="answerQ(this,'+i+','+qIndex+')"><div class="opt-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div class="q-feedback" id="qfb-'+qIndex+'"></div><button class="next-btn" id="qnb-'+qIndex+'" onclick="nextQ()">Question suivante →</button></div>';
+    return a;
   }
-  function answerQ(btn,chosen,idx){
-    const q=filteredQ[idx];
-    btn.parentElement.querySelectorAll('.q-option').forEach(o=>{o.classList.add('disabled');o.onclick=null;});
-    const ok=chosen===q.ans;
-    if(ok){btn.classList.add('correct');correctCount++;}
-    else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct');wrongCount++;}
-    const fb=document.getElementById('qfb-'+idx);
-    fb.className='q-feedback '+(ok?'correct':'wrong');fb.style.display='block';
-    fb.innerHTML=(ok?'✅ ':'❌ Bonne réponse : <strong>'+['A','B','C','D'][q.ans]+'</strong>. ')+q.exp;
-    document.getElementById('qnb-'+idx).style.display='inline-block';
-    updateScoreE();
+
+
+  function essecShuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
-  function nextQ(){qIndex++;renderQ();}
+  let essecType = 'all', essecQIdx = 0, essecOk = 0, essecKo = 0, essecFiltered = [];
 
-  let tCfg={duration:5,qtype:'all',penalty:0.25},tTimer=null,tSecs=0,tQ=[],tIdx=0,tScore=0,tOk=0,tKo=0,tAns=0;
-  function selectConfig(el,k,v){el.closest('.config-options').querySelectorAll('.config-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');tCfg[k]=(k==='duration'||k==='penalty')?parseFloat(v):v;}
-  function startTest(){tQ=shuffle(tCfg.qtype==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===tCfg.qtype));tIdx=0;tScore=0;tOk=0;tKo=0;tAns=0;tSecs=tCfg.duration*60;document.getElementById('test-config-panel').classList.add('hidden');document.getElementById('test-running-panel').classList.remove('hidden');document.getElementById('results-panel').style.display='none';document.getElementById('test-q-total').textContent=tQ.length;updateTimer();renderTQ();tTimer=setInterval(tick,1000);}
-  function tick(){tSecs--;updateTimer();if(tSecs<=0){clearInterval(tTimer);showResults();}}
-  function updateTimer(){const m=Math.floor(tSecs/60),s=tSecs%60;const el=document.getElementById('timer-display');el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.className='timer-display'+(tSecs<60?' urgent':'');document.getElementById('test-score-live').textContent=tScore.toFixed(2);}
-  function renderTQ(){const c=document.getElementById('test-q-container');if(tIdx>=tQ.length){showResults();return;}const q=tQ[tIdx];document.getElementById('test-q-num').textContent=tIdx+1;const L=['A','B','C','D'];c.innerHTML='<div class="q-card"><div class="q-text">'+q.q+'</div><div class="q-options">'+q.opts.map((o,i)=>'<button class="q-option" onclick="answerTQ(this,'+i+')"><div class="opt-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div style="margin-top:14px;"><button onclick="skipTQ()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">Passer →</button></div></div>';}
-  function answerTQ(btn,chosen){const q=tQ[tIdx];btn.parentElement.querySelectorAll('.q-option').forEach(o=>{o.classList.add('disabled');o.onclick=null;});if(chosen===q.ans){btn.classList.add('correct');tScore+=1;tOk++;}else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct');tScore-=tCfg.penalty;tKo++;}tAns++;setTimeout(()=>{tIdx++;renderTQ();},700);}
-  function skipTQ(){tIdx++;renderTQ();}
-  function stopTest(){clearInterval(tTimer);showResults();}
-  function showResults(){clearInterval(tTimer);document.getElementById('test-running-panel').classList.add('hidden');const panel=document.getElementById('results-panel');panel.style.display='block';const skip=tIdx-tAns,max=tIdx,pct=max>0?(tScore/max)*100:0;let v='';if(pct>=70){v='Excellent niveau !';}else if(pct>=45){v='Bon niveau, continue !';}else{v='Continue, la regularite paie !';}document.getElementById('results-score').textContent=tScore.toFixed(2);document.getElementById('results-max').textContent=max;document.getElementById('results-verdict').textContent=v;document.getElementById('res-correct').textContent=tOk;document.getElementById('res-wrong').textContent=tKo;document.getElementById('res-skip').textContent=skip;}
-  function resetTest(){document.getElementById('results-panel').style.display='none';document.getElementById('test-config-panel').classList.remove('hidden');document.getElementById('test-running-panel').classList.add('hidden');}
+  function essecSetType(type, btn) {
+    essecType = type;
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    essecOk = 0; essecKo = 0; essecQIdx = 0;
+    essecInitEntrainement();
+  }
 
-}
+  function essecInitEntrainement() {
+    essecFiltered = essecShuffle(essecType === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.type === essecType));
+    essecQIdx = 0;
+    essecUpdateScore();
+    essecRenderQ();
+  }
+
+  function essecUpdateScore() {
+    const t = essecOk + essecKo;
+    document.getElementById('score-display').textContent = essecOk + '/' + t;
+    document.getElementById('correct-count').textContent = essecOk;
+    document.getElementById('wrong-count').textContent = essecKo;
+  }
+
+  function essecRenderQ() {
+    const c = document.getElementById('q-container');
+    if (!c) return;
+    if (essecQIdx >= essecFiltered.length) {
+      c.innerHTML = '<div class="empty-state"><div class="empty-icon">🎉</div><div>Tu as fini toutes les questions !<br><br><button onclick="essecInitEntrainement()" style="margin-top:12px;background:var(--gradient);color:var(--bg);border:none;padding:10px 24px;cursor:pointer;font-family:Outfit,sans-serif;font-weight:600;">Recommencer</button></div></div>';
+      return;
+    }
+    const q = essecFiltered[essecQIdx];
+    const labels = {num:'Séries numériques', lettres:'Séries de lettres', quant:'Quantitatif', deductif:'Déductif', vocab:'Vocabulaire', analogie:'Analogies', code:'Codes'};
+    const L = ['A','B','C','D'];
+    c.innerHTML = '<div class="q-card">' +
+      '<div class="q-type-tag">' + (labels[q.type] || q.type) + '</div>' +
+      '<div class="q-text">' + q.q + '</div>' +
+      '<div class="q-options">' +
+      q.opts.map((o, i) => '<button class="q-option" onclick="essecAnswerQ(this,' + i + ',' + essecQIdx + ')">' +
+        '<div class="opt-letter">' + L[i] + '</div><span>' + o + '</span></button>').join('') +
+      '</div>' +
+      '<div class="q-feedback" id="qfb-' + essecQIdx + '"></div>' +
+      '<button class="next-btn" id="qnb-' + essecQIdx + '" onclick="essecNextQ()">Question suivante →</button>' +
+      '</div>';
+  }
+
+  function essecAnswerQ(btn, chosen, idx) {
+    const q = essecFiltered[idx];
+    btn.parentElement.querySelectorAll('.q-option').forEach(o => { o.classList.add('disabled'); o.onclick = null; });
+    const ok = chosen === q.ans;
+    if (ok) { btn.classList.add('correct'); essecOk++; }
+    else { btn.classList.add('wrong'); btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct'); essecKo++; }
+    const fb = document.getElementById('qfb-' + idx);
+    fb.className = 'q-feedback ' + (ok ? 'correct' : 'wrong');
+    fb.style.display = 'block';
+    fb.innerHTML = (ok ? '✅ ' : '❌ Bonne réponse : <strong>' + ['A','B','C','D'][q.ans] + '</strong>. ') + q.exp;
+    document.getElementById('qnb-' + idx).style.display = 'inline-block';
+    essecUpdateScore();
+  }
+
+  function essecNextQ() { essecQIdx++; essecRenderQ(); }
+
+  // TEST CHRONO
+  let essecTCfg = {duration:5, qtype:'all', penalty:0.25};
+  let essecTimer = null, essecSecs = 0, essecTQ = [], essecTIdx = 0;
+  let essecTScore = 0, essecTOk = 0, essecTKo = 0, essecTAns = 0;
+
+  function essecSelectConfig(el, k, v) {
+    el.closest('.config-options').querySelectorAll('.config-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    essecTCfg[k] = (k === 'duration' || k === 'penalty') ? parseFloat(v) : v;
+  }
+
+  function essecStartTest() {
+    essecTQ = essecShuffle(essecTCfg.qtype === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.type === essecTCfg.qtype));
+    essecTIdx = 0; essecTScore = 0; essecTOk = 0; essecTKo = 0; essecTAns = 0;
+    essecSecs = essecTCfg.duration * 60;
+    document.getElementById('test-config-panel').classList.add('hidden');
+    document.getElementById('test-running-panel').classList.remove('hidden');
+    document.getElementById('results-panel').style.display = 'none';
+    document.getElementById('test-q-total').textContent = essecTQ.length;
+    essecUpdateTimer();
+    essecRenderTQ();
+    essecTimer = setInterval(essecTick, 1000);
+  }
+
+  function essecTick() {
+    essecSecs--;
+    essecUpdateTimer();
+    if (essecSecs <= 0) { clearInterval(essecTimer); essecShowResults(); }
+  }
+
+  function essecUpdateTimer() {
+    const m = Math.floor(essecSecs / 60), s = essecSecs % 60;
+    const el = document.getElementById('timer-display');
+    if (!el) return;
+    el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    el.className = 'timer-display' + (essecSecs < 60 ? ' urgent' : '');
+    const sl = document.getElementById('test-score-live');
+    if (sl) sl.textContent = essecTScore.toFixed(2);
+  }
+
+  function essecRenderTQ() {
+    const c = document.getElementById('test-q-container');
+    if (!c) return;
+    if (essecTIdx >= essecTQ.length) { essecShowResults(); return; }
+    const q = essecTQ[essecTIdx];
+    const n = document.getElementById('test-q-num');
+    if (n) n.textContent = essecTIdx + 1;
+    const L = ['A','B','C','D'];
+    c.innerHTML = '<div class="q-card">' +
+      '<div class="q-text">' + q.q + '</div>' +
+      '<div class="q-options">' +
+      q.opts.map((o,i) => '<button class="q-option" onclick="essecAnswerTQ(this,' + i + ')">' +
+        '<div class="opt-letter">' + L[i] + '</div><span>' + o + '</span></button>').join('') +
+      '</div>' +
+      '<div style="margin-top:14px;"><button onclick="essecSkipTQ()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">Passer →</button></div>' +
+      '</div>';
+  }
+
+  function essecAnswerTQ(btn, chosen) {
+    const q = essecTQ[essecTIdx];
+    btn.parentElement.querySelectorAll('.q-option').forEach(o => { o.classList.add('disabled'); o.onclick = null; });
+    if (chosen === q.ans) { btn.classList.add('correct'); essecTScore += 1; essecTOk++; }
+    else { btn.classList.add('wrong'); btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct'); essecTScore -= essecTCfg.penalty; essecTKo++; }
+    essecTAns++;
+    setTimeout(() => { essecTIdx++; essecRenderTQ(); }, 700);
+  }
+
+  function essecSkipTQ() { essecTIdx++; essecRenderTQ(); }
+  function essecStopTest() { clearInterval(essecTimer); essecShowResults(); }
+
+  function essecShowResults() {
+    clearInterval(essecTimer);
+    document.getElementById('test-running-panel').classList.add('hidden');
+    document.getElementById('results-panel').style.display = 'block';
+    const skip = essecTIdx - essecTAns, max = essecTIdx;
+    const pct = max > 0 ? (essecTScore / max) * 100 : 0;
+    let v = pct >= 70 ? 'Excellent niveau !' : pct >= 45 ? 'Bon niveau, continue !' : 'Continue, la regularite paie !';
+    document.getElementById('results-score').textContent = essecTScore.toFixed(2);
+    document.getElementById('results-max').textContent = max;
+    document.getElementById('results-verdict').textContent = v;
+    document.getElementById('res-correct').textContent = essecTOk;
+    document.getElementById('res-wrong').textContent = essecTKo;
+    document.getElementById('res-skip').textContent = skip;
+  }
+
+  function essecResetTest() {
+    document.getElementById('results-panel').style.display = 'none';
+    document.getElementById('test-config-panel').classList.remove('hidden');
+    document.getElementById('test-running-panel').classList.add('hidden');
+  }
+
+  // Init entraînement quand on charge l'onglet ESSEC par défaut
+  document.addEventListener('DOMContentLoaded', function() {
+    // Pre-load questions so first click on Entraînement is instant
+    essecFiltered = essecShuffle(QUESTIONS);
+  });
+
+
 </script>
 
 </body>
