@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PrepOral — Mon espace</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
   <style>
     :root {
       --bg: #07070c; --surface: #0f0f18; --surface2: #16161f; --surface3: #1e1e2a;
@@ -17,700 +17,180 @@
       --emlyon: #e8392a; --emlyon-bg: rgba(232,57,42,0.08); --emlyon-border: rgba(232,57,42,0.25);
       --essec: #003b7a; --essec2: #0055b3; --essec-bg: rgba(0,85,179,0.08); --essec-border: rgba(0,85,179,0.25);
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
+
+```
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(7,7,12,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border2); }
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-user { font-size: 0.82rem; color: var(--muted2); }
+.nav-logout { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.78rem; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+.nav-logout:hover { border-color: var(--red); color: var(--red); }
+
+.main { max-width: 960px; margin: 0 auto; padding: 100px 24px 60px; }
+
+.alert { background: rgba(224,92,92,0.08); border: 1px solid rgba(224,92,92,0.25); color: #f0a0a0; padding: 16px 20px; font-size: 0.85rem; margin-bottom: 24px; display: none; line-height: 1.6; }
+.alert.show { display: block; }
+.alert a { color: var(--red); text-decoration: underline; }
+
+.hero-card { background: var(--surface); border: 1px solid var(--border); padding: 36px 48px; position: relative; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+.hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); }
+.hero-left h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+.hero-left p { font-size: 0.82rem; color: var(--muted2); }
+.sessions-badge { background: var(--surface2); border: 1px solid var(--border); padding: 20px 32px; text-align: center; min-width: 140px; }
+.sessions-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+.sessions-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+.progress-bar { background: var(--surface3); height: 4px; margin-top: 10px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--gradient); transition: width 0.8s ease; }
+
+.recharge-banner { background: var(--surface2); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 32px; display: none; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.recharge-banner.show { display: flex; }
+.recharge-text { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
+.recharge-text strong { color: var(--text); }
+.btn-recharge { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.3s; }
+.btn-recharge:hover { background: var(--accent); color: var(--bg); }
+
+.tabs { display: flex; gap: 2px; background: var(--border2); }
+.tab { flex: 1; padding: 16px 20px; text-align: center; cursor: pointer; font-size: 0.82rem; font-weight: 500; background: var(--surface); color: var(--muted2); transition: all 0.3s; border-bottom: 3px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.tab:hover { color: var(--text); background: var(--surface2); }
+.tab.active-escp { color: var(--escp); border-bottom-color: var(--escp); background: var(--surface2); }
+.tab.active-emlyon { color: var(--emlyon); border-bottom-color: var(--emlyon); background: var(--surface2); }
+.tab.active-essec { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface2); }
+.tab-school { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+.tab-agent { font-size: 0.68rem; color: var(--muted); }
+.tab.active-escp .tab-agent { color: rgba(201,169,110,0.6); }
+.tab.active-emlyon .tab-agent { color: rgba(232,57,42,0.6); }
+
+.tab-content { display: none; background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 36px 40px; }
+.tab-content.active { display: block; }
+.tab-content.emlyon-content { border-top: 2px solid var(--emlyon); }
+.tab-content.essec-content { border-top: 2px solid var(--essec2); }
+
+.btn-lancer { display: inline-flex; align-items: center; gap: 10px; border: none; padding: 16px 36px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; margin-bottom: 32px; }
+.btn-escp { background: var(--gradient); color: var(--bg); box-shadow: 0 6px 24px rgba(201,169,110,0.25); }
+.btn-escp:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,169,110,0.35); }
+.btn-emlyon { background: var(--emlyon); color: white; box-shadow: 0 6px 24px rgba(232,57,42,0.25); }
+.btn-emlyon:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,57,42,0.35); }
+.btn-disabled { opacity: 0.4; pointer-events: none; }
+
+/* ESSEC buttons */
+.essec-actions { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+.btn-essec-oral {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--essec) 0%, var(--essec2) 100%);
+  color: white; border: none; padding: 16px 36px;
+  font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+  box-shadow: 0 6px 24px rgba(0,85,179,0.25);
+  opacity: 0.5; pointer-events: none;
+}
+.btn-essec-psycho {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--surface2); color: var(--essec2);
+  border: 1px solid var(--essec-border); padding: 16px 36px;
+  font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: all 0.3s; text-decoration: none;
+}
+.btn-essec-psycho:hover { background: var(--essec-bg); transform: translateY(-2px); }
+.essec-oral-soon {
+  font-size: 0.72rem; color: var(--muted); background: var(--surface3);
+  padding: 2px 10px; letter-spacing: 1px; text-transform: uppercase;
+  align-self: center; margin-left: -8px;
+}
+
+.questionnaire-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 32px; }
+.questionnaire-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 12px; }
+.questionnaire-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.6; margin-bottom: 24px; }
+.questionnaire-desc strong { color: var(--escp); }
+.q-toggle { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; cursor: pointer; transition: all 0.3s; }
+.q-toggle:hover { border-color: var(--escp); color: var(--escp); }
+.questionnaire-form { display: none; flex-direction: column; gap: 18px; }
+.questionnaire-form.open { display: flex; }
+.q-group { display: flex; flex-direction: column; gap: 6px; }
+.q-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--escp); }
+.q-hint { font-size: 0.7rem; color: var(--muted); line-height: 1.5; }
+.q-textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.82rem; padding: 10px 14px; outline: none; transition: border-color 0.3s; resize: vertical; min-height: 72px; line-height: 1.6; }
+.q-textarea:focus { border-color: rgba(201,169,110,0.4); }
+.q-textarea::placeholder { color: var(--muted); }
+.q-actions { display: flex; align-items: center; gap: 16px; }
+.btn-save { background: var(--gradient); color: var(--bg); border: none; padding: 10px 28px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.btn-save:hover { transform: translateY(-1px); }
+.btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.q-save-msg { font-size: 0.75rem; color: var(--green); display: none; }
+.q-save-msg.show { display: block; }
+.q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--green); }
+
+.section-eyebrow { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
+
+.entretien-list { display: flex; flex-direction: column; gap: 8px; }
+.entretien-item { background: var(--surface2); border: 1px solid var(--border); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: background 0.3s; cursor: pointer; }
+.entretien-item:hover { background: var(--surface3); }
+.entretien-date { font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
+.entretien-title { font-size: 0.88rem; font-weight: 500; }
+.note-badge { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.note-label { font-size: 0.65rem; color: var(--muted); text-align: right; }
+.empty-state { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; line-height: 1.7; background: var(--surface2); border: 1px solid var(--border); }
+.empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
+
+/* ESSEC info card */
+.essec-info-card {
+  background: var(--essec-bg); border: 1px solid var(--essec-border);
+  padding: 20px 24px; margin-bottom: 28px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.essec-info-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.essec-info-text { font-size: 0.82rem; color: var(--muted2); line-height: 1.7; }
+.essec-info-text strong { color: var(--essec2); }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--surface); border: 1px solid var(--border); padding: 40px; max-width: 700px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+.modal-close { position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; }
+.modal-top-bar { height: 2px; position: absolute; top: 0; left: 0; right: 0; }
+.modal-top-bar.escp { background: var(--gradient); }
+.modal-top-bar.emlyon { background: var(--emlyon); }
+.modal-school-badge { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
+.modal-school-badge.escp { color: var(--escp); border: 1px solid var(--escp-border); background: var(--escp-bg); }
+.modal-school-badge.emlyon { color: var(--emlyon); border: 1px solid var(--emlyon-border); background: var(--emlyon-bg); }
+.modal-header { text-align: center; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.modal-note { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 4px; }
+.modal-note-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
+.modal-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface2); padding: 14px 18px; text-align: left; }
+.modal-verdict.escp { border-left: 3px solid var(--escp); }
+.modal-verdict.emlyon { border-left: 3px solid var(--emlyon); }
+.fb-section { margin-bottom: 16px; }
+.fb-section h4 { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+.fb-section h4.escp { color: var(--escp); }
+.fb-section h4.emlyon { color: var(--emlyon); }
+.fb-section p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; background: var(--surface2); padding: 12px 16px; border-left: 2px solid var(--border); }
+.fb-divider { height: 1px; background: var(--border); margin: 22px 0; }
+.fb-group-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+.analyse-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 16px 20px; margin-bottom: 16px; font-size: 0.83rem; color: var(--text); line-height: 1.8; }
+.analyse-box.emlyon { border-left-color: var(--emlyon); }
+.comp-card { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; margin-bottom: 16px; }
+.comp-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
+.comp-card p { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; }
+.cartes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.carte-fb { background: var(--surface2); padding: 12px 14px; border-left: 2px solid var(--emlyon-border); }
+.carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
+.carte-fb-text { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
+
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .main { padding: 80px 16px 40px; }
+  .hero-card { padding: 24px 20px; }
+  .tab-content { padding: 24px 20px; }
+  .modal { padding: 28px 20px; }
+  .cartes-grid { grid-template-columns: 1fr; }
+  .tabs { flex-direction: column; gap: 1px; }
+  .essec-actions { flex-direction: column; }
+  .btn-essec-oral, .btn-essec-psycho { width: 100%; justify-content: center; }
+}
+```
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Outfit', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 20px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(7,7,12,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border2);
-    }
-
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .nav-user { font-size: 0.82rem; color: var(--muted2); }
-
-    .nav-logout {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted2);
-      padding: 6px 16px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.78rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-    }
-
-    .nav-logout:hover { border-color: var(--red); color: var(--red); }
-
-    .main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 100px 24px 60px;
-    }
-
-    .alert {
-      background: rgba(224,92,92,0.08);
-      border: 1px solid rgba(224,92,92,0.25);
-      color: #f0a0a0;
-      padding: 16px 20px;
-      font-size: 0.85rem;
-      margin-bottom: 24px;
-      display: none;
-      line-height: 1.6;
-    }
-
-    .alert.show { display: block; }
-    .alert a { color: var(--red); text-decoration: underline; }
-
-    .hero-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 36px 48px;
-      position: relative;
-      margin-bottom: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    .hero-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gradient);
-    }
-
-    .hero-left h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .hero-left p { font-size: 0.82rem; color: var(--muted2); }
-
-    .sessions-badge {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 20px 32px;
-      text-align: center;
-      min-width: 140px;
-    }
-
-    .sessions-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-    }
-
-    .sessions-label {
-      font-size: 0.68rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 6px;
-    }
-
-    .progress-bar {
-      background: var(--surface3);
-      height: 4px;
-      margin-top: 10px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--gradient);
-      transition: width 0.8s ease;
-    }
-
-    .recharge-banner {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 20px 24px;
-      margin-bottom: 32px;
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .recharge-banner.show { display: flex; }
-
-    .recharge-text {
-      font-size: 0.82rem;
-      color: var(--muted2);
-      line-height: 1.6;
-    }
-
-    .recharge-text strong { color: var(--text); }
-
-    .btn-recharge {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      padding: 10px 24px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: all 0.3s;
-    }
-
-    .btn-recharge:hover { background: var(--accent); color: var(--bg); }
-
-    .tabs {
-      display: flex;
-      gap: 2px;
-      background: var(--border2);
-    }
-
-    .tab {
-      flex: 1;
-      padding: 16px 20px;
-      text-align: center;
-      cursor: pointer;
-      font-size: 0.82rem;
-      font-weight: 500;
-      background: var(--surface);
-      color: var(--muted2);
-      transition: all 0.3s;
-      border-bottom: 3px solid transparent;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .tab:hover { color: var(--text); background: var(--surface2); }
-    .tab.active-escp { color: var(--escp); border-bottom-color: var(--escp); background: var(--surface2); }
-    .tab.active-emlyon { color: var(--emlyon); border-bottom-color: var(--emlyon); background: var(--surface2); }
-    .tab.active-essec { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface2); }
-
-    .tab-school {
-      font-size: 0.72rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .tab-agent { font-size: 0.68rem; color: var(--muted); }
-    .tab.active-escp .tab-agent { color: rgba(201,169,110,0.6); }
-    .tab.active-emlyon .tab-agent { color: rgba(232,57,42,0.6); }
-    .tab.active-essec .tab-agent { color: rgba(0,85,179,0.7); }
-
-    .tab-content {
-      display: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-top: none;
-      padding: 36px 40px;
-    }
-
-    .tab-content.active { display: block; }
-    .tab-content.emlyon-content { border-top: 2px solid var(--emlyon); }
-    .tab-content.essec-content { border-top: 2px solid var(--essec2); }
-
-    .btn-lancer {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border: none;
-      padding: 16px 36px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-      margin-bottom: 32px;
-    }
-
-    .btn-escp {
-      background: var(--gradient);
-      color: var(--bg);
-      box-shadow: 0 6px 24px rgba(201,169,110,0.25);
-    }
-
-    .btn-escp:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(201,169,110,0.35);
-    }
-
-    .btn-emlyon {
-      background: var(--emlyon);
-      color: white;
-      box-shadow: 0 6px 24px rgba(232,57,42,0.25);
-    }
-
-    .btn-emlyon:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(232,57,42,0.35);
-    }
-
-    .btn-essec {
-      background: linear-gradient(135deg, var(--essec) 0%, var(--essec2) 100%);
-      color: white;
-      box-shadow: 0 6px 24px rgba(0,85,179,0.25);
-    }
-
-    .btn-essec:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(0,85,179,0.35);
-    }
-
-    .btn-disabled {
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
-    .questionnaire-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 28px 32px;
-      margin-bottom: 32px;
-    }
-
-    .questionnaire-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .questionnaire-desc {
-      font-size: 0.8rem;
-      color: var(--muted2);
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .questionnaire-desc strong { color: var(--escp); }
-
-    .q-toggle {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted2);
-      padding: 6px 16px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .q-toggle:hover { border-color: var(--escp); color: var(--escp); }
-
-    .questionnaire-form {
-      display: none;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .questionnaire-form.open { display: flex; }
-
-    .q-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .q-label {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--escp);
-    }
-
-    .q-hint {
-      font-size: 0.7rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .q-textarea {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.82rem;
-      padding: 10px 14px;
-      outline: none;
-      transition: border-color 0.3s;
-      resize: vertical;
-      min-height: 72px;
-      line-height: 1.6;
-    }
-
-    .q-textarea:focus { border-color: rgba(201,169,110,0.4); }
-    .q-textarea::placeholder { color: var(--muted); }
-
-    .q-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .btn-save {
-      background: var(--gradient);
-      color: var(--bg);
-      border: none;
-      padding: 10px 28px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-save:hover { transform: translateY(-1px); }
-    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    .q-save-msg {
-      font-size: 0.75rem;
-      color: var(--green);
-      display: none;
-    }
-
-    .q-save-msg.show { display: block; }
-
-    .q-filled-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      color: var(--green);
-    }
-
-    .section-eyebrow {
-      font-size: 0.68rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .entretien-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .entretien-item {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 18px 22px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      transition: background 0.3s;
-      cursor: pointer;
-    }
-
-    .entretien-item:hover { background: var(--surface3); }
-
-    .entretien-date {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-bottom: 3px;
-    }
-
-    .entretien-title {
-      font-size: 0.88rem;
-      font-weight: 500;
-    }
-
-    .note-badge {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .note-label {
-      font-size: 0.65rem;
-      color: var(--muted);
-      text-align: right;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 48px 24px;
-      color: var(--muted2);
-      font-size: 0.85rem;
-      line-height: 1.7;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-    }
-
-    .empty-icon {
-      font-size: 2rem;
-      margin-bottom: 12px;
-      opacity: 0.4;
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.88);
-      z-index: 200;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .modal-overlay.show { display: flex; }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 40px;
-      max-width: 700px;
-      width: 100%;
-      position: relative;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      background: transparent;
-      border: none;
-      color: var(--muted);
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-
-    .modal-top-bar {
-      height: 2px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-    }
-
-    .modal-top-bar.escp { background: var(--gradient); }
-    .modal-top-bar.emlyon { background: var(--emlyon); }
-
-    .modal-school-badge {
-      font-size: 0.62rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-weight: 600;
-      padding: 3px 10px;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-
-    .modal-school-badge.escp {
-      color: var(--escp);
-      border: 1px solid var(--escp-border);
-      background: var(--escp-bg);
-    }
-
-    .modal-school-badge.emlyon {
-      color: var(--emlyon);
-      border: 1px solid var(--emlyon-border);
-      background: var(--emlyon-bg);
-    }
-
-    .modal-header {
-      text-align: center;
-      margin-bottom: 28px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .modal-note {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 5rem;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .modal-note-label {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .modal-verdict {
-      font-size: 0.88rem;
-      color: var(--text);
-      line-height: 1.7;
-      background: var(--surface2);
-      padding: 14px 18px;
-      text-align: left;
-    }
-
-    .modal-verdict.escp { border-left: 3px solid var(--escp); }
-    .modal-verdict.emlyon { border-left: 3px solid var(--emlyon); }
-
-    .fb-section { margin-bottom: 16px; }
-
-    .fb-section h4 {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .fb-section h4.escp { color: var(--escp); }
-    .fb-section h4.emlyon { color: var(--emlyon); }
-
-    .fb-section p {
-      font-size: 0.83rem;
-      color: var(--muted2);
-      line-height: 1.7;
-      background: var(--surface2);
-      padding: 12px 16px;
-      border-left: 2px solid var(--border);
-    }
-
-    .fb-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 22px 0;
-    }
-
-    .fb-group-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-
-    .analyse-box {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      padding: 16px 20px;
-      margin-bottom: 16px;
-      font-size: 0.83rem;
-      color: var(--text);
-      line-height: 1.8;
-    }
-
-    .analyse-box.emlyon { border-left-color: var(--emlyon); }
-
-    .comp-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      padding: 14px 18px;
-      margin-bottom: 16px;
-    }
-
-    .comp-label {
-      font-size: 0.65rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .comp-card p {
-      font-size: 0.83rem;
-      color: var(--muted2);
-      line-height: 1.7;
-    }
-
-    .cartes-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .carte-fb {
-      background: var(--surface2);
-      padding: 12px 14px;
-      border-left: 2px solid var(--emlyon-border);
-    }
-
-    .carte-fb-cat {
-      font-size: 0.58rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--emlyon);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .carte-fb-text {
-      font-size: 0.78rem;
-      color: var(--muted2);
-      line-height: 1.6;
-    }
-
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .main { padding: 80px 16px 40px; }
-      .hero-card { padding: 24px 20px; }
-      .tab-content { padding: 24px 20px; }
-      .modal { padding: 28px 20px; }
-      .cartes-grid { grid-template-columns: 1fr; }
-      .tabs { flex-direction: column; gap: 1px; }
-    }
   </style>
 </head>
-
 <body>
 
 <nav>
@@ -724,34 +204,24 @@
 <main class="main">
 
   <div class="alert" id="noCreditsAlert">
-    ❌ Vous n'avez plus de sessions disponibles. Pour recharger :
-    <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a>
-    — 5 sessions à 12€ · 10 sessions à 20€.
+    ❌ Vous n'avez plus de sessions disponibles. Pour recharger : <a href="mailto:abijaoui27@gmail.com">abijaoui27@gmail.com</a> — 5 sessions à 12€ · 10 sessions à 20€.
   </div>
 
   <div class="hero-card">
     <div class="hero-left">
-      <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">
-        Bienvenue
-      </div>
+      <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Bienvenue</div>
       <h2>Votre espace PrepOral</h2>
       <p>Préparez les oraux des grandes écoles de commerce avec des jurys IA.</p>
     </div>
-
     <div class="sessions-badge">
       <div class="sessions-num" id="sessionsNum">—</div>
       <div class="sessions-label">sessions restantes</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill" style="width:0%"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     </div>
   </div>
 
   <div class="recharge-banner" id="rechargeBanner">
-    <div class="recharge-text">
-      <strong>Plus de sessions disponibles.</strong><br>
-      5 sessions à 12€ ou 10 sessions à 20€.
-    </div>
+    <div class="recharge-text"><strong>Plus de sessions disponibles.</strong><br>5 sessions à 12€ ou 10 sessions à 20€.</div>
     <a href="mailto:abijaoui27@gmail.com?subject=Recharge PrepOral" class="btn-recharge">Recharger →</a>
   </div>
 
@@ -760,270 +230,217 @@
       <div class="tab-school">ESCP</div>
       <div class="tab-agent">Jean-Marc Delaunay</div>
     </div>
-
     <div class="tab" id="tabEMLYON" onclick="switchTab('emlyon')">
       <div class="tab-school">EM Lyon</div>
       <div class="tab-agent">Sophie Marchand</div>
     </div>
-
     <div class="tab" id="tabESSEC" onclick="switchTab('essec')">
       <div class="tab-school">ESSEC</div>
-      <div class="tab-agent">Mise en situation</div>
+      <div class="tab-agent">Tests & Oral</div>
     </div>
   </div>
 
-  <div class="tab-content escp-content active" id="contentESCP">
-    <a href="/entretien" class="btn-lancer btn-escp" id="btnESCP">
-      🎙️ Lancer un entretien ESCP
-    </a>
+  <!-- ESCP -->
 
+  <div class="tab-content escp-content active" id="contentESCP">
+    <a href="/entretien" class="btn-lancer btn-escp" id="btnESCP">🎙️ Lancer un entretien ESCP</a>
     <div class="questionnaire-card">
       <div class="questionnaire-header">
         <div>
-          <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--escp);margin-bottom:6px;">
-            Questionnaire ESCP
-          </div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">
-            Mon dossier de personnalité
-          </div>
+          <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--escp);margin-bottom:6px;">Questionnaire ESCP</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">Mon dossier de personnalité</div>
         </div>
-
         <div style="display:flex;align-items:center;gap:12px;">
           <span class="q-filled-indicator" id="qFilledIndicator" style="display:none;">✅ Rempli</span>
           <button class="q-toggle" id="qToggle" onclick="toggleQuestionnaire()">Remplir ↓</button>
         </div>
       </div>
-
-      <p class="questionnaire-desc" style="margin-top:10px;">
-        Transmis à Jean-Marc avant l'entretien.
-        <strong>Il personnalisera ses questions en fonction de vos réponses.</strong>
-        Optionnel mais fortement recommandé.
-      </p>
-
+      <p class="questionnaire-desc" style="margin-top:10px;">Transmis à Jean-Marc avant l'entretien. <strong>Il personnalisera ses questions en fonction de vos réponses.</strong> Optionnel mais fortement recommandé.</p>
       <div class="questionnaire-form" id="questionnaireForm">
         <div class="q-group">
           <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
           <div class="q-hint">Précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
           <textarea class="q-textarea" id="q1" placeholder="Ex: Tennis en compétition depuis 8 ans…"></textarea>
         </div>
-
         <div class="q-group">
           <div class="q-label">2. Réalisation dont vous êtes fier(e)</div>
           <div class="q-hint">Succès ou échec — ce que vous en avez appris.</div>
           <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif…"></textarea>
         </div>
-
         <div class="q-group">
           <div class="q-label">3. Expérience du monde du travail</div>
           <div class="q-hint">Stages, jobs, rencontres. Précisez lieu et durée.</div>
           <textarea class="q-textarea" id="q3" placeholder="Ex: Stage chez un cabinet comptable…"></textarea>
         </div>
-
         <div class="q-group">
           <div class="q-label">4. Expériences de différentes cultures</div>
           <div class="q-hint">Voyages, lectures, rencontres, expositions…</div>
           <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour à Dublin, correspondant allemand…"></textarea>
         </div>
-
         <div class="q-group">
           <div class="q-label">5. Une expérience marquante</div>
           <div class="q-hint">Ce qu'elle vous a appris sur vous-même.</div>
           <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris…"></textarea>
         </div>
-
         <div class="q-group">
           <div class="q-label">6. Autres informations pour le jury</div>
           <div class="q-hint">Tout ce que vous jugez utile.</div>
           <textarea class="q-textarea" id="q6" placeholder="Ex: Président du BDE depuis septembre…"></textarea>
         </div>
-
         <div class="q-actions">
           <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
           <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé !</span>
         </div>
       </div>
     </div>
-
     <div class="section-eyebrow">Historique ESCP</div>
-
     <div class="entretien-list" id="listESCP">
-      <div class="empty-state">
-        <div class="empty-icon">🎙️</div>
-        <div>Aucun entretien ESCP pour l'instant.</div>
-      </div>
+      <div class="empty-state"><div class="empty-icon">🎙️</div><div>Aucun entretien ESCP pour l'instant.</div></div>
     </div>
   </div>
+
+  <!-- EM LYON -->
 
   <div class="tab-content emlyon-content" id="contentEMLYON">
-    <a href="/entretien-emlyon" class="btn-lancer btn-emlyon" id="btnEMLYON">
-      🃏 Lancer un entretien EM Lyon
-    </a>
-
+    <a href="/entretien-emlyon" class="btn-lancer btn-emlyon" id="btnEMLYON">🃏 Lancer un entretien EM Lyon</a>
     <div class="section-eyebrow">Historique EM Lyon</div>
-
     <div class="entretien-list" id="listEMLYON">
-      <div class="empty-state">
-        <div class="empty-icon">🃏</div>
-        <div>Aucun entretien EM Lyon pour l'instant.</div>
-      </div>
+      <div class="empty-state"><div class="empty-icon">🃏</div><div>Aucun entretien EM Lyon pour l'instant.</div></div>
     </div>
   </div>
 
+  <!-- ESSEC -->
+
   <div class="tab-content essec-content" id="contentESSEC">
-    <a href="/essec" class="btn-lancer btn-essec" id="btnESSEC">
-      🏛️ Lancer un entretien ESSEC
-    </a>
 
-    <div class="section-eyebrow">Historique ESSEC</div>
+```
+<div class="essec-info-card">
+  <div class="essec-info-icon">🏛️</div>
+  <div class="essec-info-text">
+    <strong>ESSEC Business School</strong><br>
+    Prépare-toi sur deux fronts : les <strong>tests psychotechniques</strong> (séries numériques, logique, vocabulaire…) et bientôt l'entretien oral avec un jury IA.
+  </div>
+</div>
 
-    <div class="entretien-list" id="listESSEC">
-      <div class="empty-state">
-        <div class="empty-icon">🏛️</div>
-        <div>Aucun entretien ESSEC pour l'instant.</div>
-      </div>
-    </div>
+<div class="essec-actions">
+  <a href="/essec" class="btn-essec-psycho">📊 Tests psychotechniques</a>
+  <span class="btn-essec-oral" id="btnESSECOral">🎙️ Entretien oral</span>
+  <span class="essec-oral-soon">Bientôt</span>
+</div>
+
+<div class="section-eyebrow">Historique ESSEC</div>
+<div class="entretien-list" id="listESSEC">
+  <div class="empty-state"><div class="empty-icon">🏛️</div><div>Aucun entretien ESSEC pour l'instant.</div></div>
+</div>
+```
+
   </div>
 
 </main>
+
+<!-- MODAL FEEDBACK -->
 
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modalContent">
     <div class="modal-top-bar escp" id="modalTopBar"></div>
     <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
 
-    <div class="modal-header">
-      <div class="modal-school-badge escp" id="modalSchoolBadge">ESCP</div>
-      <div class="modal-note" id="modalNote">—</div>
-      <div class="modal-note-label">Note sur 20</div>
-      <div class="modal-verdict escp" id="modalVerdict">—</div>
-    </div>
+```
+<div class="modal-header">
+  <div class="modal-school-badge escp" id="modalSchoolBadge">ESCP</div>
+  <div class="modal-note" id="modalNote">—</div>
+  <div class="modal-note-label">Note sur 20</div>
+  <div class="modal-verdict escp" id="modalVerdict">—</div>
+</div>
 
-    <div class="fb-group-title">📋 Analyse de l'entretien</div>
+<div class="fb-group-title">📋 Analyse de l'entretien</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4>
+  <p id="modalPresentation">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4>
+  <p id="modalExpression">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Connaissance">🏛️ Connaissance de l'école</h4>
+  <p id="modalConnaissance">—</p>
+</div>
 
-    <div class="fb-section">
-      <h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4>
-      <p id="modalPresentation">—</p>
-    </div>
+<div id="sectionESCP">
+  <div class="fb-section">
+    <h4 class="escp">⚡ Dynamique de l'échange</h4>
+    <p id="modalDynamique">—</p>
+  </div>
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">🔺 Triangle Personnalité — Projet — ESCP</div>
+  <div class="fb-section"><p id="modalTriangle">—</p></div>
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">📚 Fond & Contenu</div>
+  <div class="fb-section">
+    <h4 class="escp">🎯 Motivation & fond ESCP</h4>
+    <p id="modalFond">—</p>
+  </div>
+  <div class="fb-section">
+    <h4 class="escp">📝 Exploitation du questionnaire</h4>
+    <p id="modalQuestionnaire">—</p>
+  </div>
+</div>
 
-    <div class="fb-section">
-      <h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4>
-      <p id="modalExpression">—</p>
-    </div>
+<div id="sectionEMLYON" style="display:none;">
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">🃏 Réactivité aux cartes</div>
+  <div class="cartes-grid">
+    <div class="carte-fb"><div class="carte-fb-cat">Personnalité</div><div class="carte-fb-text" id="modalCarteP">—</div></div>
+    <div class="carte-fb"><div class="carte-fb-cat">Expériences</div><div class="carte-fb-text" id="modalCarteE">—</div></div>
+    <div class="carte-fb"><div class="carte-fb-cat">Projets futurs</div><div class="carte-fb-text" id="modalCartePr">—</div></div>
+    <div class="carte-fb"><div class="carte-fb-cat">Créativité</div><div class="carte-fb-text" id="modalCarteC">—</div></div>
+  </div>
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">🌟 Les 5 valeurs emlyon</div>
+  <div class="fb-section"><p id="modalValeurs">—</p></div>
+  <div class="fb-section">
+    <h4 class="emlyon">🗣️ Échange final</h4>
+    <p id="modalEchangeFinal">—</p>
+  </div>
+</div>
 
-    <div class="fb-section">
-      <h4 class="escp" id="h4Connaissance">🏛️ Connaissance de l'école</h4>
-      <p id="modalConnaissance">—</p>
-    </div>
+<div class="fb-divider"></div>
+<div class="fb-group-title">🔍 Analyse personnalisée</div>
+<div class="analyse-box" id="modalAnalyse">—</div>
 
-    <div id="sectionESCP">
-      <div class="fb-section">
-        <h4 class="escp">⚡ Dynamique de l'échange</h4>
-        <p id="modalDynamique">—</p>
-      </div>
+<div class="fb-section">
+  <h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4>
+  <p id="modalQuestionFinale">—</p>
+</div>
 
-      <div class="fb-divider"></div>
+<div class="comp-card">
+  <div class="comp-label">📈 Comparaison avec l'entretien précédent</div>
+  <p id="modalComparaison">—</p>
+</div>
 
-      <div class="fb-group-title">🔺 Triangle Personnalité — Projet — ESCP</div>
-      <div class="fb-section">
-        <p id="modalTriangle">—</p>
-      </div>
+<div class="fb-divider"></div>
+<div class="fb-group-title">🚀 Pour progresser</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Forts">✅ Points forts</h4>
+  <p id="modalForts">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Faibles">⚠️ Points faibles</h4>
+  <p id="modalFaibles">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4>
+  <p id="modalAxes">—</p>
+</div>
+```
 
-      <div class="fb-divider"></div>
-
-      <div class="fb-group-title">📚 Fond & Contenu</div>
-
-      <div class="fb-section">
-        <h4 class="escp">🎯 Motivation & fond ESCP</h4>
-        <p id="modalFond">—</p>
-      </div>
-
-      <div class="fb-section">
-        <h4 class="escp">📝 Exploitation du questionnaire</h4>
-        <p id="modalQuestionnaire">—</p>
-      </div>
-    </div>
-
-    <div id="sectionEMLYON" style="display:none;">
-      <div class="fb-divider"></div>
-
-      <div class="fb-group-title">🃏 Réactivité aux cartes</div>
-
-      <div class="cartes-grid">
-        <div class="carte-fb">
-          <div class="carte-fb-cat">Personnalité</div>
-          <div class="carte-fb-text" id="modalCarteP">—</div>
-        </div>
-
-        <div class="carte-fb">
-          <div class="carte-fb-cat">Expériences</div>
-          <div class="carte-fb-text" id="modalCarteE">—</div>
-        </div>
-
-        <div class="carte-fb">
-          <div class="carte-fb-cat">Projets futurs</div>
-          <div class="carte-fb-text" id="modalCartePr">—</div>
-        </div>
-
-        <div class="carte-fb">
-          <div class="carte-fb-cat">Créativité</div>
-          <div class="carte-fb-text" id="modalCarteC">—</div>
-        </div>
-      </div>
-
-      <div class="fb-divider"></div>
-
-      <div class="fb-group-title">🌟 Les 5 valeurs emlyon</div>
-
-      <div class="fb-section">
-        <p id="modalValeurs">—</p>
-      </div>
-
-      <div class="fb-section">
-        <h4 class="emlyon">🗣️ Échange final</h4>
-        <p id="modalEchangeFinal">—</p>
-      </div>
-    </div>
-
-    <div class="fb-divider"></div>
-
-    <div class="fb-group-title">🔍 Analyse personnalisée</div>
-    <div class="analyse-box" id="modalAnalyse">—</div>
-
-    <div class="fb-section">
-      <h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4>
-      <p id="modalQuestionFinale">—</p>
-    </div>
-
-    <div class="comp-card">
-      <div class="comp-label">📈 Comparaison avec l'entretien précédent</div>
-      <p id="modalComparaison">—</p>
-    </div>
-
-    <div class="fb-divider"></div>
-
-    <div class="fb-group-title">🚀 Pour progresser</div>
-
-    <div class="fb-section">
-      <h4 class="escp" id="h4Forts">✅ Points forts</h4>
-      <p id="modalForts">—</p>
-    </div>
-
-    <div class="fb-section">
-      <h4 class="escp" id="h4Faibles">⚠️ Points faibles</h4>
-      <p id="modalFaibles">—</p>
-    </div>
-
-    <div class="fb-section">
-      <h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4>
-      <p id="modalAxes">—</p>
-    </div>
   </div>
 </div>
 
 <script>
   const student_id = localStorage.getItem('student_id')
   const email = localStorage.getItem('email')
-
   if (!student_id) window.location.href = '/'
 
   document.getElementById('navEmail').textContent = email || ''
@@ -1043,7 +460,6 @@
   function switchTab(tab) {
     document.querySelectorAll('.tab').forEach(t => t.className = 'tab')
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
-
     document.getElementById('tab' + tab.toUpperCase()).classList.add('active-' + tab)
     document.getElementById('content' + tab.toUpperCase()).classList.add('active')
   }
@@ -1053,16 +469,12 @@
       const res = await fetch(`/api/credits?student_id=${student_id}`)
       const data = await res.json()
       const credits = data.credits || 0
-
       localStorage.setItem('credits', credits)
-
       document.getElementById('sessionsNum').textContent = credits
       document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 10) * 100)}%`
-
       if (credits <= 0) {
         document.getElementById('btnESCP').classList.add('btn-disabled')
         document.getElementById('btnEMLYON').classList.add('btn-disabled')
-        document.getElementById('btnESSEC').classList.add('btn-disabled')
         document.getElementById('rechargeBanner').classList.add('show')
       }
     } catch(e) {
@@ -1070,15 +482,12 @@
     }
   }
 
-  function logout() {
-    localStorage.clear()
-  }
+  function logout() { localStorage.clear() }
 
   function toggleQuestionnaire() {
     const form = document.getElementById('questionnaireForm')
     const btn = document.getElementById('qToggle')
     const isOpen = form.classList.contains('open')
-
     form.classList.toggle('open')
     btn.textContent = isOpen ? 'Remplir ↓' : 'Réduire ↑'
   }
@@ -1087,42 +496,28 @@
     try {
       const res = await fetch(`/api/questionnaire?student_id=${student_id}`)
       const data = await res.json()
-
       if (!data) return
-
       document.getElementById('q1').value = data.centres_interet || ''
       document.getElementById('q2').value = data.fierte || ''
       document.getElementById('q3').value = data.experience_travail || ''
       document.getElementById('q4').value = data.experience_cultures || ''
       document.getElementById('q5').value = data.experience_marquante || ''
       document.getElementById('q6').value = data.autres_infos || ''
-
-      const hasContent = [
-        data.centres_interet,
-        data.fierte,
-        data.experience_travail,
-        data.experience_cultures,
-        data.experience_marquante,
-        data.autres_infos
-      ].some(v => v && v.trim())
-
+      const hasContent = [data.centres_interet, data.fierte, data.experience_travail,
+        data.experience_cultures, data.experience_marquante, data.autres_infos].some(v => v && v.trim())
       if (hasContent) {
         document.getElementById('qFilledIndicator').style.display = 'inline-flex'
         document.getElementById('qToggle').textContent = 'Modifier ↓'
       }
-    } catch(e) {
-      console.error(e)
-    }
+    } catch(e) { console.error(e) }
   }
 
   async function saveQuestionnaire() {
     const btn = document.getElementById('btnSaveQ')
     const msg = document.getElementById('qSaveMsg')
-
     btn.disabled = true
     btn.textContent = 'Sauvegarde…'
     msg.classList.remove('show')
-
     try {
       const res = await fetch('/api/questionnaire', {
         method: 'POST',
@@ -1137,20 +532,13 @@
           autres_infos: document.getElementById('q6').value
         })
       })
-
       if (res.ok) {
         msg.classList.add('show')
         document.getElementById('qFilledIndicator').style.display = 'inline-flex'
         document.getElementById('qToggle').textContent = 'Modifier ↓'
-
-        setTimeout(() => {
-          msg.classList.remove('show')
-        }, 3000)
+        setTimeout(() => { msg.classList.remove('show') }, 3000)
       }
-    } catch(e) {
-      console.error(e)
-    }
-
+    } catch(e) { console.error(e) }
     btn.disabled = false
     btn.textContent = 'Sauvegarder'
   }
@@ -1159,50 +547,33 @@
     try {
       const res = await fetch(`/api/feedbacks?student_id=${student_id}`)
       const data = await res.json()
-
       if (!data || data.length === 0) return
-
       const escpFeedbacks = data.filter(fb => !fb.ecole || fb.ecole === 'ESCP')
       const emlFeedbacks = data.filter(fb => fb.ecole === 'EM Lyon')
-      const essecFeedbacks = data.filter(fb => fb.ecole === 'ESSEC')
-
       renderList(escpFeedbacks, 'listESCP', 'Jean-Marc Delaunay')
       renderList(emlFeedbacks, 'listEMLYON', 'Sophie Marchand')
-      renderList(essecFeedbacks, 'listESSEC', 'Jury ESSEC')
-    } catch(e) {
-      console.error(e)
-    }
+    } catch(e) { console.error(e) }
   }
 
   function renderList(feedbacks, listId, agent) {
     if (!feedbacks.length) return
-
     const list = document.getElementById(listId)
     list.innerHTML = ''
-
     feedbacks.forEach((fb, i) => {
-      const date = new Date(fb.created_at).toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      })
-
+      const date = new Date(fb.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
       const item = document.createElement('div')
       item.className = 'entretien-item'
       item.onclick = () => openModal(fb)
-
       item.innerHTML = `
         <div>
           <div class="entretien-date">${date}</div>
           <div class="entretien-title">Entretien #${feedbacks.length - i} — ${agent}</div>
         </div>
-
         <div style="text-align:right;">
           <div class="note-badge">${fb.note}/20</div>
           <div class="note-label">voir détails →</div>
         </div>
       `
-
       list.appendChild(item)
     })
   }
@@ -1213,19 +584,13 @@
     const cls = isEmlyon ? 'emlyon' : 'escp'
 
     document.getElementById('modalTopBar').className = `modal-top-bar ${cls}`
-
     const badge = document.getElementById('modalSchoolBadge')
     badge.className = `modal-school-badge ${cls}`
     badge.textContent = ecole
-
     document.getElementById('modalVerdict').className = `modal-verdict ${cls}`
 
     document.getElementById('sectionESCP').style.display = isEmlyon ? 'none' : 'block'
     document.getElementById('sectionEMLYON').style.display = isEmlyon ? 'block' : 'none'
-
-    document.querySelectorAll('.fb-section h4').forEach(h => {
-      h.className = cls
-    })
 
     document.getElementById('h4Presentation').className = cls
     document.getElementById('h4Expression').className = cls
@@ -1234,7 +599,6 @@
     document.getElementById('h4Forts').className = cls
     document.getElementById('h4Faibles').className = cls
     document.getElementById('h4Axes').className = cls
-
     document.getElementById('modalAnalyse').className = `analyse-box ${isEmlyon ? 'emlyon' : ''}`
 
     document.getElementById('modalNote').textContent = `${fb.note}/20`
