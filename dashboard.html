@@ -1124,9 +1124,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   // ===== ESSEC EMBEDDED =====
 
   function essecToggleCours(card) {
-    if (card.classList.contains('open')) {
-      card.classList.remove('open');
-    } else {
+    var isOpen = card.classList.contains('open');
+    // Fermer toutes les fiches
+    var allCards = document.querySelectorAll('#essec-panel-cours .cours-card');
+    allCards.forEach(function(c) { c.classList.remove('open'); });
+    // Ouvrir celle-ci si elle était fermée
+    if (!isOpen) {
       card.classList.add('open');
     }
   }
