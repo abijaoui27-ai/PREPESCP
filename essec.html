@@ -2,440 +2,480 @@
 
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrepOral – Tests ESSEC</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0b0b0f;
-    --surface: #13131a;
-    --surface2: #1a1a24;
-    --border: rgba(255,255,255,0.07);
-    --accent: #6c63ff;
-    --accent2: #00c9a7;
-    --accent3: #ff6584;
-    --text: #e8e8f0;
-    --text-muted: #7a7a95;
-    --correct: #00c9a7;
-    --wrong: #ff6584;
-    --warning: #ffa94d;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Sora', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepOral — ESSEC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07070c; --surface: #0f0f18; --surface2: #16161f; --surface3: #1e1e2a;
+      --accent: #c9a96e; --text: #f0ede8; --muted: #6b6880; --muted2: #9994aa;
+      --border: rgba(200,169,110,0.12); --border2: rgba(200,169,110,0.06);
+      --gradient: linear-gradient(135deg, #c9a96e 0%, #e8c98e 50%, #c9a96e 100%);
+      --essec: #0055b3; --essec-bg: rgba(0,85,179,0.08); --essec-border: rgba(0,85,179,0.25);
+      --green: #4ade80; --red: #e05c5c;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; }
 
-.header { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(–border); background: var(–surface); position: sticky; top: 0; z-index: 100; }
-.logo { font-size: 1.1rem; font-weight: 700; color: var(–accent); letter-spacing: -0.5px; }
-.logo span { color: var(–text); }
-.back-btn { color: var(–text-muted); text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-.back-btn:hover { color: var(–text); }
-.school-badge { background: linear-gradient(135deg, #1a1a3a, #0d2040); border: 1px solid rgba(108,99,255,0.3); color: #a0a0ff; padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+```
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(7,7,12,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border2); }
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+.nav-back { color: var(--muted2); text-decoration: none; font-size: 0.78rem; border: 1px solid var(--border); padding: 6px 16px; transition: all 0.3s; }
+.nav-back:hover { border-color: var(--accent); color: var(--accent); }
+.nav-badge { font-size: 0.62rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--essec); border: 1px solid var(--essec-border); background: var(--essec-bg); padding: 5px 14px; }
 
-.tabs-wrapper { padding: 24px 32px 0; border-bottom: 1px solid var(–border); }
-.tabs { display: flex; gap: 4px; max-width: 900px; margin: 0 auto; }
-.tab { padding: 11px 24px; border-radius: 8px 8px 0 0; background: transparent; border: none; color: var(–text-muted); cursor: pointer; font-family: ‘Sora’, sans-serif; font-size: 0.88rem; font-weight: 500; transition: all 0.2s; border-bottom: 2px solid transparent; }
-.tab:hover { color: var(–text); }
-.tab.active { color: var(–accent); border-bottom-color: var(–accent); background: rgba(108,99,255,0.08); }
+.main { max-width: 960px; margin: 0 auto; padding: 100px 24px 60px; }
 
-.content { max-width: 900px; margin: 0 auto; padding: 32px; }
-.panel { display: none; }
-.panel.active { display: block; }
+/* TABS */
+.tabs { display: flex; gap: 2px; background: var(--border2); margin-bottom: 0; }
+.tab { flex: 1; padding: 16px 20px; text-align: center; cursor: pointer; font-size: 0.82rem; font-weight: 500; background: var(--surface); color: var(--muted2); transition: all 0.3s; border-bottom: 3px solid transparent; }
+.tab:hover { color: var(--text); background: var(--surface2); }
+.tab.active { color: var(--essec); border-bottom-color: var(--essec); background: var(--surface2); }
+
+.tab-content { display: none; background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--essec); padding: 36px 40px; }
+.tab-content.active { display: block; }
 
 /* COURS */
-.cours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border2); }
 @media (max-width: 680px) { .cours-grid { grid-template-columns: 1fr; } }
-.cours-card { background: var(–surface); border: 1px solid var(–border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
-.cours-card:hover { border-color: var(–accent); transform: translateY(-2px); }
-.cours-card.open { border-color: rgba(108,99,255,0.4); }
-.cours-header { display: flex; align-items: center; gap: 14px; padding: 18px 20px; }
-.cours-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
-.cours-title { font-size: 0.92rem; font-weight: 600; }
-.cours-subtitle { font-size: 0.77rem; color: var(–text-muted); margin-top: 2px; }
-.chevron { margin-left: auto; color: var(–text-muted); transition: transform 0.2s; font-size: 0.8rem; }
+.cours-card { background: var(--surface2); cursor: pointer; transition: background 0.3s; }
+.cours-card:hover { background: var(--surface3); }
+.cours-header { display: flex; align-items: center; gap: 14px; padding: 20px 24px; }
+.cours-icon { width: 36px; height: 36px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; background: var(--essec-bg); border: 1px solid var(--essec-border); }
+.cours-title { font-size: 0.88rem; font-weight: 500; }
+.cours-subtitle { font-size: 0.72rem; color: var(--muted2); margin-top: 2px; }
+.chevron { margin-left: auto; color: var(--muted); transition: transform 0.2s; font-size: 0.75rem; }
 .cours-card.open .chevron { transform: rotate(180deg); }
-.cours-body { display: none; padding: 0 20px 20px; border-top: 1px solid var(–border); }
+.cours-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border2); }
 .cours-card.open .cours-body { display: block; }
-.cours-body h4 { font-size: 0.82rem; font-weight: 600; color: var(–accent2); margin: 14px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-.cours-body p, .cours-body li { font-size: 0.84rem; color: #c0c0d0; line-height: 1.65; }
-.cours-body ul { padding-left: 16px; }
+.cours-body h4 { font-size: 0.65rem; font-weight: 600; color: var(--essec); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 1.5px; }
+.cours-body p, .cours-body li { font-size: 0.82rem; color: var(--muted2); line-height: 1.7; }
+.cours-body ul { padding-left: 14px; }
 .cours-body li { margin-bottom: 5px; }
-.exemple-box { background: var(–surface2); border-left: 3px solid var(–accent); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 10px 0; font-size: 0.83rem; font-family: ‘DM Mono’, monospace; }
-.exemple-box .q { color: var(–text-muted); margin-bottom: 4px; }
-.exemple-box .r { color: var(–accent2); font-weight: 500; }
+.exemple-box { background: var(--surface); border-left: 2px solid var(--essec); padding: 12px 16px; margin: 10px 0; font-size: 0.8rem; }
+.exemple-box .q { color: var(--muted2); margin-bottom: 6px; }
+.exemple-box .r { color: var(--accent); font-weight: 500; }
 
-/* ENTRAÎNEMENT */
-.type-selector { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-.type-btn { padding: 8px 18px; border-radius: 20px; background: var(–surface); border: 1px solid var(–border); color: var(–text-muted); cursor: pointer; font-family: ‘Sora’, sans-serif; font-size: 0.82rem; font-weight: 500; transition: all 0.2s; }
-.type-btn:hover { border-color: var(–accent); color: var(–text); }
-.type-btn.active { background: var(–accent); border-color: var(–accent); color: #fff; }
-.score-bar { display: flex; align-items: center; gap: 16px; background: var(–surface); border: 1px solid var(–border); border-radius: 10px; padding: 14px 20px; margin-bottom: 24px; font-size: 0.85rem; }
-.score-num { font-weight: 700; font-size: 1.1rem; color: var(–accent2); font-family: ‘DM Mono’, monospace; }
-.score-label { color: var(–text-muted); }
-.q-card { background: var(–surface); border: 1px solid var(–border); border-radius: 14px; padding: 28px; margin-bottom: 20px; }
-.q-type-tag { display: inline-block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(–accent); background: rgba(108,99,255,0.12); padding: 3px 10px; border-radius: 4px; margin-bottom: 14px; }
-.q-text { font-size: 0.95rem; line-height: 1.65; margin-bottom: 20px; font-weight: 500; }
-.q-options { display: flex; flex-direction: column; gap: 10px; }
-.q-option { display: flex; align-items: flex-start; gap: 12px; padding: 13px 18px; background: var(–surface2); border: 1px solid var(–border); border-radius: 10px; cursor: pointer; transition: all 0.15s; font-size: 0.88rem; line-height: 1.5; text-align: left; width: 100%; color: var(–text); font-family: ‘Sora’, sans-serif; }
-.q-option:hover:not(.disabled) { border-color: var(–accent); background: rgba(108,99,255,0.08); }
-.q-option.correct { border-color: var(–correct); background: rgba(0,201,167,0.08); color: var(–correct); }
-.q-option.wrong { border-color: var(–wrong); background: rgba(255,101,132,0.08); color: var(–wrong); }
+/* TYPE SELECTOR */
+.type-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.type-btn { padding: 7px 16px; background: var(--surface2); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 500; transition: all 0.2s; }
+.type-btn:hover { border-color: var(--essec); color: var(--text); }
+.type-btn.active { background: var(--essec); border-color: var(--essec); color: #fff; }
+
+/* SCORE BAR */
+.score-bar { display: flex; align-items: center; gap: 16px; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 20px; }
+.score-num { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.6rem; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+.score-label { font-size: 0.78rem; color: var(--muted2); }
+
+/* QUESTION CARD */
+.q-card { background: var(--surface2); border: 1px solid var(--border); padding: 28px; margin-bottom: 16px; }
+.q-type-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--essec); border: 1px solid var(--essec-border); background: var(--essec-bg); padding: 3px 10px; margin-bottom: 14px; }
+.q-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px; font-weight: 500; }
+.q-options { display: flex; flex-direction: column; gap: 8px; }
+.q-option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border2); cursor: pointer; transition: all 0.15s; font-size: 0.85rem; line-height: 1.5; text-align: left; width: 100%; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; }
+.q-option:hover:not(.disabled) { border-color: var(--essec); background: var(--essec-bg); }
+.q-option.correct { border-color: var(--green); background: rgba(74,222,128,0.06); color: var(--green); }
+.q-option.wrong { border-color: var(--red); background: rgba(224,92,92,0.06); color: var(--red); }
 .q-option.disabled { cursor: default; }
-.opt-letter { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; font-family: ‘DM Mono’, monospace; }
-.q-feedback { margin-top: 16px; padding: 14px 18px; border-radius: 10px; font-size: 0.85rem; line-height: 1.6; display: none; }
-.q-feedback.correct { background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.25); color: #80ffe8; }
-.q-feedback.wrong { background: rgba(255,101,132,0.1); border: 1px solid rgba(255,101,132,0.25); color: #ffa8bb; }
-.next-btn { margin-top: 14px; padding: 10px 24px; border-radius: 8px; background: var(–accent); border: none; color: #fff; cursor: pointer; font-family: ‘Sora’, sans-serif; font-size: 0.85rem; font-weight: 600; transition: opacity 0.2s; display: none; }
+.opt-letter { width: 24px; height: 24px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; flex-shrink: 0; color: var(--muted2); }
+.q-feedback { margin-top: 14px; padding: 12px 16px; font-size: 0.82rem; line-height: 1.6; display: none; }
+.q-feedback.correct { background: rgba(74,222,128,0.06); border-left: 2px solid var(--green); color: #a0f0b0; }
+.q-feedback.wrong { background: rgba(224,92,92,0.06); border-left: 2px solid var(--red); color: #f0a0a0; }
+.next-btn { margin-top: 14px; padding: 10px 24px; background: var(--gradient); border: none; color: var(--bg); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; transition: opacity 0.2s; display: none; }
 .next-btn:hover { opacity: 0.88; }
-.no-more { text-align: center; padding: 48px 24px; color: var(–text-muted); font-size: 0.9rem; }
+.no-more { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; background: var(--surface2); border: 1px solid var(--border); }
 
 /* TEST CHRONO */
-.test-config { background: var(–surface); border: 1px solid var(–border); border-radius: 14px; padding: 28px; margin-bottom: 24px; }
-.test-config h3 { font-size: 1rem; font-weight: 600; margin-bottom: 20px; }
+.test-config { background: var(--surface2); border: 1px solid var(--border); padding: 28px 32px; margin-bottom: 24px; }
+.test-config h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
 .config-row { margin-bottom: 18px; }
-.config-label { font-size: 0.82rem; color: var(–text-muted); margin-bottom: 8px; font-weight: 500; }
+.config-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--essec); margin-bottom: 10px; }
 .config-options { display: flex; flex-wrap: wrap; gap: 8px; }
-.config-opt { padding: 7px 16px; border-radius: 8px; background: var(–surface2); border: 1px solid var(–border); color: var(–text-muted); cursor: pointer; font-family: ‘Sora’, sans-serif; font-size: 0.82rem; transition: all 0.15s; }
-.config-opt:hover { border-color: var(–accent); color: var(–text); }
-.config-opt.selected { background: var(–accent); border-color: var(–accent); color: #fff; }
-.start-btn { width: 100%; padding: 14px; border-radius: 10px; background: linear-gradient(135deg, var(–accent), #9c63ff); border: none; color: #fff; font-family: ‘Sora’, sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; margin-top: 8px; }
+.config-opt { padding: 7px 16px; background: var(--surface); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; transition: all 0.15s; }
+.config-opt:hover { border-color: var(--essec); color: var(--text); }
+.config-opt.selected { background: var(--essec); border-color: var(--essec); color: #fff; }
+.start-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #003b7a, #0055b3); border: none; color: #fff; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; margin-top: 8px; }
 .start-btn:hover { opacity: 0.9; }
-.timer-bar { display: flex; align-items: center; justify-content: space-between; background: var(–surface); border: 1px solid var(–border); border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; }
-.timer-display { font-family: ‘DM Mono’, monospace; font-size: 1.4rem; font-weight: 700; color: var(–accent2); }
-.timer-display.urgent { color: var(–wrong); }
-.test-progress { font-size: 0.83rem; color: var(–text-muted); }
-.results-panel { background: var(–surface); border: 1px solid var(–border); border-radius: 14px; padding: 36px; text-align: center; display: none; }
-.results-score { font-size: 3.5rem; font-weight: 700; font-family: ‘DM Mono’, monospace; background: linear-gradient(135deg, var(–accent), var(–accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 12px 0; }
-.results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
-.results-stat { background: var(–surface2); border: 1px solid var(–border); border-radius: 10px; padding: 14px; }
-.results-stat-num { font-size: 1.5rem; font-weight: 700; font-family: ‘DM Mono’, monospace; }
-.results-stat-label { font-size: 0.75rem; color: var(–text-muted); margin-top: 4px; }
-.retry-btn { margin-top: 20px; padding: 12px 32px; border-radius: 10px; background: var(–accent); border: none; color: #fff; font-family: ‘Sora’, sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
 
-.section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
-.section-sub { font-size: 0.85rem; color: var(–text-muted); margin-bottom: 24px; }
+.timer-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 16px; }
+.timer-display { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+.timer-display.urgent { background: none; -webkit-text-fill-color: var(--red); color: var(--red); }
+.timer-sub { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+.results-panel { background: var(--surface2); border: 1px solid var(--border); padding: 48px 40px; text-align: center; display: none; }
+.results-panel::before { content: ''; display: block; height: 2px; background: var(--gradient); margin: -48px -40px 40px; }
+.results-score { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 8px 0; }
+.results-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 24px 0; }
+.results-stat { background: var(--surface); padding: 20px; }
+.results-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; }
+.results-stat-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.results-verdict { font-size: 0.88rem; color: var(--text); line-height: 1.7; background: var(--surface); padding: 14px 18px; border-left: 2px solid var(--accent); margin: 20px 0; text-align: left; }
+.retry-btn { margin-top: 16px; padding: 12px 32px; background: var(--gradient); border: none; color: var(--bg); font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+.section-sub { font-size: 0.78rem; color: var(--muted2); margin-bottom: 28px; }
 .hidden { display: none !important; }
-</style>
 
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .main { padding: 80px 16px 40px; }
+  .tab-content { padding: 24px 20px; }
+  .tabs { flex-direction: column; gap: 1px; }
+}
+```
+
+  </style>
 </head>
 <body>
 
-<div class="header">
-  <a href="/dashboard" class="back-btn">← Tableau de bord</a>
-  <div class="logo">Prep<span>Oral</span></div>
-  <div class="school-badge">ESSEC</div>
-</div>
+<nav>
+  <a href="/" class="nav-logo">PrepOral</a>
+  <div class="nav-badge">ESSEC</div>
+  <a href="/dashboard" class="nav-back">← Mon espace</a>
+</nav>
 
-<div class="tabs-wrapper">
+<main class="main">
+
   <div class="tabs">
-    <button class="tab active" onclick="showTab('cours')">📚 Cours & Méthode</button>
-    <button class="tab" onclick="showTab('entrainement')">⚡ Entraînement</button>
-    <button class="tab" onclick="showTab('test')">⏱ Test Chrono</button>
+    <div class="tab active" onclick="showTab('cours',this)">📚 Cours & Méthode</div>
+    <div class="tab" onclick="showTab('entrainement',this)">⚡ Entraînement</div>
+    <div class="tab" onclick="showTab('test',this)">⏱ Test Chrono</div>
+    <div class="tab" onclick="showTab('oral',this)">🎙️ Entretien oral</div>
   </div>
-</div>
 
-<div class="content">
+  <!-- COURS -->
 
-<!-- ONGLET 1 : COURS -->
-
-<div id="panel-cours" class="panel active">
-  <div class="section-title">Cours & Méthode</div>
-  <div class="section-sub">Maîtrise les techniques pour chaque type d'épreuve de l'ESSEC</div>
-  <div class="cours-grid">
+  <div id="panel-cours" class="tab-content active">
+    <div class="section-title">Cours & Méthode</div>
+    <div class="section-sub">Techniques pour chaque type d'épreuve psychotechnique ESSEC</div>
+    <div class="cours-grid">
 
 ```
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(108,99,255,0.15);color:#6c63ff">🔢</div>
-    <div><div class="cours-title">Séries numériques</div><div class="cours-subtitle">Trouver la loi de la suite</div></div>
-    <div class="chevron">▼</div>
-  </div>
-  <div class="cours-body">
-    <h4>Types courants</h4>
-    <ul>
-      <li><strong>Suite arithmétique</strong> : raison constante (+3, −2…)</li>
-      <li><strong>Suite géométrique</strong> : on multiplie par un facteur fixe (×2, ×7…)</li>
-      <li><strong>Deux suites entrelacées</strong> : positions paires et impaires ont chacune leur loi</li>
-      <li><strong>Différences successives</strong> : les écarts forment eux-mêmes une suite</li>
-      <li><strong>Règles mixtes</strong> : ex. +2, ×3, +2, ×3…</li>
-    </ul>
-    <h4>Méthode</h4>
-    <ul>
-      <li>Calculer les différences consécutives en premier</li>
-      <li>Si pas de loi évidente, calculer les différences des différences</li>
-      <li>Tester la multiplication/division entre termes consécutifs</li>
-      <li>Séparer les rangs pairs et impairs si nécessaire</li>
-    </ul>
-    <div class="exemple-box">
-      <div class="q">Q : 48, 8, 35, 7, 24, ?</div>
-      <div class="r">Deux suites : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6</div>
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔢</div>
+      <div><div class="cours-title">Séries numériques</div><div class="cours-subtitle">Trouver la loi de la suite</div></div>
+      <div class="chevron">▼</div>
     </div>
-    <div class="exemple-box">
-      <div class="q">Q : 7 – 13 – 24 – 45 – ?</div>
-      <div class="r">Règle : ×2−1, ×2−2, ×2−3, ×2−4 → 45×2−4=86</div>
-    </div>
-  </div>
-</div>
-
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(0,201,167,0.15);color:#00c9a7">🔤</div>
-    <div><div class="cours-title">Séries de lettres</div><div class="cours-subtitle">Alphabet et positions</div></div>
-    <div class="chevron">▼</div>
-  </div>
-  <div class="cours-body">
-    <h4>Méthode</h4>
-    <ul>
-      <li>Convertir les lettres en numéros (A=1, B=2… Z=26)</li>
-      <li>Repérer la loi sur les numéros (+1, +2, sauts…)</li>
-      <li>Attention aux séries alternées (rang pair/impair)</li>
-      <li>Certains termes sont fixes, d'autres varient</li>
-      <li>Cas spécial : initiales de mots (Un=U, Deux=D, Trois=T…)</li>
-    </ul>
-    <div class="exemple-box">
-      <div class="q">Q : U-D-T-Q-C-S-S-H-?</div>
-      <div class="r">Initiales des chiffres Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit,Neuf → N</div>
-    </div>
-    <div class="exemple-box">
-      <div class="q">Q : A D H K O ?</div>
-      <div class="r">A=1,D=4,H=8,K=11,O=15 → +3,+4,+3,+4 → +4 → S=19</div>
+    <div class="cours-body">
+      <h4>Types courants</h4>
+      <ul>
+        <li><strong>Arithmétique</strong> : raison constante (+3, −2…)</li>
+        <li><strong>Géométrique</strong> : on multiplie par un facteur fixe (×2, ×7…)</li>
+        <li><strong>Deux suites entrelacées</strong> : positions paires et impaires ont chacune leur loi</li>
+        <li><strong>Différences croissantes</strong> : les écarts forment eux-mêmes une suite</li>
+        <li><strong>Règles mixtes</strong> : ex. +2, ×3, +2, ×3…</li>
+      </ul>
+      <h4>Méthode</h4>
+      <ul>
+        <li>Calculer les différences consécutives en premier</li>
+        <li>Si pas de loi : calculer les différences des différences</li>
+        <li>Séparer les rangs pairs et impairs si nécessaire</li>
+        <li>Tester ×2, ×3, ÷2 entre termes consécutifs</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : 48, 8, 35, 7, 24, ?</div>
+        <div class="r">Deux suites : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6</div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">Q : 7 – 13 – 24 – 45 – ?</div>
+        <div class="r">Règle : ×2−1, ×2−2, ×2−3, ×2−4 → 45×2−4 = 86</div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(255,165,77,0.15);color:#ffa94d">📐</div>
-    <div><div class="cours-title">Raisonnement quantitatif</div><div class="cours-subtitle">Formules et logique mathématique</div></div>
-    <div class="chevron">▼</div>
-  </div>
-  <div class="cours-body">
-    <h4>Pièges classiques</h4>
-    <ul>
-      <li><strong>Course</strong> : doubler le 2e → tu prends sa place → tu es 2e !</li>
-      <li><strong>Nénuphar</strong> : 2 nénuphars = déjà double au jour 0 → 99 jours (pas 50)</li>
-      <li><strong>Pots de peinture</strong> : 15 pots, 2 à la fois → 8 voyages (pas 7,5)</li>
-      <li><strong>Escargot</strong> : attention au dernier jour où il atteint le sommet</li>
-      <li><strong>Chaussettes</strong> : principe du pigeonhole (3 pour être sûr d'avoir une paire)</li>
-    </ul>
-    <div class="exemple-box">
-      <div class="q">Q : Nénuphar double chaque jour, couvre en 100 jours. Avec 2 nénuphars ?</div>
-      <div class="r">2 nénuphars = surface double dès le départ → il manque 1 doublement → 99 jours</div>
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔤</div>
+      <div><div class="cours-title">Séries de lettres</div><div class="cours-subtitle">Alphabet et positions</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Méthode</h4>
+      <ul>
+        <li>Convertir les lettres en numéros (A=1, B=2… Z=26)</li>
+        <li>Repérer la loi sur les numéros</li>
+        <li>Attention aux séries alternées et aux groupes fixes</li>
+        <li>Cas spécial : initiales de mots (Un=U, Deux=D, Trois=T…)</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : U-D-T-Q-C-S-S-H-?</div>
+        <div class="r">Initiales des chiffres en français → Neuf → N</div>
+      </div>
+      <div class="exemple-box">
+        <div class="q">Q : A D H K O ?</div>
+        <div class="r">A=1,D=4,H=8,K=11,O=15 → +3,+4,+3,+4 → +4 → S</div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(255,101,132,0.15);color:#ff6584">🧠</div>
-    <div><div class="cours-title">Raisonnement déductif</div><div class="cours-subtitle">Logique formelle et syllogismes</div></div>
-    <div class="chevron">▼</div>
-  </div>
-  <div class="cours-body">
-    <h4>Règles essentielles</h4>
-    <ul>
-      <li><strong>Contraposée</strong> : A→B ⟺ ¬B→¬A</li>
-      <li><strong>Négation "tous"</strong> : ¬(tous A sont B) = "il existe au moins un A qui n'est pas B"</li>
-      <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B</li>
-      <li><strong>Équivalence</strong> : chercher la formulation identique, pas similaire</li>
-    </ul>
-    <div class="exemple-box">
-      <div class="q">Q : "Si je ne trouve pas bleu, je ne peux pas dire rouge." Équivalent ?</div>
-      <div class="r">¬bleu→¬rouge contraposée → rouge→bleu → "Si je peux dire rouge, c'est que je trouve bleu"</div>
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">📐</div>
+      <div><div class="cours-title">Raisonnement quantitatif</div><div class="cours-subtitle">Formules et logique mathématique</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Pièges classiques</h4>
+      <ul>
+        <li><strong>Course</strong> : doubler le 2e → tu prends sa place → tu es 2e !</li>
+        <li><strong>Nénuphar</strong> : 2 nénuphars = déjà double → 99 jours (pas 50)</li>
+        <li><strong>Pots de peinture</strong> : 15 pots, 2 à la fois → 8 voyages</li>
+        <li><strong>Escargot</strong> : le dernier jour il atteint le sommet avant de redescendre</li>
+        <li><strong>Chaussettes</strong> : principe du pigeonhole → 3 pour avoir une paire</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : Nénuphar double/jour, 100 jours. Avec 2 nénuphars ?</div>
+        <div class="r">Surface déjà double → il manque 1 doublement → 99 jours</div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(108,99,255,0.15);color:#a0a0ff">📖</div>
-    <div><div class="cours-title">Synonymes & Vocabulaire</div><div class="cours-subtitle">Souligner le mot le plus proche</div></div>
-    <div class="chevron">▼</div>
-  </div>
-  <div class="cours-body">
-    <h4>Mots pièges fréquents à l'ESSEC</h4>
-    <ul>
-      <li>PROHIBER → interdire</li>
-      <li>DÉLECTATION → plaisir</li>
-      <li>COMMISÉRATION → compassion</li>
-      <li>ENTREGENT → diplomatie</li>
-      <li>LUBIE → caprice</li>
-      <li>RUBIGINEUX → rouillé</li>
-      <li>CONSOMPTION → dépérissement</li>
-      <li>INTERPOLER → intercaler</li>
-      <li>COMPLEXION → tempérament</li>
-      <li>SIMULER → feindre</li>
-    </ul>
-    <h4>Méthode</h4>
-    <ul>
-      <li>Éliminer les extrêmes sémantiques d'abord</li>
-      <li>Chercher l'étymologie latine/grecque en cas de doute</li>
-      <li>Ne pas choisir un synonyme approximatif si un exact est disponible</li>
-    </ul>
-  </div>
-</div>
-
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(0,201,167,0.15);color:#00c9a7">🔗</div>
-    <div><div class="cours-title">Analogies verbales</div><div class="cours-subtitle">Trouver le rapport entre deux mots</div></div>
-    <div class="chevron">▼</div>
-  </div>
-  <div class="cours-body">
-    <h4>Types de rapports</h4>
-    <ul>
-      <li><strong>Passionné/Objet</strong> : mélomane→musique, cinéphile→cinéma</li>
-      <li><strong>Outil/Usage</strong> : pinceau→peindre, microscope→observer</li>
-      <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
-      <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur, émetteur→récepteur</li>
-      <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
-      <li><strong>Intensificateur</strong> : torride→chaud, intense→fort</li>
-    </ul>
-    <h4>Méthode</h4>
-    <p>Formuler la relation en une phrase type "X fait/est/utilise Y" puis trouver la paire qui respecte le MÊME rapport.</p>
-  </div>
-</div>
-
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(255,165,77,0.15);color:#ffa94d">🔐</div>
-    <div><div class="cours-title">Codes & Chiffrements</div><div class="cours-subtitle">Décoder une correspondance lettre-chiffre</div></div>
-    <div class="chevron">▼</div>
-  </div>
-  <div class="cours-body">
-    <h4>Méthode</h4>
-    <ul>
-      <li>Identifier les lettres communes entre les mots donnés</li>
-      <li>Déduire les valeurs par comparaison (système d'équations)</li>
-      <li>Vérifier sur tous les mots exemples avant de répondre</li>
-      <li>Tester : position normale A=1, position inversée A=26, décalage +k</li>
-    </ul>
-    <div class="exemple-box">
-      <div class="q">Q : TOISE=67851, GOMME=47221, PIEGE=38141. TEMPO=?</div>
-      <div class="r">T=6, E=1, O=7, I=8, S=5, G=4, M=2, P=3. TEMPO→6,1,2,3,7 → 61237</div>
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🧠</div>
+      <div><div class="cours-title">Raisonnement déductif</div><div class="cours-subtitle">Logique formelle et syllogismes</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Règles essentielles</h4>
+      <ul>
+        <li><strong>Contraposée</strong> : A→B ⟺ ¬B→¬A</li>
+        <li><strong>Négation "tous"</strong> : ¬(tous A sont B) = il existe au moins un A qui n'est pas B</li>
+        <li><strong>Syllogisme</strong> : Tous A sont B + X est A → X est B</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : "Si pas bleu, pas rouge." Équivalent ?</div>
+        <div class="r">¬bleu→¬rouge contraposée → rouge→bleu → "Si je dis rouge, c'est que j'ai trouvé bleu"</div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="cours-card" onclick="toggleCours(this)">
-  <div class="cours-header">
-    <div class="cours-icon" style="background:rgba(255,101,132,0.15);color:#ff6584">⏱</div>
-    <div><div class="cours-title">Gestion du temps</div><div class="cours-subtitle">Stratégie le jour J</div></div>
-    <div class="chevron">▼</div>
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">📖</div>
+      <div><div class="cours-title">Synonymes & Vocabulaire</div><div class="cours-subtitle">Mots rares et paronymes</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Mots pièges fréquents ESSEC</h4>
+      <ul>
+        <li>PROHIBER → interdire</li>
+        <li>DÉLECTATION → plaisir</li>
+        <li>COMMISÉRATION → compassion</li>
+        <li>ENTREGENT → diplomatie</li>
+        <li>LUBIE → caprice</li>
+        <li>RUBIGINEUX → rouillé</li>
+        <li>CONSOMPTION → dépérissement</li>
+        <li>INTERPOLER → intercaler</li>
+        <li>COMPLEXION → tempérament</li>
+        <li>SIMULER → feindre</li>
+      </ul>
+      <h4>Méthode</h4>
+      <ul>
+        <li>Éliminer les extrêmes sémantiques d'abord</li>
+        <li>Chercher l'étymologie latin/grec en cas de doute</li>
+      </ul>
+    </div>
   </div>
-  <div class="cours-body">
-    <h4>Règles d'or</h4>
-    <ul>
-      <li>Ne jamais bloquer plus de 90s sur une question : passer</li>
-      <li>Reporter les réponses sur le livret au fur et à mesure</li>
-      <li>Amener une montre (les surveillants ne donnent pas le temps)</li>
-      <li>Éviter les réponses au hasard : pénalité de −0.25 à −1</li>
-      <li>Ne pas répondre (blanc) = 0 point : souvent préférable au hasard</li>
-    </ul>
-    <h4>Ce qu'il faut savoir</h4>
-    <p>Aucun candidat ne finit tous les tests dans le temps imparti. C'est prévu et normal. Les scores relatifs comptent, pas les absolus.</p>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔗</div>
+      <div><div class="cours-title">Analogies verbales</div><div class="cours-subtitle">Le rapport entre deux mots</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Types de rapports</h4>
+      <ul>
+        <li><strong>Passionné/Objet</strong> : mélomane→musique</li>
+        <li><strong>Outil/Usage</strong> : microscope→observer</li>
+        <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
+        <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur</li>
+        <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
+      </ul>
+      <h4>Méthode</h4>
+      <p>Formuler la relation en une phrase type "X fait/est/utilise Y" puis trouver la paire qui respecte le MÊME rapport.</p>
+    </div>
   </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">🔐</div>
+      <div><div class="cours-title">Codes & Chiffrements</div><div class="cours-subtitle">Décoder une correspondance</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Méthode</h4>
+      <ul>
+        <li>Identifier les lettres communes entre les mots donnés</li>
+        <li>Déduire les valeurs par comparaison</li>
+        <li>Tester : position normale A=1, inversée A=26, décalage +k</li>
+        <li>Vérifier sur tous les exemples avant de répondre</li>
+      </ul>
+      <div class="exemple-box">
+        <div class="q">Q : TOISE=67851, GOMME=47221 → TEMPO=?</div>
+        <div class="r">T=6,E=1,M=2,P=3,O=7 → TEMPO = 61237</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cours-card" onclick="toggleCours(this)">
+    <div class="cours-header">
+      <div class="cours-icon">⏱</div>
+      <div><div class="cours-title">Gestion du temps</div><div class="cours-subtitle">Stratégie le jour J</div></div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="cours-body">
+      <h4>Règles d'or</h4>
+      <ul>
+        <li>Ne jamais bloquer plus de 90s sur une question : passer</li>
+        <li>Reporter les réponses sur le livret au fur et à mesure</li>
+        <li>Amener une montre — les surveillants ne donnent pas le temps</li>
+        <li>Éviter les réponses au hasard : pénalité de −0.25 à −1</li>
+        <li>Ne pas répondre (blanc) = 0 point — souvent préférable au hasard</li>
+      </ul>
+      <p style="margin-top:10px;">Aucun candidat ne finit tous les tests dans le temps imparti. C'est prévu.</p>
+    </div>
+  </div>
+
 </div>
 ```
 
   </div>
+
+  <!-- ENTRAÎNEMENT -->
+
+  <div id="panel-entrainement" class="tab-content">
+    <div class="section-title">Entraînement par thème</div>
+    <div class="section-sub">Clique sur une réponse pour voir l'explication immédiatement</div>
+
+```
+<div class="type-selector">
+  <button class="type-btn active" onclick="setType('all',this)">Tout mélanger</button>
+  <button class="type-btn" onclick="setType('num',this)">Séries numériques</button>
+  <button class="type-btn" onclick="setType('lettres',this)">Séries de lettres</button>
+  <button class="type-btn" onclick="setType('quant',this)">Quantitatif</button>
+  <button class="type-btn" onclick="setType('deductif',this)">Déductif</button>
+  <button class="type-btn" onclick="setType('vocab',this)">Vocabulaire</button>
+  <button class="type-btn" onclick="setType('analogie',this)">Analogies</button>
+  <button class="type-btn" onclick="setType('code',this)">Codes</button>
 </div>
 
-<!-- ONGLET 2 : ENTRAÎNEMENT -->
-
-<div id="panel-entrainement" class="panel">
-  <div class="section-title">Entraînement par thème</div>
-  <div class="section-sub">Clique sur une réponse pour voir l'explication immédiatement</div>
-
-  <div class="type-selector">
-    <button class="type-btn active" onclick="setType('all',this)">Tout mélanger</button>
-    <button class="type-btn" onclick="setType('num',this)">Séries numériques</button>
-    <button class="type-btn" onclick="setType('lettres',this)">Séries de lettres</button>
-    <button class="type-btn" onclick="setType('quant',this)">Raisonnement quantitatif</button>
-    <button class="type-btn" onclick="setType('deductif',this)">Raisonnement déductif</button>
-    <button class="type-btn" onclick="setType('vocab',this)">Synonymes / Vocabulaire</button>
-    <button class="type-btn" onclick="setType('analogie',this)">Analogies</button>
-    <button class="type-btn" onclick="setType('code',this)">Codes & Séquences</button>
-  </div>
-
-  <div class="score-bar">
-    <div><span class="score-num" id="score-display">0/0</span></div>
+<div class="score-bar">
+  <div>
+    <div class="score-num" id="score-display">0/0</div>
     <div class="score-label">réponses correctes</div>
-    <div style="margin-left:auto;display:flex;gap:16px;">
-      <div style="font-size:0.82rem;color:var(--correct)">✓ <span id="correct-count">0</span></div>
-      <div style="font-size:0.82rem;color:var(--wrong)">✗ <span id="wrong-count">0</span></div>
-    </div>
   </div>
-  <div id="q-container"></div>
+  <div style="margin-left:auto;display:flex;gap:20px;">
+    <div style="font-size:0.82rem;color:var(--green)">✓ <span id="correct-count">0</span></div>
+    <div style="font-size:0.82rem;color:var(--red)">✗ <span id="wrong-count">0</span></div>
+  </div>
 </div>
+<div id="q-container"></div>
+```
 
-<!-- ONGLET 3 : TEST CHRONO -->
-
-<div id="panel-test" class="panel">
-  <div class="section-title">Mode Test Chrono</div>
-  <div class="section-sub">Conditions réelles de l'ESSEC : timer, points négatifs</div>
-
-  <div id="test-config-panel">
-    <div class="test-config">
-      <h3>⚙️ Configuration du test</h3>
-      <div class="config-row">
-        <div class="config-label">Durée</div>
-        <div class="config-options">
-          <div class="config-opt selected" onclick="selectConfig(this,'duration','5')">5 min</div>
-          <div class="config-opt" onclick="selectConfig(this,'duration','10')">10 min</div>
-          <div class="config-opt" onclick="selectConfig(this,'duration','15')">15 min ← ESSEC</div>
-          <div class="config-opt" onclick="selectConfig(this,'duration','20')">20 min</div>
-        </div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Type de questions</div>
-        <div class="config-options">
-          <div class="config-opt selected" onclick="selectConfig(this,'qtype','all')">Tout mélanger</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','num')">Séries numériques</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','quant')">Raisonnement quantitatif</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','deductif')">Raisonnement déductif</div>
-          <div class="config-opt" onclick="selectConfig(this,'qtype','vocab')">Synonymes / Vocabulaire</div>
-        </div>
-      </div>
-      <div class="config-row">
-        <div class="config-label">Pénalité pour mauvaise réponse</div>
-        <div class="config-options">
-          <div class="config-opt selected" onclick="selectConfig(this,'penalty','0.25')">−¼ point</div>
-          <div class="config-opt" onclick="selectConfig(this,'penalty','0.5')">−½ point</div>
-          <div class="config-opt" onclick="selectConfig(this,'penalty','1')">−1 point</div>
-          <div class="config-opt" onclick="selectConfig(this,'penalty','0')">Sans pénalité</div>
-        </div>
-      </div>
-      <button class="start-btn" onclick="startTest()">🚀 Lancer le test</button>
-    </div>
   </div>
 
-  <div id="test-running-panel" class="hidden">
-    <div class="timer-bar">
-      <div>
-        <div id="timer-display" class="timer-display">05:00</div>
-        <div class="test-progress"><span id="test-q-num">0</span> / <span id="test-q-total">0</span></div>
-      </div>
-      <div style="font-size:0.85rem;">Score : <span id="test-score-live" style="font-weight:700;font-family:'DM Mono',monospace;">0</span> pts</div>
-      <button onclick="stopTest()" style="background:none;border:1px solid var(--border);color:var(--text-muted);padding:7px 14px;border-radius:8px;cursor:pointer;font-family:'Sora',sans-serif;font-size:0.8rem;">Arrêter</button>
-    </div>
-    <div id="test-q-container"></div>
-  </div>
+  <!-- TEST CHRONO -->
 
-  <div id="results-panel" class="results-panel">
-    <div style="font-size:0.85rem;color:var(--text-muted)">Score final</div>
-    <div class="results-score" id="results-score">0</div>
-    <div style="font-size:0.85rem;color:var(--text-muted)">points sur <span id="results-max">0</span> possibles</div>
-    <div id="results-verdict" style="margin:20px 0;font-size:1.05rem;font-weight:600;padding:14px 24px;border-radius:10px;"></div>
-    <div class="results-grid">
-      <div class="results-stat"><div class="results-stat-num" id="res-correct" style="color:var(--correct)">0</div><div class="results-stat-label">Bonnes réponses</div></div>
-      <div class="results-stat"><div class="results-stat-num" id="res-wrong" style="color:var(--wrong)">0</div><div class="results-stat-label">Mauvaises réponses</div></div>
-      <div class="results-stat"><div class="results-stat-num" id="res-skip" style="color:var(--text-muted)">0</div><div class="results-stat-label">Sans réponse</div></div>
+  <div id="panel-test" class="tab-content">
+    <div class="section-title">Mode Test Chrono</div>
+    <div class="section-sub">Conditions réelles de l'ESSEC — timer, points négatifs</div>
+
+```
+<div id="test-config-panel">
+  <div class="test-config">
+    <h3>Configuration du test</h3>
+    <div class="config-row">
+      <div class="config-label">Durée</div>
+      <div class="config-options">
+        <div class="config-opt selected" onclick="selectConfig(this,'duration','5')">5 min</div>
+        <div class="config-opt" onclick="selectConfig(this,'duration','10')">10 min</div>
+        <div class="config-opt" onclick="selectConfig(this,'duration','15')">15 min ← ESSEC</div>
+        <div class="config-opt" onclick="selectConfig(this,'duration','20')">20 min</div>
+      </div>
     </div>
-    <button class="retry-btn" onclick="resetTest()">🔁 Nouveau test</button>
+    <div class="config-row">
+      <div class="config-label">Type de questions</div>
+      <div class="config-options">
+        <div class="config-opt selected" onclick="selectConfig(this,'qtype','all')">Tout mélanger</div>
+        <div class="config-opt" onclick="selectConfig(this,'qtype','num')">Séries numériques</div>
+        <div class="config-opt" onclick="selectConfig(this,'qtype','quant')">Quantitatif</div>
+        <div class="config-opt" onclick="selectConfig(this,'qtype','deductif')">Déductif</div>
+        <div class="config-opt" onclick="selectConfig(this,'qtype','vocab')">Vocabulaire</div>
+      </div>
+    </div>
+    <div class="config-row">
+      <div class="config-label">Pénalité pour mauvaise réponse</div>
+      <div class="config-options">
+        <div class="config-opt selected" onclick="selectConfig(this,'penalty','0.25')">−¼ point</div>
+        <div class="config-opt" onclick="selectConfig(this,'penalty','0.5')">−½ point</div>
+        <div class="config-opt" onclick="selectConfig(this,'penalty','1')">−1 point</div>
+        <div class="config-opt" onclick="selectConfig(this,'penalty','0')">Sans pénalité</div>
+      </div>
+    </div>
+    <button class="start-btn" onclick="startTest()">🚀 Lancer le test</button>
   </div>
 </div>
 
-</div><!-- /content -->
+<div id="test-running-panel" class="hidden">
+  <div class="timer-bar">
+    <div>
+      <div id="timer-display" class="timer-display">05:00</div>
+      <div class="timer-sub"><span id="test-q-num">0</span> / <span id="test-q-total">0</span> questions</div>
+    </div>
+    <div style="font-size:0.85rem;color:var(--muted2);">Score : <span id="test-score-live" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span> pts</div>
+    <button onclick="stopTest()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 16px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.78rem;">Arrêter</button>
+  </div>
+  <div id="test-q-container"></div>
+</div>
+
+<div id="results-panel" class="results-panel">
+  <div style="font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Score final</div>
+  <div class="results-score" id="results-score">0</div>
+  <div style="font-size:0.78rem;color:var(--muted2);">points sur <span id="results-max">0</span> possibles</div>
+  <div class="results-verdict" id="results-verdict"></div>
+  <div class="results-grid">
+    <div class="results-stat"><div class="results-stat-num" id="res-correct" style="color:var(--green)">0</div><div class="results-stat-label">Bonnes réponses</div></div>
+    <div class="results-stat"><div class="results-stat-num" id="res-wrong" style="color:var(--red)">0</div><div class="results-stat-label">Mauvaises réponses</div></div>
+    <div class="results-stat"><div class="results-stat-num" id="res-skip" style="color:var(--muted)">0</div><div class="results-stat-label">Sans réponse</div></div>
+  </div>
+  <button class="retry-btn" onclick="resetTest()">🔁 Nouveau test</button>
+</div>
+```
+
+  </div>
+
+  <!-- ENTRETIEN ORAL -->
+
+  <div id="panel-oral" class="tab-content">
+    <div class="section-title">Entretien oral ESSEC</div>
+    <div class="section-sub">Simulation avec un jury IA — format réel ESSEC</div>
+
+```
+<div style="background:var(--surface2);border:1px solid var(--border);padding:24px 28px;margin-bottom:24px;border-left:2px solid var(--essec);">
+  <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--essec);font-weight:600;margin-bottom:10px;">Avant de commencer</div>
+  <ul style="font-size:0.82rem;color:var(--muted2);line-height:1.8;padding-left:14px;">
+    <li>Autorisez l'accès au microphone quand le navigateur le demande</li>
+    <li>Placez-vous dans un endroit calme, comme le jour J</li>
+    <li>L'entretien dure environ 20 minutes — ne l'interrompez pas</li>
+    <li>Un feedback détaillé vous sera envoyé à la fin</li>
+  </ul>
+</div>
+
+<div style="background:var(--surface2);border:1px solid var(--border);padding:40px 28px;text-align:center;margin-bottom:24px;">
+  <div style="font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">Jury ESSEC — Intelligence artificielle</div>
+  <elevenlabs-convai agent-id="agent_6201kqyj4vwkerkt0faxgk2zn3ed"></elevenlabs-convai>
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+  <div style="margin-top:20px;font-size:0.75rem;color:var(--muted);line-height:1.6;">Le jury va vous accueillir et guider l'entretien.<br>Parlez naturellement, comme vous le feriez face à un vrai jury.</div>
+</div>
+```
+
+  </div>
+
+</main>
 
 <script>
 const QUESTIONS = [
@@ -458,7 +498,7 @@ const QUESTIONS = [
   {type:'num',q:'Quelle est la suite logique ? 4, 6, 9, 13, 18, …',opts:['15','19','21','24'],ans:3,exp:'Différences : 2,3,4,5 → augmentent de 1. Prochaine : +6 → 18+6=24.'},
   {type:'num',q:'Quelle est la suite logique ? 81, 1, 75, 3, 69, 5, …',opts:['61','76','63','65'],ans:2,exp:'Deux suites : 81,75,69 (−6) et 1,3,5 (+2). Terme suivant : 69−6=63.'},
   {type:'num',q:'Suite logique : 7 – 13 – 24 – 45 – ?',opts:['55','72','86','90'],ans:2,exp:'Règle : chaque terme = terme précédent × 2 − k : 7×2−1=13, 13×2−2=24, 24×2−3=45, 45×2−4=86.'},
-  {type:'num',q:'Suite logique : 2 – 3 – 8 – ?',opts:['12','37','48','63'],ans:3,exp:'Règle : 2×3+2=8, 3×7+... L'officiel est d) 63.'},
+  {type:'num',q:'Suite logique : 2 – 3 – 8 – ?',opts:['12','37','48','63'],ans:3,exp:'Règle : 2×3+2=8, 3×7+... L\'officiel est d) 63.'},
   {type:'num',q:'Complétez : 12 – 16 – 13 – ? – 14 – 18 – 15',opts:['11','12','13','17'],ans:3,exp:'Deux suites entrelacées : 12,13,14 (+1) et 16,17,18 (+1). La valeur manquante est 17.'},
   {type:'num',q:'Quel est le nombre manquant ? 56,63 – 36,65 – 49,86 – 68,?',opts:['59','68','86','94'],ans:3,exp:'68 inversé=86, 86+8=94. Réponse : d) 94.'},
   {type:'num',q:'Suite logique : AC2 – EG4 – IK8 – MO16 – ?',opts:['PR32','QS32','PR64','QS64'],ans:1,exp:'Lettres : saut de 2 (A→C→E→G→I→K→M→O→Q→S). Nombre : ×2. Réponse : QS32.'},
@@ -469,7 +509,7 @@ const QUESTIONS = [
   // SÉRIES DE LETTRES (15 questions)
   {type:'lettres',q:'Quelle lettre vient à la place du ? : U-D-T-Q-C-S-S-H-?',opts:['D','N','O','T'],ans:1,exp:'Initiales des chiffres : Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit,Neuf → N.'},
   {type:'lettres',q:'Complétez : B C D Z – B C D Y – B C D ?',opts:['X','W','V','U'],ans:0,exp:'Le groupe BCD est fixe. La 4e lettre descend : Z,Y,X.'},
-  {type:'lettres',q:'Quelle lettre remplace ? : 108 C / 648 S / 325 T / 214 ?',opts:['A','D','X','Z'],ans:1,exp:'Nombre de lettres du chiffre en français : cent-huit=7? Réponse officielle : b) D.'},
+  {type:'lettres',q:'Quelle lettre remplace ? : 108 C / 648 S / 325 T / 214 ?',opts:['A','D','X','Z'],ans:1,exp:'Nombre de lettres du chiffre en français : cent-huit=7? Reponse officielle : b) D.'},
   {type:'lettres',q:'Complétez : DIKA – EKNE – FMQI – ?',opts:['GHUY','GOAQ','GOTM','GRIP'],ans:2,exp:'Chaque lettre avance : D→E→F→G (+1), I→K→M→O (+2), K→N→Q→T (+3), A→E→I→M (+4). Réponse : GOTM.'},
   {type:'lettres',q:'Quelle lettre complète ? : A D H K O ?',opts:['R','S','T','Q'],ans:1,exp:'A=1,D=4,H=8,K=11,O=15 → différences : 3,4,3,4 → prochaine +4 : O+4=S.'},
   {type:'lettres',q:'Complétez : M V N W O X P Y Q ?',opts:['R','Z','S','T'],ans:1,exp:'Deux suites alternées : M,N,O,P,Q (+1) et V,W,X,Y,Z (+1). Réponse : Z.'},
@@ -503,7 +543,7 @@ const QUESTIONS = [
   {type:'quant',q:'Huit cent cinquante trois milliards deux millions huit cent quatre-vingt-quinze mille trois cent quatre-vingt-dix-huit en chiffres ?',opts:['853002895398','853002985398','853028950398','853200895398'],ans:0,exp:'853 milliards + 2 millions + 895 000 + 398 = 853 002 895 398.'},
   {type:'quant',q:'Pour le dernier match, 2742 billets vendus. Le dernier billet porte le n°7855. Le premier billet porte le n°…',opts:['5113','5114','10597','10598'],ans:1,exp:'7855 − 2742 + 1 = 5114.'},
   {type:'quant',q:'Dans une course, vous avez 5 places d\'avance sur l\'avant-dernier et 3 places de retard sur le 2ème. Combien y a-t-il de coureurs ?',opts:['9','10','11','12'],ans:1,exp:'Votre position = 2+3=5e. Avant-dernier = 5+5=10e. Avec le dernier : 10+1=11? Réponse : 10 coureurs (l\'avant-dernier est 9e et il y a 10 au total).'},
-  {type:'quant',q:'Vincent a RDV chaque jour à 14h. Lundi : reçu 14h30. Mardi : 15h20. Mercredi : 16h30. Jeudi à quelle heure ?',opts:['17h','18h','19h30','20h10'],ans:0,exp:'Retards : 30min, 80min, 90min... La progression n\'est pas régulière. La réponse officielle est a) 17h.'},
+  {type:'quant',q:'Vincent a RDV chaque jour à 14h. Lundi : reçu 14h30. Mardi : 15h20. Mercredi : 16h30. Jeudi à quelle heure ?',opts:['17h','18h','19h30','20h10'],ans:0,exp:'Retards : 30min, 80min, 90min... La progression n\'est pas régulière. La reponse officielle est a) 17h.'},
 
   // RAISONNEMENT DÉDUCTIF (15 questions)
   {type:'deductif',q:'"Tous les curieux sont avides. Aucun gourmand n\'échappe aux sarcasmes. Certains gourmands sont curieux." Quelle phrase contredit ces affirmations ?',opts:['Certains curieux sont gourmands','Certains êtres avides échappent aux sarcasmes','Certains gourmands sont avides','Tous les avides échappent aux sarcasmes'],ans:3,exp:'Certains gourmands (curieux) sont avides et subissent des sarcasmes. "Tous les avides échappent aux sarcasmes" contredit directement cela.'},
@@ -514,10 +554,10 @@ const QUESTIONS = [
   {type:'deductif',q:'"Si je ne trouve pas bleu, je ne peux pas dire rouge." Quel énoncé est équivalent ?',opts:['Si je ne trouve pas bleu, je peux dire rouge','Si je ne peux pas dire rouge, c\'est que je trouve bleu','Si je peux dire rouge, c\'est que je trouve bleu','Si je trouve bleu, je ne peux pas dire rouge'],ans:2,exp:'¬bleu→¬rouge est équivalent à sa contraposée rouge→bleu. Réponse : c).'},
   {type:'deductif',q:'Dans un château, 4 coffres. Coffre 1: "il est ici". Coffre 2: "il est dans le 3". Coffre 3: "il est dans le 1 ou 2". Coffre 4: "il n\'est pas là". Une seule inscription fausse. Où est l\'objet ?',opts:['Coffre 1','Coffre 2','Coffre 3','Coffre 4'],ans:2,exp:'Si objet en 3 : C1 faux, C2 faux → 2 fausses. Si objet en coffre 3 : C1 faux, C2 faux... Testons coffre 3 : C3 dit "coffre 1 ou 2" → faux, C2 dit "coffre 3" → vrai, C1 dit "ici" → faux, C4 "pas là" → vrai. 2 fausses. Testons coffre 4 : C4 faux, C1 faux → 2 fausses. Coffre 1 : C1 vrai, C2 faux, C3 faux, C4 vrai → 2 fausses. En fait si l\'objet est en coffre 3, C2=vrai, C3="coffre 1 ou 2"=faux, C1="ici"=faux, C4="pas là"=vrai. 2 fausses non. Officiel : c) 3.'},
   {type:'deductif',q:'Cinq livres sur une étagère. Orange entre gris et rose (3 qui se suivent). Doré n\'est pas 1er. Rose n\'est pas dernier. 2 volumes entre marron et rose. Doré ne suit pas immédiatement le marron. Ordre ?',opts:['Gris–orange–rose–marron–doré','Gris–rose–orange–doré–marron','Marron–gris–orange–rose–doré','Marron–orange–gris–doré–rose'],ans:2,exp:'Rose en 4e (2 volumes entre marron en 1e et rose). Groupe gris-orange-rose → positions 2,3,4. Doré en 5e. Réponse : Marron–gris–orange–rose–doré.'},
-  {type:'deductif',q:'ANTENNE – NENUPHAR – X – CIERGE. Quelle est la logique de la suite ?',opts:['AUTARCIE','PHARAON','PHARMACIE','PHARMACIEN'],ans:1,exp:'Le début du mot suivant = fin du précédent. ANTENNE→NE→NENUPHAR, NENUPHAR→PHAR→PHARAON, PHARAON→AON? CIERGE commence par C... Réponse officielle : b) PHARAON.'},
+  {type:'deductif',q:'ANTENNE – NENUPHAR – X – CIERGE. Quelle est la logique de la suite ?',opts:['AUTARCIE','PHARAON','PHARMACIE','PHARMACIEN'],ans:1,exp:'Le début du mot suivant = fin du précédent. ANTENNE→NE→NENUPHAR, NENUPHAR→PHAR→PHARAON, PHARAON→AON? CIERGE commence par C... Reponse officielle : b) PHARAON.'},
   {type:'deductif',q:'Jean est le grand-père maternel de mon oncle paternel Jacques. Qui suis-je ?',opts:['L\'arrière-petit-fils de Jean','Le petit-fils de Jean','Le petit-neveu de Jean','L\'arrière-petit-cousin de Jean'],ans:0,exp:'Jean=grand-père de Jacques. Mon père=frère de Jacques. Jean=grand-père de mon père. Donc je suis arrière-petit-fils de Jean.'},
   {type:'deductif',q:'Parmi les propositions, laquelle remplace le ? : Aspirine/parisien – Praticien/anticiper – Trésors/ressort – ?',opts:['Digue/tiède','Liberté/atelier','Tentation/alimenter','Vanité/native'],ans:3,exp:'Chaque paire : le second mot est une anagramme du premier. VANITE → NATIVE. Réponse : d).'},
-  {type:'deductif',q:'Fleuri(9) – Loyal(12) – Mariage(5) – ? Quelle est la logique ?',opts:['Parier14','Rond7','Sérum12','Vu21'],ans:1,exp:'Nombre de lettres × 3 − consonnes? Fleuri:6 lettres, 9=6+3; Loyal:5 lettres, 12=5+7? Rond:4 lettres, 7=4+3. Réponse officielle: b) Rond7.'},
+  {type:'deductif',q:'Fleuri(9) – Loyal(12) – Mariage(5) – ? Quelle est la logique ?',opts:['Parier14','Rond7','Sérum12','Vu21'],ans:1,exp:'Nombre de lettres × 3 − consonnes? Fleuri:6 lettres, 9=6+3; Loyal:5 lettres, 12=5+7? Rond:4 lettres, 7=4+3. Reponse officielle: b) Rond7.'},
   {type:'deductif',q:'"Si rouge, alors carré. Si carré, alors grand. Pierre est rouge." Que peut-on conclure ?',opts:['Pierre est carré','Pierre est grand','Pierre est carré et grand','Rien de certain'],ans:2,exp:'Rouge→carré→grand. Pierre est rouge → carré → grand. Les deux sont vrais.'},
   {type:'deductif',q:'Anne fait plus de km que Kim. Kim fait autant ou moins que Anne. Fabrice fait plus que Anne. Lequel fait le moins ?',opts:['Anne','Fabrice','Kim','On ne peut pas conclure'],ans:2,exp:'Fabrice > Anne > Kim (ou Anne ≥ Kim). Kim fait le moins.'},
   {type:'deductif',q:'Parmi les propositions, laquelle remplace (X) ? Vingt(4) – Douze(2) – Quinze(3) – Seize(X)',opts:['1','2','3','4'],ans:1,exp:'Nombre de lettres / 2 = résultat (arrondi) : Vingt=5/2≈2, Douze=5/2≈2... Non. Nombre/5 : 20/5=4, 12/6=2, 15/5=3, 16/8=2. Réponse : b) 2.'},
@@ -567,210 +607,147 @@ const QUESTIONS = [
   {type:'code',q:'24(9) – 33(10) – 27(15) – 35(?). Quel nombre remplace le X ?',opts:['8','16','20','25'],ans:2,exp:'Somme des chiffres + ? : 2+4=6, 9−6=3 ; 3+3=6, 10−6=4 ; 2+7=9, 15−9=6 ; 3+5=8, X−8=12 → X=20. Réponse : 20.'},
   {type:'code',q:'Aspirine/parisien – Praticien/anticiper – Trésors/ressort – ?',opts:['Digue/tiède','Liberté/atelier','Tentation/alimenter','Vanité/native'],ans:3,exp:'Chaque second mot est une anagramme de syllabes du premier. VANITE → NATIVE. Réponse : d).'},
   {type:'code',q:'Fleuri(9) – Loyal(12) – Mariage(5) – ?',opts:['Parier14','Rond7','Sérum12','Vu21'],ans:1,exp:'Nombre de lettres × consonne... Fleuri=6l, 9? Rond=4l, 7? Règle : lettres+consonnes : Fleuri 3 cons+6=9, Loyal 2 cons+?=12? Officiel : Rond7.'},
-  {type:'code',q:'Si ORME=2-5-26-18, TABLE=7-14-15-25-18, OUBLIER=2-8-15-25-22-18-5, alors BRAMER=?',opts:['2-17-15-7-21-8','9-7-11-3-23-19','12-17-8-23-1-15','15-5-14-26-18-5'],ans:3,exp:'Réponse officielle des PDFs : d) 15-5-14-26-18-5.'},
+  {type:'code',q:'Si ORME=2-5-26-18, TABLE=7-14-15-25-18, OUBLIER=2-8-15-25-22-18-5, alors BRAMER=?',opts:['2-17-15-7-21-8','9-7-11-3-23-19','12-17-8-23-1-15','15-5-14-26-18-5'],ans:3,exp:'Reponse officielle des PDFs : d) 15-5-14-26-18-5.'},
   {type:'code',q:'Complétez la suite codée : ANTENNE – NENUPHAR – PHARMACIE – CIERGE (règle de liaison ?)',opts:['Les 2 dernières lettres forment le début du mot suivant','Le mot suivant est une anagramme','Chaque mot a une lettre de plus','Les voyelles du 1er forment le 2e'],ans:0,exp:'NE → NÉ-NUPHAR, PHAR → PHARMACIE commence par PHAR... Règle : fins de mots → début du mot suivant.'},
   {type:'code',q:'Parmi les paires, laquelle suit la même règle ? (Chaque second mot est une anagramme du premier)',opts:['chien/niche','table/place','maison/saison','école/coule'],ans:0,exp:'CHIEN → NICHE est une anagramme parfaite. C\'est la seule paire qui fonctionne complètement.'},
   {type:'code',q:'Si MOT = 247, RAT = 918, VOL = 536, alors VET = ?',opts:['519','527','529','559'],ans:0,exp:'V=5, O=3, L=6 / M=2, O=3, T=7 / R=9, A=1, T=7. VET : V=5, E=1, T=7... Ou : chiffres = position dans alphabet inversée : M=13→2, O=15→3? Non. Officiel en supposant V=5,E=1,T=9 → 519.'},
   {type:'code',q:'Quel nombre remplace le ? : 4 (12) 8 – 5 (30) 6 – 3 (21) ?',opts:['6','7','8','9'],ans:1,exp:'4×8−(8−4) = 32−4=28? Non. 4×8=32/2=16? 5×6=30 ✓. Règle : premier × second = résultat. 3×? = 21 → 7. Réponse : 7.'},
-];
+]
 
-// ==================================================================
-// LOGIQUE
-// ==================================================================
-let currentType = 'all';
-let qIndex = 0;
-let correctCount = 0;
-let wrongCount = 0;
-let filteredQ = [];
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+let currentType='all',qIndex=0,correctCount=0,wrongCount=0,filteredQ=[];
+
+function showTab(name,el){
+  document.querySelectorAll('.tab-content').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  el.classList.add('active');
+  if(name==='entrainement') initEntrainement();
 }
 
-function showTab(name) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.add('active');
-  ['cours','entrainement','test'].forEach((n,i) => {
-    if (n === name) document.querySelectorAll('.tab')[i].classList.add('active');
-  });
-  if (name === 'entrainement') initEntrainement();
-}
+function toggleCours(card){card.classList.toggle('open');}
 
-function toggleCours(card) { card.classList.toggle('open'); }
-
-function setType(type, btn) {
-  currentType = type;
-  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+function setType(type,btn){
+  currentType=type;
+  document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  correctCount = 0; wrongCount = 0; qIndex = 0;
+  correctCount=0;wrongCount=0;qIndex=0;
   initEntrainement();
 }
 
-function initEntrainement() {
-  filteredQ = shuffle(currentType === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.type === currentType));
-  qIndex = 0;
-  updateScoreDisplay();
-  renderQuestion();
+function initEntrainement(){
+  filteredQ=shuffle(currentType==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===currentType));
+  qIndex=0;updateScore();renderQ();
 }
 
-function updateScoreDisplay() {
-  const total = correctCount + wrongCount;
-  document.getElementById('score-display').textContent = correctCount + '/' + total;
-  document.getElementById('correct-count').textContent = correctCount;
-  document.getElementById('wrong-count').textContent = wrongCount;
+function updateScore(){
+  const t=correctCount+wrongCount;
+  document.getElementById('score-display').textContent=correctCount+'/'+t;
+  document.getElementById('correct-count').textContent=correctCount;
+  document.getElementById('wrong-count').textContent=wrongCount;
 }
 
-function renderQuestion() {
-  const container = document.getElementById('q-container');
-  if (qIndex >= filteredQ.length) {
-    container.innerHTML = `<div class="no-more">🎉 Tu as fini toutes les questions de cette catégorie !<br><br><button class="next-btn" style="display:inline-block;margin-top:12px;" onclick="setType('${currentType}', document.querySelector('.type-btn.active'))">Recommencer</button></div>`;
-    return;
-  }
-  const q = filteredQ[qIndex];
-  const typeLabels = {num:'Séries numériques',lettres:'Séries de lettres',quant:'Raisonnement quantitatif',deductif:'Raisonnement déductif',vocab:'Vocabulaire / Synonymes',analogie:'Analogies',code:'Codes & Séquences'};
-  const letters = ['A','B','C','D'];
-  container.innerHTML = `
-    <div class="q-card">
-      <div class="q-type-tag">${typeLabels[q.type] || q.type}</div>
-      <div class="q-text">${q.q}</div>
-      <div class="q-options">
-        ${q.opts.map((opt,i) => `<button class="q-option" onclick="answerQ(this,${i},${qIndex})"><div class="opt-letter">${letters[i]}</div><span>${opt}</span></button>`).join('')}
-      </div>
-      <div class="q-feedback" id="qfeedback-${qIndex}"></div>
-      <button class="next-btn" id="next-btn-${qIndex}" onclick="nextQ()">Question suivante →</button>
-    </div>
-  `;
+function renderQ(){
+  const c=document.getElementById('q-container');
+  if(qIndex>=filteredQ.length){c.innerHTML='<div class="no-more">🎉 Tu as fini toutes les questions !<br><br><button class="next-btn" style="display:inline-block;margin-top:12px;" onclick="initEntrainement()">Recommencer</button></div>';return;}
+  const q=filteredQ[qIndex];
+  const labels={num:'Séries numériques',lettres:'Séries de lettres',quant:'Quantitatif',deductif:'Déductif',vocab:'Vocabulaire',analogie:'Analogies',code:'Codes'};
+  const L=['A','B','C','D'];
+  c.innerHTML='<div class="q-card"><div class="q-type-tag">'+labels[q.type]+'</div><div class="q-text">'+q.q+'</div><div class="q-options">'+q.opts.map((o,i)=>'<button class="q-option" onclick="answerQ(this,'+i+','+qIndex+')"><div class="opt-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div class="q-feedback" id="qfb-'+qIndex+'"></div><button class="next-btn" id="qnb-'+qIndex+'" onclick="nextQ()">Question suivante →</button></div>';
 }
 
-function answerQ(btn, chosen, idx) {
-  const q = filteredQ[idx];
-  const opts = btn.parentElement.querySelectorAll('.q-option');
-  opts.forEach(o => { o.classList.add('disabled'); o.onclick = null; });
-  const isCorrect = chosen === q.ans;
-  if (isCorrect) { btn.classList.add('correct'); correctCount++; }
-  else { btn.classList.add('wrong'); opts[q.ans].classList.add('correct'); wrongCount++; }
-  const fb = document.getElementById('qfeedback-' + idx);
-  fb.className = 'q-feedback ' + (isCorrect ? 'correct' : 'wrong');
-  fb.style.display = 'block';
-  fb.innerHTML = (isCorrect ? '✅ ' : '❌ Bonne réponse : <strong>' + ['A','B','C','D'][q.ans] + '</strong>. ') + q.exp;
-  document.getElementById('next-btn-' + idx).style.display = 'inline-block';
-  updateScoreDisplay();
+function answerQ(btn,chosen,idx){
+  const q=filteredQ[idx];
+  btn.parentElement.querySelectorAll('.q-option').forEach(o=>{o.classList.add('disabled');o.onclick=null;});
+  const ok=chosen===q.ans;
+  if(ok){btn.classList.add('correct');correctCount++;}
+  else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct');wrongCount++;}
+  const fb=document.getElementById('qfb-'+idx);
+  fb.className='q-feedback '+(ok?'correct':'wrong');
+  fb.style.display='block';
+  fb.innerHTML=(ok?'✅ ':'❌ Bonne réponse : <strong>'+['A','B','C','D'][q.ans]+'</strong>. ')+q.exp;
+  document.getElementById('qnb-'+idx).style.display='inline-block';
+  updateScore();
 }
 
-function nextQ() { qIndex++; renderQuestion(); }
+function nextQ(){qIndex++;renderQ();}
 
 // TEST CHRONO
-let testConfig = { duration: 5, qtype: 'all', penalty: 0.25 };
-let testTimer = null;
-let testSecondsLeft = 0;
-let testQ = [];
-let testQIdx = 0;
-let testScore = 0;
-let testCorrect = 0;
-let testWrong = 0;
-let testAnswered = 0;
+let tCfg={duration:5,qtype:'all',penalty:0.25},tTimer=null,tSecs=0,tQ=[],tIdx=0,tScore=0,tOk=0,tKo=0,tAns=0;
 
-function selectConfig(el, key, val) {
-  el.closest('.config-options').querySelectorAll('.config-opt').forEach(o => o.classList.remove('selected'));
+function selectConfig(el,k,v){
+  el.closest('.config-options').querySelectorAll('.config-opt').forEach(o=>o.classList.remove('selected'));
   el.classList.add('selected');
-  testConfig[key] = (key === 'duration' || key === 'penalty') ? parseFloat(val) : val;
+  tCfg[k]=(k==='duration'||k==='penalty')?parseFloat(v):v;
 }
 
-function startTest() {
-  testQ = shuffle(testConfig.qtype === 'all' ? QUESTIONS : QUESTIONS.filter(q => q.type === testConfig.qtype));
-  testQIdx = 0; testScore = 0; testCorrect = 0; testWrong = 0; testAnswered = 0;
-  testSecondsLeft = testConfig.duration * 60;
+function startTest(){
+  tQ=shuffle(tCfg.qtype==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===tCfg.qtype));
+  tIdx=0;tScore=0;tOk=0;tKo=0;tAns=0;tSecs=tCfg.duration*60;
   document.getElementById('test-config-panel').classList.add('hidden');
   document.getElementById('test-running-panel').classList.remove('hidden');
-  document.getElementById('results-panel').style.display = 'none';
-  document.getElementById('test-q-total').textContent = testQ.length;
-  updateTimerDisplay();
-  renderTestQ();
-  testTimer = setInterval(tickTimer, 1000);
+  document.getElementById('results-panel').style.display='none';
+  document.getElementById('test-q-total').textContent=tQ.length;
+  updateTimer();renderTQ();
+  tTimer=setInterval(tick,1000);
 }
 
-function tickTimer() {
-  testSecondsLeft--;
-  updateTimerDisplay();
-  if (testSecondsLeft <= 0) { clearInterval(testTimer); showResults(); }
+function tick(){tSecs--;updateTimer();if(tSecs<=0){clearInterval(tTimer);showResults();}}
+
+function updateTimer(){
+  const m=Math.floor(tSecs/60),s=tSecs%60;
+  const el=document.getElementById('timer-display');
+  el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  el.className='timer-display'+(tSecs<60?' urgent':'');
+  document.getElementById('test-score-live').textContent=tScore.toFixed(2);
 }
 
-function updateTimerDisplay() {
-  const m = Math.floor(testSecondsLeft / 60);
-  const s = testSecondsLeft % 60;
-  const el = document.getElementById('timer-display');
-  el.textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-  el.className = 'timer-display' + (testSecondsLeft < 60 ? ' urgent' : '');
-  document.getElementById('test-score-live').textContent = testScore.toFixed(2);
+function renderTQ(){
+  const c=document.getElementById('test-q-container');
+  if(tIdx>=tQ.length){showResults();return;}
+  const q=tQ[tIdx];
+  document.getElementById('test-q-num').textContent=tIdx+1;
+  const L=['A','B','C','D'];
+  c.innerHTML='<div class="q-card"><div class="q-text">'+q.q+'</div><div class="q-options">'+q.opts.map((o,i)=>'<button class="q-option" onclick="answerTQ(this,'+i+')"><div class="opt-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div style="margin-top:14px;"><button onclick="skipTQ()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:8px 16px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">Passer →</button></div></div>';
 }
 
-function renderTestQ() {
-  const container = document.getElementById('test-q-container');
-  if (testQIdx >= testQ.length) { showResults(); return; }
-  const q = testQ[testQIdx];
-  document.getElementById('test-q-num').textContent = testQIdx + 1;
-  const letters = ['A','B','C','D'];
-  container.innerHTML = `
-    <div class="q-card">
-      <div class="q-text">${q.q}</div>
-      <div class="q-options">
-        ${q.opts.map((opt,i) => `<button class="q-option" onclick="answerTestQ(this,${i})"><div class="opt-letter">${letters[i]}</div><span>${opt}</span></button>`).join('')}
-      </div>
-      <div style="margin-top:14px;">
-        <button onclick="skipTestQ()" style="background:none;border:1px solid var(--border);color:var(--text-muted);padding:8px 18px;border-radius:8px;cursor:pointer;font-family:'Sora',sans-serif;font-size:0.82rem;">Passer →</button>
-      </div>
-    </div>
-  `;
+function answerTQ(btn,chosen){
+  const q=tQ[tIdx];
+  btn.parentElement.querySelectorAll('.q-option').forEach(o=>{o.classList.add('disabled');o.onclick=null;});
+  if(chosen===q.ans){btn.classList.add('correct');tScore+=1;tOk++;}
+  else{btn.classList.add('wrong');btn.parentElement.querySelectorAll('.q-option')[q.ans].classList.add('correct');tScore-=tCfg.penalty;tKo++;}
+  tAns++;
+  setTimeout(()=>{tIdx++;renderTQ();},700);
 }
 
-function answerTestQ(btn, chosen) {
-  const q = testQ[testQIdx];
-  const opts = btn.parentElement.querySelectorAll('.q-option');
-  opts.forEach(o => { o.classList.add('disabled'); o.onclick = null; });
-  if (chosen === q.ans) { btn.classList.add('correct'); testScore += 1; testCorrect++; }
-  else { btn.classList.add('wrong'); opts[q.ans].classList.add('correct'); testScore -= testConfig.penalty; testWrong++; }
-  testAnswered++;
-  setTimeout(() => { testQIdx++; renderTestQ(); }, 700);
-}
+function skipTQ(){tIdx++;renderTQ();}
+function stopTest(){clearInterval(tTimer);showResults();}
 
-function skipTestQ() { testQIdx++; renderTestQ(); }
-
-function stopTest() { clearInterval(testTimer); showResults(); }
-
-function showResults() {
-  clearInterval(testTimer);
+function showResults(){
+  clearInterval(tTimer);
   document.getElementById('test-running-panel').classList.add('hidden');
-  const panel = document.getElementById('results-panel');
-  panel.style.display = 'block';
-  const skipped = testQIdx - testAnswered;
-  const max = testQIdx;
-  const pct = max > 0 ? (testScore / max) * 100 : 0;
-  let verdict = '', vc = '';
-  if (pct >= 70) { verdict = '🏆 Excellent niveau !'; vc = 'background:rgba(0,201,167,0.12);border:1px solid rgba(0,201,167,0.3);color:#80ffe8'; }
-  else if (pct >= 45) { verdict = '👍 Bon niveau, continue à t\'entraîner'; vc = 'background:rgba(255,165,77,0.12);border:1px solid rgba(255,165,77,0.3);color:#ffd08a'; }
-  else { verdict = '📚 Continue à t\'entraîner, la régularité paie !'; vc = 'background:rgba(255,101,132,0.12);border:1px solid rgba(255,101,132,0.3);color:#ffa8bb'; }
-  document.getElementById('results-score').textContent = testScore.toFixed(2);
-  document.getElementById('results-max').textContent = max;
-  document.getElementById('results-verdict').innerHTML = verdict;
-  document.getElementById('results-verdict').style.cssText = vc + ';border-radius:10px;padding:14px 24px;';
-  document.getElementById('res-correct').textContent = testCorrect;
-  document.getElementById('res-wrong').textContent = testWrong;
-  document.getElementById('res-skip').textContent = skipped;
+  const panel=document.getElementById('results-panel');
+  panel.style.display='block';
+  const skip=tIdx-tAns,max=tIdx,pct=max>0?(tScore/max)*100:0;
+  let v='';
+  if(pct>=70)v='🏆 Excellent niveau ! Tu es prêt(e) pour le jour J.';
+  else if(pct>=45)v='👍 Bon niveau — continue à t\'entraîner régulièrement.';
+  else v='📚 Continue à t\'entraîner, la régularité paie !';
+  document.getElementById('results-score').textContent=tScore.toFixed(2);
+  document.getElementById('results-max').textContent=max;
+  document.getElementById('results-verdict').textContent=v;
+  document.getElementById('res-correct').textContent=tOk;
+  document.getElementById('res-wrong').textContent=tKo;
+  document.getElementById('res-skip').textContent=skip;
 }
 
-function resetTest() {
-  document.getElementById('results-panel').style.display = 'none';
+function resetTest(){
+  document.getElementById('results-panel').style.display='none';
   document.getElementById('test-config-panel').classList.remove('hidden');
   document.getElementById('test-running-panel').classList.add('hidden');
 }
 
-// Init
 initEntrainement();
 </script>
 
