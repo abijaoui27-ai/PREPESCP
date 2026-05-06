@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+Voici mon Dashboard de mon site et je veux que qu’en je clique sur le bouton essec ca ouvre cette page { “src”: “/essec”, “dest”: “/essec.html” }
+
+Voici mon Dashboard a modifier : <!DOCTYPE html>
 
 <html lang="fr">
 <head>
@@ -61,6 +63,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .tab-agent { font-size: 0.68rem; color: var(--muted); }
 .tab.active-escp .tab-agent { color: rgba(201,169,110,0.6); }
 .tab.active-emlyon .tab-agent { color: rgba(232,57,42,0.6); }
+.tab-coming { font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; background: var(--surface3); color: var(--muted); padding: 2px 8px; margin-top: 2px; }
 
 .tab-content { display: none; background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 36px 40px; }
 .tab-content.active { display: block; }
@@ -97,6 +100,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .q-filled-indicator { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--green); }
 
 .section-eyebrow { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 12px; }
+
 .entretien-list { display: flex; flex-direction: column; gap: 8px; }
 .entretien-item { background: var(--surface2); border: 1px solid var(--border); padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: background 0.3s; cursor: pointer; }
 .entretien-item:hover { background: var(--surface3); }
@@ -106,6 +110,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .note-label { font-size: 0.65rem; color: var(--muted); text-align: right; }
 .empty-state { text-align: center; padding: 48px 24px; color: var(--muted2); font-size: 0.85rem; line-height: 1.7; background: var(--surface2); border: 1px solid var(--border); }
 .empty-icon { font-size: 2rem; margin-bottom: 12px; opacity: 0.4; }
+
+.coming-soon { text-align: center; padding: 60px 24px; color: var(--muted2); }
+.coming-soon-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.3; }
+.coming-soon h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.coming-soon p { font-size: 0.82rem; line-height: 1.7; }
 
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; }
 .modal-overlay.show { display: flex; }
@@ -140,125 +149,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 .carte-fb-cat { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--emlyon); font-weight: 600; margin-bottom: 6px; }
 .carte-fb-text { font-size: 0.78rem; color: var(--muted2); line-height: 1.6; }
 
-/* ===== ESSEC ===== */
-.essec-nav { display: flex; gap: 2px; background: var(--border2); margin-bottom: 0; }
-.essec-nav-btn { flex: 1; padding: 14px 20px; text-align: center; cursor: pointer; font-size: 0.85rem; font-weight: 600; background: var(--surface2); color: var(--muted2); transition: all 0.25s; border-bottom: 3px solid transparent; }
-.essec-nav-btn:hover { color: var(--text); background: var(--surface3); }
-.essec-nav-btn.on { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface3); }
-.essec-view { display: none; padding-top: 28px; }
-.essec-view.on { display: block; }
-
-/* Oral */
-.oral-hero { background: linear-gradient(135deg, rgba(0,59,122,0.15), rgba(0,85,179,0.06)); border: 1px solid var(--essec-border); padding: 36px; margin-bottom: 20px; position: relative; }
-.oral-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--essec), var(--essec2)); }
-.oral-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
-.oral-sub { font-size: 0.83rem; color: var(--muted2); line-height: 1.7; margin-bottom: 24px; }
-.oral-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 24px; }
-.oral-stat { background: rgba(0,85,179,0.08); border: 1px solid var(--essec-border); padding: 14px; text-align: center; }
-.oral-stat-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--essec2); line-height: 1; }
-.oral-stat-l { font-size: 0.65rem; color: var(--muted2); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-.oral-tips { background: var(--surface2); border-left: 3px solid var(--essec2); padding: 14px 18px; margin-bottom: 24px; }
-.oral-tips-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 8px; }
-.oral-tips li { font-size: 0.82rem; color: var(--muted2); line-height: 1.8; }
-.oral-widget { background: var(--surface2); border: 1px solid var(--border); padding: 36px 24px; text-align: center; }
-.oral-widget-label { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
-
-/* Psycho sous-nav */
-.psycho-nav { display: flex; gap: 2px; background: var(--border2); }
-.psycho-nav-btn { flex: 1; padding: 11px 16px; text-align: center; cursor: pointer; font-size: 0.78rem; font-weight: 500; background: var(--surface); color: var(--muted2); transition: all 0.2s; border-bottom: 2px solid transparent; }
-.psycho-nav-btn:hover { color: var(--text); }
-.psycho-nav-btn.on { color: var(--essec2); border-bottom-color: var(--essec2); background: var(--surface2); }
-.psycho-panel { display: none; padding-top: 24px; }
-.psycho-panel.on { display: block; }
-
-/* Cours accordéon */
-.cours-list { display: flex; flex-direction: column; gap: 2px; }
-.cours-item { background: var(--surface2); border: 1px solid var(--border); }
-.cours-item-hd { display: flex; align-items: center; gap: 14px; padding: 18px 22px; cursor: pointer; user-select: none; transition: background 0.2s; }
-.cours-item-hd:hover { background: var(--surface3); }
-.cours-item.on .cours-item-hd { background: var(--surface3); border-bottom: 1px solid var(--border); }
-.cours-item-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; background: var(--essec-bg); border: 1px solid var(--essec-border); flex-shrink: 0; }
-.cours-item-title { font-size: 0.9rem; font-weight: 600; flex: 1; }
-.cours-item-sub { font-size: 0.73rem; color: var(--muted2); margin-top: 2px; }
-.cours-arrow { color: var(--muted); font-size: 0.72rem; transition: transform 0.2s; }
-.cours-item.on .cours-arrow { transform: rotate(180deg); }
-.cours-item-body { display: none; padding: 24px 28px; }
-.cours-item.on .cours-item-body { display: block; }
-.cours-item-body h4 { font-size: 0.63rem; font-weight: 700; color: var(--essec2); text-transform: uppercase; letter-spacing: 2px; margin: 18px 0 9px; }
-.cours-item-body h4:first-child { margin-top: 0; }
-.cours-item-body p, .cours-item-body li { font-size: 0.84rem; color: var(--muted2); line-height: 1.75; }
-.cours-item-body ul { padding-left: 16px; margin-bottom: 6px; }
-.cours-item-body li { margin-bottom: 5px; }
-.ex { background: var(--surface); border-left: 3px solid var(--essec2); padding: 12px 16px; margin: 8px 0; font-size: 0.82rem; }
-.ex-q { color: var(--muted2); margin-bottom: 5px; font-weight: 500; }
-.ex-r { color: var(--accent); font-weight: 600; }
-
-/* Exercices */
-.exo-themes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.exo-theme-card { background: var(--surface2); border: 1px solid var(--border); padding: 18px 20px; cursor: pointer; transition: all 0.2s; }
-.exo-theme-card:hover { border-color: var(--essec2); }
-.exo-theme-card.done { border-color: rgba(74,222,128,0.35); }
-.exo-theme-icon { font-size: 1.3rem; margin-bottom: 8px; }
-.exo-theme-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 3px; }
-.exo-theme-sub { font-size: 0.73rem; color: var(--muted2); margin-bottom: 10px; }
-.exo-theme-bar { background: var(--surface3); height: 4px; margin-top: 8px; }
-.exo-theme-fill { height: 100%; transition: width 0.4s; }
-.exo-theme-stat { font-size: 0.7rem; color: var(--muted2); margin-top: 5px; }
-.exo-done-badge { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 4px; }
-
-/* Q card */
-.q-card { background: var(--surface2); border: 1px solid var(--border); padding: 26px; margin-bottom: 14px; }
-.q-num { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--essec2); background: var(--essec-bg); border: 1px solid var(--essec-border); display: inline-block; padding: 3px 10px; margin-bottom: 12px; }
-.q-text { font-size: 0.92rem; line-height: 1.7; margin-bottom: 16px; font-weight: 500; }
-.q-opts { display: flex; flex-direction: column; gap: 8px; }
-.q-opt { display: flex; align-items: flex-start; gap: 10px; padding: 11px 15px; background: var(--surface); border: 1px solid var(--border2); cursor: pointer; font-size: 0.85rem; line-height: 1.5; text-align: left; width: 100%; color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; transition: all 0.15s; }
-.q-opt:hover:not(.dis) { border-color: var(--essec2); background: var(--essec-bg); }
-.q-opt.ok { border-color: var(--green); background: rgba(74,222,128,0.06); color: var(--green); }
-.q-opt.ko { border-color: var(--red); background: rgba(224,92,92,0.06); color: var(--red); }
-.q-opt.dis { cursor: default; }
-.q-letter { width: 22px; height: 22px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0; color: var(--muted2); }
-.q-fb { display: none; margin-top: 12px; padding: 11px 15px; font-size: 0.82rem; line-height: 1.6; }
-.q-fb.ok { background: rgba(74,222,128,0.06); border-left: 2px solid var(--green); color: #a0f0b0; }
-.q-fb.ko { background: rgba(224,92,92,0.06); border-left: 2px solid var(--red); color: #f0a0a0; }
-.q-nxt { display: none; margin-top: 12px; padding: 9px 22px; background: var(--gradient); border: none; color: var(--bg); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; }
-
-/* Score bar exo */
-.exo-score-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); padding: 12px 18px; margin-bottom: 18px; }
-.exo-score-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-
-/* Résultats exo */
-.exo-res { background: var(--surface2); border: 1px solid var(--border); padding: 36px; text-align: center; position: relative; }
-.exo-res::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
-.exo-res-score { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 8px 0; }
-.exo-res-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 20px 0; }
-.exo-res-cell { background: var(--surface); padding: 16px; }
-.exo-res-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; }
-.exo-res-l { font-size: 0.63rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
-
-/* Chrono */
-.chrono-cfg { background: var(--surface2); border: 1px solid var(--border); padding: 28px; }
-.chrono-cfg-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
-.chrono-row { margin-bottom: 16px; }
-.chrono-lbl { font-size: 0.63rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--essec2); margin-bottom: 8px; }
-.chrono-opts { display: flex; flex-wrap: wrap; gap: 8px; }
-.chrono-opt { padding: 7px 15px; background: var(--surface); border: 1px solid var(--border); color: var(--muted2); cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.78rem; transition: all 0.15s; }
-.chrono-opt:hover { border-color: var(--essec2); color: var(--text); }
-.chrono-opt.sel { background: var(--essec2); border-color: var(--essec2); color: #fff; }
-.chrono-start { width: 100%; padding: 14px; background: linear-gradient(135deg, #003b7a, #0055b3); border: none; color: #fff; font-family: 'Outfit', sans-serif; font-size: 0.92rem; font-weight: 700; cursor: pointer; margin-top: 8px; }
-.chrono-bar { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 18px; }
-.chrono-time { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.chrono-time.urg { background: none; -webkit-text-fill-color: var(--red); }
-.chrono-stop { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 14px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.76rem; }
-.chrono-res { display: none; background: var(--surface2); border: 1px solid var(--border); padding: 40px; text-align: center; position: relative; }
-.chrono-res::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
-.chrono-res-score { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin: 8px 0; }
-.chrono-res-verdict { font-size: 0.85rem; color: var(--text); padding: 12px 16px; background: var(--surface); border-left: 2px solid var(--accent); margin: 16px 0; text-align: left; }
-.chrono-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--border2); margin: 16px 0; }
-.chrono-stat { background: var(--surface); padding: 16px; }
-.chrono-stat-n { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; }
-.chrono-stat-l { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
-.chrono-retry { margin-top: 14px; padding: 11px 28px; background: var(--gradient); border: none; color: var(--bg); font-family: 'Outfit', sans-serif; font-size: 0.86rem; font-weight: 600; cursor: pointer; }
-
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
   .main { padding: 80px 16px 40px; }
@@ -267,8 +157,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   .modal { padding: 28px 20px; }
   .cartes-grid { grid-template-columns: 1fr; }
   .tabs { flex-direction: column; gap: 1px; }
-  .exo-themes { grid-template-columns: 1fr; }
-  .oral-stats { grid-template-columns: 1fr; }
 }
 ```
 
@@ -319,11 +207,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     </div>
     <div class="tab" id="tabESSEC" onclick="switchTab('essec')">
       <div class="tab-school">ESSEC</div>
-      <div class="tab-agent">Tests & Oral</div>
+      <div class="tab-agent">Bientôt disponible</div>
+      <div class="tab-coming">Coming soon</div>
     </div>
   </div>
-
-  <!-- ESCP -->
 
   <div class="tab-content escp-content active" id="contentESCP">
     <a href="/entretien" class="btn-lancer btn-escp" id="btnESCP">🎙️ Lancer un entretien ESCP</a>
@@ -340,12 +227,36 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       </div>
       <p class="questionnaire-desc" style="margin-top:10px;">Transmis à Jean-Marc avant l'entretien. <strong>Il personnalisera ses questions en fonction de vos réponses.</strong> Optionnel mais fortement recommandé.</p>
       <div class="questionnaire-form" id="questionnaireForm">
-        <div class="q-group"><div class="q-label">1. Centres d'intérêt & activités extrascolaires</div><div class="q-hint">Précis : depuis combien de temps, quelle fréquence, exemples concrets.</div><textarea class="q-textarea" id="q1" placeholder="Ex: Tennis en compétition depuis 8 ans…"></textarea></div>
-        <div class="q-group"><div class="q-label">2. Réalisation dont vous êtes fier(e)</div><div class="q-hint">Succès ou échec — ce que vous en avez appris.</div><textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif…"></textarea></div>
-        <div class="q-group"><div class="q-label">3. Expérience du monde du travail</div><div class="q-hint">Stages, jobs, rencontres. Précisez lieu et durée.</div><textarea class="q-textarea" id="q3" placeholder="Ex: Stage chez un cabinet comptable…"></textarea></div>
-        <div class="q-group"><div class="q-label">4. Expériences de différentes cultures</div><div class="q-hint">Voyages, lectures, rencontres, expositions…</div><textarea class="q-textarea" id="q4" placeholder="Ex: Séjour à Dublin, correspondant allemand…"></textarea></div>
-        <div class="q-group"><div class="q-label">5. Une expérience marquante</div><div class="q-hint">Ce qu'elle vous a appris sur vous-même.</div><textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris…"></textarea></div>
-        <div class="q-group"><div class="q-label">6. Autres informations pour le jury</div><div class="q-hint">Tout ce que vous jugez utile.</div><textarea class="q-textarea" id="q6" placeholder="Ex: Président du BDE depuis septembre…"></textarea></div>
+        <div class="q-group">
+          <div class="q-label">1. Centres d'intérêt & activités extrascolaires</div>
+          <div class="q-hint">Précis : depuis combien de temps, quelle fréquence, exemples concrets.</div>
+          <textarea class="q-textarea" id="q1" placeholder="Ex: Tennis en compétition depuis 8 ans…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">2. Réalisation dont vous êtes fier(e)</div>
+          <div class="q-hint">Succès ou échec — ce que vous en avez appris.</div>
+          <textarea class="q-textarea" id="q2" placeholder="Ex: J'ai organisé un tournoi caritatif…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">3. Expérience du monde du travail</div>
+          <div class="q-hint">Stages, jobs, rencontres. Précisez lieu et durée.</div>
+          <textarea class="q-textarea" id="q3" placeholder="Ex: Stage chez un cabinet comptable…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">4. Expériences de différentes cultures</div>
+          <div class="q-hint">Voyages, lectures, rencontres, expositions…</div>
+          <textarea class="q-textarea" id="q4" placeholder="Ex: Séjour à Dublin, correspondant allemand…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">5. Une expérience marquante</div>
+          <div class="q-hint">Ce qu'elle vous a appris sur vous-même.</div>
+          <textarea class="q-textarea" id="q5" placeholder="Ex: La mort de mon grand-père m'a appris…"></textarea>
+        </div>
+        <div class="q-group">
+          <div class="q-label">6. Autres informations pour le jury</div>
+          <div class="q-hint">Tout ce que vous jugez utile.</div>
+          <textarea class="q-textarea" id="q6" placeholder="Ex: Président du BDE depuis septembre…"></textarea>
+        </div>
         <div class="q-actions">
           <button class="btn-save" id="btnSaveQ" onclick="saveQuestionnaire()">Sauvegarder</button>
           <span class="q-save-msg" id="qSaveMsg">✅ Sauvegardé !</span>
@@ -353,354 +264,124 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       </div>
     </div>
     <div class="section-eyebrow">Historique ESCP</div>
-    <div class="entretien-list" id="listESCP"><div class="empty-state"><div class="empty-icon">🎙️</div><div>Aucun entretien ESCP pour l'instant.</div></div></div>
+    <div class="entretien-list" id="listESCP">
+      <div class="empty-state"><div class="empty-icon">🎙️</div><div>Aucun entretien ESCP pour l'instant.</div></div>
+    </div>
   </div>
-
-  <!-- EM LYON -->
 
   <div class="tab-content emlyon-content" id="contentEMLYON">
     <a href="/entretien-emlyon" class="btn-lancer btn-emlyon" id="btnEMLYON">🃏 Lancer un entretien EM Lyon</a>
     <div class="section-eyebrow">Historique EM Lyon</div>
-    <div class="entretien-list" id="listEMLYON"><div class="empty-state"><div class="empty-icon">🃏</div><div>Aucun entretien EM Lyon pour l'instant.</div></div></div>
+    <div class="entretien-list" id="listEMLYON">
+      <div class="empty-state"><div class="empty-icon">🃏</div><div>Aucun entretien EM Lyon pour l'instant.</div></div>
+    </div>
   </div>
-
-  <!-- ESSEC -->
 
   <div class="tab-content essec-content" id="contentESSEC">
-    <div class="essec-nav">
-      <div class="essec-nav-btn on" onclick="essecNav('oral',this)">🎙️ Entretien oral</div>
-      <div class="essec-nav-btn" onclick="essecNav('psycho',this)">📊 Tests psychotechniques</div>
-    </div>
-
-```
-<!-- ORAL -->
-<div id="ev-oral" class="essec-view on">
-  <div class="oral-hero">
-    <div style="font-size:0.63rem;letter-spacing:2px;text-transform:uppercase;color:var(--essec2);margin-bottom:10px;">ESSEC · Jury IA</div>
-    <div class="oral-title">Entretien de personnalité ESSEC</div>
-    <div class="oral-sub">Simulation immersive calibrée sur le vrai format ESSEC — questions ouvertes, mise en situation, 9 critères évalués.</div>
-    <div class="oral-stats">
-      <div class="oral-stat"><div class="oral-stat-n">30'</div><div class="oral-stat-l">Durée réelle</div></div>
-      <div class="oral-stat"><div class="oral-stat-n">9</div><div class="oral-stat-l">Critères évalués</div></div>
-      <div class="oral-stat"><div class="oral-stat-n">Coeff 10</div><div class="oral-stat-l">Importance</div></div>
-    </div>
-    <div class="oral-tips">
-      <div class="oral-tips-title">Avant de commencer</div>
-      <ul>
-        <li>Autorise l'accès au microphone quand le navigateur le demande</li>
-        <li>Installe-toi dans un endroit calme, comme le jour J</li>
-        <li>L'entretien dure environ 30 minutes — ne l'interromps pas</li>
-        <li>Parle naturellement, comme face à un vrai jury ESSEC</li>
-      </ul>
+    <div class="coming-soon">
+      <div class="coming-soon-icon">🏛️</div>
+      <h3>ESSEC — Bientôt disponible</h3>
+      <p>L'entretien ESSEC avec mise en situation arrive prochainement.<br>Restez connecté !</p>
     </div>
   </div>
-  <div class="oral-widget">
-    <div class="oral-widget-label">Jury ESSEC — Intelligence artificielle</div>
-    <elevenlabs-convai agent-id="agent_6201kqyj4vwkerkt0faxgk2zn3ed"></elevenlabs-convai>
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-    <div style="margin-top:18px;font-size:0.74rem;color:var(--muted);line-height:1.6;">Le jury va vous accueillir et conduire l'entretien.<br>Il s'adapte à vos réponses.</div>
-  </div>
-</div>
-
-<!-- PSYCHO -->
-<div id="ev-psycho" class="essec-view">
-  <div class="psycho-nav">
-    <div class="psycho-nav-btn on" onclick="psychoNav('cours',this)">📚 Cours & Techniques</div>
-    <div class="psycho-nav-btn" onclick="psychoNav('exos',this)">⚡ Exercices par thème</div>
-    <div class="psycho-nav-btn" onclick="psychoNav('test',this)">⏱ Test chronométré</div>
-  </div>
-
-  <!-- COURS -->
-  <div id="pp-cours" class="psycho-panel on">
-    <div class="cours-list">
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">🔢</div><div style="flex:1"><div class="cours-item-title">Séries numériques</div><div class="cours-item-sub">Arithmétique · Géométrique · Entrelacées · Différences</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>5 types à maîtriser</h4>
-          <ul>
-            <li><strong>Arithmétique</strong> : différence constante. Ex : 3, 7, 11, 15 → +4</li>
-            <li><strong>Géométrique</strong> : facteur fixe. Ex : 2, 6, 18, 54 → ×3</li>
-            <li><strong>Deux suites entrelacées</strong> : séparer rangs pairs et impairs. Ex : 48, 8, 35, 7, 24, ? → suite A : 48→35→24 (−13,−11) / suite B : 8→7→6 → réponse : 6</li>
-            <li><strong>Différences croissantes</strong> : les écarts forment une suite. Ex : 1, 2, 4, 7, 11, 16 → écarts +1,+2,+3,+4,+5</li>
-            <li><strong>Règles alternées</strong> : +2,×3,+2,×3 ou palindromes</li>
-          </ul>
-          <h4>Méthode en 4 étapes</h4>
-          <ul>
-            <li>1 → Calculer les différences entre termes consécutifs</li>
-            <li>2 → Si rien, calculer les différences des différences</li>
-            <li>3 → Séparer rangs pairs et impairs</li>
-            <li>4 → Tester ×2, ×3, ÷2 entre termes</li>
-          </ul>
-          <h4>Exemples corrigés</h4>
-          <div class="ex"><div class="ex-q">7 – 13 – 24 – 45 – ?</div><div class="ex-r">×2−1=13, ×2−2=24, ×2−3=45, ×2−4 → 86</div></div>
-          <div class="ex"><div class="ex-q">9, 54, 18, 45, 27, ?</div><div class="ex-r">Deux suites : 9→18→27 (+9) et 54→45→36 (−9) → 36</div></div>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">🔤</div><div style="flex:1"><div class="cours-item-title">Séries de lettres</div><div class="cours-item-sub">Positions · Initiales · Groupes · Alternées</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>Règle de base</h4>
-          <p>Convertis toujours les lettres en numéros : A=1, B=2… Z=26. La loi se lit comme une série numérique.</p>
-          <h4>4 types courants</h4>
-          <ul>
-            <li><strong>Suite simple</strong> : A, C, E, G → +2</li>
-            <li><strong>Groupe fixe + variable</strong> : BCD Z, BCD Y, BCD X → 4e lettre descend</li>
-            <li><strong>Initiales de mots</strong> : U-D-T-Q-C-S-S-H-? → Un,Deux…Huit → N (Neuf)</li>
-            <li><strong>Suites entrelacées</strong> : M,V,N,W,O,X → M,N,O (+1) et V,W,X (+1)</li>
-          </ul>
-          <h4>Exemples corrigés</h4>
-          <div class="ex"><div class="ex-q">A D H K O ?</div><div class="ex-r">1,4,8,11,15 → +3,+4,+3,+4 → +4 → 19 → S</div></div>
-          <div class="ex"><div class="ex-q">B D G K ?</div><div class="ex-r">2,4,7,11 → +2,+3,+4 → +5 → 16 → P</div></div>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">📐</div><div style="flex:1"><div class="cours-item-title">Raisonnement quantitatif</div><div class="cours-item-sub">Maths · Pièges logiques · Probabilités</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>Les 5 pièges classiques ESSEC</h4>
-          <ul>
-            <li><strong>Nénuphar</strong> : double/jour, 100j → avec 2 nénuphars = 99 jours (pas 50 !)</li>
-            <li><strong>Course</strong> : doubler le 2ème → tu prends sa place → tu es 2ème, pas 1er !</li>
-            <li><strong>Pots de peinture</strong> : 15 pots, 2 à la fois → 8 voyages (pas 7,5)</li>
-            <li><strong>Escargot</strong> : monte 3m/j, descend 2m/nuit, poteau 12m → 10 jours</li>
-            <li><strong>Chaussettes</strong> : 10 paires noires + 10 blanches → 3 suffisent pour garantir une paire</li>
-          </ul>
-          <div class="ex"><div class="ex-q">Jardin 21×15m, poteaux tous les 3m, portail 3m. Combien de poteaux ?</div><div class="ex-r">Périmètre=72m → 72÷3=24 → portail enlève 1 → 23 poteaux</div></div>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">🧠</div><div style="flex:1"><div class="cours-item-title">Raisonnement déductif</div><div class="cours-item-sub">Syllogismes · Contraposée · Quantificateurs</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>4 règles fondamentales</h4>
-          <ul>
-            <li><strong>Syllogisme</strong> : Tous A→B + X est A → X est B</li>
-            <li><strong>Contraposée</strong> : A→B ≡ ¬B→¬A. "Pas bleu → pas rouge" ≡ "rouge → bleu"</li>
-            <li><strong>¬(tous A sont B)</strong> = il existe AU MOINS UN A qui n'est pas B</li>
-            <li><strong>¬(certains A sont B)</strong> = aucun A n'est B</li>
-          </ul>
-          <div class="ex"><div class="ex-q">"Faux que toutes les grandes personnes sont maigres" équivaut à ?</div><div class="ex-r">Il existe au moins une grande personne qui n'est pas maigre</div></div>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">📖</div><div style="flex:1"><div class="cours-item-title">Synonymes & Vocabulaire</div><div class="cours-item-sub">30 mots rares · Antonymes · Méthode</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>Mots à mémoriser</h4>
-          <ul>
-            <li>PROHIBER → interdire | DÉLECTATION → plaisir intense | ENTREGENT → diplomatie</li>
-            <li>LUBIE → caprice | RUBIGINEUX → rouillé | COMMISÉRATION → compassion</li>
-            <li>CONSOMPTION → dépérissement | INTERPOLER → intercaler | SIMULER → feindre</li>
-            <li>EXIGU → très petit | IRASCIBLE → coléreux | VOLUBILE → qui parle vite</li>
-            <li>ÉHONTÉ → scandaleux | ATERMOIEMENT → procrastination | GALANTERIE → courtoisie</li>
-          </ul>
-          <h4>Antonymes fréquents</h4>
-          <ul><li>ABROGER ↔ RÉTABLIR | SIBYLLIN ↔ CLAIR | BASANÉ ↔ PÂLE</li></ul>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">🔗</div><div style="flex:1"><div class="cours-item-title">Analogies verbales</div><div class="cours-item-sub">8 types de rapports à identifier</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>8 types de rapports</h4>
-          <ul>
-            <li><strong>Passionné/Objet</strong> : mélomane→musique, cinéphile→cinéma</li>
-            <li><strong>Créateur/Création</strong> : compositeur→symphonie</li>
-            <li><strong>Outil/Utilisateur</strong> : microscope→biologiste</li>
-            <li><strong>Nuisible/Victime</strong> : mite→vêtement, calomnie→réputation</li>
-            <li><strong>Contenant/Limite</strong> : état→frontière, champ→haie</li>
-            <li><strong>Émetteur/Récepteur</strong> : écrivain→lecteur</li>
-            <li><strong>Intensificateur</strong> : torride→chaud</li>
-            <li><strong>Violation/Règle</strong> : fraude→examen, anomalie→normalité</li>
-          </ul>
-          <div class="ex"><div class="ex-q">MITE – VÊTEMENT, comme ?</div><div class="ex-r">Nuisible/victime → calomnie–réputation</div></div>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">🔐</div><div style="flex:1"><div class="cours-item-title">Codes & Chiffrements</div><div class="cours-item-sub">Correspondances · Anagrammes · Valeurs</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>Méthode</h4>
-          <ul>
-            <li>Identifier les lettres communes entre les exemples</li>
-            <li>Tester : A=1, A=26, décalage +k</li>
-            <li>Vérifier sur tous les exemples avant de répondre</li>
-          </ul>
-          <div class="ex"><div class="ex-q">TOISE=67851, GOMME=47221 → TEMPO=?</div><div class="ex-r">T=6,E=1,M=2,P=3,O=7 → 61237</div></div>
-          <div class="ex"><div class="ex-q">(A-2)–(E-5)–(I-11)–(?-?)–(U-47)</div><div class="ex-r">Voyelles, ×2+1 : 23 → (O-23)</div></div>
-        </div>
-      </div>
-
-      <div class="cours-item" onclick="cToggle(this)">
-        <div class="cours-item-hd"><div class="cours-item-icon">⏱</div><div style="flex:1"><div class="cours-item-title">Stratégie & Gestion du temps</div><div class="cours-item-sub">Ordre · Pénalités · Barème relatif</div></div><div class="cours-arrow">▼</div></div>
-        <div class="cours-item-body">
-          <h4>Règles d'or</h4>
-          <ul>
-            <li>Bloquer max 60-90s sur une question → passer</li>
-            <li>Reporter les réponses au fur et à mesure</li>
-            <li>Amener une montre — les surveillants ne donnent pas le temps</li>
-            <li>Réponse au hasard : pénalité −¼ point (ESSEC réel)</li>
-            <li>Blanc = 0 point → souvent préférable au hasard</li>
-          </ul>
-          <h4>Important</h4>
-          <p>Aucun candidat ne finit tous les tests. Le barème est relatif — tes scores comparés aux autres comptent.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- EXERCICES -->
-  <div id="pp-exos" class="psycho-panel">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
-      <div><div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;">Exercices par thème</div><div style="font-size:0.76rem;color:var(--muted2);margin-top:3px;">Complète chaque thème pour valider ta progression</div></div>
-      <div style="text-align:right;"><div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;" id="gScore">0/0</div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Score global</div></div>
-    </div>
-    <div id="exo-selector"><div class="exo-themes" id="exo-grid"></div></div>
-    <div id="exo-train" style="display:none;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;">
-        <button onclick="exoBack()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:7px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.78rem;">← Retour</button>
-        <div id="exo-train-title" style="font-size:0.9rem;font-weight:600;flex:1;"></div>
-        <div style="font-size:0.78rem;color:var(--muted2);"><span id="exo-qi">0</span>/<span id="exo-qt">0</span></div>
-      </div>
-      <div class="exo-score-bar">
-        <div><div class="exo-score-n" id="exo-sn">0/0</div><div style="font-size:0.7rem;color:var(--muted2);">correctes</div></div>
-        <div style="display:flex;gap:16px;"><span style="font-size:0.8rem;color:var(--green)">✓ <span id="exo-ok">0</span></span><span style="font-size:0.8rem;color:var(--red)">✗ <span id="exo-ko">0</span></span></div>
-      </div>
-      <div id="exo-qc"></div>
-    </div>
-    <div id="exo-res" style="display:none;">
-      <div class="exo-res">
-        <div id="exo-res-icon" style="font-size:2.8rem;margin-bottom:10px;"></div>
-        <div id="exo-res-title" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;margin-bottom:6px;"></div>
-        <div id="exo-res-detail" style="font-size:0.82rem;color:var(--muted2);margin-bottom:20px;"></div>
-        <div class="exo-res-grid">
-          <div class="exo-res-cell"><div class="exo-res-n" id="rOk" style="color:var(--green)">0</div><div class="exo-res-l">Bonnes</div></div>
-          <div class="exo-res-cell"><div class="exo-res-n" id="rKo" style="color:var(--red)">0</div><div class="exo-res-l">Mauvaises</div></div>
-          <div class="exo-res-cell"><div class="exo-res-n" id="rPct" style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0%</div><div class="exo-res-l">Score</div></div>
-        </div>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-          <button onclick="exoRetry()" style="padding:10px 24px;background:var(--essec2);border:none;color:#fff;font-family:Outfit,sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;">🔁 Refaire</button>
-          <button onclick="exoBack()" style="padding:10px 24px;background:transparent;border:1px solid var(--border);color:var(--muted2);font-family:Outfit,sans-serif;font-size:0.85rem;cursor:pointer;">← Autres thèmes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TEST CHRONO -->
-  <div id="pp-test" class="psycho-panel">
-    <div id="cc" class="chrono-cfg">
-      <div class="chrono-cfg-title">⚙️ Configurer le test</div>
-      <div class="chrono-row">
-        <div class="chrono-lbl">Durée</div>
-        <div class="chrono-opts">
-          <div class="chrono-opt sel" onclick="cCfg(this,'dur',5)">5 min</div>
-          <div class="chrono-opt" onclick="cCfg(this,'dur',10)">10 min</div>
-          <div class="chrono-opt" onclick="cCfg(this,'dur',15)">15 min ← ESSEC</div>
-          <div class="chrono-opt" onclick="cCfg(this,'dur',20)">20 min</div>
-        </div>
-      </div>
-      <div class="chrono-row">
-        <div class="chrono-lbl">Type de questions</div>
-        <div class="chrono-opts">
-          <div class="chrono-opt sel" onclick="cCfg(this,'type','all')">Tout mélanger</div>
-          <div class="chrono-opt" onclick="cCfg(this,'type','num')">Séries numériques</div>
-          <div class="chrono-opt" onclick="cCfg(this,'type','quant')">Quantitatif</div>
-          <div class="chrono-opt" onclick="cCfg(this,'type','deductif')">Déductif</div>
-          <div class="chrono-opt" onclick="cCfg(this,'type','vocab')">Vocabulaire</div>
-        </div>
-      </div>
-      <div class="chrono-row">
-        <div class="chrono-lbl">Notation réelle ESSEC</div>
-        <div style="background:var(--essec-bg);border:1px solid var(--essec-border);padding:11px 14px;font-size:0.81rem;color:var(--muted2);line-height:1.7;">
-          ✅ Bonne réponse : <strong style="color:var(--text)">+1 point</strong> &nbsp;·&nbsp;
-          ⬜ Sans réponse : <strong style="color:var(--text)">0 point</strong> &nbsp;·&nbsp;
-          ❌ Mauvaise réponse : <strong style="color:var(--text)">−¼ point</strong>
-        </div>
-      </div>
-      <button class="chrono-start" onclick="cStart()">🚀 Lancer le test</button>
-    </div>
-    <div id="cr" style="display:none;">
-      <div class="chrono-bar">
-        <div><div id="ct" class="chrono-time">15:00</div><div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;"><span id="cqn">0</span>/<span id="cqt">0</span> questions</div></div>
-        <div style="font-size:0.82rem;color:var(--muted2);">Score : <span id="csl" style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">0</span></div>
-        <button class="chrono-stop" onclick="cStop()">Arrêter</button>
-      </div>
-      <div id="cqc"></div>
-    </div>
-    <div id="crs" class="chrono-res">
-      <div style="font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Score final</div>
-      <div class="chrono-res-score" id="crf">0</div>
-      <div style="font-size:0.76rem;color:var(--muted2);">points sur <span id="crm">0</span></div>
-      <div class="chrono-res-verdict" id="crv"></div>
-      <div class="chrono-stats">
-        <div class="chrono-stat"><div class="chrono-stat-n" id="crok" style="color:var(--green)">0</div><div class="chrono-stat-l">Bonnes</div></div>
-        <div class="chrono-stat"><div class="chrono-stat-n" id="crko" style="color:var(--red)">0</div><div class="chrono-stat-l">Mauvaises</div></div>
-        <div class="chrono-stat"><div class="chrono-stat-n" id="crsk" style="color:var(--muted)">0</div><div class="chrono-stat-l">Passées</div></div>
-      </div>
-      <button class="chrono-retry" onclick="cReset()">🔁 Nouveau test</button>
-    </div>
-  </div>
-
-</div><!-- /ev-psycho -->
-```
-
-  </div><!-- /contentESSEC -->
 
 </main>
-
-<!-- MODAL FEEDBACK -->
 
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modalContent">
     <div class="modal-top-bar escp" id="modalTopBar"></div>
     <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('show')">✕</button>
-    <div class="modal-header">
-      <div class="modal-school-badge escp" id="modalSchoolBadge">ESCP</div>
-      <div class="modal-note" id="modalNote">—</div>
-      <div class="modal-note-label">Note sur 20</div>
-      <div class="modal-verdict escp" id="modalVerdict">—</div>
-    </div>
-    <div class="fb-group-title">📋 Analyse de l'entretien</div>
-    <div class="fb-section"><h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4><p id="modalPresentation">—</p></div>
-    <div class="fb-section"><h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4><p id="modalExpression">—</p></div>
-    <div class="fb-section"><h4 class="escp" id="h4Connaissance">🏛️ Connaissance de l'école</h4><p id="modalConnaissance">—</p></div>
-    <div id="sectionESCP">
-      <div class="fb-section"><h4 class="escp">⚡ Dynamique de l'échange</h4><p id="modalDynamique">—</p></div>
-      <div class="fb-divider"></div>
-      <div class="fb-group-title">🔺 Triangle Personnalité — Projet — ESCP</div>
-      <div class="fb-section"><p id="modalTriangle">—</p></div>
-      <div class="fb-divider"></div>
-      <div class="fb-group-title">📚 Fond & Contenu</div>
-      <div class="fb-section"><h4 class="escp">🎯 Motivation & fond ESCP</h4><p id="modalFond">—</p></div>
-      <div class="fb-section"><h4 class="escp">📝 Exploitation du questionnaire</h4><p id="modalQuestionnaire">—</p></div>
-    </div>
-    <div id="sectionEMLYON" style="display:none;">
-      <div class="fb-divider"></div>
-      <div class="fb-group-title">🃏 Réactivité aux cartes</div>
-      <div class="cartes-grid">
-        <div class="carte-fb"><div class="carte-fb-cat">Personnalité</div><div class="carte-fb-text" id="modalCarteP">—</div></div>
-        <div class="carte-fb"><div class="carte-fb-cat">Expériences</div><div class="carte-fb-text" id="modalCarteE">—</div></div>
-        <div class="carte-fb"><div class="carte-fb-cat">Projets futurs</div><div class="carte-fb-text" id="modalCartePr">—</div></div>
-        <div class="carte-fb"><div class="carte-fb-cat">Créativité</div><div class="carte-fb-text" id="modalCarteC">—</div></div>
-      </div>
-      <div class="fb-divider"></div>
-      <div class="fb-group-title">🌟 Les 5 valeurs emlyon</div>
-      <div class="fb-section"><p id="modalValeurs">—</p></div>
-      <div class="fb-section"><h4 class="emlyon">🗣️ Échange final</h4><p id="modalEchangeFinal">—</p></div>
-    </div>
-    <div class="fb-divider"></div>
-    <div class="fb-group-title">🔍 Analyse personnalisée</div>
-    <div class="analyse-box" id="modalAnalyse">—</div>
-    <div class="fb-section"><h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4><p id="modalQuestionFinale">—</p></div>
-    <div class="comp-card"><div class="comp-label">📈 Comparaison avec l'entretien précédent</div><p id="modalComparaison">—</p></div>
-    <div class="fb-divider"></div>
-    <div class="fb-group-title">🚀 Pour progresser</div>
-    <div class="fb-section"><h4 class="escp" id="h4Forts">✅ Points forts</h4><p id="modalForts">—</p></div>
-    <div class="fb-section"><h4 class="escp" id="h4Faibles">⚠️ Points faibles</h4><p id="modalFaibles">—</p></div>
-    <div class="fb-section"><h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4><p id="modalAxes">—</p></div>
+
+```
+<div class="modal-header">
+  <div class="modal-school-badge escp" id="modalSchoolBadge">ESCP</div>
+  <div class="modal-note" id="modalNote">—</div>
+  <div class="modal-note-label">Note sur 20</div>
+  <div class="modal-verdict escp" id="modalVerdict">—</div>
+</div>
+
+<div class="fb-group-title">📋 Analyse de l'entretien</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Presentation">🎤 Présentation initiale</h4>
+  <p id="modalPresentation">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Expression">🗣️ Qualité de l'expression</h4>
+  <p id="modalExpression">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Connaissance">🏛️ Connaissance de l'école</h4>
+  <p id="modalConnaissance">—</p>
+</div>
+
+<div id="sectionESCP">
+  <div class="fb-section">
+    <h4 class="escp">⚡ Dynamique de l'échange</h4>
+    <p id="modalDynamique">—</p>
+  </div>
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">🔺 Triangle Personnalité — Projet — ESCP</div>
+  <div class="fb-section"><p id="modalTriangle">—</p></div>
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">📚 Fond & Contenu</div>
+  <div class="fb-section">
+    <h4 class="escp">🎯 Motivation & fond ESCP</h4>
+    <p id="modalFond">—</p>
+  </div>
+  <div class="fb-section">
+    <h4 class="escp">📝 Exploitation du questionnaire</h4>
+    <p id="modalQuestionnaire">—</p>
+  </div>
+</div>
+
+<div id="sectionEMLYON" style="display:none;">
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">🃏 Réactivité aux cartes</div>
+  <div class="cartes-grid">
+    <div class="carte-fb"><div class="carte-fb-cat">Personnalité</div><div class="carte-fb-text" id="modalCarteP">—</div></div>
+    <div class="carte-fb"><div class="carte-fb-cat">Expériences</div><div class="carte-fb-text" id="modalCarteE">—</div></div>
+    <div class="carte-fb"><div class="carte-fb-cat">Projets futurs</div><div class="carte-fb-text" id="modalCartePr">—</div></div>
+    <div class="carte-fb"><div class="carte-fb-cat">Créativité</div><div class="carte-fb-text" id="modalCarteC">—</div></div>
+  </div>
+  <div class="fb-divider"></div>
+  <div class="fb-group-title">🌟 Les 5 valeurs emlyon</div>
+  <div class="fb-section"><p id="modalValeurs">—</p></div>
+  <div class="fb-section">
+    <h4 class="emlyon">🗣️ Échange final</h4>
+    <p id="modalEchangeFinal">—</p>
+  </div>
+</div>
+
+<div class="fb-divider"></div>
+<div class="fb-group-title">🔍 Analyse personnalisée</div>
+<div class="analyse-box" id="modalAnalyse">—</div>
+
+<div class="fb-section">
+  <h4 class="escp" id="h4QuestionFinale">❓ Question finale au jury</h4>
+  <p id="modalQuestionFinale">—</p>
+</div>
+
+<div class="comp-card">
+  <div class="comp-label">📈 Comparaison avec l'entretien précédent</div>
+  <p id="modalComparaison">—</p>
+</div>
+
+<div class="fb-divider"></div>
+<div class="fb-group-title">🚀 Pour progresser</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Forts">✅ Points forts</h4>
+  <p id="modalForts">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Faibles">⚠️ Points faibles</h4>
+  <p id="modalFaibles">—</p>
+</div>
+<div class="fb-section">
+  <h4 class="escp" id="h4Axes">🎯 Axes d'amélioration</h4>
+  <p id="modalAxes">—</p>
+</div>
+```
+
   </div>
 </div>
 
@@ -708,15 +389,21 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   const student_id = localStorage.getItem('student_id')
   const email = localStorage.getItem('email')
   if (!student_id) window.location.href = '/'
+
   document.getElementById('navEmail').textContent = email || ''
+
+  // Bouton admin visible uniquement pour abijaoui@icloud.com
   if (email === 'abijaoui@icloud.com') {
     const adminBtn = document.createElement('a')
     adminBtn.href = '/admin'
-    adminBtn.textContent = 'Admin'
+    adminBtn.textContent = '⚙️ Admin'
     adminBtn.style.cssText = 'font-size:0.75rem;color:#9994aa;text-decoration:none;border:1px solid rgba(200,169,110,0.12);padding:5px 14px;font-family:Outfit,sans-serif;'
     document.querySelector('.nav-logout').before(adminBtn)
   }
-  if (window.location.search.includes('no_credits')) document.getElementById('noCreditsAlert').classList.add('show')
+
+  if (window.location.search.includes('no_credits')) {
+    document.getElementById('noCreditsAlert').classList.add('show')
+  }
 
   function switchTab(tab) {
     document.querySelectorAll('.tab').forEach(t => t.className = 'tab')
@@ -727,18 +414,20 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
 
   async function loadCredits() {
     try {
-      const res = await fetch('/api/credits?student_id=' + student_id)
+      const res = await fetch(`/api/credits?student_id=${student_id}`)
       const data = await res.json()
       const credits = data.credits || 0
       localStorage.setItem('credits', credits)
       document.getElementById('sessionsNum').textContent = credits
-      document.getElementById('progressFill').style.width = Math.min(100, (credits/10)*100) + '%'
+      document.getElementById('progressFill').style.width = `${Math.min(100, (credits / 10) * 100)}%`
       if (credits <= 0) {
         document.getElementById('btnESCP').classList.add('btn-disabled')
         document.getElementById('btnEMLYON').classList.add('btn-disabled')
         document.getElementById('rechargeBanner').classList.add('show')
       }
-    } catch(e) { document.getElementById('sessionsNum').textContent = localStorage.getItem('credits') || '0' }
+    } catch(e) {
+      document.getElementById('sessionsNum').textContent = localStorage.getItem('credits') || '0'
+    }
   }
 
   function logout() { localStorage.clear() }
@@ -746,13 +435,14 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
   function toggleQuestionnaire() {
     const form = document.getElementById('questionnaireForm')
     const btn = document.getElementById('qToggle')
+    const isOpen = form.classList.contains('open')
     form.classList.toggle('open')
-    btn.textContent = form.classList.contains('open') ? 'Réduire ↑' : 'Remplir ↓'
+    btn.textContent = isOpen ? 'Remplir ↓' : 'Réduire ↑'
   }
 
   async function loadQuestionnaire() {
     try {
-      const res = await fetch('/api/questionnaire?student_id=' + student_id)
+      const res = await fetch(`/api/questionnaire?student_id=${student_id}`)
       const data = await res.json()
       if (!data) return
       document.getElementById('q1').value = data.centres_interet || ''
@@ -761,59 +451,107 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       document.getElementById('q4').value = data.experience_cultures || ''
       document.getElementById('q5').value = data.experience_marquante || ''
       document.getElementById('q6').value = data.autres_infos || ''
-      const has = [data.centres_interet,data.fierte,data.experience_travail,data.experience_cultures,data.experience_marquante,data.autres_infos].some(v=>v&&v.trim())
-      if (has) { document.getElementById('qFilledIndicator').style.display='inline-flex'; document.getElementById('qToggle').textContent='Modifier ↓' }
-    } catch(e) {}
+      const hasContent = [data.centres_interet, data.fierte, data.experience_travail,
+        data.experience_cultures, data.experience_marquante, data.autres_infos].some(v => v && v.trim())
+      if (hasContent) {
+        document.getElementById('qFilledIndicator').style.display = 'inline-flex'
+        document.getElementById('qToggle').textContent = 'Modifier ↓'
+      }
+    } catch(e) { console.error(e) }
   }
 
   async function saveQuestionnaire() {
     const btn = document.getElementById('btnSaveQ')
     const msg = document.getElementById('qSaveMsg')
-    btn.disabled = true; btn.textContent = 'Sauvegarde…'; msg.classList.remove('show')
+    btn.disabled = true
+    btn.textContent = 'Sauvegarde…'
+    msg.classList.remove('show')
     try {
-      const res = await fetch('/api/questionnaire', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ student_id, centres_interet:document.getElementById('q1').value, fierte:document.getElementById('q2').value, experience_travail:document.getElementById('q3').value, experience_cultures:document.getElementById('q4').value, experience_marquante:document.getElementById('q5').value, autres_infos:document.getElementById('q6').value }) })
-      if (res.ok) { msg.classList.add('show'); document.getElementById('qFilledIndicator').style.display='inline-flex'; document.getElementById('qToggle').textContent='Modifier ↓'; setTimeout(()=>msg.classList.remove('show'),3000) }
-    } catch(e) {}
-    btn.disabled = false; btn.textContent = 'Sauvegarder'
+      const res = await fetch('/api/questionnaire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student_id,
+          centres_interet: document.getElementById('q1').value,
+          fierte: document.getElementById('q2').value,
+          experience_travail: document.getElementById('q3').value,
+          experience_cultures: document.getElementById('q4').value,
+          experience_marquante: document.getElementById('q5').value,
+          autres_infos: document.getElementById('q6').value
+        })
+      })
+      if (res.ok) {
+        msg.classList.add('show')
+        document.getElementById('qFilledIndicator').style.display = 'inline-flex'
+        document.getElementById('qToggle').textContent = 'Modifier ↓'
+        setTimeout(() => { msg.classList.remove('show') }, 3000)
+      }
+    } catch(e) { console.error(e) }
+    btn.disabled = false
+    btn.textContent = 'Sauvegarder'
   }
 
   async function loadFeedbacks() {
     try {
-      const res = await fetch('/api/feedbacks?student_id=' + student_id)
+      const res = await fetch(`/api/feedbacks?student_id=${student_id}`)
       const data = await res.json()
-      if (!data || !data.length) return
-      renderList(data.filter(fb=>!fb.ecole||fb.ecole==='ESCP'), 'listESCP', 'Jean-Marc Delaunay')
-      renderList(data.filter(fb=>fb.ecole==='EM Lyon'), 'listEMLYON', 'Sophie Marchand')
-    } catch(e) {}
+      if (!data || data.length === 0) return
+      const escpFeedbacks = data.filter(fb => !fb.ecole || fb.ecole === 'ESCP')
+      const emlFeedbacks = data.filter(fb => fb.ecole === 'EM Lyon')
+      renderList(escpFeedbacks, 'listESCP', 'Jean-Marc Delaunay')
+      renderList(emlFeedbacks, 'listEMLYON', 'Sophie Marchand')
+    } catch(e) { console.error(e) }
   }
 
   function renderList(feedbacks, listId, agent) {
     if (!feedbacks.length) return
     const list = document.getElementById(listId)
     list.innerHTML = ''
-    feedbacks.forEach((fb,i) => {
-      const date = new Date(fb.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})
+    feedbacks.forEach((fb, i) => {
+      const date = new Date(fb.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
       const item = document.createElement('div')
       item.className = 'entretien-item'
       item.onclick = () => openModal(fb)
-      item.innerHTML = '<div><div class="entretien-date">'+date+'</div><div class="entretien-title">Entretien #'+(feedbacks.length-i)+' — '+agent+'</div></div><div style="text-align:right"><div class="note-badge">'+fb.note+'/20</div><div class="note-label">voir détails →</div></div>'
+      item.innerHTML = `
+        <div>
+          <div class="entretien-date">${date}</div>
+          <div class="entretien-title">Entretien #${feedbacks.length - i} — ${agent}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="note-badge">${fb.note}/20</div>
+          <div class="note-label">voir détails →</div>
+        </div>
+      `
       list.appendChild(item)
     })
   }
 
   function openModal(fb) {
     const ecole = fb.ecole || 'ESCP'
-    const isEm = ecole === 'EM Lyon'
-    const cls = isEm ? 'emlyon' : 'escp'
-    document.getElementById('modalTopBar').className = 'modal-top-bar ' + cls
+    const isEmlyon = ecole === 'EM Lyon'
+    const cls = isEmlyon ? 'emlyon' : 'escp'
+
+    document.getElementById('modalTopBar').className = `modal-top-bar ${cls}`
     const badge = document.getElementById('modalSchoolBadge')
-    badge.className = 'modal-school-badge ' + cls; badge.textContent = ecole
-    document.getElementById('modalVerdict').className = 'modal-verdict ' + cls
-    document.getElementById('sectionESCP').style.display = isEm ? 'none' : 'block'
-    document.getElementById('sectionEMLYON').style.display = isEm ? 'block' : 'none'
-    ;['h4Presentation','h4Expression','h4Connaissance','h4QuestionFinale','h4Forts','h4Faibles','h4Axes'].forEach(id => document.getElementById(id).className = cls)
-    document.getElementById('modalAnalyse').className = 'analyse-box' + (isEm ? ' emlyon' : '')
-    document.getElementById('modalNote').textContent = fb.note + '/20'
+    badge.className = `modal-school-badge ${cls}`
+    badge.textContent = ecole
+    document.getElementById('modalVerdict').className = `modal-verdict ${cls}`
+
+    document.getElementById('sectionESCP').style.display = isEmlyon ? 'none' : 'block'
+    document.getElementById('sectionEMLYON').style.display = isEmlyon ? 'block' : 'none'
+
+    document.querySelectorAll('.fb-section h4').forEach(h => { h.className = cls })
+    document.getElementById('h4Presentation').className = cls
+    document.getElementById('h4Expression').className = cls
+    document.getElementById('h4Connaissance').className = cls
+    document.getElementById('h4QuestionFinale').className = cls
+    document.getElementById('h4Forts').className = cls
+    document.getElementById('h4Faibles').className = cls
+    document.getElementById('h4Axes').className = cls
+
+    document.getElementById('modalAnalyse').className = `analyse-box ${isEmlyon ? 'emlyon' : ''}`
+
+    document.getElementById('modalNote').textContent = `${fb.note}/20`
     document.getElementById('modalVerdict').textContent = fb.verdict_jury || '—'
     document.getElementById('modalPresentation').textContent = fb.presentation_initiale || '—'
     document.getElementById('modalExpression').textContent = fb.qualite_expression || '—'
@@ -824,7 +562,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
     document.getElementById('modalForts').textContent = fb.points_forts || '—'
     document.getElementById('modalFaibles').textContent = fb.points_faibles || '—'
     document.getElementById('modalAxes').textContent = fb.axes_amelioration || '—'
-    if (isEm) {
+
+    if (isEmlyon) {
       document.getElementById('modalCarteP').textContent = fb.carte_personnalite || '—'
       document.getElementById('modalCarteE').textContent = fb.carte_experiences || '—'
       document.getElementById('modalCartePr').textContent = fb.carte_projets || '—'
@@ -837,345 +576,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48
       document.getElementById('modalFond').textContent = fb.fond_escp || '—'
       document.getElementById('modalQuestionnaire').textContent = fb.exploitation_questionnaire || '—'
     }
+
     document.getElementById('modalOverlay').classList.add('show')
   }
 
-  function closeModal(e) { if (e.target===document.getElementById('modalOverlay')) document.getElementById('modalOverlay').classList.remove('show') }
-
-  // ===== ESSEC =====
-
-  function essecNav(view, el) {
-    document.querySelectorAll('.essec-nav-btn').forEach(b => b.classList.remove('on'))
-    document.querySelectorAll('.essec-view').forEach(v => { v.classList.remove('on'); v.style.display = 'none'; })
-    el.classList.add('on')
-    const t = document.getElementById('ev-' + view)
-    t.classList.add('on'); t.style.display = 'block'
-  }
-
-  function psychoNav(panel, el) {
-    document.querySelectorAll('.psycho-nav-btn').forEach(b => b.classList.remove('on'))
-    document.querySelectorAll('.psycho-panel').forEach(p => { p.classList.remove('on'); p.style.display = 'none'; })
-    el.classList.add('on')
-    const t = document.getElementById('pp-' + panel)
-    t.classList.add('on'); t.style.display = 'block'
-    if (panel === 'exos') renderExoGrid()
-  }
-
-  function cToggle(item) {
-    const open = item.classList.contains('on')
-    document.querySelectorAll('.cours-item.on').forEach(c => c.classList.remove('on'))
-    if (!open) item.classList.add('on')
-  }
-
-  // QUESTIONS
-  const QUESTIONS = [
-  // SÉRIES NUMÉRIQUES (25 questions)
-  {type:'num',q:'Quelle est la suite logique ? 48, 8, 35, 7, 24, …',opts:['17','6','19','18'],ans:1,exp:'Deux suites entrelacées : 48→35→24 (−13,−11) et 8→7→6 (−1). Réponse : 6.'},
-  {type:'num',q:'Quelle est la suite logique ? 3, 30, 6, 60, 9, 90, …',opts:['120','12','110','100'],ans:1,exp:'Deux suites : 3,6,9 (+3) et 30,60,90 (+30). Le suivant est 12.'},
-  {type:'num',q:'Quelle est la suite logique ? 11, 10, 12, 11, 13, 12, 14, …',opts:['13','15','16','12'],ans:0,exp:'Deux suites alternées : 11,12,13,14 (+1) et 10,11,12,13 (+1). Terme suivant : 13.'},
-  {type:'num',q:'Quelle est la suite logique ? 6, 8, 12, 20, …',opts:['26','36','28','32'],ans:1,exp:'Différences : 2,4,8 → elles doublent. Prochaine différence : 16. 20+16=36.'},
-  {type:'num',q:'Quelle est la suite logique ? 3, 5, 2, 7, 1, 9, …',opts:['10','0','6','1'],ans:1,exp:'Deux suites : 3,2,1 (−1) et 5,7,9 (+2). Terme suivant de la suite impaire : 0.'},
-  {type:'num',q:'Quelle est la suite logique ? 90, 80, 71, 63, 56, …',opts:['52','50','48','47'],ans:1,exp:'Différences : −10,−9,−8,−7 → la différence augmente de 1. Prochaine : −6. 56−6=50.'},
-  {type:'num',q:'Quelle est la suite logique ? 41, 30, 20, 11, …',opts:['3','6','1','9'],ans:0,exp:'Différences : −11,−10,−9 → la différence diminue de 1. Prochaine : −8. 11−8=3.'},
-  {type:'num',q:'Quelle est la suite logique ? 3, 21, 147, 1029, …',opts:['6 300','7 203','5 200','1 703'],ans:1,exp:'Suite géométrique de raison 7 : 1029×7=7203.'},
-  {type:'num',q:'Quelle est la suite logique ? 18, 33, 28, 23, 38, …',opts:['17','18','14','13'],ans:3,exp:'Deux suites : 18,28,38 (+10) et 33,23,13 (−10). La réponse est 13.'},
-  {type:'num',q:'Quelle est la suite logique ? 9, 54, 18, 45, 27, …',opts:['36','16','26','46'],ans:0,exp:'Deux suites : 9,18,27 (+9) et 54,45,36 (−9). La réponse est 36.'},
-  {type:'num',q:'Quelle est la suite logique ? 30, 28, 32, 26, …',opts:['34','32','24','35'],ans:0,exp:'Règle alternée : −2,+4,−6,+8. 26+8=34.'},
-  {type:'num',q:'Quelle est la suite logique ? 5, 10, 25, 50, 125, 250, 625, …',opts:['700','850','1 250','830'],ans:2,exp:'Alternance ×2 et ×2,5 : 625×2=1250.'},
-  {type:'num',q:'Quelle est la suite logique ? 19, 21, 16, 18, 13, 15, …',opts:['12','10','11','14'],ans:1,exp:'Deux suites : 19,16,13 (−3) et 21,18,15 (−3). Terme suivant : 10.'},
-  {type:'num',q:'Quelle est la suite logique ? 18, 12, 15, 10, 12, 8, …',opts:['10','6','11','9'],ans:3,exp:'Deux suites : 18,15,12 (−3) et 12,10,8 (−2). Terme suivant de la 1re : 12−3=9.'},
-  {type:'num',q:'Quelle est la suite logique ? 42, 14, 35, 21, 28, 28, …',opts:['22','14','21','19'],ans:2,exp:'Deux suites : 42,35,28 (−7) et 14,21,28 (+7). Terme suivant de la 1re : 28−7=21.'},
-  {type:'num',q:'Quelle est la suite logique ? 4, 6, 9, 13, 18, …',opts:['15','19','21','24'],ans:3,exp:'Différences : 2,3,4,5 → augmentent de 1. Prochaine : +6 → 18+6=24.'},
-  {type:'num',q:'Quelle est la suite logique ? 81, 1, 75, 3, 69, 5, …',opts:['61','76','63','65'],ans:2,exp:'Deux suites : 81,75,69 (−6) et 1,3,5 (+2). Terme suivant : 69−6=63.'},
-  {type:'num',q:'Suite logique : 7 – 13 – 24 – 45 – ?',opts:['55','72','86','90'],ans:2,exp:'Règle : chaque terme = terme précédent × 2 − k : 7×2−1=13, 13×2−2=24, 24×2−3=45, 45×2−4=86.'},
-  {type:'num',q:'Suite logique : 2 – 3 – 8 – ?',opts:['12','37','48','63'],ans:3,exp:'Règle : 2×3+2=8, 3×7+... L\'officiel est d) 63.'},
-  {type:'num',q:'Complétez : 12 – 16 – 13 – ? – 14 – 18 – 15',opts:['11','12','13','17'],ans:3,exp:'Deux suites entrelacées : 12,13,14 (+1) et 16,17,18 (+1). La valeur manquante est 17.'},
-  {type:'num',q:'Quel est le nombre manquant ? 56,63 – 36,65 – 49,86 – 68,?',opts:['59','68','86','94'],ans:3,exp:'68 inversé=86, 86+8=94. Réponse : d) 94.'},
-  {type:'num',q:'Suite logique : AC2 – EG4 – IK8 – MO16 – ?',opts:['PR32','QS32','PR64','QS64'],ans:1,exp:'Lettres : saut de 2 (A→C→E→G→I→K→M→O→Q→S). Nombre : ×2. Réponse : QS32.'},
-  {type:'num',q:'Quelle est la suite logique ? 22, 33, 44, 55, 66, …',opts:['88','77','99','66'],ans:1,exp:'Suite arithmétique de raison 11 : 66+11=77.'},
-  {type:'num',q:'Quelle est la suite logique ? 3, 8, 15, 8, 3, …',opts:['8','18','0','3'],ans:0,exp:'Suite palindromique en W : 3,8,15,8,3,8,15... Le terme suivant est 8.'},
-  {type:'num',q:'Suite logique : 31, 38, 45, ?, 59, 66',opts:['52','51','53','50'],ans:0,exp:'Suite arithmétique de raison +7 : 45+7=52.'},
-
-  // SÉRIES DE LETTRES (15 questions)
-  {type:'lettres',q:'Quelle lettre vient à la place du ? : U-D-T-Q-C-S-S-H-?',opts:['D','N','O','T'],ans:1,exp:'Initiales des chiffres : Un,Deux,Trois,Quatre,Cinq,Six,Sept,Huit,Neuf → N.'},
-  {type:'lettres',q:'Complétez : B C D Z – B C D Y – B C D ?',opts:['X','W','V','U'],ans:0,exp:'Le groupe BCD est fixe. La 4e lettre descend : Z,Y,X.'},
-  {type:'lettres',q:'Quelle lettre remplace ? : 108 C / 648 S / 325 T / 214 ?',opts:['A','D','X','Z'],ans:1,exp:'Nombre de lettres du chiffre en français : cent-huit=7? Reponse officielle : b) D.'},
-  {type:'lettres',q:'Complétez : DIKA – EKNE – FMQI – ?',opts:['GHUY','GOAQ','GOTM','GRIP'],ans:2,exp:'Chaque lettre avance : D→E→F→G (+1), I→K→M→O (+2), K→N→Q→T (+3), A→E→I→M (+4). Réponse : GOTM.'},
-  {type:'lettres',q:'Quelle lettre complète ? : A D H K O ?',opts:['R','S','T','Q'],ans:1,exp:'A=1,D=4,H=8,K=11,O=15 → différences : 3,4,3,4 → prochaine +4 : O+4=S.'},
-  {type:'lettres',q:'Complétez : M V N W O X P Y Q ?',opts:['R','Z','S','T'],ans:1,exp:'Deux suites alternées : M,N,O,P,Q (+1) et V,W,X,Y,Z (+1). Réponse : Z.'},
-  {type:'lettres',q:'Complétez : B D G K ?',opts:['O','P','N','M'],ans:1,exp:'B=2,D=4,G=7,K=11 → différences : 2,3,4 → prochaine +5 : K=11+5=P=16.'},
-  {type:'lettres',q:'Complétez : I E A J F B K ? ? ?',opts:['G C L','H C L','G D L','G C M'],ans:0,exp:'3 colonnes en parallèle : I,J,K (+1) et E,F,G (+1) et A,B,C (+1). Réponse : G C L.'},
-  {type:'lettres',q:'Quelle lettre suit ? : H I H J K J L M L N O ?',opts:['N','O','P','Q'],ans:0,exp:'Groupes de 3 avec répétition : H,I,H – J,K,J – L,M,L – N,O,N. Réponse : N.'},
-  {type:'lettres',q:'Quelle lettre remplace le ? : D E D E I J K L K L ?',opts:['P','M','O','Q'],ans:2,exp:'Groupes de 2 avec répétition en miroir : DE,DE,IJKL,KL,? → prochaine lettre O.'},
-  {type:'lettres',q:'Complétez : O L P Q L R S T L ? ? ?',opts:['U V L','U V W','V W L','U W L'],ans:0,exp:'Groupes de 3 lettres consécutives séparées par L. Après S,T,L → U,V,L.'},
-  {type:'lettres',q:'Quelle suite complète ? : (A-2) – (E-5) – (I-11) – (?-?) – (U-47)',opts:['O-23','O-42','Y-54','Y-85'],ans:0,exp:'Voyelles A,E,I,O,U. Nombres : 2,5,11,23,47 → ×2+1. 11×2+1=23. Réponse : (O-23).'},
-  {type:'lettres',q:'Complétez la suite de lettres : H I H J K J L M L N O N P ?',opts:['Q','O','R','N'],ans:0,exp:'La séquence forme des triplets. Après N,O,N → P,Q... Réponse : Q.'},
-  {type:'lettres',q:'Quelle lettre remplace le ? : A B D G K ?',opts:['P','R','N','O'],ans:0,exp:'A=1,B=2,D=4,G=7,K=11 → différences : 1,2,3,4 → prochaine +5=16=P.'},
-  {type:'lettres',q:'Complétez : Lundi=L, Mardi=M, Mercredi=M, Jeudi=J, Vendredi=?',opts:['A','M','S','V'],ans:3,exp:'Initiales des jours de la semaine : Vendredi=V.'},
-
-  // RAISONNEMENT QUANTITATIF (20 questions)
-  {type:'quant',q:'Un nénuphar double de surface chaque jour et met 100 jours pour couvrir un étang. Avec 2 nénuphars, combien de temps faut-il ?',opts:['50 jours','75 jours','99 jours','100 jours'],ans:2,exp:'Avec 2 nénuphars, la surface est déjà double au départ. Il faut donc 99 jours.'},
-  {type:'quant',q:'Arthur a 2 ans de plus que Thomas. Thomas a 8 ans de moins que Paul (16 ans). Lise a 6 ans de moins que Thomas. Qui est le plus jeune ?',opts:['Arthur','Lise','Paul','Thomas'],ans:1,exp:'Paul=16, Thomas=8, Arthur=10, Lise=2. Lise est la plus jeune.'},
-  {type:'quant',q:'Dans une course, vous doublez le 2ème. Vous êtes maintenant ?',opts:['1er','2ème','3ème','4ème'],ans:1,exp:'Doubler le 2ème = prendre sa place. Vous devenez 2ème.'},
-  {type:'quant',q:'Pierre achète 15 pots de peinture mais ne peut en transporter que 2 à la fois. Combien de voyages doit-il faire ?',opts:['7','7,5','8','15'],ans:2,exp:'7 voyages = 14 pots. Il reste 1 pot → 8ème voyage nécessaire.'},
-  {type:'quant',q:'Deux canards et deux chats ont combien de pattes au total ?',opts:['8','12','14','16'],ans:1,exp:'Canards : 2×2=4. Chats : 2×4=8. Total : 12.'},
-  {type:'quant',q:'Son tiroir contient 5 paires de chaussettes noires et 5 paires de chaussettes blanches (dans le noir). Combien en prendre pour être sûr d\'avoir 2 de même couleur ?',opts:['2','3','10','11'],ans:1,exp:'Au pire : 1 noire + 1 blanche. La 3e est forcément d\'une des deux couleurs. Réponse : 3.'},
-  {type:'quant',q:'Un escargot monte 3m/jour et redescend 2m/nuit sur un poteau de 12m. Combien de jours pour atteindre le sommet ?',opts:['4 jours','6 jours','10 jours','12 jours'],ans:2,exp:'Gain net : +1m/jour. Après 9 jours : 9m. Le 10e jour il monte 3m et atteint 12m → 10 jours.'},
-  {type:'quant',q:'Zola est né 38 ans après Hugo, 10 ans avant Maupassant. Maupassant est né 51 ans après Balzac. Ordre chronologique ?',opts:['Balzac–Hugo–Zola–Maupassant','Balzac–Maupassant–Zola–Hugo','Hugo–Balzac–Maupassant–Zola','Hugo–Balzac–Zola–Maupassant'],ans:0,exp:'Balzac + x = Hugo, Hugo + 38 = Zola, Zola + 10 = Maupassant = Balzac + 51 → Hugo = Balzac + 3. Ordre : Balzac→Hugo→Zola→Maupassant.'},
-  {type:'quant',q:'Vous clôturez un jardin rectangulaire (21m × 15m). Un poteau tous les 3m. Espace de 3m sans grillage pour le portail. Combien de poteaux ?',opts:['21','23','24','25'],ans:1,exp:'Périmètre : 2×(21+15)=72m. 72/3=24 intervalles. Portail enlève 1 poteau. Réponse : 23.'},
-  {type:'quant',q:'Sur un damier 3×3, combien de carrés composés d\'au moins une case peut-on compter au maximum ?',opts:['4','9','10','14'],ans:3,exp:'1×1 : 9, 2×2 : 4, 3×3 : 1. Total : 14.'},
-  {type:'quant',q:'Quelle est la somme de la série 1 + ½ + ¼ + 1/8 + … à l\'infini ?',opts:['2,5','2','1,96','3,14'],ans:1,exp:'Série géométrique de raison ½ : S = 1/(1−½) = 2.'},
-  {type:'quant',q:'La surface d\'un triangle est ½ × b × h. Si b est multiplié par 4 et h divisé par 2, la nouvelle surface est ?',opts:['¼ de l\'originale','½ de l\'originale','2 fois l\'originale','4 fois l\'originale'],ans:2,exp:'Nouvelle surface = ½ × 4b × h/2 = ½ × 2bh = 2 × (½bh). Réponse : 2 fois.'},
-  {type:'quant',q:'Il y a eu 5 lundis, 5 mardis et 5 mercredis en janvier (31 jours). Quel jour était le 1er février ?',opts:['Lundi','Mercredi','Jeudi','Dimanche'],ans:2,exp:'Janvier finit un mercredi (31e jour). Le 1er février est donc un jeudi.'},
-  {type:'quant',q:'Vingt(4) – Douze(2) – Quinze(3) – Seize(?)',opts:['1','2','3','4'],ans:1,exp:'Nombre / résultat : 20/4=5?, 12/2=6?, 15/3=5? Règle : nb de lettres/2 → Seize=5 lettres → 5/2=2,5 → 2. Réponse : 2.'},
-  {type:'quant',q:'Parmi les propositions, laquelle remplace le X ? : 2 – 14 – 11 – 23 – X – 32',opts:['13','17','20','35'],ans:2,exp:'Deux suites : 2,11,20 (+9) et 14,23,32 (+9). X=20.'},
-  {type:'quant',q:'Un agent classe ses dossiers en 2 piles égales mais il en reste 1. En 3 piles égales : idem, reste 1. Combien de dossiers ?',opts:['1001','1003','1005','1007'],ans:1,exp:'N impair (reste 1 pour 2 piles) et N divisé par 3 donne reste 1. N=1003 : 1003/2=501 reste 1 ✓, 1003/3=334 reste 1 ✓.'},
-  {type:'quant',q:'Huit cent cinquante trois milliards deux millions huit cent quatre-vingt-quinze mille trois cent quatre-vingt-dix-huit en chiffres ?',opts:['853002895398','853002985398','853028950398','853200895398'],ans:0,exp:'853 milliards + 2 millions + 895 000 + 398 = 853 002 895 398.'},
-  {type:'quant',q:'Pour le dernier match, 2742 billets vendus. Le dernier billet porte le n°7855. Le premier billet porte le n°…',opts:['5113','5114','10597','10598'],ans:1,exp:'7855 − 2742 + 1 = 5114.'},
-  {type:'quant',q:'Dans une course, vous avez 5 places d\'avance sur l\'avant-dernier et 3 places de retard sur le 2ème. Combien y a-t-il de coureurs ?',opts:['9','10','11','12'],ans:1,exp:'Votre position = 2+3=5e. Avant-dernier = 5+5=10e. Avec le dernier : 10+1=11? Réponse : 10 coureurs (l\'avant-dernier est 9e et il y a 10 au total).'},
-  {type:'quant',q:'Vincent a RDV chaque jour à 14h. Lundi : reçu 14h30. Mardi : 15h20. Mercredi : 16h30. Jeudi à quelle heure ?',opts:['17h','18h','19h30','20h10'],ans:0,exp:'Retards : 30min, 80min, 90min... La progression n\'est pas régulière. La reponse officielle est a) 17h.'},
-
-  // RAISONNEMENT DÉDUCTIF (15 questions)
-  {type:'deductif',q:'"Tous les curieux sont avides. Aucun gourmand n\'échappe aux sarcasmes. Certains gourmands sont curieux." Quelle phrase contredit ces affirmations ?',opts:['Certains curieux sont gourmands','Certains êtres avides échappent aux sarcasmes','Certains gourmands sont avides','Tous les avides échappent aux sarcasmes'],ans:3,exp:'Certains gourmands (curieux) sont avides et subissent des sarcasmes. "Tous les avides échappent aux sarcasmes" contredit directement cela.'},
-  {type:'deductif',q:'"Il est faux que toutes les personnes de haute taille sont maigres." Cette affirmation équivaut à :',opts:['Il existe au moins une personne de haute taille qui n\'est pas maigre','Il existe au moins une personne de petite taille qui est maigre','Les personnes de haute taille sont toutes maigres','Les personnes de petite taille ne sont pas toutes maigres'],ans:0,exp:'Négation de "tous A sont B" = "il existe au moins un A qui n\'est pas B".'},
-  {type:'deductif',q:'"Les enfants bruns aiment le chocolat. Il n\'existe pas d\'enfant qui n\'aime pas les bonbons." Que peut-on déduire ?',opts:['Patrick n\'aime pas les bonbons, donc il est brun','Pierre aime les bonbons, donc il est brun','Si Alain est un enfant brun, alors il aime les bonbons et le chocolat','Un enfant brun n\'aime pas forcément le chocolat'],ans:2,exp:'Tous les enfants aiment les bonbons (prémisse 2). Les bruns aiment le chocolat (prémisse 1). Donc un brun aime les deux.'},
-  {type:'deductif',q:'"Tous les méchants sont imbéciles. Aucun distrait n\'échappe aux moqueries. Certains distraits sont méchants." Quelle proposition contredit ?',opts:['Certains distraits sont imbéciles','Certains imbéciles échappent aux moqueries','On se moque toujours des distraits','Tous les imbéciles échappent aux moqueries'],ans:1,exp:'Les distraits méchants sont imbéciles ET subissent des moqueries. Donc certains imbéciles subissent des moqueries. "Certains imbéciles y échappent" n\'est pas formellement contredit mais "Tous les imbéciles échappent" l\'est directement.'},
-  {type:'deductif',q:'Maçon est à maison ce que boulanger est à :',opts:['Farine','Four','Levure','Pain'],ans:3,exp:'Le maçon construit la maison. Le boulanger fabrique le pain. Rapport créateur/création.'},
-  {type:'deductif',q:'"Si je ne trouve pas bleu, je ne peux pas dire rouge." Quel énoncé est équivalent ?',opts:['Si je ne trouve pas bleu, je peux dire rouge','Si je ne peux pas dire rouge, c\'est que je trouve bleu','Si je peux dire rouge, c\'est que je trouve bleu','Si je trouve bleu, je ne peux pas dire rouge'],ans:2,exp:'¬bleu→¬rouge est équivalent à sa contraposée rouge→bleu. Réponse : c).'},
-  {type:'deductif',q:'Dans un château, 4 coffres. Coffre 1: "il est ici". Coffre 2: "il est dans le 3". Coffre 3: "il est dans le 1 ou 2". Coffre 4: "il n\'est pas là". Une seule inscription fausse. Où est l\'objet ?',opts:['Coffre 1','Coffre 2','Coffre 3','Coffre 4'],ans:2,exp:'Si objet en 3 : C1 faux, C2 faux → 2 fausses. Si objet en coffre 3 : C1 faux, C2 faux... Testons coffre 3 : C3 dit "coffre 1 ou 2" → faux, C2 dit "coffre 3" → vrai, C1 dit "ici" → faux, C4 "pas là" → vrai. 2 fausses. Testons coffre 4 : C4 faux, C1 faux → 2 fausses. Coffre 1 : C1 vrai, C2 faux, C3 faux, C4 vrai → 2 fausses. En fait si l\'objet est en coffre 3, C2=vrai, C3="coffre 1 ou 2"=faux, C1="ici"=faux, C4="pas là"=vrai. 2 fausses non. Officiel : c) 3.'},
-  {type:'deductif',q:'Cinq livres sur une étagère. Orange entre gris et rose (3 qui se suivent). Doré n\'est pas 1er. Rose n\'est pas dernier. 2 volumes entre marron et rose. Doré ne suit pas immédiatement le marron. Ordre ?',opts:['Gris–orange–rose–marron–doré','Gris–rose–orange–doré–marron','Marron–gris–orange–rose–doré','Marron–orange–gris–doré–rose'],ans:2,exp:'Rose en 4e (2 volumes entre marron en 1e et rose). Groupe gris-orange-rose → positions 2,3,4. Doré en 5e. Réponse : Marron–gris–orange–rose–doré.'},
-  {type:'deductif',q:'ANTENNE – NENUPHAR – X – CIERGE. Quelle est la logique de la suite ?',opts:['AUTARCIE','PHARAON','PHARMACIE','PHARMACIEN'],ans:1,exp:'Le début du mot suivant = fin du précédent. ANTENNE→NE→NENUPHAR, NENUPHAR→PHAR→PHARAON, PHARAON→AON? CIERGE commence par C... Reponse officielle : b) PHARAON.'},
-  {type:'deductif',q:'Jean est le grand-père maternel de mon oncle paternel Jacques. Qui suis-je ?',opts:['L\'arrière-petit-fils de Jean','Le petit-fils de Jean','Le petit-neveu de Jean','L\'arrière-petit-cousin de Jean'],ans:0,exp:'Jean=grand-père de Jacques. Mon père=frère de Jacques. Jean=grand-père de mon père. Donc je suis arrière-petit-fils de Jean.'},
-  {type:'deductif',q:'Parmi les propositions, laquelle remplace le ? : Aspirine/parisien – Praticien/anticiper – Trésors/ressort – ?',opts:['Digue/tiède','Liberté/atelier','Tentation/alimenter','Vanité/native'],ans:3,exp:'Chaque paire : le second mot est une anagramme du premier. VANITE → NATIVE. Réponse : d).'},
-  {type:'deductif',q:'Fleuri(9) – Loyal(12) – Mariage(5) – ? Quelle est la logique ?',opts:['Parier14','Rond7','Sérum12','Vu21'],ans:1,exp:'Nombre de lettres × 3 − consonnes? Fleuri:6 lettres, 9=6+3; Loyal:5 lettres, 12=5+7? Rond:4 lettres, 7=4+3. Reponse officielle: b) Rond7.'},
-  {type:'deductif',q:'"Si rouge, alors carré. Si carré, alors grand. Pierre est rouge." Que peut-on conclure ?',opts:['Pierre est carré','Pierre est grand','Pierre est carré et grand','Rien de certain'],ans:2,exp:'Rouge→carré→grand. Pierre est rouge → carré → grand. Les deux sont vrais.'},
-  {type:'deductif',q:'Anne fait plus de km que Kim. Kim fait autant ou moins que Anne. Fabrice fait plus que Anne. Lequel fait le moins ?',opts:['Anne','Fabrice','Kim','On ne peut pas conclure'],ans:2,exp:'Fabrice > Anne > Kim (ou Anne ≥ Kim). Kim fait le moins.'},
-  {type:'deductif',q:'Parmi les propositions, laquelle remplace (X) ? Vingt(4) – Douze(2) – Quinze(3) – Seize(X)',opts:['1','2','3','4'],ans:1,exp:'Nombre de lettres / 2 = résultat (arrondi) : Vingt=5/2≈2, Douze=5/2≈2... Non. Nombre/5 : 20/5=4, 12/6=2, 15/5=3, 16/8=2. Réponse : b) 2.'},
-
-  // SYNONYMES / VOCABULAIRE (20 questions)
-  {type:'vocab',q:'PROHIBER – Quel mot est le plus proche ?',opts:['interdire','montrer','cacher','bloquer'],ans:0,exp:'Prohiber = interdire formellement par la loi ou l\'autorité.'},
-  {type:'vocab',q:'DÉLECTATION – Quel mot est le plus proche ?',opts:['dissolution','délayage','plaisir','satisfaction'],ans:2,exp:'Délectation = grand plaisir, jouissance intense.'},
-  {type:'vocab',q:'SÉRÉNITÉ – Quel mot est le plus proche ?',opts:['mollesse','tranquillité','insécurité','indifférence'],ans:1,exp:'Sérénité = état de calme et de tranquillité d\'esprit.'},
-  {type:'vocab',q:'ENTREGENT – Quel mot est le plus proche ?',opts:['verve','énergie','diplomatie','culot'],ans:2,exp:'L\'entregent désigne l\'habileté à se conduire en société, la diplomatie relationnelle.'},
-  {type:'vocab',q:'MYSTERIEUX – Quel mot est le plus proche ?',opts:['Extravagant','Luxuriant','Étrange','Formidable'],ans:2,exp:'Mystérieux = qui est difficile à expliquer ou à comprendre, étrange.'},
-  {type:'vocab',q:'SIMULER – Quel mot est le plus proche ?',opts:['Folâtrer','Dénaturer','Imiter','Feindre'],ans:3,exp:'Simuler = feindre, faire semblant d\'avoir quelque chose.'},
-  {type:'vocab',q:'JADIS – Quel mot est le plus proche ?',opts:['Parfois','Récemment','Autrefois','Souvent'],ans:2,exp:'Jadis = autrefois, dans le temps passé.'},
-  {type:'vocab',q:'LUBIE – Quel mot est le plus proche ?',opts:['Charme','Caprice','Illusion','Vision'],ans:1,exp:'Lubie = idée fantaisiste et passagère, caprice bizarre.'},
-  {type:'vocab',q:'COMPLEXION – Quel mot est le plus proche ?',opts:['Régénération','Diagramme','Complexité','Tempérament'],ans:3,exp:'Complexion = constitution physique et tempérament naturel d\'une personne.'},
-  {type:'vocab',q:'COMMISÉRATION – Quel mot est le plus proche ?',opts:['dédain','bienveillance','compassion','peur'],ans:2,exp:'Commisération = sentiment de pitié et de compassion envers quelqu\'un qui souffre.'},
-  {type:'vocab',q:'PAMPHLET – Quel mot est le plus proche ?',opts:['texte','diatribe','satire','opuscule'],ans:2,exp:'Pamphlet = court écrit polémique et satirique.'},
-  {type:'vocab',q:'RUBIGINEUX – Quel mot est le plus proche ?',opts:['bosselé','couvert de rubis','rouillé','délabré'],ans:2,exp:'Rubigineux = de couleur rouille, couvert de rouille (du latin rubigo = rouille).'},
-  {type:'vocab',q:'GALANTERIE – Quel mot est le plus proche ?',opts:['souplesse','affirmation','courtoisie','séduction'],ans:2,exp:'Galanterie = politesse raffinée, manière attentionnée et courtoise.'},
-  {type:'vocab',q:'SCELLER – Quel mot est le plus proche ?',opts:['dissimuler','fermer','arrêter','apposer'],ans:1,exp:'Sceller = fermer hermétiquement, boucher définitivement.'},
-  {type:'vocab',q:'EXIGU – Quel mot est le plus proche ?',opts:['petit','désordonné','obscur','étroit'],ans:0,exp:'Exigu = très petit, de dimensions insuffisantes.'},
-  {type:'vocab',q:'INTERPOLER – Quel mot est le plus proche ?',opts:['Inverser','Intercaler','Transgresser','Intervertir'],ans:1,exp:'Interpoler = insérer, intercaler des éléments dans un texte ou une série.'},
-  {type:'vocab',q:'POSTERITÉ – Quel mot est le plus proche ?',opts:['Immortalité','Filiation','Héritage','Descendants'],ans:1,exp:'Postérité = l\'ensemble des générations futures, la descendance.'},
-  {type:'vocab',q:'CONSOMPTION – Quel mot est le plus proche ?',opts:['Peccabilité','Ennui','Difficulté','Dépérissement'],ans:3,exp:'Consomption = dépérissement progressif, affaiblissement.'},
-  {type:'vocab',q:'INTERPOLER – Quel mot est le plus proche ?',opts:['Inverser','Intercaler','Transgresser','Intervertir'],ans:1,exp:'Interpoler = insérer, intercaler des éléments dans un texte ou une suite.'},
-  {type:'vocab',q:'TAPAGE – Quel mot est le plus proche ?',opts:['agression','vacarme','apéritif','dispute'],ans:1,exp:'Tapage = bruit fort et désordonné, vacarme.'},
-
-  // ANALOGIES (15 questions)
-  {type:'analogie',q:'MÉLOMANE – MUSIQUE, comme ?',opts:['misanthrope–homme','cinéphile–cinéma','indifférent–beauté','étranger–xénophobe'],ans:1,exp:'Le mélomane est passionné de musique. Le cinéphile est passionné de cinéma.'},
-  {type:'analogie',q:'ÉCRIVAIN – LECTEUR, comme ?',opts:['message–canal','théâtre–public','émetteur–récepteur','littérature–message'],ans:2,exp:'L\'écrivain est l\'émetteur, le lecteur est le récepteur. Même rapport de communication.'},
-  {type:'analogie',q:'ÉTAT – FRONTIÈRE, comme ?',opts:['France–Espagne','champ–haie','séjour–immigré','limites–transgression'],ans:1,exp:'La frontière délimite l\'état. La haie délimite le champ. Rapport contenant/limite.'},
-  {type:'analogie',q:'NORMALITÉ – ANOMALIE, comme ?',opts:['crime–châtiment','fous–bijoux','bandit–vol','loi–violation'],ans:3,exp:'L\'anomalie est une violation de la normalité. De même la violation transgresse la loi.'},
-  {type:'analogie',q:'SONNET – ÉCRIRE, comme ?',opts:['texte–parodier','article–plagier','proverbe–détourner','symphonie–composer'],ans:3,exp:'On écrit un sonnet, on compose une symphonie. Rapport œuvre/acte de création.'},
-  {type:'analogie',q:'TORRIDE – CHAUD, comme ?',opts:['timide–effacé','intense–fort','séduisant–hideux','chaleureux–tiède'],ans:1,exp:'Torride est l\'intensificateur de chaud. Intense est l\'intensificateur de fort.'},
-  {type:'analogie',q:'MITE – VÊTEMENT, comme ?',opts:['œuf–larve','tailleur–robe','trou–réparation','calomnie–réputation'],ans:3,exp:'La mite détériore le vêtement. La calomnie détériore la réputation.'},
-  {type:'analogie',q:'BOXEUR – GANTS, comme ?',opts:['nageur–eau','librairie–vitrines','homme d\'affaires–honoraires','bactériologiste–microscope'],ans:3,exp:'Le boxeur utilise des gants. Le bactériologiste utilise le microscope. Rapport professionnel/outil.'},
-  {type:'analogie',q:'LOI – CITOYEN, comme ?',opts:['démocratie–socialisme','arme–paix','rênes–cheval','gangster–policier'],ans:2,exp:'La loi régit le citoyen. Les rênes contrôlent le cheval. Rapport règle/sujet contrôlé.'},
-  {type:'analogie',q:'RÉPUGNANCE – AVERSION, comme ?',opts:['coopération–concurrence','couardise–crainte','haine–amour','apathie–paresse'],ans:3,exp:'Répugnance et aversion sont quasi-synonymes (faible à fort). Apathie et paresse sont aussi quasi-synonymes dans le même registre.'},
-  {type:'analogie',q:'TIC – GESTE, comme ?',opts:['mimique–visage','déficit–budget','assonance–voyelle','bruit–silence'],ans:2,exp:'Un tic est un geste involontaire répété. Une assonance est une répétition de sons vocaliques.'},
-  {type:'analogie',q:'PHILATÉLISTE – TIMBRE, comme ?',opts:['fibulanomiste–billet','colombophile–pigeon','erpétolophile–maladie','mycophile–champignon'],ans:3,exp:'Le philatéliste collectionne les timbres. Le mycophile s\'intéresse aux champignons.'},
-  {type:'analogie',q:'EXAMEN – FRAUDE, comme ?',opts:['avocat–prévenu','compromis–principes','armée–sergent','espionnage–affaires'],ans:1,exp:'La fraude compromet l\'examen. Le compromis altère les principes. Rapport intégrité/violation.'},
-  {type:'analogie',q:'BOIS – SCULPTER, comme ?',opts:['arbres–incliner','papier–brûler','argile–pétrir','tuyau–souffler'],ans:2,exp:'On sculpte le bois. On pétrit l\'argile. Même rapport matière/action de transformation.'},
-  {type:'analogie',q:'LÂCHE – PEUREUX, comme ?',opts:['brave–couard','héroïque–insensé','vertu–défaut','libéral–prodigue'],ans:3,exp:'Lâche et peureux sont dans le même champ sémantique (manque de courage). Libéral et prodigue sont dans le même champ (générosité excessive).'},
-
-  // CODES & SÉQUENCES (10 questions)
-  {type:'code',q:'Si : TOISE=67851, GOMME=47221, PIEGE=38141, alors TEMPO=?',opts:['41724','61237','62372','67329'],ans:1,exp:'T=6, O=7, I=8, S=5, E=1, G=4, M=2, P=3. TEMPO : T,E,M,P,O → 6,1,2,3,7 → 61237.'},
-  {type:'code',q:'(A-2) – (E-5) – (I-11) – (?-?) – (U-47). Quel élément complète ?',opts:['O-23','O-42','Y-54','Y-85'],ans:0,exp:'Voyelles : A,E,I,O,U. Nombres : 2,5,11,23,47 → chaque terme = précédent×2+1. 11×2+1=23. Réponse : (O-23).'},
-  {type:'code',q:'24(9) – 33(10) – 27(15) – 35(?). Quel nombre remplace le X ?',opts:['8','16','20','25'],ans:2,exp:'Somme des chiffres + ? : 2+4=6, 9−6=3 ; 3+3=6, 10−6=4 ; 2+7=9, 15−9=6 ; 3+5=8, X−8=12 → X=20. Réponse : 20.'},
-  {type:'code',q:'Aspirine/parisien – Praticien/anticiper – Trésors/ressort – ?',opts:['Digue/tiède','Liberté/atelier','Tentation/alimenter','Vanité/native'],ans:3,exp:'Chaque second mot est une anagramme de syllabes du premier. VANITE → NATIVE. Réponse : d).'},
-  {type:'code',q:'Fleuri(9) – Loyal(12) – Mariage(5) – ?',opts:['Parier14','Rond7','Sérum12','Vu21'],ans:1,exp:'Nombre de lettres × consonne... Fleuri=6l, 9? Rond=4l, 7? Règle : lettres+consonnes : Fleuri 3 cons+6=9, Loyal 2 cons+?=12? Officiel : Rond7.'},
-  {type:'code',q:'Si ORME=2-5-26-18, TABLE=7-14-15-25-18, OUBLIER=2-8-15-25-22-18-5, alors BRAMER=?',opts:['2-17-15-7-21-8','9-7-11-3-23-19','12-17-8-23-1-15','15-5-14-26-18-5'],ans:3,exp:'Reponse officielle des PDFs : d) 15-5-14-26-18-5.'},
-  {type:'code',q:'Complétez la suite codée : ANTENNE – NENUPHAR – PHARMACIE – CIERGE (règle de liaison ?)',opts:['Les 2 dernières lettres forment le début du mot suivant','Le mot suivant est une anagramme','Chaque mot a une lettre de plus','Les voyelles du 1er forment le 2e'],ans:0,exp:'NE → NÉ-NUPHAR, PHAR → PHARMACIE commence par PHAR... Règle : fins de mots → début du mot suivant.'},
-  {type:'code',q:'Parmi les paires, laquelle suit la même règle ? (Chaque second mot est une anagramme du premier)',opts:['chien/niche','table/place','maison/saison','école/coule'],ans:0,exp:'CHIEN → NICHE est une anagramme parfaite. C\'est la seule paire qui fonctionne complètement.'},
-  {type:'code',q:'Si MOT = 247, RAT = 918, VOL = 536, alors VET = ?',opts:['519','527','529','559'],ans:0,exp:'V=5, O=3, L=6 / M=2, O=3, T=7 / R=9, A=1, T=7. VET : V=5, E=1, T=7... Ou : chiffres = position dans alphabet inversée : M=13→2, O=15→3? Non. Officiel en supposant V=5,E=1,T=9 → 519.'},
-  {type:'code',q:'Quel nombre remplace le ? : 4 (12) 8 – 5 (30) 6 – 3 (21) ?',opts:['6','7','8','9'],ans:1,exp:'4×8−(8−4) = 32−4=28? Non. 4×8=32/2=16? 5×6=30 ✓. Règle : premier × second = résultat. 3×? = 21 → 7. Réponse : 7.'},
-]
-
-function shuffle(arr){const a=[...arr]
-
-    return a;
-  }
-
-
-  function sh(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-
-  const THEMES = [
-    {id:'num',    icon:'🔢', label:'Séries numériques',        desc:'Arithmétique, géométrique, entrelacées'},
-    {id:'lettres',icon:'🔤', label:'Séries de lettres',         desc:'Positions, initiales, alternées'},
-    {id:'quant',  icon:'📐', label:'Raisonnement quantitatif',  desc:'Maths appliquées, pièges logiques'},
-    {id:'deductif',icon:'🧠',label:'Raisonnement déductif',     desc:'Syllogismes, contraposée'},
-    {id:'vocab',  icon:'📖', label:'Synonymes & Vocabulaire',   desc:'Mots rares, antonymes'},
-    {id:'analogie',icon:'🔗',label:'Analogies verbales',        desc:'8 types de rapports'},
-    {id:'code',   icon:'🔐', label:'Codes & Chiffrements',      desc:'Correspondances, anagrammes'},
-  ]
-  const tScores = {}
-  THEMES.forEach(t => tScores[t.id] = {ok:0, total:0, done:false})
-
-  let curTheme=null, eIdx=0, eOk=0, eKo=0, eQ=[]
-
-  function renderExoGrid() {
-    const grid = document.getElementById('exo-grid')
-    let gOk=0, gTot=0
-    grid.innerHTML = THEMES.map(t => {
-      const sc = tScores[t.id]
-      const pct = sc.total > 0 ? Math.round(sc.ok/sc.total*100) : 0
-      const col = pct>=70?'var(--green)':pct>=40?'#ffa94d':'var(--red)'
-      gOk += sc.ok; gTot += sc.total
-      return '<div class="exo-theme-card'+(sc.done?' done':'')+'" onclick="startTheme(''+t.id+'')">'
-        +(sc.done?'<div class="exo-done-badge">✓ Terminé</div>':'')
-        +'<div class="exo-theme-icon">'+t.icon+'</div>'
-        +'<div class="exo-theme-title">'+t.label+'</div>'
-        +'<div class="exo-theme-sub">'+t.desc+'</div>'
-        +(sc.total>0
-          ?'<div class="exo-theme-bar"><div class="exo-theme-fill" style="width:'+pct+'%;background:'+col+'"></div></div><div class="exo-theme-stat">'+sc.ok+'/'+sc.total+' correctes ('+pct+'%)</div>'
-          :'<div class="exo-theme-stat" style="color:var(--muted)">'+QUESTIONS.filter(q=>q.type===t.id).length+' questions</div>')
-        +'</div>'
-    }).join('')
-    const gs = document.getElementById('gScore')
-    if (gs) gs.textContent = gTot > 0 ? gOk+'/'+gTot : '0/0'
-  }
-
-  function startTheme(id) {
-    curTheme = id
-    const t = THEMES.find(x=>x.id===id)
-    eQ = sh(QUESTIONS.filter(q=>q.type===id))
-    eIdx=0; eOk=0; eKo=0
-    tScores[id] = {ok:0, total:eQ.length, done:false}
-    document.getElementById('exo-selector').style.display='none'
-    document.getElementById('exo-res').style.display='none'
-    document.getElementById('exo-train').style.display='block'
-    document.getElementById('exo-train-title').textContent = t.icon+' '+t.label
-    document.getElementById('exo-qt').textContent = eQ.length
-    updExoScore(); renderExoQ()
-  }
-
-  function updExoScore() {
-    document.getElementById('exo-sn').textContent = eOk+'/'+(eOk+eKo)
-    document.getElementById('exo-ok').textContent = eOk
-    document.getElementById('exo-ko').textContent = eKo
-    document.getElementById('exo-qi').textContent = eIdx
-  }
-
-  function renderExoQ() {
-    const c = document.getElementById('exo-qc')
-    if (eIdx >= eQ.length) { showExoRes(); return; }
-    const q = eQ[eIdx]
-    const L = ['A','B','C','D']
-    c.innerHTML = '<div class="q-card"><div class="q-num">Question '+(eIdx+1)+'/'+eQ.length+'</div><div class="q-text">'+q.q+'</div><div class="q-opts">'+q.opts.map((o,i)=>'<button class="q-opt" onclick="ansExo(this,'+i+','+eIdx+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div class="q-fb" id="efb'+eIdx+'"></div><button class="q-nxt" id="enxt'+eIdx+'" onclick="nextExoQ()">Question suivante →</button></div>'
-  }
-
-  function ansExo(btn,chosen,idx) {
-    const q = eQ[idx]
-    btn.parentElement.querySelectorAll('.q-opt').forEach(o=>{o.classList.add('dis');o.onclick=null})
-    const ok = chosen===q.ans
-    if(ok){btn.classList.add('ok');eOk++;}else{btn.classList.add('ko');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('ok');eKo++;}
-    const fb = document.getElementById('efb'+idx)
-    fb.className='q-fb '+(ok?'ok':'ko'); fb.style.display='block'
-    fb.innerHTML=(ok?'✅ ':'❌ Bonne : <strong>'+['A','B','C','D'][q.ans]+'</strong>. ')+q.exp
-    document.getElementById('enxt'+idx).style.display='inline-block'
-    updExoScore()
-  }
-
-  function nextExoQ(){eIdx++;renderExoQ();}
-
-  function showExoRes() {
-    tScores[curTheme]={ok:eOk,total:eQ.length,done:true}
-    document.getElementById('exo-train').style.display='none'
-    document.getElementById('exo-res').style.display='block'
-    const pct=eQ.length>0?Math.round(eOk/eQ.length*100):0
-    document.getElementById('exo-res-icon').textContent=pct>=80?'🏆':pct>=50?'👍':'📚'
-    document.getElementById('exo-res-title').textContent=pct>=80?'Excellent !':pct>=50?'Bon travail !':'Continue !'
-    document.getElementById('exo-res-detail').textContent=eOk+' bonne'+(eOk>1?'s':'')+' sur '+eQ.length+' — '+THEMES.find(t=>t.id===curTheme).label
-    document.getElementById('rOk').textContent=eOk
-    document.getElementById('rKo').textContent=eKo
-    document.getElementById('rPct').textContent=pct+'%'
-  }
-
-  function exoRetry(){startTheme(curTheme);}
-  function exoBack(){document.getElementById('exo-train').style.display='none';document.getElementById('exo-res').style.display='none';document.getElementById('exo-selector').style.display='block';renderExoGrid();}
-
-  // CHRONO
-  let cCfg_={dur:5,type:'all'}, cTimer=null, cSecs=0, cTQ=[], cIdx=0, cScore=0, cOk=0, cKo=0, cAns=0
-
-  function cCfg(el,k,v){
-    el.closest('.chrono-opts').querySelectorAll('.chrono-opt').forEach(o=>o.classList.remove('sel'))
-    el.classList.add('sel'); cCfg_[k]=v
-  }
-
-  function cStart(){
-    cTQ=sh(cCfg_.type==='all'?QUESTIONS:QUESTIONS.filter(q=>q.type===cCfg_.type))
-    cIdx=0;cScore=0;cOk=0;cKo=0;cAns=0;cSecs=cCfg_.dur*60
-    document.getElementById('cc').style.display='none'
-    document.getElementById('cr').style.display='block'
-    document.getElementById('crs').style.display='none'
-    document.getElementById('cqt').textContent=cTQ.length
-    cTick();cRenderQ()
-    cTimer=setInterval(cTick,1000)
-  }
-
-  function cTick(){
-    const m=Math.floor(cSecs/60),s=cSecs%60
-    const el=document.getElementById('ct')
-    if(el){el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;el.className='chrono-time'+(cSecs<60?' urg':'')}
-    const sl=document.getElementById('csl');if(sl)sl.textContent=cScore.toFixed(2)
-    if(cSecs<=0){clearInterval(cTimer);cShowRes();}
-    cSecs--
-  }
-
-  function cRenderQ(){
-    const c=document.getElementById('cqc');if(!c)return
-    if(cIdx>=cTQ.length){cShowRes();return;}
-    const q=cTQ[cIdx];document.getElementById('cqn').textContent=cIdx+1
-    const L=['A','B','C','D']
-    c.innerHTML='<div class="q-card"><div class="q-text">'+q.q+'</div><div class="q-opts">'+q.opts.map((o,i)=>'<button class="q-opt" onclick="cAns_(this,'+i+')"><div class="q-letter">'+L[i]+'</div><span>'+o+'</span></button>').join('')+'</div><div style="margin-top:12px"><button onclick="cSkip()" style="background:transparent;border:1px solid var(--border);color:var(--muted2);padding:6px 14px;cursor:pointer;font-family:Outfit,sans-serif;font-size:0.76rem;">Passer →</button></div></div>'
-  }
-
-  function cAns_(btn,chosen){
-    const q=cTQ[cIdx]
-    btn.parentElement.querySelectorAll('.q-opt').forEach(o=>{o.classList.add('dis');o.onclick=null})
-    if(chosen===q.ans){btn.classList.add('ok');cScore+=1;cOk++;}else{btn.classList.add('ko');btn.parentElement.querySelectorAll('.q-opt')[q.ans].classList.add('ok');cScore-=0.25;cKo++;}
-    cAns++;setTimeout(()=>{cIdx++;cRenderQ();},700)
-  }
-
-  function cSkip(){cIdx++;cRenderQ();}
-  function cStop(){clearInterval(cTimer);cShowRes();}
-
-  function cShowRes(){
-    clearInterval(cTimer)
-    document.getElementById('cr').style.display='none'
-    document.getElementById('crs').style.display='block'
-    const skip=cIdx-cAns,max=cIdx,pct=max>0?(cScore/max)*100:0
-    document.getElementById('crf').textContent=cScore.toFixed(2)
-    document.getElementById('crm').textContent=max
-    document.getElementById('crv').textContent=pct>=70?'Excellent niveau !':pct>=45?'Bon niveau, continue !':'Continue a entrainer !'
-    document.getElementById('crok').textContent=cOk
-    document.getElementById('crko').textContent=cKo
-    document.getElementById('crsk').textContent=skip
-  }
-
-  function cReset(){
-    document.getElementById('crs').style.display='none'
-    document.getElementById('cr').style.display='none'
-    document.getElementById('cc').style.display='block'
+  function closeModal(e) {
+    if (e.target === document.getElementById('modalOverlay')) {
+      document.getElementById('modalOverlay').classList.remove('show')
+    }
   }
 
   loadCredits()
   loadQuestionnaire()
   loadFeedbacks()
-  renderExoGrid()
 </script>
 
 </body>
