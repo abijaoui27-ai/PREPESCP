@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepOral — ESSEC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#07070c;--surface:#0f0f18;--surface2:#16161f;--surface3:#1e1e2a;--gold:#c9a96e;--gold2:#e8c98e;--text:#f0ede8;--muted:#9994aa;--muted2:#6b6880;--border:rgba(201,169,110,.13);--border2:rgba(201,169,110,.06);--blue:#0055b3;--blue2:#0072e5;--bluebg:rgba(0,85,179,.08);--blueborder:rgba(0,85,179,.28);--grad:linear-gradient(135deg,#c9a96e,#e8c98e,#c9a96e)}
+    *{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--text);font-family:Outfit,sans-serif;font-weight:300;min-height:100vh}nav{position:fixed;top:0;left:0;right:0;z-index:20;padding:20px 48px;background:rgba(7,7,12,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}.logo{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}.nav-mid{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);border:1px solid var(--blueborder);background:var(--bluebg);padding:6px 14px}.back{color:var(--muted);border:1px solid var(--border);padding:7px 16px;text-decoration:none;font-size:.78rem}.main{max-width:1040px;margin:0 auto;padding:100px 24px 70px}.hero{background:var(--surface);border:1px solid var(--border);padding:38px 46px;margin-bottom:30px;position:relative}.hero:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#003b7a,#0072e5)}.eyebrow{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);margin-bottom:10px}.hero h1{font-family:'Cormorant Garamond',serif;font-size:2rem;margin-bottom:8px}.muted{color:var(--muted);font-size:.84rem;line-height:1.7}.main-tabs{display:flex;gap:2px;background:var(--border2)}.main-tab{flex:1;padding:17px 20px;background:var(--surface);border:0;border-bottom:3px solid transparent;color:var(--muted);font-family:Outfit,sans-serif;font-size:.86rem;cursor:pointer}.main-tab.active{color:var(--blue2);border-bottom-color:var(--blue2);background:var(--surface2)}.panel{display:none;background:var(--surface);border:1px solid var(--border);border-top:none;padding:36px 40px}.panel.active{display:block}.title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;margin-bottom:8px}.card{background:var(--surface2);border:1px solid var(--border);padding:26px;margin-top:22px}.card h3{font-size:1rem;margin-bottom:8px}.btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;text-decoration:none;padding:14px 26px;font-weight:700;font-size:.88rem;color:white;background:linear-gradient(135deg,#003b7a,#0072e5);border:0;cursor:pointer}.btn.gold{background:var(--grad);color:#07070c}.btn.disabled{opacity:.45;cursor:not-allowed;pointer-events:none}.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}.subnav{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.subbtn{padding:9px 18px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-family:Outfit,sans-serif;cursor:pointer}.subbtn.active{background:var(--blue);border-color:var(--blue);color:white}.subpanel{display:none}.subpanel.active{display:block}.chapter-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}.chapter{background:var(--surface2);border:1px solid var(--border);padding:20px}.chapter-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.tag{font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue2);background:var(--bluebg);border:1px solid var(--blueborder);padding:4px 9px}.chapter h4{font-size:.95rem;margin:10px 0 8px}.pdf-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.pdf{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--muted);border:1px dashed var(--border);padding:8px 11px;font-size:.74rem;background:rgba(255,255,255,.02)}.pdf:hover{border-color:var(--blue2);color:var(--text)}.test-box{background:linear-gradient(135deg,rgba(0,85,179,.12),rgba(0,85,179,.04));border:1px solid var(--blueborder);padding:24px;margin-top:18px}.check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.check{background:var(--surface2);border:1px solid var(--border);padding:12px;font-size:.82rem;color:var(--muted)}.check input{margin-right:8px}.oral-box{background:linear-gradient(135deg,rgba(0,85,179,.14),rgba(0,85,179,.05));border:1px solid var(--blueborder);padding:32px;margin-top:22px}.oral-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}.stat{background:rgba(0,85,179,.08);border:1px solid var(--blueborder);padding:16px;text-align:center}.stat-n{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--blue2)}.stat-l{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}.widget{background:var(--surface2);border:1px solid var(--border);padding:28px;text-align:center;margin-top:18px}.placeholder{font-size:.78rem;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}@media(max-width:760px){nav{padding:16px 18px}.nav-mid{display:none}.main{padding:82px 16px 40px}.hero,.panel{padding:26px 22px}.split,.chapter-grid,.check-grid,.oral-stats{grid-template-columns:1fr}.main-tabs{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/dashboard" class="logo">PrepOral</a>
+    <div class="nav-mid">ESSEC</div>
+    <a href="/dashboard" class="back">← Mon espace</a>
+  </nav>
+  <main class="main">
+    <section class="hero">
+      <div class="eyebrow">ESSEC</div>
+      <h1>Préparation ESSEC</h1>
+      <p class="muted">Deux espaces séparés : l'entretien de personnalité d'un côté, les tests psychotechniques de l'autre. Cette page est prête à recevoir les PDF de cours, les TD d'exercices et le moteur de tests.</p>
+    </section>
+
+    <div class="main-tabs">
+      <button class="main-tab active" data-target="oral" onclick="showMain('oral')">🎙️ Entretien de personnalité</button>
+      <button class="main-tab" data-target="psycho" onclick="showMain('psycho')">🧠 Tests psychotechniques</button>
+    </div>
+
+    <section id="oral" class="panel active">
+      <h2 class="title">Entretien de personnalité ESSEC</h2>
+      <p class="muted">Simulation autonome du format oral ESSEC : questions ouvertes, mise en situation, cohérence du parcours et capacité à argumenter.</p>
+      <div class="oral-box">
+        <div class="tag">Jury IA ESSEC</div>
+        <h3 style="margin-top:14px;font-family:'Cormorant Garamond',serif;font-size:1.5rem">Lancer la simulation orale</h3>
+        <p class="muted">Installe-toi dans un endroit calme. L’entretien sera conduit par le jury IA ESSEC.</p>
+        <div class="oral-stats">
+          <div class="stat"><div class="stat-n">30'</div><div class="stat-l">Durée cible</div></div>
+          <div class="stat"><div class="stat-n">9</div><div class="stat-l">Critères</div></div>
+          <div class="stat"><div class="stat-n">Coeff 10</div><div class="stat-l">Importance</div></div>
+        </div>
+      </div>
+      <div class="widget">
+        <div class="placeholder">Widget ElevenLabs — Jury ESSEC</div>
+        <elevenlabs-convai agent-id="agent_6201kqyj4vwkerkt0faxgk2zn3ed"></elevenlabs-convai>
+        <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+      </div>
+    </section>
+
+    <section id="psycho" class="panel">
+      <h2 class="title">Tests psychotechniques ESSEC</h2>
+      <p class="muted">Espace de travail structuré en trois segments : cours, exercices et tests. Les contenus seront remplis progressivement chapitre par chapitre.</p>
+      <div class="subnav">
+        <button class="subbtn active" data-sub="cours" onclick="showSub('cours')">📚 Cours</button>
+        <button class="subbtn" data-sub="exercices" onclick="showSub('exercices')">⚡ Exercices</button>
+        <button class="subbtn" data-sub="tests" onclick="showSub('tests')">⏱ Tests</button>
+      </div>
+
+      <div id="sub-cours" class="subpanel active">
+        <h3 class="title">Cours par chapitre</h3>
+        <p class="muted">Chaque chapitre aura son PDF de cours complet avec méthodes, exemples, pièges et réflexes. Les PDF ci-dessous sont des emplacements vides prêts à être remplacés.</p>
+        <div class="chapter-grid" id="courseChapters"></div>
+      </div>
+
+      <div id="sub-exercices" class="subpanel">
+        <h3 class="title">TD d’exercices par chapitre</h3>
+        <p class="muted">Chaque chapitre contiendra 3 à 4 TD PDF avec des séries d’exercices progressives. Les emplacements existent déjà pour préparer l’intégration.</p>
+        <div class="chapter-grid" id="exerciseChapters"></div>
+      </div>
+
+      <div id="sub-tests" class="subpanel">
+        <h3 class="title">Générateur de tests</h3>
+        <p class="muted">À terme, le candidat pourra générer un test de 15 minutes en choisissant tous les chapitres, un seul chapitre ou une sélection précise.</p>
+        <div class="test-box">
+          <div class="tag">Configuration future</div>
+          <h4 style="margin-top:14px">Composer mon test de 15 minutes</h4>
+          <div class="check-grid" id="testChapters"></div>
+          <button class="btn disabled">Générer le test — bientôt disponible</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const CHAPTERS = [
+      ['series-numeriques','Séries numériques','Suites arithmétiques, géométriques, alternées, entrelacées'],
+      ['series-lettres','Séries de lettres','Alphabet, positions, initiales, groupes et alternances'],
+      ['raisonnement-quantitatif','Raisonnement quantitatif','Problèmes courts, pièges logiques, calcul mental'],
+      ['raisonnement-deductif','Raisonnement déductif','Syllogismes, contraposée, quantificateurs'],
+      ['vocabulaire','Synonymes & vocabulaire','Mots rares, synonymes, antonymes, pièges lexicaux'],
+      ['analogies','Analogies verbales','Rapports logiques entre deux mots'],
+      ['codes','Codes & chiffrements','Correspondances lettres/nombres, anagrammes, cryptages'],
+      ['spatial','Raisonnement spatial','Rotations, symétries, intrus, cubes et patrons']
+    ];
+
+    function showMain(id){
+      document.querySelectorAll('.main-tab').forEach(b=>b.classList.toggle('active', b.dataset.target===id));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===id));
+      history.replaceState(null,'','#'+id);
+    }
+    function showSub(id){
+      document.querySelectorAll('.subbtn').forEach(b=>b.classList.toggle('active', b.dataset.sub===id));
+      document.querySelectorAll('.subpanel').forEach(p=>p.classList.toggle('active', p.id==='sub-'+id));
+      history.replaceState(null,'','#psycho-'+id);
+    }
+    function renderChapters(){
+      const course = document.getElementById('courseChapters');
+      const exos = document.getElementById('exerciseChapters');
+      const tests = document.getElementById('testChapters');
+      course.innerHTML = CHAPTERS.map(([id,title,desc],i)=>`<div class="chapter"><div class="chapter-top"><span class="tag">Chapitre ${i+1}</span><span class="tag">PDF vide</span></div><h4>${title}</h4><p class="muted">${desc}</p><div class="pdf-row"><a class="pdf" href="#">📄 Cours complet — à intégrer</a><a class="pdf" href="#">🧠 Méthodes — à intégrer</a></div></div>`).join('');
+      exos.innerHTML = CHAPTERS.map(([id,title,desc],i)=>`<div class="chapter"><div class="chapter-top"><span class="tag">Chapitre ${i+1}</span><span class="tag">TD PDF</span></div><h4>${title}</h4><p class="muted">${desc}</p><div class="pdf-row"><a class="pdf" href="#">TD 1</a><a class="pdf" href="#">TD 2</a><a class="pdf" href="#">TD 3</a><a class="pdf" href="#">TD 4</a></div></div>`).join('');
+      tests.innerHTML = CHAPTERS.map(([id,title])=>`<label class="check"><input type="checkbox" checked disabled>${title}</label>`).join('');
+    }
+    renderChapters();
+    if(location.hash.includes('psycho')){ showMain('psycho'); if(location.hash.includes('exercices')) showSub('exercices'); if(location.hash.includes('test')) showSub('tests'); }
+    if(location.hash.includes('oral')) showMain('oral');
+  </script>
+</body>
+</html>
