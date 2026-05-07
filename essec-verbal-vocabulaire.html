@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PrepOral — ESSEC Verbal · Vocabulaire</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#07070c;--surface:#0f0f18;--surface2:#16161f;--surface3:#1e1e2a;--gold:#c9a96e;--text:#f0ede8;--muted:#9994aa;--muted2:#6b6880;--border:rgba(201,169,110,.13);--border2:rgba(201,169,110,.06);--blue:#0055b3;--blue2:#0072e5;--green:#4ade80;--red:#e05c5c;--grad:linear-gradient(135deg,#c9a96e,#e8c98e,#c9a96e)}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--text);font-family:Outfit,sans-serif;font-weight:300;min-height:100vh}nav{position:fixed;top:0;left:0;right:0;z-index:20;padding:18px 44px;background:rgba(7,7,12,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center}.logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}.back{color:var(--muted);border:1px solid var(--border);padding:7px 15px;text-decoration:none;font-size:.78rem}.main{max-width:980px;margin:0 auto;padding:96px 22px 70px}.hero{background:var(--surface);border:1px solid var(--border);padding:36px 44px;margin-bottom:28px;position:relative}.hero:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad)}.eyebrow{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}.hero h1{font-family:'Cormorant Garamond',serif;font-size:2rem;margin-bottom:8px}.muted{color:var(--muted);font-size:.84rem;line-height:1.7}.tabs{display:flex;gap:2px;background:var(--border2);margin-bottom:0}.tab{flex:1;padding:15px;background:var(--surface);border:0;border-bottom:3px solid transparent;color:var(--muted);font-family:Outfit,sans-serif;cursor:pointer}.tab.active{background:var(--surface2);border-bottom-color:var(--gold);color:var(--gold)}.panel{display:none;background:var(--surface);border:1px solid var(--border);border-top:none;padding:34px 38px}.panel.active{display:block}.section-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;margin-bottom:10px}.method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}.method{background:var(--surface2);border:1px solid var(--border);padding:20px}.method h3{font-size:.95rem;margin-bottom:8px;color:var(--gold)}.method ul{padding-left:18px;color:var(--muted);font-size:.84rem;line-height:1.7}.callout{background:rgba(201,169,110,.07);border-left:3px solid var(--gold);padding:14px 18px;margin:18px 0;color:var(--muted);font-size:.84rem;line-height:1.7}.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}.score{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gold);font-weight:700}.qcard{background:var(--surface2);border:1px solid var(--border);padding:22px;margin-bottom:14px}.qnum{font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}.qtext{font-size:.95rem;line-height:1.6;margin-bottom:14px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:10px 12px;text-align:left;font-family:Outfit,sans-serif;cursor:pointer}.choice:hover{border-color:var(--gold)}.choice.ok{border-color:var(--green);color:var(--green);background:rgba(74,222,128,.06)}.choice.ko{border-color:var(--red);color:var(--red);background:rgba(224,92,92,.06)}.explain{display:none;margin-top:12px;padding:11px 14px;background:var(--surface);border-left:3px solid var(--gold);font-size:.82rem;color:var(--muted);line-height:1.7}.btn{display:inline-flex;margin-top:14px;padding:12px 22px;background:var(--grad);color:#07070c;border:0;text-decoration:none;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif}.locked-note{font-size:.75rem;color:var(--muted2);margin-top:12px}@media(max-width:760px){nav{padding:16px 18px}.main{padding:84px 14px 40px}.hero,.panel{padding:26px 20px}.method-grid,.choices{grid-template-columns:1fr}.tabs{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav><a href="/dashboard" class="logo">PrepOral</a><a href="/essec#psycho" class="back">← ESSEC</a></nav>
+<main class="main">
+<section class="hero"><div class="eyebrow">ESSEC · Verbal</div><h1>Vocabulaire, synonymes & antonymes</h1><p class="muted">Chapitre d'entraînement verbal : apprendre à reconnaître les nuances de sens, éviter les paronymes, repérer les intrus lexicaux et répondre vite aux QCM.</p></section>
+<div class="tabs"><button class="tab active" onclick="showPanel('cours',this)">📚 Cours & méthodes</button><button class="tab" onclick="showPanel('td1',this)">TD 1</button><button class="tab" onclick="showPanel('td2',this)">TD 2</button><button class="tab" onclick="showPanel('td3',this)">TD 3</button></div>
+<section id="cours" class="panel active">
+<h2 class="section-title">Cours & méthodes</h2><p class="muted">Dans les tests verbaux, la difficulté ne vient pas seulement de connaître un mot : elle vient de choisir le mot le plus précis dans un contexte donné.</p>
+<div class="callout"><strong>Réflexe concours :</strong> ne cherche pas uniquement “un mot proche”. Cherche le mot qui garde le même registre, le même degré d’intensité et le même contexte d’emploi.</div>
+<div class="method-grid">
+<div class="method"><h3>1. Synonymes</h3><ul><li>Un synonyme a un sens proche, mais rarement identique.</li><li>Compare l’intensité : calme, paisible, serein, placide.</li><li>Élimine les mots du même champ mais pas du même sens.</li></ul></div>
+<div class="method"><h3>2. Antonymes</h3><ul><li>Cherche l’opposition directe, pas seulement une différence.</li><li>Certains QCM glissent un intrus qui est seulement éloigné.</li><li>Attention aux préfixes : in-, dé-, a-, anti-, dys-.</li></ul></div>
+<div class="method"><h3>3. Paronymes</h3><ul><li>Deux mots proches à l’écrit peuvent avoir des sens opposés.</li><li>Exemples : allusion / illusion, collision / collusion.</li><li>Lis toujours la phrase entière avant de choisir.</li></ul></div>
+<div class="method"><h3>4. Champ lexical</h3><ul><li>L’intrus appartient souvent à une catégorie voisine.</li><li>Demande-toi : quel thème relie quatre mots ?</li><li>Puis cherche celui qui ne partage pas ce thème.</li></ul></div>
+<div class="method"><h3>5. Vocabulaire en contexte</h3><ul><li>Un mot faible comme “voir” peut être remplacé par percevoir, constater, discerner.</li><li>Le bon choix dépend du sujet et de l’action précise.</li><li>Le contexte prime toujours sur le dictionnaire.</li></ul></div>
+<div class="method"><h3>6. Stratégie chrono</h3><ul><li>Si tu connais le mot : réponds immédiatement.</li><li>Si tu hésites : élimine deux réponses absurdes.</li><li>Si le mot est inconnu : utilise famille, préfixe, suffixe, contexte.</li></ul></div>
+</div>
+</section>
+<section id="td1" class="panel"><div class="quiz-top"><h2 class="section-title">TD 1 — Synonymes & sens proche</h2><div class="score" id="score-td1">0/0</div></div><div id="td1-box"></div></section>
+<section id="td2" class="panel"><div class="quiz-top"><h2 class="section-title">TD 2 — Antonymes, intrus & nuances</h2><div class="score" id="score-td2">0/0</div></div><div id="td2-box"></div></section>
+<section id="td3" class="panel"><div class="quiz-top"><h2 class="section-title">TD 3 — Paronymes & contexte</h2><div class="score" id="score-td3">0/0</div></div><div id="td3-box"></div></section>
+</main>
+<script>
+function showPanel(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active')}
+const DATA={
+td1:[
+{q:'Quel mot est le plus proche de “flagrance” ?',c:['senteur','évidence','surprise','fébrilité'],a:1,e:'La flagrance désigne le caractère évident, manifeste. Attention à ne pas confondre avec fragrance.'},
+{q:'Quel mot est le plus proche de “inanité” ?',c:['blocage','petitesse','inutilité','grandeur'],a:2,e:'L’inanité renvoie à l’absence de valeur ou d’utilité.'},
+{q:'Quel mot est le plus proche de “révulser” ?',c:['tourner','répugner','refuser','boucher'],a:1,e:'Révulser signifie provoquer un dégoût profond.'},
+{q:'Quel mot est le plus proche de “dithyrambique” ?',c:['alcoolisé','flatteur','méprisant','tyrannique'],a:1,e:'Un propos dithyrambique est excessivement élogieux.'},
+{q:'Quel mot est le plus proche de “volubile” ?',c:['taciturne','bavard','silencieux','habile'],a:1,e:'Volubile qualifie quelqu’un qui parle beaucoup et facilement.'},
+{q:'Quel mot est le plus proche de “loufoque” ?',c:['arrogant','dangereux','extravagant','louche'],a:2,e:'Loufoque signifie bizarre, extravagant, fantaisiste.'},
+{q:'Quel mot est le plus proche de “vilipender” ?',c:['remercier','conspuer','féliciter','voler'],a:1,e:'Vilipender signifie critiquer violemment, couvrir de mépris.'},
+{q:'Quel mot est le plus proche de “éculé” ?',c:['original','usagé','écru','épilé'],a:1,e:'Éculé signifie usé, banal à force d’avoir trop servi.'},
+{q:'Quel mot est le plus proche de “opprobre” ?',c:['gloire','défiance','discrédit','dette'],a:2,e:'L’opprobre est une honte publique, un discrédit moral.'},
+{q:'Quel mot est le plus proche de “glabre” ?',c:['imberbe','nubile','pubère','impubère'],a:0,e:'Glabre signifie dépourvu de poils ou de barbe.'}
+],
+td2:[
+{q:'Quel est l’intrus ?',c:['début','commencement','conclusion','prélude'],a:2,e:'Conclusion s’oppose aux autres mots qui désignent le début.'},
+{q:'Quel est l’intrus ?',c:['avare','pingre','radin','opulent'],a:3,e:'Opulent signifie riche, abondant ; les autres évoquent l’avarice.'},
+{q:'Quel est l’intrus ?',c:['calme','paisible','violent','doux'],a:2,e:'Violent s’oppose au champ de la douceur et du calme.'},
+{q:'Quel est l’intrus ?',c:['bateau','vaisseau','nef','flottille'],a:3,e:'Une flottille est un ensemble de navires, pas un navire isolé.'},
+{q:'Quel est l’intrus ?',c:['dépression','front','bulletin','nez'],a:3,e:'Les trois premiers peuvent relever du champ météorologique.'},
+{q:'Quel est l’intrus ?',c:['cambrien','pléistocène','quaternaire','magnésien'],a:3,e:'Magnésien qualifie ce qui contient du magnésium ; les autres désignent des périodes.'},
+{q:'Quel est l’intrus ?',c:['marcassin','levraut','jars','poulain'],a:2,e:'Un jars est le mâle de l’oie ; les autres désignent des petits d’animaux.'},
+{q:'Quel est l’intrus ?',c:['photophore','plafonnier','lampe','catadioptre'],a:3,e:'Le catadioptre est un réflecteur, pas une source lumineuse électrique.'},
+{q:'Quel est l’intrus ?',c:['redingote','kilt','chemisette','cheminote'],a:3,e:'Cheminote désigne une femme travaillant dans les chemins de fer, pas un vêtement.'},
+{q:'Quel est l’intrus ?',c:['paddy','pilaf','basmati','marmande'],a:3,e:'Marmande est une variété de tomate ; les autres renvoient au riz.'}
+],
+td3:[
+{q:'Dans la phrase “une ___ cachée”, faut-il choisir ?',c:['allusion','illusion','collision','collusion'],a:0,e:'Une allusion est une référence indirecte. Une illusion est une perception trompeuse.'},
+{q:'Calomnier signifie surtout :',c:['dire du mal vrai','accuser mensongèrement','critiquer gentiment','corriger publiquement'],a:1,e:'Calomnier implique une accusation fausse destinée à nuire.'},
+{q:'Macabre qualifie ce qui est lié :',c:['à la maladie','à la mort','au sommeil','au rire'],a:1,e:'Morbide se rapporte plutôt à la maladie ; macabre à la mort.'},
+{q:'Translucide signifie :',c:['qui laisse passer partiellement la lumière','qui laisse tout voir nettement','qui est totalement opaque','qui brille fortement'],a:0,e:'Translucide laisse passer la lumière sans permettre de distinguer nettement.'},
+{q:'Originel signifie :',c:['bizarre','venu de l’origine','copié fidèlement','nouveau'],a:1,e:'Originel renvoie à l’origine ; original renvoie plutôt à la source ou à la singularité.'},
+{q:'Rasséréner signifie :',c:['faire retrouver le calme','sermonner','faire peur','répéter'],a:0,e:'Rasséréner signifie calmer, apaiser.'},
+{q:'Morigéner signifie :',c:['se plaindre','réprimander en faisant la morale','parler vite','rire fortement'],a:1,e:'Morigéner = reprendre quelqu’un avec sévérité morale.'},
+{q:'Velléitaire désigne quelqu’un qui :',c:['agit toujours vite','ne passe pas vraiment à l’action','ne comprend rien','change de langue'],a:1,e:'Le velléitaire veut parfois agir mais ne se décide pas réellement.'},
+{q:'Périphélie désigne :',c:['le point le plus proche du Soleil','le point le plus proche de la Terre','une illusion optique','une faute de syntaxe'],a:0,e:'Le périhélie est le point d’une orbite le plus proche du Soleil.'},
+{q:'Solécisme signifie :',c:['répétition sonore','faute de construction syntaxique','mot inventé','périphrase'],a:1,e:'Un solécisme est une erreur de syntaxe.'}
+]
+};
+const state={td1:{ok:0,done:0},td2:{ok:0,done:0},td3:{ok:0,done:0}};
+function renderTD(id){const box=document.getElementById(id+'-box');box.innerHTML=DATA[id].map((q,idx)=>`<div class="qcard"><div class="qnum">Question ${idx+1}</div><div class="qtext">${q.q}</div><div class="choices">${q.c.map((x,i)=>`<button class="choice" onclick="answer('${id}',${idx},${i},this)">${String.fromCharCode(65+i)}. ${x}</button>`).join('')}</div><div class="explain" id="exp-${id}-${idx}">${q.e}</div></div>`).join('');document.getElementById('score-'+id).textContent='0/'+DATA[id].length}
+function answer(id,idx,choice,btn){const card=btn.closest('.qcard');if(card.dataset.answered)return;card.dataset.answered='1';const q=DATA[id][idx];card.querySelectorAll('.choice').forEach((b,i)=>{if(i===q.a)b.classList.add('ok');else if(i===choice)b.classList.add('ko');b.disabled=true});document.getElementById('exp-'+id+'-'+idx).style.display='block';state[id].done++;if(choice===q.a)state[id].ok++;document.getElementById('score-'+id).textContent=state[id].ok+'/'+DATA[id].length}
+renderTD('td1');renderTD('td2');renderTD('td3');
+</script>
+</body>
+</html>
