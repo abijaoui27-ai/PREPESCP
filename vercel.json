@@ -1,22 +1,11 @@
 {
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-
-    { "src": "/dashboard-data.js", "dest": "/dashboard-data.js" },
-    { "src": "/dashboard-next.js", "dest": "/dashboard-next.js" },
-    { "src": "/essec-data.js", "dest": "/essec-data.js" },
-
-    { "src": "/login", "dest": "/login.html" },
-
-    { "src": "/dashboard", "dest": "/dashboard-next.html" },
-    { "src": "/dashboard-next", "dest": "/dashboard-next.html" },
-
-    { "src": "/entretien", "dest": "/entretien.html" },
-    { "src": "/entretien-emlyon", "dest": "/entretien-emlyon.html" },
-
-    { "src": "/essec", "dest": "/essec.html" },
-    { "src": "/essec-spatial", "dest": "/essec-spatial.html" },
-
-    { "src": "/admin", "dest": "/admin.html" },
-
-    { "src": "/(.*)", "dest": "/index
+  "rewrites": [
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/dashboard", "destination": "/dashboard-next.html" },
+    { "source": "/dashboard-next", "destination": "/dashboard-next.html" },
+    { "source": "/entretien", "destination": "/entretien.html" },
+    { "source": "/entretien-emlyon", "destination": "/entretien-emlyon.html" },
+    { "source": "/essec", "destination": "/essec.html" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ]
+}
