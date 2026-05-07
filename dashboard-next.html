@@ -3,84 +3,237 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrepOral — Mon espace</title>
 
-  <title>PrepOral Dashboard</title>
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="/dashboard-data.js"></script>
 
   <style>
+    :root{
+      --bg:#07070c;
+      --surface:#0f0f18;
+      --surface2:#16161f;
+      --surface3:#1e1e2a;
+      --gold:#c9a96e;
+      --gold2:#e8c98e;
+      --text:#f0ede8;
+      --muted:#9994aa;
+      --muted2:#6b6880;
+      --border:rgba(201,169,110,.13);
+      --border2:rgba(201,169,110,.06);
+      --red:#e8392a;
+      --blue:#0055b3;
+      --blue2:#0072e5;
+      --grad:linear-gradient(135deg,#c9a96e,#e8c98e,#c9a96e);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
     body{
-      margin:0;
-      background:#07070c;
-      color:#f0ede8;
-      font-family:Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Outfit,sans-serif;
+      font-weight:300;
+      min-height:100vh;
     }
 
-    main{
-      max-width:1100px;
-      margin:auto;
-      padding:40px 20px;
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:50;
+      padding:20px 48px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(7,7,12,.95);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border2);
     }
 
-    .logo{
-      font-size:32px;
-      color:#c9a96e;
-      margin-bottom:30px;
+    .nav-logo{
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.45rem;
+      font-weight:700;
+      background:var(--grad);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .nav-logout{
+      color:var(--muted);
+      border:1px solid var(--border);
+      padding:7px 16px;
+      text-decoration:none;
+      font-size:.78rem;
+    }
+
+    .main{
+      max-width:960px;
+      margin:0 auto;
+      padding:100px 24px 60px;
+    }
+
+    .hero{
+      background:var(--surface);
+      border:1px solid var(--border);
+      padding:38px 48px;
+      margin-bottom:32px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:24px;
+      position:relative;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:2px;
+      background:var(--grad);
+    }
+
+    .eyebrow{
+      font-size:.68rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:10px;
+    }
+
+    .hero h1{
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.9rem;
+      margin-bottom:6px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:.84rem;
+      line-height:1.7;
+    }
+
+    .credits{
+      min-width:150px;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      padding:20px 30px;
+      text-align:center;
+    }
+
+    .num{
+      font-family:"Cormorant Garamond",serif;
+      font-size:3rem;
+      font-weight:700;
+      line-height:1;
+      background:var(--grad);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .label{
+      font-size:.65rem;
+      color:var(--muted2);
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-top:6px;
     }
 
     .tabs{
       display:flex;
-      gap:10px;
-      margin-bottom:20px;
+      gap:2px;
+      background:var(--border2);
     }
 
     .tab{
       flex:1;
-      padding:14px;
-      background:#12121a;
-      color:#999;
-      border:1px solid #23232f;
+      padding:17px 20px;
+      background:var(--surface);
+      color:var(--muted);
+      border:none;
+      border-bottom:3px solid transparent;
       cursor:pointer;
-      font-size:16px;
+      font-family:Outfit,sans-serif;
+      font-size:.84rem;
+      transition:.2s;
+    }
+
+    .tab:hover{
+      background:var(--surface2);
+      color:var(--text);
     }
 
     .tab.active{
-      color:white;
-      border-color:#c9a96e;
+      background:var(--surface2);
+      color:var(--gold);
+      border-bottom-color:var(--gold);
+    }
+
+    .tab:nth-child(2).active{
+      color:var(--red);
+      border-bottom-color:var(--red);
+    }
+
+    .tab:nth-child(3).active{
+      color:var(--blue2);
+      border-bottom-color:var(--blue2);
     }
 
     .panel{
       display:none;
-      background:#12121a;
-      border:1px solid #23232f;
-      padding:24px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-top:none;
+      padding:38px 42px;
     }
 
     .panel.active{
       display:block;
     }
 
+    .panel h2{
+      font-family:"Cormorant Garamond",serif;
+      font-size:1.65rem;
+      margin-bottom:10px;
+    }
+
     .card{
-      background:#171722;
-      border:1px solid #26263a;
-      padding:20px;
-      margin-top:20px;
-      border-radius:12px;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      padding:26px;
+      margin-top:22px;
+    }
+
+    .card h3{
+      font-size:1rem;
+      margin-bottom:8px;
     }
 
     .btn{
-      display:inline-block;
-      margin-top:10px;
-      padding:12px 20px;
-      background:#c9a96e;
-      color:#07070c;
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      margin-top:16px;
+      padding:15px 30px;
+      background:var(--grad);
+      color:var(--bg);
       text-decoration:none;
-      font-weight:bold;
-      border-radius:10px;
+      font-weight:700;
+      font-size:.9rem;
+      box-shadow:0 8px 28px rgba(201,169,110,.2);
     }
 
-    .blue{
-      background:#0b5ed7;
+    .btn.blue{
+      background:linear-gradient(135deg,#003b7a,#0072e5);
+      color:white;
+    }
+
+    .btn.red{
+      background:var(--red);
       color:white;
     }
 
@@ -88,43 +241,88 @@
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:12px;
-      margin-top:20px;
+      margin-top:22px;
     }
 
     .stat{
-      background:#171722;
-      border:1px solid #26263a;
-      padding:20px;
-      border-radius:12px;
+      display:block;
+      background:var(--surface2);
+      border:1px solid rgba(0,85,179,.25);
+      padding:22px;
       text-align:center;
+      text-decoration:none;
+      color:inherit;
+      transition:.2s;
     }
 
-    .muted{
-      color:#999;
-      line-height:1.6;
+    .stat:hover{
+      background:var(--surface3);
+      transform:translateY(-2px);
     }
 
-    @media(max-width:700px){
-      .grid{
-        grid-template-columns:1fr;
-      }
+    .stat h3{
+      font-size:1rem;
+      margin-bottom:8px;
+    }
 
-      .tabs{
-        flex-direction:column;
-      }
+    .stat p{
+      font-size:.78rem;
+      color:var(--muted);
+    }
+
+    .warning{
+      display:none;
+      background:rgba(224,92,92,.08);
+      border:1px solid rgba(224,92,92,.25);
+      color:#f0a0a0;
+      padding:16px 20px;
+      margin-bottom:24px;
+      font-size:.85rem;
+    }
+
+    .warning.show{
+      display:block;
+    }
+
+    @media(max-width:760px){
+      nav{padding:16px 20px}
+      .main{padding:82px 16px 40px}
+      .hero{padding:26px 22px;display:block}
+      .credits{margin-top:20px}
+      .tabs{flex-direction:column}
+      .panel{padding:28px 22px}
+      .grid{grid-template-columns:1fr}
     }
   </style>
 </head>
 
 <body>
 
-<main>
+<nav>
+  <div class="nav-logo">PrepOral</div>
+  <a class="nav-logout" href="/" onclick="localStorage.clear()">Déconnexion</a>
+</nav>
 
-  <div class="logo">
-    PrepOral
+<main class="main">
+
+  <div class="warning" id="noCreditsAlert">
+    Vous n'avez plus de sessions disponibles.
   </div>
 
-  <div id="tabs" class="tabs"></div>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Bienvenue</div>
+      <h1>Votre espace PrepOral</h1>
+      <p class="muted">Préparez les oraux des grandes écoles de commerce avec des jurys IA.</p>
+    </div>
+
+    <div class="credits">
+      <div class="num" id="sessionsNum">—</div>
+      <div class="label">sessions restantes</div>
+    </div>
+  </section>
+
+  <div class="tabs" id="tabs"></div>
 
   <section id="escp" class="panel active"></section>
   <section id="emlyon" class="panel"></section>
@@ -133,6 +331,27 @@
 </main>
 
 <script src="/dashboard-next.js"></script>
+
+<script>
+  const studentId = localStorage.getItem("student_id")
+
+  if (!studentId) {
+    window.location.href = "/"
+  }
+
+  if (window.location.search.includes("no_credits")) {
+    document.getElementById("noCreditsAlert").classList.add("show")
+  }
+
+  fetch("/api/credits?student_id=" + studentId)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("sessionsNum").textContent = data.credits ?? 0
+    })
+    .catch(() => {
+      document.getElementById("sessionsNum").textContent = localStorage.getItem("credits") || 0
+    })
+</script>
 
 </body>
 </html>
