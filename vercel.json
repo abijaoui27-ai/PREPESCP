@@ -5,6 +5,7 @@
     { "src": "/login", "dest": "/login.html" },
 
     { "src": "/dashboard", "dest": "/dashboard-safe.html" },
+    { "src": "/dashboard-next", "dest": "/dashboard-next.html" },
 
     { "src": "/entretien", "dest": "/entretien.html" },
     { "src": "/entretien-emlyon", "dest": "/entretien-emlyon.html" },
