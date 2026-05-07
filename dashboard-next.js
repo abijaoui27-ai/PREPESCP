@@ -14,11 +14,8 @@ function addAdminLinkIfNeeded() {
   admin.textContent = '⚙️ Admin'
   admin.style.cssText = 'color:#c9a96e;border:1px solid rgba(201,169,110,.25);padding:7px 16px;text-decoration:none;font-size:.78rem;margin-right:12px;'
 
-  if (logout) {
-    logout.parentNode.insertBefore(admin, logout)
-  } else {
-    nav.appendChild(admin)
-  }
+  if (logout) logout.parentNode.insertBefore(admin, logout)
+  else nav.appendChild(admin)
 }
 
 const tabs = [
@@ -69,39 +66,24 @@ function renderEM() {
 function renderESSEC() {
   document.getElementById('essec').innerHTML = `
     <h2>ESSEC</h2>
-    <p class="muted">Choisis ton espace d'entraînement ESSEC : oral, cours, exercices ou test.</p>
+    <p class="muted">Deux espaces distincts : l'entretien oral d'un côté, les tests psychotechniques de l'autre.</p>
 
-    <div class="grid">
-      <a class="stat" href="/essec#oral">
-        <h3>🎙️ Entretien de personnalité</h3>
-        <p>Jury IA ESSEC et mise en situation</p>
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <a class="stat" href="/essec#oral" style="min-height:180px;display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:1.25rem;">🎙️ Entretien de personnalité</h3>
+        <p>Simulation du jury ESSEC, mise en situation et entraînement oral.</p>
       </a>
-      <a class="stat" href="/essec#cours">
-        <h3>📚 Cours & méthodes</h3>
-        <p>Techniques par chapitre</p>
-      </a>
-      <a class="stat" href="/essec#exercices">
-        <h3>⚡ Exercices</h3>
-        <p>Entraînement par thème</p>
-      </a>
-      <a class="stat" href="/essec#test">
-        <h3>⏱ Test chrono</h3>
-        <p>Mode concours 15 minutes</p>
-      </a>
-      <a class="stat" href="/essec#fiches">
-        <h3>🧾 Mini-fiches</h3>
-        <p>Alphabet, carrés, cubes, réflexes</p>
-      </a>
-      <a class="stat" href="/essec#pdf">
-        <h3>📄 Fiches PDF</h3>
-        <p>Fiches imprimables à venir</p>
+
+      <a class="stat" href="/essec#psycho" style="min-height:180px;display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:1.25rem;">🧠 Mon espace tests psychotechniques</h3>
+        <p>Cours, exercices, mini-fiches, tests chronométrés et futurs PDF.</p>
       </a>
     </div>
 
     <div class="card">
-      <h3>🚀 Espace ESSEC complet</h3>
-      <p class="muted">La page ESSEC est séparée du dashboard pour pouvoir ajouter beaucoup de contenu sans casser ESCP et EM Lyon.</p>
-      <a class="btn blue" href="/essec">Ouvrir tout l'espace ESSEC</a>
+      <h3>Dans l’espace psychotechnique</h3>
+      <p class="muted">Tu retrouveras ensuite les sous-parties : cours & méthodes, exercices par thème, mini-fiches, test chrono et fiches PDF.</p>
+      <a class="btn blue" href="/essec#psycho">Ouvrir les tests psychotechniques</a>
     </div>
   `
 }
