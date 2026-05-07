@@ -5,7 +5,7 @@
     { "source": "/dashboard-next", "destination": "/dashboard-next.html" },
     { "source": "/entretien", "destination": "/entretien.html" },
     { "source": "/entretien-emlyon", "destination": "/entretien-emlyon.html" },
-    { "source": "/essec", "destination": "/essec.html" },
+    { "source": "/essec", "destination": "/essec-new.html" },
     { "source": "/admin", "destination": "/admin.html" }
   ]
 }
