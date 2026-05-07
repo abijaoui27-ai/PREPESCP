@@ -66,24 +66,18 @@ function renderEM() {
 function renderESSEC() {
   document.getElementById('essec').innerHTML = `
     <h2>ESSEC</h2>
-    <p class="muted">Deux espaces distincts : l'entretien oral d'un côté, les tests psychotechniques de l'autre.</p>
+    <p class="muted">Choisis ton espace ESSEC.</p>
 
-    <div class="grid" style="grid-template-columns:1fr 1fr;">
-      <a class="stat" href="/essec#oral" style="min-height:180px;display:flex;flex-direction:column;justify-content:center;">
-        <h3 style="font-size:1.25rem;">🎙️ Entretien de personnalité</h3>
-        <p>Simulation du jury ESSEC, mise en situation et entraînement oral.</p>
-      </a>
-
-      <a class="stat" href="/essec#psycho" style="min-height:180px;display:flex;flex-direction:column;justify-content:center;">
-        <h3 style="font-size:1.25rem;">🧠 Mon espace tests psychotechniques</h3>
-        <p>Cours, exercices, mini-fiches, tests chronométrés et futurs PDF.</p>
-      </a>
+    <div class="card">
+      <h3>🎙️ Entretien de personnalité</h3>
+      <p>Simulation du jury ESSEC, mise en situation et entraînement oral.</p>
+      <a class="btn blue" href="/essec#oral">Lancer l'entretien ESSEC</a>
     </div>
 
     <div class="card">
-      <h3>Dans l’espace psychotechnique</h3>
-      <p class="muted">Tu retrouveras ensuite les sous-parties : cours & méthodes, exercices par thème, mini-fiches, test chrono et fiches PDF.</p>
-      <a class="btn blue" href="/essec#psycho">Ouvrir les tests psychotechniques</a>
+      <h3>🧠 Tests psychotechniques</h3>
+      <p>Cours, exercices, mini-fiches, tests chronométrés et fiches PDF.</p>
+      <a class="btn blue" href="/essec#psycho">Ouvrir mon espace tests</a>
     </div>
   `
 }
