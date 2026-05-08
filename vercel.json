@@ -6,6 +6,7 @@
     { "source": "/entretien", "destination": "/entretien.html" },
     { "source": "/entretien-emlyon", "destination": "/entretien-emlyon.html" },
     { "source": "/essec", "destination": "/essec-new.html" },
+    { "source": "/essec-psycho", "destination": "/essec-psycho.html" },
     { "source": "/admin", "destination": "/admin.html" }
   ]
 }
