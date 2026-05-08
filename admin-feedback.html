@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrepOral — Simulateur Feedback Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#07070c;--surface:#0f0f18;--surface2:#16161f;--accent:#c9a96e;--text:#f0ede8;--muted:#9994aa;--border:rgba(200,169,110,.13);--gradient:linear-gradient(135deg,#c9a96e,#e8c98e,#c9a96e);--green:#4ade80;--red:#e05c5c;--orange:#f97316;--blue:#0072e5}
+    *{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--text);font-family:Outfit,sans-serif;min-height:100vh}nav{position:fixed;top:0;left:0;right:0;z-index:10;padding:16px 48px;background:rgba(7,7,12,.95);border-bottom:1px solid rgba(200,169,110,.06);display:flex;align-items:center;justify-content:space-between}.logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.badge{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--orange);border:1px solid rgba(249,115,22,.35);padding:4px 10px}.back{color:var(--muted);border:1px solid var(--border);padding:7px 16px;text-decoration:none;font-size:.78rem}.main{max-width:1120px;margin:0 auto;padding:92px 24px 60px}.grid{display:grid;grid-template-columns:360px 1fr;gap:18px}.card{background:var(--surface);border:1px solid var(--border);padding:28px 30px;position:relative}.card:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient)}h1,h2{font-family:'Cormorant Garamond',serif}h1{font-size:2rem;margin-bottom:8px}h2{font-size:1.3rem;margin-bottom:18px}.muted{color:var(--muted);font-size:.86rem;line-height:1.7}.form-group{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}.label{font-size:.66rem;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted)}input,select,textarea{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:Outfit,sans-serif;font-size:.86rem;padding:11px 13px;outline:none}textarea{min-height:360px;line-height:1.55;resize:vertical}input:focus,select:focus,textarea:focus{border-color:rgba(201,169,110,.45)}.btn{width:100%;border:0;background:var(--gradient);color:#07070c;font-weight:700;font-family:Outfit,sans-serif;padding:13px 20px;cursor:pointer;margin-top:6px}.btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--border)}.btn:disabled{opacity:.55;cursor:not-allowed}.status{margin-top:14px;font-size:.82rem;line-height:1.6}.status.ok{color:var(--green)}.status.err{color:var(--red)}.preview{background:#07070c;border:1px solid rgba(200,169,110,.08);padding:22px;min-height:530px}.score{font-family:'Cormorant Garamond',serif;font-size:2.1rem;color:var(--accent);font-weight:700}.section{border-top:1px solid rgba(200,169,110,.08);padding-top:15px;margin-top:16px}.section-title{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:7px}.section-body{white-space:pre-wrap;color:#d9d4cc;line-height:1.72;font-size:.86rem}.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.small{font-size:.75rem;color:var(--muted);line-height:1.5;margin-top:8px}@media(max-width:900px){nav{padding:16px 20px}.grid{grid-template-columns:1fr}.main{padding:82px 16px 40px}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="logo">PrepOral</div>
+  <div class="badge">Admin · Feedback</div>
+  <a href="/admin" class="back">← Admin</a>
+</nav>
+
+<main class="main">
+  <div class="card" style="margin-bottom:18px">
+    <h1>Simuler un feedback automatique</h1>
+    <p class="muted">Colle une transcription ElevenLabs déjà faite, choisis l’école, puis génère un feedback via l’API automatique. Tu peux enregistrer le résultat dans Supabase pour le voir dans le dashboard.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Paramètres</h2>
+      <div class="form-group">
+        <div class="label">École</div>
+        <select id="school">
+          <option value="ESSEC">ESSEC</option>
+          <option value="ESCP">ESCP</option>
+          <option value="EM Lyon">EM Lyon</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="label">Student ID</div>
+        <input id="studentIdInput" placeholder="uuid étudiant" />
+        <div class="small">Par défaut, le champ reprend ton student_id connecté. Pour tester un autre élève, colle son UUID Supabase.</div>
+      </div>
+      <div class="form-group">
+        <div class="label">Enregistrement</div>
+        <select id="saveMode">
+          <option value="true">Générer + enregistrer dans Supabase</option>
+          <option value="false">Générer seulement, sans enregistrer</option>
+        </select>
+      </div>
+      <button class="btn" id="generateBtn" onclick="generateFeedback()">Générer le feedback</button>
+      <div class="tools">
+        <button class="btn secondary" onclick="copyJSON()">Copier JSON</button>
+        <button class="btn secondary" onclick="clearForm()">Vider</button>
+      </div>
+      <div id="status" class="status"></div>
+    </div>
+
+    <div class="card">
+      <h2>Transcription</h2>
+      <textarea id="transcript" placeholder="Colle ici la transcription ElevenLabs complète…"></textarea>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h2>Résultat généré</h2>
+    <div id="preview" class="preview"><p class="muted">Le feedback apparaîtra ici après génération.</p></div>
+  </div>
+</main>
+
+<script>
+  const connectedStudentId = localStorage.getItem('student_id')
+  const email = localStorage.getItem('email')
+  if (!connectedStudentId || email !== 'abijaoui@icloud.com') window.location.href = '/'
+  document.getElementById('studentIdInput').value = connectedStudentId || ''
+
+  let lastFeedback = null
+
+  function esc(value){
+    if(value === null || value === undefined) return ''
+    return String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;')
+  }
+
+  function renderField(title, value){
+    if(!value) return ''
+    return `<div class="section"><div class="section-title">${esc(title)}</div><div class="section-body">${esc(value)}</div></div>`
+  }
+
+  function renderFeedback(feedback){
+    const school = document.getElementById('school').value
+    if(!feedback){
+      document.getElementById('preview').innerHTML = '<p class="muted">Aucun feedback.</p>'
+      return
+    }
+
+    let html = `<div class="score">${esc(feedback.note ?? '—')}/20</div>`
+    html += renderField('Verdict du jury', feedback.verdict_jury)
+
+    if (school === 'ESSEC') {
+      html += renderField('Diagnostic de l’entretien', feedback.diagnostic_entretien)
+      html += renderField('Analyse de la mise en situation', feedback.analyse_mise_en_situation)
+      html += renderField('Adéquation avec l’ESSEC', feedback.adequation_essec)
+      html += renderField('Plan de progression personnalisé', feedback.plan_de_progression)
+      html += renderField('Formulations recommandées', feedback.formulations_recommandees)
+    } else if (school === 'EM Lyon') {
+      html += renderField('Présentation initiale', feedback.presentation_initiale)
+      html += renderField('Qualité d’expression', feedback.qualite_expression)
+      html += renderField('Connaissance de l’école', feedback.connaissance_ecole)
+      html += renderField('Carte personnalité', feedback.carte_personnalite)
+      html += renderField('Carte expériences', feedback.carte_experiences)
+      html += renderField('Carte projets', feedback.carte_projets)
+      html += renderField('Carte créativité', feedback.carte_creativite)
+      html += renderField('Valeurs EM Lyon', feedback.valeurs_emlyon)
+      html += renderField('Échange final', feedback.echange_final)
+      html += renderField('Analyse personnalisée', feedback.analyse_personnalisee)
+    } else {
+      html += renderField('Présentation initiale', feedback.presentation_initiale)
+      html += renderField('Qualité d’expression', feedback.qualite_expression)
+      html += renderField('Connaissance de l’école', feedback.connaissance_ecole)
+      html += renderField('Dynamique de l’échange', feedback.dynamique_echange)
+      html += renderField('Triangle personnalité-projet-ESCP', feedback.triangle_liens)
+      html += renderField('Fond ESCP', feedback.fond_escp)
+      html += renderField('Exploitation du questionnaire', feedback.exploitation_questionnaire)
+      html += renderField('Analyse personnalisée', feedback.analyse_personnalisee)
+    }
+
+    html += renderField('Question finale', feedback.question_finale)
+    html += renderField('Points forts', feedback.points_forts)
+    html += renderField('Points faibles', feedback.points_faibles)
+    html += renderField('Axes d’amélioration', feedback.axes_amelioration)
+    html += renderField('Comparaison avec le précédent', feedback.comparaison_precedent)
+    document.getElementById('preview').innerHTML = html
+  }
+
+  async function generateFeedback(){
+    const btn = document.getElementById('generateBtn')
+    const status = document.getElementById('status')
+    const student_id = document.getElementById('studentIdInput').value.trim()
+    const school = document.getElementById('school').value
+    const transcript_text = document.getElementById('transcript').value.trim()
+    const save = document.getElementById('saveMode').value === 'true'
+
+    if(!student_id) return statusMessage('Student ID requis.', 'err')
+    if(!transcript_text) return statusMessage('Transcription requise.', 'err')
+
+    btn.disabled = true
+    btn.textContent = 'Génération en cours…'
+    statusMessage('Appel de l’API automatique en cours. Cela peut prendre quelques secondes.', '')
+
+    try {
+      const res = await fetch('/api/simulate-feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ student_id, school, transcript_text, save })
+      })
+      const data = await res.json()
+      if(!res.ok || !data.success) throw new Error(data.error || 'Erreur inconnue')
+      lastFeedback = data.feedback
+      renderFeedback(lastFeedback)
+      statusMessage(save ? 'Feedback généré et enregistré dans Supabase ✅' : 'Feedback généré sans enregistrement ✅', 'ok')
+    } catch(e) {
+      console.error(e)
+      statusMessage('Erreur : ' + e.message, 'err')
+    } finally {
+      btn.disabled = false
+      btn.textContent = 'Générer le feedback'
+    }
+  }
+
+  function statusMessage(msg, type){
+    const status = document.getElementById('status')
+    status.textContent = msg
+    status.className = 'status ' + (type || '')
+  }
+
+  async function copyJSON(){
+    if(!lastFeedback) return statusMessage('Aucun JSON à copier.', 'err')
+    await navigator.clipboard.writeText(JSON.stringify(lastFeedback, null, 2))
+    statusMessage('JSON copié ✅', 'ok')
+  }
+
+  function clearForm(){
+    document.getElementById('transcript').value = ''
+    lastFeedback = null
+    document.getElementById('preview').innerHTML = '<p class="muted">Le feedback apparaîtra ici après génération.</p>'
+    statusMessage('', '')
+  }
+</script>
+</body>
+</html>
