@@ -39,6 +39,10 @@
     {
       "source": "/admin",
       "destination": "/admin.html"
+    },
+    {
+      "source": "/admin-feedback",
+      "destination": "/admin-feedback.html"
     }
   ]
 }
