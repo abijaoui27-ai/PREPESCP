@@ -1,13 +1,44 @@
 {
   "rewrites": [
-    { "source": "/login", "destination": "/login.html" },
-    { "source": "/dashboard", "destination": "/dashboard-next.html" },
-    { "source": "/dashboard-next", "destination": "/dashboard-next.html" },
-    { "source": "/entretien", "destination": "/entretien.html" },
-    { "source": "/entretien-emlyon", "destination": "/entretien-emlyon.html" },
-    { "source": "/essec", "destination": "/essec-new.html" },
-    { "source": "/essec-psycho", "destination": "/essec-psycho.html" },
-    { "source": "/essec-verbal-analogies", "destination": "/essec-verbal-analogies.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard-next.html"
+    },
+    {
+      "source": "/dashboard-next",
+      "destination": "/dashboard-next.html"
+    },
+    {
+      "source": "/entretien",
+      "destination": "/entretien.html"
+    },
+    {
+      "source": "/entretien-emlyon",
+      "destination": "/entretien-emlyon.html"
+    },
+    {
+      "source": "/essec",
+      "destination": "/essec-new.html"
+    },
+    {
+      "source": "/essec-psycho",
+      "destination": "/essec-psycho.html"
+    },
+    {
+      "source": "/essec-verbal-analogies",
+      "destination": "/essec-verbal-analogies.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    }
   ]
 }
