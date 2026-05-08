@@ -34,10 +34,11 @@ export default async function handler(req, res) {
 
     const previousContext = prevFeedback ? `
 ENTRETIEN PRÉCÉDENT (à utiliser pour la comparaison) :
+- École : ${prevFeedback.ecole || 'Non renseigné'}
 - Note obtenue : ${prevFeedback.note}/20
-- Points forts : ${prevFeedback.points_forts}
-- Points faibles : ${prevFeedback.points_faibles}
-- Axes d'amélioration donnés : ${prevFeedback.axes_amelioration}
+- Points forts : ${prevFeedback.points_forts || 'Non renseigné'}
+- Points faibles : ${prevFeedback.points_faibles || 'Non renseigné'}
+- Axes d'amélioration donnés : ${prevFeedback.axes_amelioration || 'Non renseigné'}
 ` : "C'est le premier entretien du candidat — pas de comparaison disponible."
 
     const formattedTranscript = transcript
@@ -47,6 +48,7 @@ ENTRETIEN PRÉCÉDENT (à utiliser pour la comparaison) :
 
     const AGENT_ESCP = 'agent_5301kn5frmakepgabf8ne1pw9kzr'
     const AGENT_EMLYON = 'agent_2801kqpz5c0pfexst78ct5ezs5tf'
+    const AGENT_ESSEC = 'agent_6201kqyj4vwkerkt0faxgk2zn3ed'
 
     let promptFeedback = ''
     let ecole = 'ESCP'
@@ -54,6 +56,7 @@ ENTRETIEN PRÉCÉDENT (à utiliser pour la comparaison) :
     if (agent_id === AGENT_EMLYON) {
       ecole = 'EM Lyon'
       const cartes = body.data?.conversation_initiation_client_data?.dynamic_variables
+
       promptFeedback = `Tu es un membre expérimenté du jury d'admission emlyon Business School. Tu évalues des candidats de classes préparatoires (19-20 ans).
 
 TRANSCRIPTION DE L'ENTRETIEN :
@@ -123,6 +126,247 @@ Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
   "axes_amelioration": "<3 conseils ultra-concrets. Si CAS 2 : le premier conseil doit être de faire l'entretien complet. Si CAS 3 : le premier conseil doit être d'aller au bout.>",
   "points_forts": "<2-3 points forts réels. Si CAS 3 : 'Non évaluable sur un entretien aussi court.'>",
   "points_faibles": "<2-3 points faibles honnêtes avec exemples. Si CAS 3 : 'Non évaluable.'>"
+}`
+
+    } else if (agent_id === AGENT_ESSEC) {
+      ecole = 'ESSEC'
+
+      promptFeedback = `Tu es un membre expérimenté du jury d'admission de l'ESSEC Business School pour le Programme Grande École / Master in Management. Tu évalues des candidats de classes préparatoires de 19-20 ans.
+
+Tu ignores totalement le Global BBA. Tu ne dois jamais recommander le Global BBA, ni parler comme si le candidat postulait à ce programme.
+
+TRANSCRIPTION DE L'ENTRETIEN :
+${formattedTranscript}
+
+${previousContext}
+
+FORMAT ESSEC À GARDER EN TÊTE :
+- L'entretien ESSEC est long, généralement 30 à 45 minutes, sans préparation.
+- Le jury cherche à évaluer le potentiel de développement du candidat et la cohérence entre son profil et la culture de l'ESSEC.
+- Le jury est composé d'au moins deux personnes : professeur, membre de l'administration, diplômé, représentant du monde économique, étudiant en fin de cursus ou jeune diplômé.
+- La partie libre permet au candidat de se présenter, d'expliquer ses motivations, de montrer ses qualités, ses actions passées, ses engagements et ses projets futurs.
+- La partie structurée repose sur une ou plusieurs mises en situation inspirées de cas réels.
+- La mise en situation ne teste pas une bonne réponse unique : elle évalue le raisonnement, le bon sens, les valeurs, la décision, la prise en compte des parties prenantes et la capacité à agir dans l'incertitude.
+- L'entretien donne une seule note finale.
+
+CE QUE LE JURY ESSEC ÉVALUE :
+- Expression claire, structurée, naturelle.
+- Curiosité réelle, ouverture au monde, capacité à relier ses expériences à des enjeux plus larges.
+- Lucidité personnelle : comprendre ses choix, ses limites, ses moteurs, ses contradictions et ses apprentissages.
+- Leadership concret : initiatives, engagements, responsabilités, capacité à entraîner ou servir un collectif.
+- Réflexe éthique : intégrité, transparence, responsabilité, réputation, justice.
+- Esprit collectif : prise en compte de l'équipe, de l'association, du client, de l'école, des parties prenantes.
+- Décision dans le flou : capacité à trancher sans information parfaite.
+- Sens de l'exécution : transformer une idée en plan d'action concret.
+- Imagination pragmatique : créativité utile, réaliste, adaptée au contexte.
+- Cohérence avec l'ESSEC : esprit pionnier, flexibilité du parcours, learning-by-doing, leadership responsable, excellence académique, ouverture internationale.
+
+VOCABULAIRE À UTILISER DANS LE FEEDBACK :
+N'utilise pas des titres froids ou flous comme "connaissance de soi", "compétences collectives", "organisation", "créativité" ou "capacité entrepreneuriale".
+Utilise ces titres plus lisibles :
+- Expression et clarté
+- Curiosité et ouverture
+- Lucidité personnelle
+- Leadership et engagement
+- Mise en situation
+- Réflexe éthique
+- Esprit collectif
+- Décision dans le flou
+- Sens de l'exécution
+- Imagination pragmatique
+- Adéquation avec l'ESSEC
+- Plan de progression personnalisé
+- Arguments ESSEC à ajouter
+- Formulations à retravailler
+- Ressources ESSEC recommandées
+
+BASE DE CONNAISSANCE ESSEC À MOBILISER DANS LES CONSEILS :
+
+ADN GÉNÉRAL :
+- ESSEC fondée en 1907.
+- École pionnière, école-monde aux racines françaises.
+- Campus : Cergy, Paris-La Défense, Singapour, Rabat.
+- Triple accréditation.
+- Culture de flexibilité du parcours.
+- Pédagogie par l'expérience.
+- Leadership responsable.
+- Excellence académique, humanisme, impact global.
+- L'ESSEC valorise l'idée de construire son propre parcours et de devenir acteur de sa formation.
+
+PROGRAMME GRANDE ÉCOLE / MIM :
+- Parcours très flexible.
+- Plus de 50 filières et chaires.
+- Expériences professionnelles possibles : stage, apprentissage, VIE/VIA, CDD/CDI, création d'entreprise, expérience associative ou humanitaire.
+- Expérience internationale obligatoire ou fortement valorisée, notamment via campus ESSEC Asia-Pacific, campus Afrique ou partenaires internationaux.
+- L'étudiant doit être capable d'expliquer comment il utilisera cette flexibilité, pas seulement dire qu'elle l'intéresse.
+
+PRE-MASTER / PREMIÈRE ANNÉE :
+- Séminaire de prise de parole en public.
+- Séminaire "Comprendre et changer le monde".
+- Séminaire "Transformer les organisations par la Data et l'IA".
+- Bootcamp entrepreneuriat en 33 heures.
+- Séminaire SOLVE autour d'un cas d'entreprise réel.
+- Expérience terrain.
+- Going Pro : suivre le quotidien d'un diplômé.
+- Expérience projet : mission de conseil ou création d'entreprise.
+
+DOUBLES DIPLÔMES NATIONAUX :
+- CentraleSupélec.
+- ENS Ulm.
+- ENS Paris-Saclay.
+- ENSAE.
+- Saint-Cyr.
+- École du Louvre.
+- Institut Catholique de Paris, philosophie.
+
+DOUBLES DIPLÔMES INTERNATIONAUX :
+- Mannheim.
+- University of Queensland.
+- Queen's Smith School of Business.
+- Guanghua School of Management, Peking University.
+- Seoul National University.
+- IIM Ahmedabad.
+- Bocconi.
+- Keio Business School.
+- TEC Monterrey.
+- Nanyang Business School.
+
+SPÉCIALISATIONS À RECOMMANDER SELON LE PROFIL :
+
+Si le candidat parle d'IA, data, digital, automatisation, produit ou transformation :
+- Digital Disruption Chair.
+- Accenture Strategic Business Analytics Chair.
+- Business Analytics Methods Track.
+- Digital Transformation and Digital Business Track.
+- Information Strategy and Governance Chair.
+- Cours Digital Transformation.
+- Cours Digital Humanism.
+Angle à conseiller : ne pas seulement dire "j'aime l'IA", mais expliquer comment l'IA transforme les organisations, les métiers, les décisions, la relation client ou les opérations.
+
+Si le candidat parle d'entrepreneuriat, startup, projet personnel, innovation :
+- Entrepreneurship Track / Filière Entrepreneuriat.
+- ESSEC Ventures Incubator.
+- Leading a Scale-up Chair.
+- Leading a SME/SMI Track.
+- Tech, Innovation and Entrepreneurship.
+- Bootcamp entrepreneuriat.
+Angle à conseiller : expliquer quel projet il veut tester, auprès de qui, avec quelles ressources ESSEC, et pourquoi la pédagogie par l'action lui correspond.
+
+Si le candidat parle de finance :
+- Finance Track.
+- ESSEC-Amundi Chair.
+- Shaping the Future of Finance Chair.
+- ESSEC-ISUP Risk & Actuarial Track.
+- Corporate Finance in Asia Track.
+- Financial Markets in Asia Track.
+- Financial Statement Analysis.
+- Strategic Cost Management.
+Angle à conseiller : préciser finance d'entreprise, marchés, asset management, risque, audit, contrôle, transaction services, M&A ou finance internationale.
+
+Si le candidat parle de conseil, stratégie, transformation :
+- Filière conseil en stratégie.
+- CFO : Conseil, Finance, Organisation.
+- Chaire ESSEC du changement.
+- Asian Strategy Consulting Project.
+- Managing Plans and Projects.
+- Strategic Cost Management.
+Angle à conseiller : ne pas présenter le conseil comme un prestige vague, mais comme un moyen de résoudre des problèmes précis : croissance, transformation digitale, organisation, opérations, impact, gouvernance.
+
+Si le candidat parle d'impact, public, société, environnement :
+- Chaire Innovation sociale.
+- Chaire Talents de la transition écologique.
+- Global ESSEC Circular Economy Chair.
+- Chaire ICP-ESSEC Entreprises et Bien commun.
+- Management and Society Track.
+- Filière affaires publiques.
+- Filière géopolitique, défense et leadership.
+Angle à conseiller : transformer les valeurs personnelles en champ d'action concret : transition écologique, gouvernance, politiques publiques, innovation sociale, économie circulaire, intérêt général.
+
+Si le candidat parle de luxe, beauté, marketing, consommation :
+- LVMH Chair - The Future of Luxury.
+- ESSEC Beauty Chair.
+- Marketing Track.
+- Chaire Grande Consommation.
+- Media & Digital Track.
+Angle à conseiller : éviter "j'aime le luxe" ; parler de désirabilité, distribution, expérience client, durabilité, marque, internationalisation.
+
+Si le candidat parle de sport, santé, food :
+- ESSEC Sports Chair.
+- Food Chair.
+- Chaire Innovation et Santé.
+Angle à conseiller : relier passion personnelle, secteur économique, enjeux de société et projet professionnel.
+
+MÉTHODE ESSEC À CONSEILLER POUR LA MISE EN SITUATION :
+1. Reformuler le problème en une phrase.
+2. Identifier les parties prenantes.
+3. Repérer les enjeux humains, éthiques, juridiques, réputationnels, économiques.
+4. Proposer 2 ou 3 options.
+5. Choisir une décision claire.
+6. Justifier l'arbitrage.
+7. Décrire la mise en œuvre concrète.
+8. Anticiper les conséquences à court terme et à long terme.
+
+MISSION :
+Produis un feedback exceptionnel, précis, utile, non générique.
+
+Le feedback doit avoir deux niveaux :
+1. Diagnostic jury : ce qui va, ce qui ne va pas, pourquoi la note.
+2. Coaching d'amélioration : quoi apprendre, quoi ajouter, quelles ressources ESSEC citer, comment reformuler ses arguments.
+
+RÈGLES :
+- Tu t'adresses directement au candidat en le vouvoyant.
+- Tu cites ses propres mots si utile.
+- Tu ne dis jamais simplement "renseignez-vous davantage sur l'ESSEC".
+- Tu donnes directement les exemples ESSEC qu'il aurait dû mobiliser.
+- Tu adaptes les ressources ESSEC à SON profil.
+- Si le candidat parle d'IA, tu recommandes des ressources IA/data/digital.
+- S'il parle finance, tu recommandes les ressources finance.
+- S'il parle conseil, tu recommandes les ressources conseil/stratégie.
+- S'il parle impact, tu recommandes les ressources impact/public/société.
+- S'il parle luxe ou marketing, tu recommandes les ressources luxe/marketing.
+- S'il ne parle pas clairement d'un projet, tu expliques comment construire un projet crédible à partir de ses expériences.
+
+RÈGLES DE NOTATION :
+- Entretien interrompu ou très court : 0 à 5/20.
+- Entretien partiel : maximum 11/20.
+- Très faible : 6-8/20.
+- Moyen : 10-11/20.
+- Correct / admissible : 12-13/20.
+- Très solide : 14-16/20.
+- Excellent : 17+/20.
+- Une note 17+ exige : discours incarné, maturité, mise en situation bien structurée, vraie connaissance ESSEC, projet cohérent, capacité à dialoguer naturellement.
+
+Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks.
+Tous les champs sont obligatoires.
+Les valeurs doivent être des textes riches, utiles et directement exploitables.
+
+{
+  "note": <entier 0-20>,
+  "verdict_jury": "<3 à 5 phrases adressées directement au candidat. Donne la note et l'impression générale.>",
+  "diagnostic_global": "<Synthèse claire : niveau global, principal problème, potentiel d'amélioration.>",
+  "presentation_initiale": "<Analyse du pitch : structure, durée, incarnation, perches données au jury, éléments manquants. Conseil concret.>",
+  "qualite_expression": "<Analyse de la clarté orale, précision, rythme, phrases creuses ou fortes. Conseil concret.>",
+  "expression_clarte": "<Expression, clarté et impact. Donne un conseil très pratique.>",
+  "curiosite_ouverture": "<Analyse de l'ouverture : culture, curiosité intellectuelle, capacité à relier expériences et monde. Conseil concret.>",
+  "lucidite_personnelle": "<Analyse de la capacité à parler de soi sans récitation : moteurs, limites, contradictions, apprentissages. Conseil concret.>",
+  "leadership_engagement": "<Analyse des initiatives, engagements, responsabilités prises, impact réel. Conseil concret.>",
+  "mise_en_situation": "<Analyse détaillée de la mise en situation : reformulation, parties prenantes, enjeux, options, décision, plan d'action. Conseil avec méthode.>",
+  "reflexe_ethique": "<Analyse du réflexe éthique : intégrité, responsabilité, réputation, justice, droit, transparence. Conseil concret.>",
+  "esprit_collectif": "<Analyse de la prise en compte des autres : équipe, association, client, école, parties prenantes. Conseil concret.>",
+  "decision_dans_le_flou": "<Analyse de la capacité à décider sans certitude et à assumer un arbitrage. Conseil concret.>",
+  "sens_de_l_execution": "<Analyse du passage de l'idée au plan d'action : étapes, priorités, calendrier, interlocuteurs. Conseil concret.>",
+  "imagination_pragmatique": "<Analyse de la créativité utile : originalité mais aussi réalisme. Conseil concret.>",
+  "connaissance_ecole": "<Analyse de la connaissance ESSEC. Cite ce qui a été dit ou pas dit. Donne ensuite les références ESSEC exactes à apprendre selon son profil.>",
+  "adequation_essec": "<Analyse de la cohérence profil-projet-ESSEC : pourquoi l'ESSEC plutôt qu'une autre école. Conseil concret.>",
+  "question_finale": "<Analyse de la question finale : existence, pertinence, personnalisation au jury. Si absente, propose 2 exemples de questions finales adaptées.>",
+  "points_forts": "<2 à 4 points forts précis, avec exemples de l'entretien.>",
+  "points_faibles": "<2 à 4 points faibles précis, avec exemples de l'entretien.>",
+  "axes_amelioration": "<3 axes prioritaires formulés comme actions concrètes.>",
+  "plan_de_progression": "<Plan en 5 étapes avant le prochain oral : pitch, ESSEC, mise en situation, projet, question finale.>",
+  "arguments_essec_a_ajouter": "<Liste personnalisée de références ESSEC à intégrer dans son discours, avec phrase d'utilisation possible.>",
+  "formulations_a_retravailler": "<Reformule 2 ou 3 arguments faibles du candidat en versions plus fortes et plus orales.>",
+  "ressources_essec_recommandees": "<Chaires, filières, cours, doubles diplômes, campus ou expériences ESSEC recommandés selon son profil, avec explication courte.>",
+  "comparaison_precedent": "<Si premier entretien : indique que c'est la référence. Sinon compare avec le précédent.>"
 }`
 
     } else {
@@ -195,12 +439,12 @@ Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
       body: JSON.stringify({
         model: 'gpt-4o',
         messages: [{ role: 'user', content: promptFeedback }],
-        temperature: 0.3
+        temperature: 0.25
       })
     })
 
     const openaiData = await openaiRes.json()
-    const raw = openaiData.choices[0].message.content
+    const raw = openaiData.choices?.[0]?.message?.content || '{}'
     const clean = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
     const feedback = JSON.parse(clean)
 
@@ -229,13 +473,15 @@ Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
         session_id,
         student_id,
         ecole,
-        note: feedback.note,
-        points_forts: feedback.points_forts,
-        points_faibles: feedback.points_faibles,
-        axes_amelioration: feedback.axes_amelioration,
-        verdict_jury: feedback.verdict_jury,
-        presentation_initiale: feedback.presentation_initiale,
-        qualite_expression: feedback.qualite_expression,
+
+        note: Number.isFinite(Number(feedback.note)) ? Number(feedback.note) : null,
+
+        points_forts: feedback.points_forts || null,
+        points_faibles: feedback.points_faibles || null,
+        axes_amelioration: feedback.axes_amelioration || null,
+        verdict_jury: feedback.verdict_jury || null,
+        presentation_initiale: feedback.presentation_initiale || null,
+        qualite_expression: feedback.qualite_expression || null,
         connaissance_ecole: feedback.connaissance_ecole || null,
         dynamique_echange: feedback.dynamique_echange || null,
         triangle_liens: feedback.triangle_liens || null,
@@ -243,13 +489,31 @@ Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
         exploitation_questionnaire: feedback.exploitation_questionnaire || null,
         question_finale: feedback.question_finale || null,
         analyse_personnalisee: feedback.analyse_personnalisee || null,
-        comparaison_precedent: feedback.comparaison_precedent,
+        comparaison_precedent: feedback.comparaison_precedent || null,
+
         carte_personnalite: feedback.carte_personnalite || null,
         carte_experiences: feedback.carte_experiences || null,
         carte_projets: feedback.carte_projets || null,
         carte_creativite: feedback.carte_creativite || null,
         valeurs_emlyon: feedback.valeurs_emlyon || null,
-        echange_final: feedback.echange_final || null
+        echange_final: feedback.echange_final || null,
+
+        diagnostic_global: feedback.diagnostic_global || null,
+        expression_clarte: feedback.expression_clarte || null,
+        curiosite_ouverture: feedback.curiosite_ouverture || null,
+        lucidite_personnelle: feedback.lucidite_personnelle || null,
+        leadership_engagement: feedback.leadership_engagement || null,
+        mise_en_situation: feedback.mise_en_situation || null,
+        reflexe_ethique: feedback.reflexe_ethique || null,
+        esprit_collectif: feedback.esprit_collectif || null,
+        decision_dans_le_flou: feedback.decision_dans_le_flou || null,
+        sens_de_l_execution: feedback.sens_de_l_execution || null,
+        imagination_pragmatique: feedback.imagination_pragmatique || null,
+        adequation_essec: feedback.adequation_essec || null,
+        plan_de_progression: feedback.plan_de_progression || null,
+        arguments_essec_a_ajouter: feedback.arguments_essec_a_ajouter || null,
+        formulations_a_retravailler: feedback.formulations_a_retravailler || null,
+        ressources_essec_recommandees: feedback.ressources_essec_recommandees || null
       })
     })
 
