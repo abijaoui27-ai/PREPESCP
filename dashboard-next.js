@@ -101,7 +101,7 @@ function renderESSEC() {
     </div>
     <div class="card">
       <h3>📈 Feedbacks ESSEC</h3>
-      <p class="muted">Diagnostic jury + plan de progression personnalisé pour l’oral ESSEC.</p>
+      <p class="muted">Diagnostic jury, mise en situation, adéquation ESSEC et plan de progression.</p>
       <div id="listESSEC"><p class="muted">Chargement de l’historique…</p></div>
     </div>
   `
@@ -171,37 +171,48 @@ function esc(value){
 function field(label, value){
   if(value === null || value === undefined || value === '') return ''
   return `
-    <div style="margin-top:14px;border-top:1px solid rgba(201,169,110,.08);padding-top:12px">
-      <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:1.3px;color:#c9a96e;margin-bottom:5px">${label}</div>
-      <div style="font-size:.84rem;color:#d9d4cc;line-height:1.65;white-space:pre-wrap">${esc(value)}</div>
+    <div style="margin-top:18px;border-top:1px solid rgba(201,169,110,.08);padding-top:14px">
+      <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1.3px;color:#c9a96e;margin-bottom:7px">${label}</div>
+      <div style="font-size:.86rem;color:#d9d4cc;line-height:1.75;white-space:pre-wrap">${esc(value)}</div>
     </div>
   `
 }
 
+function joinFields(...values){
+  return values.filter(v => v !== null && v !== undefined && String(v).trim() !== '').join('\n\n')
+}
+
 function buildESSECFeedbackDetails(fb){
+  const diagnostic = fb.diagnostic_entretien || joinFields(
+    fb.diagnostic_global,
+    fb.presentation_initiale,
+    fb.expression_clarte || fb.qualite_expression,
+    fb.curiosite_ouverture,
+    fb.lucidite_personnelle,
+    fb.leadership_engagement
+  )
+
+  const mise = fb.analyse_mise_en_situation || joinFields(
+    fb.mise_en_situation,
+    fb.reflexe_ethique,
+    fb.esprit_collectif,
+    fb.decision_dans_le_flou,
+    fb.sens_de_l_execution,
+    fb.imagination_pragmatique
+  )
+
+  const adequation = joinFields(fb.adequation_essec, fb.connaissance_ecole, fb.arguments_essec_a_ajouter, fb.ressources_essec_recommandees)
+  const formulations = fb.formulations_recommandees || fb.formulations_a_retravailler
+
   return `
-    ${field('Diagnostic global du jury', fb.diagnostic_global)}
-    ${field('Présentation initiale', fb.presentation_initiale)}
-    ${field('Expression et clarté', fb.expression_clarte || fb.qualite_expression)}
-    ${field('Curiosité et ouverture', fb.curiosite_ouverture)}
-    ${field('Lucidité personnelle', fb.lucidite_personnelle)}
-    ${field('Leadership et engagement', fb.leadership_engagement)}
-    ${field('Mise en situation', fb.mise_en_situation)}
-    ${field('Réflexe éthique', fb.reflexe_ethique)}
-    ${field('Esprit collectif', fb.esprit_collectif)}
-    ${field('Décision dans le flou', fb.decision_dans_le_flou)}
-    ${field('Sens de l’exécution', fb.sens_de_l_execution)}
-    ${field('Imagination pragmatique', fb.imagination_pragmatique)}
-    ${field('Connaissance de l’ESSEC', fb.connaissance_ecole)}
-    ${field('Adéquation avec l’ESSEC', fb.adequation_essec)}
-    ${field('Question finale', fb.question_finale)}
+    ${field('Verdict du jury', fb.verdict_jury)}
+    ${field('Diagnostic de l’entretien', diagnostic)}
+    ${field('Analyse de la mise en situation', mise)}
+    ${field('Adéquation avec l’ESSEC', adequation)}
+    ${field('Plan de progression personnalisé', fb.plan_de_progression || fb.axes_amelioration)}
+    ${field('Formulations recommandées', formulations)}
     ${field('Points forts', fb.points_forts)}
     ${field('Points faibles', fb.points_faibles)}
-    ${field('Axes d’amélioration', fb.axes_amelioration)}
-    ${field('Plan de progression personnalisé', fb.plan_de_progression)}
-    ${field('Arguments ESSEC à ajouter', fb.arguments_essec_a_ajouter)}
-    ${field('Formulations à retravailler', fb.formulations_a_retravailler)}
-    ${field('Ressources ESSEC recommandées', fb.ressources_essec_recommandees)}
     ${field('Comparaison avec le précédent', fb.comparaison_precedent)}
   `
 }
@@ -249,7 +260,7 @@ function renderFeedbackList(id,items){
   box.innerHTML=items.map((fb,i)=>{
     const key=id+'-'+i
     const date=fb.created_at ? new Date(fb.created_at).toLocaleDateString('fr-FR') : ''
-    const summary=fb.verdict_jury || fb.diagnostic_global || fb.analyse_personnalisee || fb.points_forts || 'Feedback disponible.'
+    const summary=fb.verdict_jury || fb.diagnostic_entretien || fb.diagnostic_global || fb.analyse_personnalisee || fb.points_forts || 'Feedback disponible.'
     return `
       <div style="border:1px solid rgba(201,169,110,.13);padding:16px;margin-top:12px;background:#0f0f18">
         <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
