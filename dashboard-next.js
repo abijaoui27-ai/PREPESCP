@@ -1,5 +1,6 @@
 const tabsContainer = document.getElementById('tabs')
 const studentId = localStorage.getItem('student_id')
+let FEEDBACK_STORE = {}
 
 function addAdminLinkIfNeeded() {
   const email = localStorage.getItem('email')
@@ -150,16 +151,85 @@ async function loadFeedbacks(){
   }
 }
 
+function esc(value){
+  if(value === null || value === undefined || value === '') return ''
+  return String(value)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'",'&#039;')
+}
+
+function field(label, value){
+  if(value === null || value === undefined || value === '') return ''
+  return `
+    <div style="margin-top:14px;border-top:1px solid rgba(201,169,110,.08);padding-top:12px">
+      <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:1.3px;color:#c9a96e;margin-bottom:5px">${label}</div>
+      <div style="font-size:.84rem;color:#d9d4cc;line-height:1.65;white-space:pre-wrap">${esc(value)}</div>
+    </div>
+  `
+}
+
+function buildFeedbackDetails(fb){
+  return `
+    ${field('Verdict du jury', fb.verdict_jury)}
+    ${field('Présentation initiale', fb.presentation_initiale)}
+    ${field('Qualité d’expression', fb.qualite_expression)}
+    ${field('Connaissance de l’école', fb.connaissance_ecole)}
+    ${field('Dynamique de l’échange', fb.dynamique_echange)}
+    ${field('Triangle liens', fb.triangle_liens)}
+    ${field('Fond ESCP', fb.fond_escp)}
+    ${field('Exploitation du questionnaire', fb.exploitation_questionnaire)}
+    ${field('Analyse personnalisée', fb.analyse_personnalisee)}
+    ${field('Question finale', fb.question_finale)}
+    ${field('Comparaison avec le précédent', fb.comparaison_precedent)}
+    ${field('Points forts', fb.points_forts)}
+    ${field('Points faibles', fb.points_faibles)}
+    ${field('Axes d’amélioration', fb.axes_amelioration)}
+    ${field('Carte personnalité', fb.carte_personnalite)}
+    ${field('Carte expériences', fb.carte_experiences)}
+    ${field('Carte projets', fb.carte_projets)}
+    ${field('Carte créativité', fb.carte_creativite)}
+    ${field('Valeurs EM Lyon', fb.valeurs_emlyon)}
+    ${field('Échange final', fb.echange_final)}
+  `
+}
+
+function toggleFeedbackDetail(key){
+  const el=document.getElementById('feedback-detail-'+key)
+  const btn=document.getElementById('feedback-btn-'+key)
+  if(!el) return
+  const open=el.style.display==='block'
+  el.style.display=open?'none':'block'
+  if(btn) btn.textContent=open?'Voir le debrief complet':'Masquer le debrief'
+}
+
 function renderFeedbackList(id,items){
   const box=document.getElementById(id)
   if(!box) return
   if(!items.length){box.innerHTML='<p class="muted">Aucun feedback pour le moment.</p>';return}
-  box.innerHTML=items.map((fb,i)=>`
-    <div style="border:1px solid rgba(201,169,110,.13);padding:14px;margin-top:10px;background:#0f0f18">
-      <strong>Entretien #${items.length-i}</strong> — <span style="color:#c9a96e">${fb.note || '—'}/20</span>
-      <p class="muted" style="margin-top:6px">${fb.verdict_jury || fb.analyse_personnalisee || 'Feedback disponible.'}</p>
-    </div>
-  `).join('')
+  FEEDBACK_STORE[id]=items
+  box.innerHTML=items.map((fb,i)=>{
+    const key=id+'-'+i
+    const date=fb.created_at ? new Date(fb.created_at).toLocaleDateString('fr-FR') : ''
+    const summary=fb.verdict_jury || fb.analyse_personnalisee || fb.points_forts || 'Feedback disponible.'
+    return `
+      <div style="border:1px solid rgba(201,169,110,.13);padding:16px;margin-top:12px;background:#0f0f18">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+          <div>
+            <strong>Entretien #${items.length-i}</strong> ${date ? `<span class="muted">— ${date}</span>` : ''}
+            <div style="color:#c9a96e;margin-top:4px;font-weight:700">${esc(fb.note || '—')}/20</div>
+          </div>
+          <button id="feedback-btn-${key}" onclick="toggleFeedbackDetail('${key}')" style="border:1px solid rgba(201,169,110,.18);background:#16161f;color:#c9a96e;padding:8px 12px;cursor:pointer;font-family:Outfit,sans-serif;font-size:.78rem">Voir le debrief complet</button>
+        </div>
+        <p class="muted" style="margin-top:10px">${esc(summary)}</p>
+        <div id="feedback-detail-${key}" style="display:none;margin-top:14px;background:#07070c;border:1px solid rgba(201,169,110,.08);padding:16px">
+          ${buildFeedbackDetails(fb) || '<p class="muted">Aucun détail supplémentaire disponible.</p>'}
+        </div>
+      </div>
+    `
+  }).join('')
 }
 
 addAdminLinkIfNeeded()
