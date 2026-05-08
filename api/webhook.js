@@ -161,25 +161,6 @@ CE QUE LE JURY ESSEC ÉVALUE :
 - Imagination pragmatique : créativité utile, réaliste, adaptée au contexte.
 - Cohérence avec l'ESSEC : esprit pionnier, flexibilité du parcours, learning-by-doing, leadership responsable, excellence académique, ouverture internationale.
 
-VOCABULAIRE À UTILISER DANS LE FEEDBACK :
-N'utilise pas des titres froids ou flous comme "connaissance de soi", "compétences collectives", "organisation", "créativité" ou "capacité entrepreneuriale".
-Utilise ces titres plus lisibles :
-- Expression et clarté
-- Curiosité et ouverture
-- Lucidité personnelle
-- Leadership et engagement
-- Mise en situation
-- Réflexe éthique
-- Esprit collectif
-- Décision dans le flou
-- Sens de l'exécution
-- Imagination pragmatique
-- Adéquation avec l'ESSEC
-- Plan de progression personnalisé
-- Arguments ESSEC à ajouter
-- Formulations à retravailler
-- Ressources ESSEC recommandées
-
 BASE DE CONNAISSANCE ESSEC À MOBILISER DANS LES CONSEILS :
 
 ADN GÉNÉRAL :
@@ -336,37 +317,27 @@ RÈGLES DE NOTATION :
 - Excellent : 17+/20.
 - Une note 17+ exige : discours incarné, maturité, mise en situation bien structurée, vraie connaissance ESSEC, projet cohérent, capacité à dialoguer naturellement.
 
-Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks.
-Tous les champs sont obligatoires.
-Les valeurs doivent être des textes riches, utiles et directement exploitables.
+RÈGLES DE FORMAT :
+- Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks.
+- Tous les champs sont obligatoires.
+- Ne crée pas de micro-sections.
+- Chaque grande section doit être développée.
+- Le feedback doit être moins éclaté, plus profond, plus utile.
+- Ne répète pas la même idée dans plusieurs sections.
+- Les grandes sections doivent faire au moins 8 à 12 lignes utiles chacune, sauf points forts/faibles et comparaison.
+- Ton style doit être direct, premium, pédagogique, mais pas brutal gratuitement.
 
 {
   "note": <entier 0-20>,
-  "verdict_jury": "<3 à 5 phrases adressées directement au candidat. Donne la note et l'impression générale.>",
-  "diagnostic_global": "<Synthèse claire : niveau global, principal problème, potentiel d'amélioration.>",
-  "presentation_initiale": "<Analyse du pitch : structure, durée, incarnation, perches données au jury, éléments manquants. Conseil concret.>",
-  "qualite_expression": "<Analyse de la clarté orale, précision, rythme, phrases creuses ou fortes. Conseil concret.>",
-  "expression_clarte": "<Expression, clarté et impact. Donne un conseil très pratique.>",
-  "curiosite_ouverture": "<Analyse de l'ouverture : culture, curiosité intellectuelle, capacité à relier expériences et monde. Conseil concret.>",
-  "lucidite_personnelle": "<Analyse de la capacité à parler de soi sans récitation : moteurs, limites, contradictions, apprentissages. Conseil concret.>",
-  "leadership_engagement": "<Analyse des initiatives, engagements, responsabilités prises, impact réel. Conseil concret.>",
-  "mise_en_situation": "<Analyse détaillée de la mise en situation : reformulation, parties prenantes, enjeux, options, décision, plan d'action. Conseil avec méthode.>",
-  "reflexe_ethique": "<Analyse du réflexe éthique : intégrité, responsabilité, réputation, justice, droit, transparence. Conseil concret.>",
-  "esprit_collectif": "<Analyse de la prise en compte des autres : équipe, association, client, école, parties prenantes. Conseil concret.>",
-  "decision_dans_le_flou": "<Analyse de la capacité à décider sans certitude et à assumer un arbitrage. Conseil concret.>",
-  "sens_de_l_execution": "<Analyse du passage de l'idée au plan d'action : étapes, priorités, calendrier, interlocuteurs. Conseil concret.>",
-  "imagination_pragmatique": "<Analyse de la créativité utile : originalité mais aussi réalisme. Conseil concret.>",
-  "connaissance_ecole": "<Analyse de la connaissance ESSEC. Cite ce qui a été dit ou pas dit. Donne ensuite les références ESSEC exactes à apprendre selon son profil.>",
-  "adequation_essec": "<Analyse de la cohérence profil-projet-ESSEC : pourquoi l'ESSEC plutôt qu'une autre école. Conseil concret.>",
-  "question_finale": "<Analyse de la question finale : existence, pertinence, personnalisation au jury. Si absente, propose 2 exemples de questions finales adaptées.>",
-  "points_forts": "<2 à 4 points forts précis, avec exemples de l'entretien.>",
-  "points_faibles": "<2 à 4 points faibles précis, avec exemples de l'entretien.>",
-  "axes_amelioration": "<3 axes prioritaires formulés comme actions concrètes.>",
-  "plan_de_progression": "<Plan en 5 étapes avant le prochain oral : pitch, ESSEC, mise en situation, projet, question finale.>",
-  "arguments_essec_a_ajouter": "<Liste personnalisée de références ESSEC à intégrer dans son discours, avec phrase d'utilisation possible.>",
-  "formulations_a_retravailler": "<Reformule 2 ou 3 arguments faibles du candidat en versions plus fortes et plus orales.>",
-  "ressources_essec_recommandees": "<Chaires, filières, cours, doubles diplômes, campus ou expériences ESSEC recommandés selon son profil, avec explication courte.>",
-  "comparaison_precedent": "<Si premier entretien : indique que c'est la référence. Sinon compare avec le précédent.>"
+  "verdict_jury": "<5 à 7 phrases. Donne la note, l'impression générale, le niveau réel du candidat et le principal enjeu de progression. Ne répète pas tout le diagnostic ici.>",
+  "diagnostic_entretien": "<Analyse longue de la présentation, de l'expression, de la structure, de la maturité, de l'authenticité et de la posture. Cite 2 ou 3 moments précis de l'entretien. Explique ce qui a pénalisé le candidat, ce qui peut être sauvé, et ce qu'il doit comprendre sur sa prestation globale.>",
+  "analyse_mise_en_situation": "<Analyse longue de la mise en situation. Évalue la reformulation du problème, les parties prenantes, les enjeux humains, éthiques, réputationnels et économiques, les options proposées, la décision finale et le plan d'action. Donne ensuite une version améliorée de la réponse que le candidat aurait pu produire.>",
+  "adequation_essec": "<Analyse longue du lien entre le profil du candidat, son projet et l'ESSEC. Ne reste jamais général. Recommande des chaires, filières, cours, expériences, campus, doubles diplômes ou dispositifs ESSEC précisément adaptés à son profil. Explique comment les intégrer oralement dans une réponse crédible.>",
+  "plan_de_progression": "<Plan très concret en 5 étapes avant le prochain oral. Pour chaque étape : quoi travailler, comment le travailler, et quel résultat viser. Le plan doit être actionnable dès demain.>",
+  "formulations_recommandees": "<Reprends 2 à 4 formulations maladroites, faibles, vagues ou inappropriées du candidat et propose une version orale beaucoup plus forte, crédible et admissible. Si le candidat a été vulgaire ou trop brutal, transforme en formulation professionnelle sans édulcorer le fond.>",
+  "points_forts": "<2 à 4 points forts réels, précis, non génériques.>",
+  "points_faibles": "<2 à 4 points faibles réels, précis, avec exemples.>",
+  "comparaison_precedent": "<Si premier entretien ESSEC : indique que cette session sert de référence. Sinon compare brièvement avec le précédent entretien pertinent.>"
 }`
 
     } else {
@@ -513,7 +484,11 @@ Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
         plan_de_progression: feedback.plan_de_progression || null,
         arguments_essec_a_ajouter: feedback.arguments_essec_a_ajouter || null,
         formulations_a_retravailler: feedback.formulations_a_retravailler || null,
-        ressources_essec_recommandees: feedback.ressources_essec_recommandees || null
+        ressources_essec_recommandees: feedback.ressources_essec_recommandees || null,
+
+        diagnostic_entretien: feedback.diagnostic_entretien || null,
+        analyse_mise_en_situation: feedback.analyse_mise_en_situation || null,
+        formulations_recommandees: feedback.formulations_recommandees || null
       })
     })
 
