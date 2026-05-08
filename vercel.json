@@ -7,6 +7,7 @@
     { "source": "/entretien-emlyon", "destination": "/entretien-emlyon.html" },
     { "source": "/essec", "destination": "/essec-new.html" },
     { "source": "/essec-psycho", "destination": "/essec-psycho.html" },
+    { "source": "/essec-verbal-analogies", "destination": "/essec-verbal-analogies.html" },
     { "source": "/admin", "destination": "/admin.html" }
   ]
 }
