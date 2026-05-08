@@ -61,6 +61,24 @@
       -webkit-text-fill-color:transparent;
     }
 
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .nav-email{
+      color:var(--muted);
+      border:1px solid var(--border);
+      background:var(--surface2);
+      padding:7px 14px;
+      font-size:.78rem;
+      max-width:260px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
     .nav-logout{
       color:var(--muted);
       border:1px solid var(--border);
@@ -143,149 +161,33 @@
       margin-top:6px;
     }
 
-    .tabs{
-      display:flex;
-      gap:2px;
-      background:var(--border2);
-    }
+    .tabs{display:flex;gap:2px;background:var(--border2)}
+    .tab{flex:1;padding:17px 20px;background:var(--surface);color:var(--muted);border:none;border-bottom:3px solid transparent;cursor:pointer;font-family:Outfit,sans-serif;font-size:.84rem;transition:.2s}
+    .tab:hover{background:var(--surface2);color:var(--text)}
+    .tab.active{background:var(--surface2);color:var(--gold);border-bottom-color:var(--gold)}
+    .tab:nth-child(2).active{color:var(--red);border-bottom-color:var(--red)}
+    .tab:nth-child(3).active{color:var(--blue2);border-bottom-color:var(--blue2)}
 
-    .tab{
-      flex:1;
-      padding:17px 20px;
-      background:var(--surface);
-      color:var(--muted);
-      border:none;
-      border-bottom:3px solid transparent;
-      cursor:pointer;
-      font-family:Outfit,sans-serif;
-      font-size:.84rem;
-      transition:.2s;
-    }
-
-    .tab:hover{
-      background:var(--surface2);
-      color:var(--text);
-    }
-
-    .tab.active{
-      background:var(--surface2);
-      color:var(--gold);
-      border-bottom-color:var(--gold);
-    }
-
-    .tab:nth-child(2).active{
-      color:var(--red);
-      border-bottom-color:var(--red);
-    }
-
-    .tab:nth-child(3).active{
-      color:var(--blue2);
-      border-bottom-color:var(--blue2);
-    }
-
-    .panel{
-      display:none;
-      background:var(--surface);
-      border:1px solid var(--border);
-      border-top:none;
-      padding:38px 42px;
-    }
-
-    .panel.active{
-      display:block;
-    }
-
-    .panel h2{
-      font-family:"Cormorant Garamond",serif;
-      font-size:1.65rem;
-      margin-bottom:10px;
-    }
-
-    .card{
-      background:var(--surface2);
-      border:1px solid var(--border);
-      padding:26px;
-      margin-top:22px;
-    }
-
-    .card h3{
-      font-size:1rem;
-      margin-bottom:8px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      margin-top:16px;
-      padding:15px 30px;
-      background:var(--grad);
-      color:var(--bg);
-      text-decoration:none;
-      font-weight:700;
-      font-size:.9rem;
-      box-shadow:0 8px 28px rgba(201,169,110,.2);
-    }
-
-    .btn.blue{
-      background:linear-gradient(135deg,#003b7a,#0072e5);
-      color:white;
-    }
-
-    .btn.red{
-      background:var(--red);
-      color:white;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-      margin-top:22px;
-    }
-
-    .stat{
-      display:block;
-      background:var(--surface2);
-      border:1px solid rgba(0,85,179,.25);
-      padding:22px;
-      text-align:center;
-      text-decoration:none;
-      color:inherit;
-      transition:.2s;
-    }
-
-    .stat:hover{
-      background:var(--surface3);
-      transform:translateY(-2px);
-    }
-
-    .stat h3{
-      font-size:1rem;
-      margin-bottom:8px;
-    }
-
-    .stat p{
-      font-size:.78rem;
-      color:var(--muted);
-    }
-
-    .warning{
-      display:none;
-      background:rgba(224,92,92,.08);
-      border:1px solid rgba(224,92,92,.25);
-      color:#f0a0a0;
-      padding:16px 20px;
-      margin-bottom:24px;
-      font-size:.85rem;
-    }
-
-    .warning.show{
-      display:block;
-    }
+    .panel{display:none;background:var(--surface);border:1px solid var(--border);border-top:none;padding:38px 42px}
+    .panel.active{display:block}
+    .panel h2{font-family:"Cormorant Garamond",serif;font-size:1.65rem;margin-bottom:10px}
+    .card{background:var(--surface2);border:1px solid var(--border);padding:26px;margin-top:22px}
+    .card h3{font-size:1rem;margin-bottom:8px}
+    .btn{display:inline-flex;align-items:center;gap:9px;margin-top:16px;padding:15px 30px;background:var(--grad);color:var(--bg);text-decoration:none;font-weight:700;font-size:.9rem;box-shadow:0 8px 28px rgba(201,169,110,.2)}
+    .btn.blue{background:linear-gradient(135deg,#003b7a,#0072e5);color:white}
+    .btn.red{background:var(--red);color:white}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+    .stat{display:block;background:var(--surface2);border:1px solid rgba(0,85,179,.25);padding:22px;text-align:center;text-decoration:none;color:inherit;transition:.2s}
+    .stat:hover{background:var(--surface3);transform:translateY(-2px)}
+    .stat h3{font-size:1rem;margin-bottom:8px}
+    .stat p{font-size:.78rem;color:var(--muted)}
+    .warning{display:none;background:rgba(224,92,92,.08);border:1px solid rgba(224,92,92,.25);color:#f0a0a0;padding:16px 20px;margin-bottom:24px;font-size:.85rem}
+    .warning.show{display:block}
 
     @media(max-width:760px){
       nav{padding:16px 20px}
+      .nav-right{gap:8px}
+      .nav-email{display:none}
       .main{padding:82px 16px 40px}
       .hero{padding:26px 22px;display:block}
       .credits{margin-top:20px}
@@ -300,7 +202,10 @@
 
 <nav>
   <div class="nav-logo">PrepOral</div>
-  <a class="nav-logout" href="/" onclick="localStorage.clear()">Déconnexion</a>
+  <div class="nav-right">
+    <div class="nav-email" id="userEmail">—</div>
+    <a class="nav-logout" href="/" onclick="localStorage.clear()">Déconnexion</a>
+  </div>
 </nav>
 
 <main class="main">
@@ -333,20 +238,23 @@
 <script src="/dashboard-next.js"></script>
 
 <script>
-  const studentId = localStorage.getItem("student_id")
+  const dashboardStudentId = localStorage.getItem("student_id")
+  const dashboardEmail = localStorage.getItem("email") || localStorage.getItem("user_email") || ""
 
-  if (!studentId) {
+  if (!dashboardStudentId) {
     window.location.href = "/"
   }
+
+  document.getElementById("userEmail").textContent = dashboardEmail || "Compte connecté"
 
   if (window.location.search.includes("no_credits")) {
     document.getElementById("noCreditsAlert").classList.add("show")
   }
 
-  fetch("/api/credits?student_id=" + studentId)
+  fetch("/api/credits?student_id=" + dashboardStudentId)
     .then(res => res.json())
     .then(data => {
-      document.getElementById("sessionsNum").textContent = data.credits ?? 0
+      document.getElementById("sessionsNum").textContent = data.credits ?? localStorage.getItem("credits") ?? 0
     })
     .catch(() => {
       document.getElementById("sessionsNum").textContent = localStorage.getItem("credits") || 0
