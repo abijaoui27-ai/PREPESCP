@@ -99,6 +99,11 @@ function renderESSEC() {
       <p>Cours, exercices, mini-fiches, tests chronométrés et fiches intégrées directement dans la plateforme.</p>
       <a class="btn blue" href="/essec-psycho">Ouvrir mon espace tests</a>
     </div>
+    <div class="card">
+      <h3>📈 Feedbacks ESSEC</h3>
+      <p class="muted">Diagnostic jury + plan de progression personnalisé pour l’oral ESSEC.</p>
+      <div id="listESSEC"><p class="muted">Chargement de l’historique…</p></div>
+    </div>
   `
 }
 
@@ -144,10 +149,12 @@ async function loadFeedbacks(){
     const data=await res.json()
     renderFeedbackList('listESCP', data.filter(f=>!f.ecole || f.ecole==='ESCP'))
     renderFeedbackList('listEMLYON', data.filter(f=>f.ecole==='EM Lyon'))
+    renderFeedbackList('listESSEC', data.filter(f=>f.ecole==='ESSEC'))
   }catch(e){
-    const a=document.getElementById('listESCP'), b=document.getElementById('listEMLYON')
+    const a=document.getElementById('listESCP'), b=document.getElementById('listEMLYON'), c=document.getElementById('listESSEC')
     if(a) a.innerHTML='<p class="muted">Impossible de charger l’historique.</p>'
     if(b) b.innerHTML='<p class="muted">Impossible de charger l’historique.</p>'
+    if(c) c.innerHTML='<p class="muted">Impossible de charger l’historique.</p>'
   }
 }
 
@@ -171,7 +178,36 @@ function field(label, value){
   `
 }
 
+function buildESSECFeedbackDetails(fb){
+  return `
+    ${field('Diagnostic global du jury', fb.diagnostic_global)}
+    ${field('Présentation initiale', fb.presentation_initiale)}
+    ${field('Expression et clarté', fb.expression_clarte || fb.qualite_expression)}
+    ${field('Curiosité et ouverture', fb.curiosite_ouverture)}
+    ${field('Lucidité personnelle', fb.lucidite_personnelle)}
+    ${field('Leadership et engagement', fb.leadership_engagement)}
+    ${field('Mise en situation', fb.mise_en_situation)}
+    ${field('Réflexe éthique', fb.reflexe_ethique)}
+    ${field('Esprit collectif', fb.esprit_collectif)}
+    ${field('Décision dans le flou', fb.decision_dans_le_flou)}
+    ${field('Sens de l’exécution', fb.sens_de_l_execution)}
+    ${field('Imagination pragmatique', fb.imagination_pragmatique)}
+    ${field('Connaissance de l’ESSEC', fb.connaissance_ecole)}
+    ${field('Adéquation avec l’ESSEC', fb.adequation_essec)}
+    ${field('Question finale', fb.question_finale)}
+    ${field('Points forts', fb.points_forts)}
+    ${field('Points faibles', fb.points_faibles)}
+    ${field('Axes d’amélioration', fb.axes_amelioration)}
+    ${field('Plan de progression personnalisé', fb.plan_de_progression)}
+    ${field('Arguments ESSEC à ajouter', fb.arguments_essec_a_ajouter)}
+    ${field('Formulations à retravailler', fb.formulations_a_retravailler)}
+    ${field('Ressources ESSEC recommandées', fb.ressources_essec_recommandees)}
+    ${field('Comparaison avec le précédent', fb.comparaison_precedent)}
+  `
+}
+
 function buildFeedbackDetails(fb){
+  if (fb.ecole === 'ESSEC') return buildESSECFeedbackDetails(fb)
   return `
     ${field('Verdict du jury', fb.verdict_jury)}
     ${field('Présentation initiale', fb.presentation_initiale)}
@@ -213,7 +249,7 @@ function renderFeedbackList(id,items){
   box.innerHTML=items.map((fb,i)=>{
     const key=id+'-'+i
     const date=fb.created_at ? new Date(fb.created_at).toLocaleDateString('fr-FR') : ''
-    const summary=fb.verdict_jury || fb.analyse_personnalisee || fb.points_forts || 'Feedback disponible.'
+    const summary=fb.verdict_jury || fb.diagnostic_global || fb.analyse_personnalisee || fb.points_forts || 'Feedback disponible.'
     return `
       <div style="border:1px solid rgba(201,169,110,.13);padding:16px;margin-top:12px;background:#0f0f18">
         <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
