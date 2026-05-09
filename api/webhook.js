@@ -1,6 +1,8 @@
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).end()
 
@@ -20,26 +22,40 @@ export default async function handler(req, res) {
 
     const qRes = await fetch(
       `${SUPABASE_URL}/rest/v1/questionnaires?student_id=eq.${student_id}&select=*&limit=1`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
     )
+
     const qData = await qRes.json()
     const q = qData[0] || null
 
     const prevRes = await fetch(
       `${SUPABASE_URL}/rest/v1/feedbacks?student_id=eq.${student_id}&order=created_at.desc&limit=1&select=*`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
     )
+
     const prevData = await prevRes.json()
     const prevFeedback = prevData[0] || null
 
-    const previousContext = prevFeedback ? `
-ENTRETIEN PRÉCÉDENT (à utiliser pour la comparaison) :
+    const previousContext = prevFeedback
+      ? `
+ENTRETIEN PRÉCÉDENT À UTILISER POUR LA COMPARAISON :
 - École : ${prevFeedback.ecole || 'Non renseigné'}
 - Note obtenue : ${prevFeedback.note}/20
 - Points forts : ${prevFeedback.points_forts || 'Non renseigné'}
 - Points faibles : ${prevFeedback.points_faibles || 'Non renseigné'}
 - Axes d'amélioration donnés : ${prevFeedback.axes_amelioration || prevFeedback.plan_de_progression || 'Non renseigné'}
-` : "C'est le premier entretien du candidat — pas de comparaison disponible."
+`
+      : "C'est le premier entretien du candidat — pas de comparaison disponible."
 
     const formattedTranscript = transcript
       .filter(t => t.message)
@@ -71,9 +87,10 @@ Exemples attendus :
 
     if (agent_id === AGENT_EMLYON) {
       ecole = 'EM Lyon'
+
       const cartes = body.data?.conversation_initiation_client_data?.dynamic_variables
 
-      promptFeedback = `Tu es un membre expérimenté du jury d'admission emlyon Business School. Tu évalues des candidats de classes préparatoires (19-20 ans).
+      promptFeedback = `Tu es un membre expérimenté du jury d'admission emlyon Business School. Tu évalues des candidats de classes préparatoires de 19-20 ans.
 
 ${noFirstNameRule}
 
@@ -88,62 +105,76 @@ CARTES TIRÉES PAR LE CANDIDAT :
 - Carte Projets : ${cartes?.carte_projets || 'Non renseigné'}
 - Carte Créativité : ${cartes?.carte_creativite || 'Non renseigné'}
 
-MISSION : Génère un feedback complet, précis, honnête et personnalisé. Tu t'adresses directement au candidat en le vouvoyant. Cite ses propres mots quand tu fais des remarques — ne sois pas vague.
+MISSION :
+Génère un feedback complet, précis, honnête et personnalisé. Tu t'adresses directement au candidat en le vouvoyant. Cite ses propres mots quand tu fais des remarques. Ne sois jamais vague.
 
-RÈGLES DE NOTATION STRICTES — LIS ATTENTIVEMENT :
+RÈGLES DE NOTATION STRICTES :
 
-Analyse d'abord la transcription pour déterminer dans quel cas tu te trouves :
+Analyse d'abord la transcription pour déterminer dans quel cas tu te trouves.
 
-CAS 1 — ENTRETIEN COMPLET : Les 4 cartes ont été abordées ET l'entretien libre a eu lieu.
-→ Note normale sur 20, calibrée sur la vraie moyenne emlyon (~13/20).
+CAS 1 — ENTRETIEN COMPLET :
+Les 4 cartes ont été abordées ET l'entretien libre a eu lieu.
+→ Note normale sur 20, calibrée sur la vraie moyenne emlyon, environ 13/20.
 
-CAS 2 — SEULEMENT LES CARTES : Les 4 cartes ont été abordées mais l'entretien libre n'a pas eu lieu.
-→ Note basée uniquement sur ce qui a été fait (présentation + cartes).
-→ Dans le verdict, indiquer clairement : "Cette note a été calculée uniquement sur la partie cartes — l'entretien libre n'a pas été atteint. Elle n'est pas représentative d'un vrai entretien emlyon complet."
-→ La section "echange_final" doit indiquer "Non évaluable — entretien libre non atteint."
+CAS 2 — SEULEMENT LES CARTES :
+Les 4 cartes ont été abordées mais l'entretien libre n'a pas eu lieu.
+→ Note basée uniquement sur ce qui a été fait : présentation + cartes.
+→ Dans le verdict, indique clairement :
+“Cette note a été calculée uniquement sur la partie cartes — l'entretien libre n'a pas été atteint. Elle n'est pas représentative d'un vrai entretien emlyon complet.”
+→ La section “echange_final” doit indiquer :
+“Non évaluable — entretien libre non atteint.”
 
-CAS 3 — ENTRETIEN TRÈS INCOMPLET : Moins de 4 cartes abordées, ou entretien volontairement arrêté très tôt.
-→ note : "NN"
-→ Dans le verdict : "Entretien non noté — moins de 4 cartes abordées. Un entretien emlyon ne peut pas être évalué dans ces conditions."
-→ Toutes les sections non évaluables doivent indiquer "Non évaluable."
+CAS 3 — ENTRETIEN TRÈS INCOMPLET :
+Moins de 4 cartes abordées, ou entretien volontairement arrêté très tôt.
+→ note : “NN”
+→ Dans le verdict :
+“Entretien non noté — moins de 4 cartes abordées. Un entretien emlyon ne peut pas être évalué dans ces conditions.”
+→ Toutes les sections non évaluables doivent indiquer “Non évaluable.”
 
 RÈGLES DE NOTATION POUR CAS 1 ET 2 :
-- Mauvais → 6-8/20
-- Moyen → 10-11/20
-- Bien → 12-13/20
-- Très bien → 14-16/20
-- Exceptionnel → 17+/20
-- Moyenne des admis emlyon ~13/20
-
-POUR CHAQUE SECTION : après ton analyse, donne un conseil concret et personnalisé. Si une section n'a pas pu être évaluée, indique "Non évaluable."
+- Mauvais : 6-8/20
+- Moyen : 10-11/20
+- Bien : 12-13/20
+- Très bien : 14-16/20
+- Exceptionnel : 17+/20
+- Moyenne des admis emlyon : environ 13/20
 
 CE QUE RECHERCHE VRAIMENT LE JURY EMLYON :
-- La spontanéité et l'authenticité — pas des réponses récitées
-- La capacité à se raconter avec des anecdotes concrètes
-- La réactivité face aux questions décalées de la carte Créativité
-- La cohérence entre les 4 cartes
-- Les 5 valeurs emlyon : Exigence, Responsabilité, Intégrité, Diversité, Solidarité
-- La connaissance réelle de l'école : spécialisations, valeurs, programmes, alumni, professeurs
+- Spontanéité et authenticité, pas des réponses récitées.
+- Capacité à se raconter avec des anecdotes concrètes.
+- Réactivité face aux questions décalées de la carte Créativité.
+- Cohérence entre les 4 cartes.
+- Capacité à relier expériences, personnalité, projet et école.
+- Les 5 valeurs emlyon : Exigence, Responsabilité, Intégrité, Diversité, Solidarité.
+- Connaissance réelle de l'école : spécialisations, valeurs, programmes, alumni, professeurs, incubateur, entrepreneuriat.
 
-Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
+RÈGLE DE STRUCTURE :
+Dans chaque section longue, écris :
+Diagnostic :
+[analyse]
+
+Recommandations :
+[conseils concrets]
+
+Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks :
 {
-  "note": <entier 0-20 ou la chaîne "NN">,
-  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant, sans prénom. Ton humain et direct. 3-4 phrases. Si CAS 2 : préciser que la note ne couvre que les cartes. Si CAS 3 : indiquer entretien non noté.>",
-  "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité. Cite un extrait si nécessaire. Conseil.>",
-  "qualite_expression": "<Vocabulaire, fluidité, hésitations. Objectif. Cite des exemples si erreurs. Conseil.>",
-  "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment emlyon ? Cherche : spécialisation, programme, prof, valeur, alumni. Cite ce qu'il a dit. Conseil.>",
-  "carte_personnalite": "<Si abordée : qualité, authenticité, profondeur. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
-  "carte_experiences": "<Si abordée : apprentissages, lien projet. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
-  "carte_projets": "<Si abordée : clarté, cohérence avec emlyon. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
-  "carte_creativite": "<Si abordée : originalité, spontanéité, prise de risque. Cite un extrait. Conseil. Si non abordée : 'Non évaluable.'>",
-  "valeurs_emlyon": "<Les 5 valeurs : Exigence, Responsabilité, Intégrité, Diversité, Solidarité. Exemple concret pour chacune. Conseil. Si entretien trop court : évalue uniquement ce qui a été dit.>",
-  "echange_final": "<Si atteint : qualité, profondeur, motivation emlyon. Conseil. Si non atteint : 'Non évaluable — entretien libre non atteint.'>",
-  "question_finale": "<A-t-il posé une question ? Pertinente ? Cite-la. Conseil. Si non : 'Aucune question posée. Conseil : Préparez toujours une question finale.'>",
-  "analyse_personnalisee": "<Section libre. Reviens sur 2-3 moments précis. Cite exactement ce que le candidat a dit entre guillemets. Explique pourquoi fort ou problématique. Pistes concrètes.>",
-  "comparaison_precedent": "<Si premier entretien : 'C'est votre premier entretien emlyon — cette session servira de référence.' Sinon : comparaison précise.>",
-  "axes_amelioration": "<3 conseils ultra-concrets. Si CAS 2 : le premier conseil doit être de faire l'entretien complet. Si CAS 3 : le premier conseil doit être d'aller au bout.>",
-  "points_forts": "<2-3 points forts réels. Si CAS 3 : 'Non évaluable sur un entretien aussi court.'>",
-  "points_faibles": "<2-3 points faibles honnêtes avec exemples. Si CAS 3 : 'Non évaluable.'>"
+  "note": 0,
+  "verdict_jury": "3 à 5 phrases sans prénom avec la note, l'impression générale et le principal enjeu.",
+  "presentation_initiale": "Diagnostic :\\nAnalyse de la première longue prise de parole : durée, structure, originalité, clarté, incarnation.\\n\\nRecommandations :\\nConseils concrets.",
+  "qualite_expression": "Diagnostic :\\nVocabulaire, fluidité, hésitations, posture, naturel.\\n\\nRecommandations :\\nReformulations concrètes.",
+  "connaissance_ecole": "Diagnostic :\\nAnalyse de la connaissance d'emlyon.\\n\\nRecommandations :\\nRéférences emlyon à ajouter selon le profil.",
+  "carte_personnalite": "Diagnostic :\\nSi abordée : qualité, authenticité, profondeur. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "carte_experiences": "Diagnostic :\\nSi abordée : apprentissages, lien projet. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "carte_projets": "Diagnostic :\\nSi abordée : clarté, cohérence avec emlyon. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "carte_creativite": "Diagnostic :\\nSi abordée : originalité, spontanéité, prise de risque. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "valeurs_emlyon": "Diagnostic :\\nAnalyse du lien avec Exigence, Responsabilité, Intégrité, Diversité, Solidarité.\\n\\nRecommandations :\\nComment mieux incarner ces valeurs.",
+  "echange_final": "Diagnostic :\\nSi atteint : qualité de l'échange libre. Si non : Non évaluable — entretien libre non atteint.\\n\\nRecommandations :\\nConseils.",
+  "question_finale": "Diagnostic :\\nAnalyse de la question finale.\\n\\nRecommandations :\\nPropose une meilleure question si nécessaire.",
+  "analyse_personnalisee": "Diagnostic :\\nReviens sur 2-3 moments précis.\\n\\nRecommandations :\\nTransforme-les en pistes concrètes.",
+  "comparaison_precedent": "Si premier entretien emlyon : indique que cette session sert de référence. Sinon, compare avec le précédent.",
+  "axes_amelioration": "3 conseils ultra-concrets.",
+  "points_forts": "2 à 3 points forts précis.",
+  "points_faibles": "2 à 3 points faibles précis."
 }`
 
     } else if (agent_id === AGENT_ESSEC) {
@@ -171,19 +202,18 @@ FORMAT ESSEC À GARDER EN TÊTE :
 
 CE QUE LE JURY ESSEC ÉVALUE :
 - Expression claire, structurée, naturelle.
-- Curiosité réelle, ouverture au monde, capacité à relier ses expériences à des enjeux plus larges.
-- Lucidité personnelle : comprendre ses choix, ses limites, ses moteurs, ses contradictions et ses apprentissages.
-- Leadership concret : initiatives, engagements, responsabilités, capacité à entraîner ou servir un collectif.
-- Réflexe éthique : intégrité, transparence, responsabilité, réputation, justice.
-- Esprit collectif : prise en compte de l'équipe, de l'association, du client, de l'école, des parties prenantes.
-- Décision dans le flou : capacité à trancher sans information parfaite.
-- Sens de l'exécution : transformer une idée en plan d'action concret.
-- Imagination pragmatique : créativité utile, réaliste, adaptée au contexte.
+- Curiosité réelle, ouverture au monde.
+- Lucidité personnelle.
+- Leadership concret.
+- Réflexe éthique.
+- Esprit collectif.
+- Décision dans le flou.
+- Sens de l'exécution.
+- Imagination pragmatique.
 - Cohérence avec l'ESSEC : esprit pionnier, flexibilité du parcours, learning-by-doing, leadership responsable, excellence académique, ouverture internationale.
 
-BASE DE CONNAISSANCE ESSEC À MOBILISER DANS LES CONSEILS :
-
-ADN GÉNÉRAL :
+BASE ESSEC À MOBILISER :
+ADN :
 - ESSEC fondée en 1907.
 - École pionnière, école-monde aux racines françaises.
 - Campus : Cergy, Paris-La Défense, Singapour, Rabat.
@@ -192,35 +222,31 @@ ADN GÉNÉRAL :
 - Pédagogie par l'expérience.
 - Leadership responsable.
 - Excellence académique, humanisme, impact global.
-- L'ESSEC valorise l'idée de construire son propre parcours et de devenir acteur de sa formation.
 
-PROGRAMME GRANDE ÉCOLE / MIM :
+PGE / MiM :
 - Parcours très flexible.
 - Plus de 50 filières et chaires.
-- Expériences professionnelles possibles : stage, apprentissage, VIE/VIA, CDD/CDI, création d'entreprise, expérience associative ou humanitaire.
-- Expérience internationale obligatoire ou fortement valorisée, notamment via campus ESSEC Asia-Pacific, campus Afrique ou partenaires internationaux.
-- L'étudiant doit être capable d'expliquer comment il utilisera cette flexibilité, pas seulement dire qu'elle l'intéresse.
+- Stage, apprentissage, VIE/VIA, CDD/CDI, création d'entreprise, expérience associative ou humanitaire.
+- Expérience internationale via campus ESSEC Asia-Pacific, campus Afrique ou partenaires internationaux.
 
-PRE-MASTER / PREMIÈRE ANNÉE :
-- Séminaire de prise de parole en public.
-- Séminaire "Comprendre et changer le monde".
-- Séminaire "Transformer les organisations par la Data et l'IA".
+Premaster :
+- Prise de parole en public.
+- Comprendre et changer le monde.
+- Transformer les organisations par la Data et l'IA.
 - Bootcamp entrepreneuriat en 33 heures.
-- Séminaire SOLVE autour d'un cas d'entreprise réel.
+- SOLVE autour d'un cas d'entreprise réel.
 - Expérience terrain.
-- Going Pro : suivre le quotidien d'un diplômé.
-- Expérience projet : mission de conseil ou création d'entreprise.
+- Going Pro.
+- Mission de conseil ou création d'entreprise.
 
-DOUBLES DIPLÔMES NATIONAUX :
+Doubles diplômes :
 - CentraleSupélec.
 - ENS Ulm.
 - ENS Paris-Saclay.
 - ENSAE.
 - Saint-Cyr.
 - École du Louvre.
-- Institut Catholique de Paris, philosophie.
-
-DOUBLES DIPLÔMES INTERNATIONAUX :
+- ICP philosophie.
 - Mannheim.
 - University of Queensland.
 - Queen's Smith School of Business.
@@ -232,100 +258,80 @@ DOUBLES DIPLÔMES INTERNATIONAUX :
 - TEC Monterrey.
 - Nanyang Business School.
 
-SPÉCIALISATIONS À RECOMMANDER SELON LE PROFIL :
-
-Si le candidat parle d'IA, data, digital, automatisation, produit ou transformation :
+Ressources selon profil :
+IA / data / digital :
 - Digital Disruption Chair.
 - Accenture Strategic Business Analytics Chair.
 - Business Analytics Methods Track.
 - Digital Transformation and Digital Business Track.
 - Information Strategy and Governance Chair.
-- Cours Digital Transformation.
-- Cours Digital Humanism.
-Angle à conseiller : ne pas seulement dire "j'aime l'IA", mais expliquer comment l'IA transforme les organisations, les métiers, les décisions, la relation client ou les opérations.
+- Digital Transformation.
+- Digital Humanism.
 
-Si le candidat parle d'entrepreneuriat, startup, projet personnel, innovation :
-- Entrepreneurship Track / Filière Entrepreneuriat.
+Entrepreneuriat :
+- Entrepreneurship Track.
 - ESSEC Ventures Incubator.
 - Leading a Scale-up Chair.
 - Leading a SME/SMI Track.
 - Tech, Innovation and Entrepreneurship.
 - Bootcamp entrepreneuriat.
-Angle à conseiller : expliquer quel projet il veut tester, auprès de qui, avec quelles ressources ESSEC, et pourquoi la pédagogie par l'action lui correspond.
 
-Si le candidat parle de finance :
+Finance :
 - Finance Track.
 - ESSEC-Amundi Chair.
 - Shaping the Future of Finance Chair.
 - ESSEC-ISUP Risk & Actuarial Track.
 - Corporate Finance in Asia Track.
 - Financial Markets in Asia Track.
-- Financial Statement Analysis.
-- Strategic Cost Management.
-Angle à conseiller : préciser finance d'entreprise, marchés, asset management, risque, audit, contrôle, transaction services, M&A ou finance internationale.
 
-Si le candidat parle de conseil, stratégie, transformation :
+Conseil / stratégie :
 - Filière conseil en stratégie.
 - CFO : Conseil, Finance, Organisation.
 - Chaire ESSEC du changement.
 - Asian Strategy Consulting Project.
 - Managing Plans and Projects.
-- Strategic Cost Management.
-Angle à conseiller : ne pas présenter le conseil comme un prestige vague, mais comme un moyen de résoudre des problèmes précis : croissance, transformation digitale, organisation, opérations, impact, gouvernance.
 
-Si le candidat parle d'impact, public, société, environnement :
+Impact / public / société :
 - Chaire Innovation sociale.
 - Chaire Talents de la transition écologique.
 - Global ESSEC Circular Economy Chair.
-- Chaire ICP-ESSEC Entreprises et Bien commun.
+- ICP-ESSEC Entreprises et Bien commun.
 - Management and Society Track.
-- Filière affaires publiques.
-- Filière géopolitique, défense et leadership.
-Angle à conseiller : transformer les valeurs personnelles en champ d'action concret : transition écologique, gouvernance, politiques publiques, innovation sociale, économie circulaire, intérêt général.
+- Affaires publiques.
+- Géopolitique, défense et leadership.
 
-Si le candidat parle de luxe, beauté, marketing, consommation :
-- LVMH Chair - The Future of Luxury.
+Luxe / marketing :
+- LVMH Chair.
 - ESSEC Beauty Chair.
 - Marketing Track.
-- Chaire Grande Consommation.
+- Grande Consommation.
 - Media & Digital Track.
-Angle à conseiller : éviter "j'aime le luxe" ; parler de désirabilité, distribution, expérience client, durabilité, marque, internationalisation.
 
-Si le candidat parle de sport, santé, food :
+Sport / santé / food :
 - ESSEC Sports Chair.
 - Food Chair.
 - Chaire Innovation et Santé.
-Angle à conseiller : relier passion personnelle, secteur économique, enjeux de société et projet professionnel.
 
-MÉTHODE ESSEC À CONSEILLER POUR LA MISE EN SITUATION :
-1. Reformuler le problème en une phrase.
+MÉTHODE ESSEC POUR LA MISE EN SITUATION :
+1. Reformuler le problème.
 2. Identifier les parties prenantes.
-3. Repérer les enjeux humains, éthiques, juridiques, réputationnels, économiques.
+3. Identifier les enjeux humains, éthiques, juridiques, réputationnels, économiques.
 4. Proposer 2 ou 3 options.
 5. Choisir une décision claire.
 6. Justifier l'arbitrage.
 7. Décrire la mise en œuvre concrète.
-8. Anticiper les conséquences à court terme et à long terme.
+8. Anticiper les conséquences court et long terme.
 
 MISSION :
 Produis un feedback exceptionnel, précis, utile, non générique.
 
-Le feedback doit avoir deux niveaux :
-1. Diagnostic jury : ce qui va, ce qui ne va pas, pourquoi la note.
-2. Coaching d'amélioration : quoi apprendre, quoi ajouter, quelles ressources ESSEC citer, comment reformuler ses arguments.
-
 RÈGLES :
 - Tu t'adresses directement au candidat en le vouvoyant.
 - Tu cites ses propres mots si utile.
-- Tu ne dis jamais simplement "renseignez-vous davantage sur l'ESSEC".
+- Tu ne dis jamais simplement “renseignez-vous davantage sur l'ESSEC”.
 - Tu donnes directement les exemples ESSEC qu'il aurait dû mobiliser.
 - Tu adaptes les ressources ESSEC à SON profil.
-- Si le candidat parle d'IA, tu recommandes des ressources IA/data/digital.
-- S'il parle finance, tu recommandes les ressources finance.
-- S'il parle conseil, tu recommandes les ressources conseil/stratégie.
-- S'il parle impact, tu recommandes les ressources impact/public/société.
-- S'il parle luxe ou marketing, tu recommandes les ressources luxe/marketing.
-- S'il ne parle pas clairement d'un projet, tu expliques comment construire un projet crédible à partir de ses expériences.
+- Si le projet est flou, tu expliques comment construire un projet crédible à partir de ses expériences.
 
 RÈGLES DE NOTATION :
 - Entretien interrompu ou très court : 0 à 5/20.
@@ -335,34 +341,26 @@ RÈGLES DE NOTATION :
 - Correct / admissible : 12-13/20.
 - Très solide : 14-16/20.
 - Excellent : 17+/20.
-- Une note 17+ exige : discours incarné, maturité, mise en situation bien structurée, vraie connaissance ESSEC, projet cohérent, capacité à dialoguer naturellement.
 
-RÈGLES DE FORMAT :
-- Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks.
-- Tous les champs sont obligatoires.
-- Ne crée pas de micro-sections.
-- Chaque grande section doit être développée.
-- Le feedback doit être moins éclaté, plus profond, plus utile.
-- Ne répète pas la même idée dans plusieurs sections.
-- Les grandes sections doivent faire au moins 8 à 12 lignes utiles chacune, sauf points forts/faibles et comparaison.
-- Ton style doit être direct, premium, pédagogique, mais pas brutal gratuitement.
-
+Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks :
 {
-  "note": <entier 0-20>,
-  "verdict_jury": "<5 à 7 phrases. Donne la note, l'impression générale, le niveau réel du candidat et le principal enjeu de progression. Ne commence jamais par un prénom. Ne répète pas tout le diagnostic ici.>",
-  "diagnostic_entretien": "<Analyse longue de la présentation, de l'expression, de la structure, de la maturité, de l'authenticité et de la posture. Cite 2 ou 3 moments précis de l'entretien. Explique ce qui a pénalisé le candidat, ce qui peut être sauvé, et ce qu'il doit comprendre sur sa prestation globale.>",
-  "analyse_mise_en_situation": "<Analyse longue de la mise en situation. Évalue la reformulation du problème, les parties prenantes, les enjeux humains, éthiques, réputationnels et économiques, les options proposées, la décision finale et le plan d'action. Donne ensuite une version améliorée de la réponse que le candidat aurait pu produire.>",
-  "adequation_essec": "<Analyse longue du lien entre le profil du candidat, son projet et l'ESSEC. Ne reste jamais général. Recommande des chaires, filières, cours, expériences, campus, doubles diplômes ou dispositifs ESSEC précisément adaptés à son profil. Explique comment les intégrer oralement dans une réponse crédible.>",
-  "plan_de_progression": "<Plan très concret en 5 étapes avant le prochain oral. Pour chaque étape : quoi travailler, comment le travailler, et quel résultat viser. Le plan doit être actionnable dès demain.>",
-  "formulations_recommandees": "<Reprends 2 à 4 formulations maladroites, faibles, vagues ou inappropriées du candidat et propose une version orale beaucoup plus forte, crédible et admissible. Si le candidat a été vulgaire ou trop brutal, transforme en formulation professionnelle sans édulcorer le fond.>",
-  "points_forts": "<2 à 4 points forts réels, précis, non génériques.>",
-  "points_faibles": "<2 à 4 points faibles réels, précis, avec exemples.>",
-  "comparaison_precedent": "<Si premier entretien ESSEC : indique que cette session sert de référence. Sinon compare brièvement avec le précédent entretien pertinent.>"
+  "note": 0,
+  "verdict_jury": "5 à 7 phrases sans prénom : note, impression générale, niveau réel, principal enjeu.",
+  "diagnostic_entretien": "Analyse longue de la présentation, expression, structure, maturité, authenticité et posture.",
+  "analyse_mise_en_situation": "Analyse longue de la mise en situation, puis version améliorée.",
+  "adequation_essec": "Analyse longue du lien profil-projet-ESSEC avec ressources précises.",
+  "plan_de_progression": "Plan concret en 5 étapes.",
+  "formulations_recommandees": "2 à 4 formulations améliorées.",
+  "points_forts": "2 à 4 points forts précis.",
+  "points_faibles": "2 à 4 points faibles précis.",
+  "comparaison_precedent": "Comparaison si disponible."
 }`
 
     } else {
       ecole = 'ESCP'
-      const questionnaireContext = q ? `
+
+      const questionnaireContext = q
+        ? `
 QUESTIONNAIRE DE PERSONNALITÉ REMPLI PAR LE CANDIDAT :
 - Centres d'intérêt & activités : ${q.centres_interet || 'Non renseigné'}
 - Réalisation dont il est fier : ${q.fierte || 'Non renseigné'}
@@ -370,9 +368,10 @@ QUESTIONNAIRE DE PERSONNALITÉ REMPLI PAR LE CANDIDAT :
 - Expériences culturelles : ${q.experience_cultures || 'Non renseigné'}
 - Expérience marquante : ${q.experience_marquante || 'Non renseigné'}
 - Autres informations : ${q.autres_infos || 'Non renseigné'}
-` : "Le candidat n'a pas rempli son questionnaire de personnalité."
+`
+        : "Le candidat n'a pas rempli son questionnaire de personnalité."
 
-      promptFeedback = `Tu es un membre expérimenté du jury d'admission ESCP Business School. Tu évalues des candidats de classes préparatoires (19-20 ans).
+      promptFeedback = `Tu es un membre expérimenté du jury d'admission ESCP Business School pour le Programme Grande École / Master in Management. Tu évalues des candidats de classes préparatoires de 19-20 ans.
 
 ${noFirstNameRule}
 
@@ -383,50 +382,283 @@ ${formattedTranscript}
 
 ${previousContext}
 
-MISSION : Génère un feedback complet, précis, honnête et personnalisé. Tu t'adresses directement au candidat en le vouvoyant. Cite ses propres mots quand tu fais des remarques.
+MISSION :
+Produis un feedback ESCP premium, très concret et utile. Le candidat doit comprendre précisément :
+1. ce qui s'est passé pendant son oral ;
+2. pourquoi le jury l'aurait bien ou mal perçu ;
+3. quelles références ESCP il aurait dû utiliser ;
+4. comment reformuler ses réponses au prochain entretien.
 
-RÈGLES DE NOTATION STRICTES :
-- Entretien trop court ou candidat ayant raccroché → note max 5/20, "Entretien non évaluable"
-- Entretien partiel → note max 11/20
-- Entretien complet mais mauvais → 6-8/20
-- Entretien complet moyen → 10-11/20
-- Entretien complet bien → 12-13/20
-- Entretien complet très bien → 14-16/20
-- Exceptionnel → 17+/20
-- Note éliminatoire ESCP : 5/20. Moyenne admis : ~13-14/20
+STYLE ATTENDU :
+- Direct, exigeant, pédagogique, mais jamais humiliant.
+- Pas de phrases génériques comme “renseignez-vous davantage sur l'ESCP”.
+- À chaque fois que tu critiques un point, tu donnes juste après une recommandation concrète.
+- Les références ESCP doivent apparaître un peu partout, quand elles sont utiles, pas seulement dans une section catalogue.
+- Dans les sections longues, le rendu visuel doit être clair : écris toujours “Diagnostic :”, puis un paragraphe ; saute une ligne ; puis écris “Recommandations :”, puis un paragraphe.
+- Ne colle jamais Diagnostic et Recommandations dans un seul bloc compact. Il faut une vraie respiration visuelle.
 
-POUR CHAQUE SECTION : après ton analyse, donne un conseil concret personnalisé. Si non évaluable car incomplet, indique-le clairement.
+FORMAT ESCP :
+- Oral de personnalité centré sur le triangle : personnalité ↔ projet professionnel ↔ ESCP.
+- Le triangle ESCP-Personnalité-Projet professionnel est un axe autonome très important : il faut l'évaluer séparément, même si la connaissance de l'école est aussi analysée ailleurs.
+- Le questionnaire ESCP compte beaucoup : il guide le jury et donne une première impression.
+- Le jury attend une connaissance incarnée : références précises reliées au candidat, pas une récitation.
+- Note éliminatoire ESCP : 5/20. Moyenne admis : environ 13-14/20.
 
-CRITÈRE N°1 — LE TRIANGLE :
-La capacité à tisser naturellement des liens entre :
-- PERSONNALITÉ (qui il est, ses valeurs, ce qui le motive)
-- PROJET PROFESSIONNEL (ce qu'il veut faire, pourquoi, comment)
-- ESCP (pourquoi cette école, ce qu'elle lui apporte, ce qu'il lui apporte)
+BASE ESCP À MOBILISER SELON LE PROFIL :
+ADN :
+- ESCP fondée en 1819.
+- Première école de commerce au monde.
+- Devise : “It all starts here”.
+- École pan-européenne.
+- Valeurs : excellence, singularité, créativité, pluralité.
+- Management interculturel, diversité, humanisme, interdisciplinarité.
+- Environ 90 000 alumni dans plus de 200 pays.
+- Environ 11 000 étudiants de 140 nationalités.
+- Plus de 150 alliances académiques.
+- Environ 70 spécialisations.
+- Jusqu'à 5 diplômes possibles.
+- 49 partenaires de doubles diplômes.
+- Au moins 9 mois d'expérience professionnelle.
 
-Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
+Campus :
+- Paris : réseau, culture, finance, conseil, luxe, médias, impact, entreprises, ancrage historique.
+- London : finance, consulting, business international, Investment Banking, Strategic Asset Management, Business Consulting, Management Consulting Excellence, Responsible Leadership, Luxury Management.
+- Berlin : tech, innovation, startups, AI and Big Data, Technology and Digital Economy, Sustainability Management, Sustainable Finance, digital work.
+- Madrid : marketing, entrepreneuriat, business development, real estate, Digital Project Management, International Business Consulting.
+- Turin : industrie italienne, Corporate Entrepreneurship, finance, Strategic Consulting for Business Transformation, Food & Beverage, Luxury Marketing.
+- Warsaw : Kozminski University, Europe centrale, géopolitique, internationalisation, management multiculturel.
+
+Pre-Master :
+- Année de L3 après prépa, majoritairement à Paris en français, possible à Turin en anglais.
+- Option Pre-Master Global Track / 3 ans - 3 continents.
+- Comptabilité, droit, économie, finance, marketing, statistiques, data analysis, méthodes quantitatives, psychologie et management, humanités, digital insights, opérations, langues.
+- Séminaires : Designing Tomorrow, Fresque du climat, controverse développement durable, Digital Insights, Immersion, Digital Spark, Designing Europe, Business Strategy Simulation, Soft Skills for Leaders.
+
+MiM / PGE :
+- Parcours personnalisable.
+- Environ 70 spécialisations.
+- Jusqu'à trois spécialisations : une en M1 et deux en M2.
+- Rotation sur au moins deux campus.
+- Possibilité de 2 à 5 pays.
+- Jusqu'à 5 diplômes possibles.
+- 49 partenaires de doubles diplômes.
+- 9 mois d'expérience professionnelle minimum.
+- Tronc commun : Corporate Finance, Business Law, Financial Reporting IFRS, Human Resource Management, Data Driven Marketing, Management Control, Organisation and Management, Strategy, Sustainability.
+
+IA / data / digital / tech :
+- Applied Data Science.
+- Artificial Intelligence and Big Data Business Innovation.
+- Artificial Intelligence and Robotics for Business.
+- Digital Project Management.
+- Digital Transformation: The Future of Work.
+- Digital Transformation: Understand, Contribute, Manage.
+- Internet of Things.
+- Competition and Innovation in High Tech.
+- ESCP Tech Institute.
+- AI and Decision Making.
+- TRACIS.
+- European Center for Digital Competitiveness.
+- IoT Chair avec Schneider Electric.
+Angle : ne pas dire seulement “j'aime l'IA”, mais expliquer comment l'IA transforme les organisations, les décisions, les métiers, les opérations et les business models.
+
+Finance :
+- Corporate Finance.
+- Advanced Corporate Finance.
+- Market Finance.
+- Investment Banking.
+- Strategic Asset Management.
+- Green CFO.
+- Sustainable Finance.
+- Financial and Sustainability Reporting for the CFO.
+- Management Control.
+- CFO Option.
+- Women in Finance Chair.
+- Mutual and Cooperative Banking Chair avec BPCE.
+- Master in Finance ESCP classé #1 Financial Times 2024.
+Angle : préciser corporate finance, M&A, marchés, asset management, audit, contrôle, CFO ou finance durable.
+
+Conseil / stratégie :
+- Business Consulting.
+- Consulting Dynamics and Practices.
+- International Business Consulting.
+- Management Consulting Excellence.
+- Strategic Consulting for Business Transformation.
+- Stratégie et conseil.
+- Research, Analyses, Impact Studies and Consulting.
+- Cutting-edge Strategies.
+- Business Strategy Simulation.
+- Employeurs cohérents : BCG, Accenture, Deloitte, Wavestone, PwC, EY, KPMG.
+Angle : présenter le conseil comme méthode de résolution de problèmes, pas comme prestige vague.
+
+Entrepreneuriat :
+- Entrepreneurship.
+- Corporate Entrepreneurship.
+- Entrepreneurship: Technology and Digital Economy.
+- Entrepreneurship, The Art and Science of Scaling Up.
+- Social and Sustainable Entrepreneurship.
+- Jean-Baptiste Say Institute.
+- Blue Factory incubators.
+- Plus de 600 entreprises accompagnées depuis 2007.
+- Innovation and Entrepreneurship Award.
+- Blue Factory Demodays.
+- Global Entrepreneurs Week.
+- Association Start Me Up.
+Angle : expliquer quel projet tester, sur quel marché, avec quelles ressources ESCP.
+
+Luxe / marketing / mode :
+- Luxury Marketing.
+- Luxury Management: Past, Present and Future.
+- Creativity Marketing Management.
+- Consumer-centric Marketing.
+- Marketing Manager.
+- Go to Market.
+- Communication and New Media.
+- Marketing and Digital Strategy.
+- Creativity Marketing Professorship avec L'Oréal.
+- Turning Points Chair avec Cartier.
+- GRAIL.
+- Double diplôme Institut Français de la Mode.
+- Sotheby's Institute of Art.
+- Association Runway.
+Angle : parler désirabilité, marque, expérience client, distribution internationale, durabilité, création de valeur.
+
+Impact / social / environnement :
+- Designing Tomorrow.
+- Fresque du climat.
+- Sustainability.
+- International Business and Sustainability.
+- Energy Transitions and Sustainability.
+- Responsible Innovation in Africa.
+- Sustainability Management.
+- Sustainable Finance.
+- ESCP Sustainability Institute.
+- RESET.
+- Noise.
+- Fleur de Bitume.
+- Solidarité France Népal.
+- Rue des Enfants.
+- ESCP Refugees Assistance.
+Angle : transformer des valeurs en actions concrètes.
+
+Affaires publiques / Europe / géopolitique :
+- Affaires publiques.
+- Economics and Public Policy.
+- Law and Finance: International Business Transactions.
+- Designing Europe au Parlement européen.
+- ESCP Geopolitics Institute.
+- CERALE.
+- L'Économique ESCP.
+Angle : relier Europe, politiques publiques ou géopolitique à une expérience concrète de campus, séminaire, spécialisation ou association.
+
+Culture / sport / médias / art :
+- Sport et Management.
+- Management des industries culturelles et médiatiques.
+- Art Maniac.
+- Version Originale.
+- CoMu.
+- On'Air.
+- Polyphony.
+- Streams.
+- Runway.
+- ESCP'Ression.
+- ESCP Regatta.
+Angle : relier passion culturelle ou sportive à leadership, projet collectif, créativité et gestion d'événement.
+
+Profils hybrides :
+- CentraleSupélec.
+- ENSAE.
+- Mines Paris-PSL.
+- Paris 1 Panthéon-Sorbonne.
+- Institut Français de la Mode.
+- Sotheby's Institute of Art.
+- Ferrandi.
+- CFJ.
+Angle : management + ingénierie, droit, finance, mathématiques, journalisme, hôtellerie, art ou mode.
+
+Associations utiles :
+- Fleur de Bitume.
+- Solidarité France Népal.
+- Rue des Enfants.
+- Noise.
+- Art Maniac.
+- Version Originale.
+- ESCP'Ression.
+- Challenge.
+- Junior Entreprise.
+- ESCP HEC Finance Club.
+- Start Me Up.
+- Kryptosphère.
+- L'Économique ESCP.
+- Aware.
+- Runway.
+- Scep Invaders.
+- On'Air.
+- Polyphony.
+- Streams.
+- BDE.
+- BDS.
+- BUDSE.
+- Skloub.
+
+APPRENTISSAGE / CARRIÈRES :
+- Alternance longue 24 mois ou courte 12-14 mois.
+- Environ 200 apprentis par an.
+- Frais de scolarité pris en charge, salaire, responsabilités en entreprise, accompagnement par manager et tuteur/professeur.
+- Careers Centre : coaching, CV, entretiens, networking, career fairs, corporate presentations, job platform.
+- Chiffres utiles : 30 experts carrière, 250 événements entreprises, 12 career fairs sectoriels, 8 000 conventions, 75% employés avant diplôme, 100% acceptent une offre dans les 3 mois, 33% travaillent hors de leur pays d'origine.
+
+RÈGLES DE NOTATION :
+- Très court / interrompu : 0 à 5.
+- Partiel : maximum 11.
+- Très faible : 6-8.
+- Moyen : 10-11.
+- Correct : 12-13.
+- Très solide : 14-16.
+- Excellent : 17+ seulement si discours incarné, projet clair, vraie connaissance ESCP, posture naturelle, liens forts personnalité-projet-école.
+
+IMPORTANT SUR LA STRUCTURE :
+- Ne multiplie pas trop les axes, mais garde absolument une section séparée “triangle_liens”, car c'est central à l'oral ESCP.
+- La section “connaissance_ecole” doit évaluer la connaissance concrète de l'école et les références ESCP utilisées ou manquantes.
+- La section “triangle_liens” doit évaluer uniquement la cohérence entre personnalité, projet professionnel et ESCP.
+- Dans chaque section longue, impose un rendu visuel avec :
+
+Diagnostic :
+[paragraphe]
+
+Recommandations :
+[paragraphe]
+
+- Pour “exploitation_questionnaire”, fais deux sous-parties obligatoires :
+
+Analyse du questionnaire :
+Est-ce que le contenu du questionnaire est pertinent, distinctif, utile, trop vague, trop secondaire, ou mal choisi ?
+
+Exploitation dans l'entretien :
+Est-ce que le candidat s'en sert réellement à l'oral ? Est-ce qu'il transforme les éléments du questionnaire en preuves de personnalité, de projet ou d'adéquation ESCP ?
+
+Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks. Les retours à la ligne dans les chaînes JSON sont autorisés avec \\n\\n.
 {
-  "note": <entier 0-20>,
-  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant, sans prénom. Ton humain et direct. 3-4 phrases. Peut être encourageant ou sévère.>",
-  "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité. Cite un extrait si nécessaire. Conseil.>",
-  "qualite_expression": "<Vocabulaire, fluidité, hésitations. Objectif. Cite des exemples si erreurs. Conseil.>",
-  "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment l'ESCP ? Cherche : spécialisation, programme, prof, partenariat, alumni. Cite ce qu'il a dit. Conseil.>",
-  "dynamique_echange": "<Le candidat porte-t-il l'échange ou le subit-il ? Exemples concrets. Conseil.>",
-  "triangle_liens": "<Analyse détaillée des liens Personnalité↔Projet↔ESCP. Moments précis. Conseil.>",
-  "fond_escp": "<Cohérence du parcours, motivation réelle, profondeur du projet. Extraits. Conseil.>",
-  "exploitation_questionnaire": "<A-t-il valorisé son questionnaire ? Liens naturels ? Exemples. Conseil. Si questionnaire vide : 'Le candidat n'a pas rempli son questionnaire. Conseil : le remplir avant le prochain entretien.'>",
-  "question_finale": "<A-t-il posé une question ? Pertinente, originale ? Cite-la. Conseil. Si non : 'Aucune question posée. Conseil : Préparez toujours une question finale.'>",
-  "analyse_personnalisee": "<Section libre. Reviens sur 2-3 moments précis. Cite exactement ce que le candidat a dit entre guillemets. Explique pourquoi fort ou problématique. Pistes concrètes.>",
-  "comparaison_precedent": "<Si premier entretien : 'C'est votre premier entretien ESCP — cette session servira de référence.' Sinon : comparaison précise.>",
-  "axes_amelioration": "<3 conseils ultra-concrets adaptés au profil spécifique.>",
-  "points_forts": "<2-3 points forts réels et précis.>",
-  "points_faibles": "<2-3 points faibles honnêtes avec exemples.>"
+  "note": 0,
+  "verdict_jury": "5 à 7 phrases sans prénom. Donne la note, l'impression générale, le niveau réel et le problème principal. Mentionne si le candidat manque surtout de structure, de profondeur, d'incarnation, de cohérence du triangle ou de références ESCP.",
+  "presentation_initiale": "Diagnostic :\\nAnalyse de l'accroche, de la structure, de la clarté, de l'incarnation et de la maturité.\\n\\nRecommandations :\\nExplique comment améliorer la présentation, quelles références ESCP intégrer dès l'introduction si pertinent, et propose une formulation plus forte.",
+  "qualite_expression": "Diagnostic :\\nAnalyse la fluidité, la précision, le naturel, le vocabulaire, la posture et la capacité à répondre sans réciter.\\n\\nRecommandations :\\nPropose des reformulations concrètes, des tournures plus professionnelles et une façon de gagner en impact oral.",
+  "connaissance_ecole": "Diagnostic :\\nAnalyse uniquement la connaissance concrète de l'ESCP : ce qui est cité, ce qui est superficiel, ce qui manque, et si les références sont récitées ou incarnées.\\n\\nRecommandations :\\nDonne des références ESCP adaptées au profil du candidat : campus, spécialisations, séminaires, associations, doubles diplômes, chaires, incubateurs ou Career Centre. Ajoute 1 à 2 formulations qu'il aurait pu dire à l'oral.",
+  "triangle_liens": "Diagnostic :\\nAnalyse précisément le triangle personnalité ↔ projet professionnel ↔ ESCP. Dis si les trois éléments sont reliés naturellement, artificiellement ou pas du tout. Montre ce qui manque entre son histoire personnelle, ses ambitions et ce que l'ESCP peut lui apporter.\\n\\nRecommandations :\\nExplique comment construire un lien plus fort entre une expérience personnelle, un projet professionnel et une ressource ESCP précise. Donne 1 à 2 formulations orales prêtes à réutiliser.",
+  "dynamique_echange": "Diagnostic :\\nAnalyse l'écoute, le rebond, la gestion des relances, la spontanéité, l'énergie, l'authenticité et la capacité à porter l'échange.\\n\\nRecommandations :\\nExplique comment mieux dialoguer avec le jury et relier les relances à des exemples personnels ou à ESCP.",
+  "exploitation_questionnaire": "Analyse du questionnaire :\\nÉvalue la pertinence du contenu du questionnaire : éléments forts, éléments trop vagues, expériences secondaires, manque de cohérence ou potentiel inexploité.\\n\\nExploitation dans l'entretien :\\nAnalyse si le candidat utilise réellement son questionnaire à l'oral. Explique quels éléments auraient dû devenir des preuves de personnalité, de projet ou d'adéquation ESCP. Si le questionnaire est absent, explique quoi y mettre.",
+  "question_finale": "Diagnostic :\\nAnalyse la question finale si elle existe : pertinence, originalité, maturité et lien avec ESCP.\\n\\nRecommandations :\\nPropose 2 questions finales intelligentes et personnalisées, liées à son profil et à ESCP.",
+  "analyse_personnalisee": "Diagnostic :\\nReviens sur 2-3 moments précis de la transcription.\\n\\nRecommandations :\\nTransforme ces moments en arguments plus forts, avec références ESCP si pertinent.",
+  "comparaison_precedent": "Si premier entretien ESCP : indique que cette session sert de référence. Sinon compare avec le précédent feedback.",
+  "axes_amelioration": "Plan d'action en 5 étapes : quoi apprendre, quoi reformuler, quelle référence ESCP ajouter, quel exemple personnel renforcer, comment s'entraîner.",
+  "points_forts": "2 à 4 points forts réels et précis.",
+  "points_faibles": "2 à 4 points faibles réels, précis, avec exemples et conséquences sur la note."
 }`
     }
 
     const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -444,79 +676,86 @@ Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
     const sessionRes = await fetch(`${SUPABASE_URL}/rest/v1/sessions`, {
       method: 'POST',
       headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
         'Content-Type': 'application/json',
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify({ student_id, conversation_id: conversationId })
-    })
-    const sessions = await sessionRes.json()
-    const session_id = sessions[0]?.id
-
-    await fetch(`${SUPABASE_URL}/rest/v1/feedbacks`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
+        Prefer: 'return=representation'
       },
       body: JSON.stringify({
-        session_id,
         student_id,
-        ecole,
-
-        note: Number.isFinite(Number(feedback.note)) ? Number(feedback.note) : null,
-
-        points_forts: feedback.points_forts || null,
-        points_faibles: feedback.points_faibles || null,
-        axes_amelioration: feedback.axes_amelioration || null,
-        verdict_jury: feedback.verdict_jury || null,
-        presentation_initiale: feedback.presentation_initiale || null,
-        qualite_expression: feedback.qualite_expression || null,
-        connaissance_ecole: feedback.connaissance_ecole || null,
-        dynamique_echange: feedback.dynamique_echange || null,
-        triangle_liens: feedback.triangle_liens || null,
-        fond_escp: feedback.fond_escp || null,
-        exploitation_questionnaire: feedback.exploitation_questionnaire || null,
-        question_finale: feedback.question_finale || null,
-        analyse_personnalisee: feedback.analyse_personnalisee || null,
-        comparaison_precedent: feedback.comparaison_precedent || null,
-
-        carte_personnalite: feedback.carte_personnalite || null,
-        carte_experiences: feedback.carte_experiences || null,
-        carte_projets: feedback.carte_projets || null,
-        carte_creativite: feedback.carte_creativite || null,
-        valeurs_emlyon: feedback.valeurs_emlyon || null,
-        echange_final: feedback.echange_final || null,
-
-        diagnostic_global: feedback.diagnostic_global || null,
-        expression_clarte: feedback.expression_clarte || null,
-        curiosite_ouverture: feedback.curiosite_ouverture || null,
-        lucidite_personnelle: feedback.lucidite_personnelle || null,
-        leadership_engagement: feedback.leadership_engagement || null,
-        mise_en_situation: feedback.mise_en_situation || null,
-        reflexe_ethique: feedback.reflexe_ethique || null,
-        esprit_collectif: feedback.esprit_collectif || null,
-        decision_dans_le_flou: feedback.decision_dans_le_flou || null,
-        sens_de_l_execution: feedback.sens_de_l_execution || null,
-        imagination_pragmatique: feedback.imagination_pragmatique || null,
-        adequation_essec: feedback.adequation_essec || null,
-        plan_de_progression: feedback.plan_de_progression || null,
-        arguments_essec_a_ajouter: feedback.arguments_essec_a_ajouter || null,
-        formulations_a_retravailler: feedback.formulations_a_retravailler || null,
-        ressources_essec_recommandees: feedback.ressources_essec_recommandees || null,
-
-        diagnostic_entretien: feedback.diagnostic_entretien || null,
-        analyse_mise_en_situation: feedback.analyse_mise_en_situation || null,
-        formulations_recommandees: feedback.formulations_recommandees || null
+        conversation_id: conversationId
       })
     })
 
-    return res.status(200).json({ success: true })
+    const sessions = await sessionRes.json()
+    const session_id = sessions[0]?.id
+
+    const insertPayload = {
+      session_id,
+      student_id,
+      ecole,
+
+      note: Number.isFinite(Number(feedback.note)) ? Number(feedback.note) : null,
+
+      points_forts: feedback.points_forts || null,
+      points_faibles: feedback.points_faibles || null,
+      axes_amelioration: feedback.axes_amelioration || null,
+
+      verdict_jury: feedback.verdict_jury || null,
+      presentation_initiale: feedback.presentation_initiale || null,
+      qualite_expression: feedback.qualite_expression || null,
+      connaissance_ecole: feedback.connaissance_ecole || null,
+      dynamique_echange: feedback.dynamique_echange || null,
+      triangle_liens: feedback.triangle_liens || null,
+      fond_escp: feedback.fond_escp || null,
+      exploitation_questionnaire: feedback.exploitation_questionnaire || null,
+      question_finale: feedback.question_finale || null,
+      analyse_personnalisee: feedback.analyse_personnalisee || null,
+      comparaison_precedent: feedback.comparaison_precedent || null,
+
+      carte_personnalite: feedback.carte_personnalite || null,
+      carte_experiences: feedback.carte_experiences || null,
+      carte_projets: feedback.carte_projets || null,
+      carte_creativite: feedback.carte_creativite || null,
+      valeurs_emlyon: feedback.valeurs_emlyon || null,
+      echange_final: feedback.echange_final || null,
+
+      diagnostic_entretien: feedback.diagnostic_entretien || null,
+      analyse_mise_en_situation: feedback.analyse_mise_en_situation || null,
+      adequation_essec: feedback.adequation_essec || null,
+      plan_de_progression: feedback.plan_de_progression || null,
+      formulations_recommandees: feedback.formulations_recommandees || null
+    }
+
+    const fbRes = await fetch(`${SUPABASE_URL}/rest/v1/feedbacks`, {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify(insertPayload)
+    })
+
+    if (!fbRes.ok) {
+      const errorText = await fbRes.text()
+      console.error('Erreur insertion feedback:', errorText)
+      return res.status(500).json({
+        error: 'Erreur insertion feedback',
+        details: errorText
+      })
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: `Feedback ${ecole} enregistré`
+    })
+
   } catch (err) {
     console.error('Erreur webhook:', err)
-    return res.status(500).json({ error: err.message })
+    return res.status(500).json({
+      error: err.message
+    })
   }
 }
