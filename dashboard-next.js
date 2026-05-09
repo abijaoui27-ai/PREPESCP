@@ -168,12 +168,28 @@ function esc(value){
     .replaceAll("'",'&#039;')
 }
 
+function formatFeedbackText(value){
+  let text = esc(value)
+  text = text.replaceAll('Diagnostic :', '<strong style="color:#e8c98e;font-weight:600">Diagnostic :</strong>')
+  text = text.replaceAll('Recommandations :', '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed rgba(201,169,110,.18)"><strong style="color:#e8c98e;font-weight:600">Recommandations :</strong>')
+  text = text.replaceAll('Analyse du questionnaire :', '<strong style="color:#e8c98e;font-weight:600">Analyse du questionnaire :</strong>')
+  text = text.replaceAll('Exploitation dans l’entretien :', '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed rgba(201,169,110,.18)"><strong style="color:#e8c98e;font-weight:600">Exploitation dans l’entretien :</strong>')
+  text = text.replaceAll('Exploitation dans l\'entretien :', '<div style="margin-top:14px;padding-top:14px;border-top:1px dashed rgba(201,169,110,.18)"><strong style="color:#e8c98e;font-weight:600">Exploitation dans l’entretien :</strong>')
+  const opened = (text.match(/<div style="margin-top:14px/g) || []).length
+  const closed = (text.match(/<\/div>/g) || []).length
+  for(let i=0;i<opened-closed;i++) text += '</div>'
+  return text
+}
+
 function field(label, value){
   if(value === null || value === undefined || value === '') return ''
   return `
-    <div style="margin-top:18px;border-top:1px solid rgba(201,169,110,.08);padding-top:14px">
-      <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1.3px;color:#c9a96e;margin-bottom:7px">${label}</div>
-      <div style="font-size:.86rem;color:#d9d4cc;line-height:1.75;white-space:pre-wrap">${esc(value)}</div>
+    <div style="background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01));border:1px solid rgba(201,169,110,.12);margin-top:15px;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:9px;background:rgba(201,169,110,.055);border-bottom:1px solid rgba(201,169,110,.08);padding:12px 15px;font-size:.72rem;text-transform:uppercase;letter-spacing:1.35px;color:#c9a96e;font-weight:600">
+        <span style="width:7px;height:7px;border-radius:50%;background:#c9a96e;box-shadow:0 0 14px rgba(201,169,110,.45);display:inline-block;flex:0 0 auto"></span>
+        ${label}
+      </div>
+      <div style="font-size:.88rem;color:#ded8cf;line-height:1.78;white-space:pre-wrap;padding:16px 17px">${formatFeedbackText(value)}</div>
     </div>
   `
 }
@@ -191,7 +207,6 @@ function buildESSECFeedbackDetails(fb){
     fb.lucidite_personnelle,
     fb.leadership_engagement
   )
-
   const mise = fb.analyse_mise_en_situation || joinFields(
     fb.mise_en_situation,
     fb.reflexe_ethique,
@@ -200,10 +215,8 @@ function buildESSECFeedbackDetails(fb){
     fb.sens_de_l_execution,
     fb.imagination_pragmatique
   )
-
   const adequation = joinFields(fb.adequation_essec, fb.connaissance_ecole, fb.arguments_essec_a_ajouter, fb.ressources_essec_recommandees)
   const formulations = fb.formulations_recommandees || fb.formulations_a_retravailler
-
   return `
     ${field('Verdict du jury', fb.verdict_jury)}
     ${field('Diagnostic de l’entretien', diagnostic)}
@@ -224,8 +237,8 @@ function buildFeedbackDetails(fb){
     ${field('Présentation initiale', fb.presentation_initiale)}
     ${field('Qualité d’expression', fb.qualite_expression)}
     ${field('Connaissance de l’école', fb.connaissance_ecole)}
+    ${field('Triangle personnalité · projet pro · école', fb.triangle_liens)}
     ${field('Dynamique de l’échange', fb.dynamique_echange)}
-    ${field('Triangle liens', fb.triangle_liens)}
     ${field('Fond ESCP', fb.fond_escp)}
     ${field('Exploitation du questionnaire', fb.exploitation_questionnaire)}
     ${field('Analyse personnalisée', fb.analyse_personnalisee)}
@@ -262,16 +275,16 @@ function renderFeedbackList(id,items){
     const date=fb.created_at ? new Date(fb.created_at).toLocaleDateString('fr-FR') : ''
     const summary=fb.verdict_jury || fb.diagnostic_entretien || fb.diagnostic_global || fb.analyse_personnalisee || fb.points_forts || 'Feedback disponible.'
     return `
-      <div style="border:1px solid rgba(201,169,110,.13);padding:16px;margin-top:12px;background:#0f0f18">
+      <div style="border:1px solid rgba(201,169,110,.15);padding:18px;margin-top:14px;background:linear-gradient(135deg,rgba(201,169,110,.045),rgba(15,15,24,.98));box-shadow:0 14px 45px rgba(0,0,0,.15)">
         <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
           <div>
             <strong>Entretien #${items.length-i}</strong> ${date ? `<span class="muted">— ${date}</span>` : ''}
-            <div style="color:#c9a96e;margin-top:4px;font-weight:700">${esc(fb.note || '—')}/20</div>
+            <div style="font-family:Cormorant Garamond,serif;color:#c9a96e;margin-top:5px;font-weight:700;font-size:1.55rem;line-height:1">${esc(fb.note || '—')}/20</div>
           </div>
-          <button id="feedback-btn-${key}" onclick="toggleFeedbackDetail('${key}')" style="border:1px solid rgba(201,169,110,.18);background:#16161f;color:#c9a96e;padding:8px 12px;cursor:pointer;font-family:Outfit,sans-serif;font-size:.78rem">Voir le debrief complet</button>
+          <button id="feedback-btn-${key}" onclick="toggleFeedbackDetail('${key}')" style="border:1px solid rgba(201,169,110,.22);background:#16161f;color:#c9a96e;padding:9px 13px;cursor:pointer;font-family:Outfit,sans-serif;font-size:.78rem">Voir le debrief complet</button>
         </div>
         <p class="muted" style="margin-top:10px">${esc(summary)}</p>
-        <div id="feedback-detail-${key}" style="display:none;margin-top:14px;background:#07070c;border:1px solid rgba(201,169,110,.08);padding:16px">
+        <div id="feedback-detail-${key}" style="display:none;margin-top:16px;background:#07070c;border:1px solid rgba(201,169,110,.08);padding:18px">
           ${buildFeedbackDetails(fb) || '<p class="muted">Aucun détail supplémentaire disponible.</p>'}
         </div>
       </div>
