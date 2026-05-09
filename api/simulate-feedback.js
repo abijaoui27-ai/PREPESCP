@@ -1,12 +1,28 @@
-const AGENTS = {
-  ESCP: 'agent_5301kn5frmakepgabf8ne1pw9kzr',
-  'EM Lyon': 'agent_2801kqpz5c0pfexst78ct5ezs5tf',
-  ESSEC: 'agent_6201kqyj4vwkerkt0faxgk2zn3ed'
+function noFirstNameRule() {
+  return `
+RÈGLE IMPORTANTE SUR LE PRÉNOM :
+Ne commence jamais le feedback par le prénom du candidat.
+N'utilise jamais de prénom dans le feedback, même si un prénom apparaît dans la transcription.
+La transcription peut mal reconnaître les prénoms.
+Adresse-toi toujours au candidat avec “vous”, sans l'appeler par son prénom.
+Exemples interdits :
+- “Rami, votre entretien…”
+- “Allan, vous avez…”
+- “Sarah, votre prestation…”
+Exemples attendus :
+- “Votre entretien montre…”
+- “Vous obtenez une note de…”
+- “Sur cette prestation, le jury retient…”
+`
 }
 
 function buildSchoolPrompt({ school, transcriptText, previousContext }) {
+  const prenomRule = noFirstNameRule()
+
   if (school === 'ESSEC') {
     return `Tu es un membre expérimenté du jury d'admission de l'ESSEC Business School pour le Programme Grande École / Master in Management. Tu évalues des candidats de classes préparatoires. Tu ignores totalement le Global BBA.
+
+${prenomRule}
 
 TRANSCRIPTION À ÉVALUER :
 ${transcriptText}
@@ -39,7 +55,7 @@ RÈGLES :
 Réponds uniquement en JSON brut valide, sans markdown ni backticks :
 {
   "note": 0,
-  "verdict_jury": "5 à 7 phrases : note, impression générale, niveau réel et enjeu principal de progression.",
+  "verdict_jury": "5 à 7 phrases sans prénom : note, impression générale, niveau réel et enjeu principal de progression.",
   "diagnostic_entretien": "Analyse longue de la présentation, expression, structure, maturité, authenticité et posture. Cite 2-3 moments précis. Explique ce qui pénalise et ce qui peut être sauvé.",
   "analyse_mise_en_situation": "Analyse longue de la mise en situation : compréhension, parties prenantes, enjeux, options, décision, exécution. Donne une version améliorée de la réponse possible.",
   "adequation_essec": "Analyse longue du lien profil-projet-ESSEC. Recommande des ressources ESSEC précises adaptées au profil et explique comment les intégrer oralement.",
@@ -53,6 +69,8 @@ Réponds uniquement en JSON brut valide, sans markdown ni backticks :
 
   if (school === 'EM Lyon') {
     return `Tu es un membre expérimenté du jury d'admission de l'E.M Lyon Business School. Tu évalues des candidats de classes préparatoires.
+
+${prenomRule}
 
 TRANSCRIPTION À ÉVALUER :
 ${transcriptText}
@@ -70,7 +88,7 @@ RÈGLES :
 Réponds uniquement en JSON brut valide, sans markdown ni backticks :
 {
   "note": 0,
-  "verdict_jury": "3 à 5 phrases avec la note et l'impression générale.",
+  "verdict_jury": "3 à 5 phrases sans prénom avec la note et l'impression générale.",
   "presentation_initiale": "Analyse de la présentation, structure, incarnation, clarté.",
   "qualite_expression": "Analyse de l'expression orale, fluidité, précision, posture.",
   "connaissance_ecole": "Analyse de la connaissance de l'E.M Lyon et conseils concrets.",
@@ -91,6 +109,8 @@ Réponds uniquement en JSON brut valide, sans markdown ni backticks :
 
   return `Tu es un membre expérimenté du jury d'admission ESCP Business School. Tu évalues des candidats de classes préparatoires.
 
+${prenomRule}
+
 TRANSCRIPTION À ÉVALUER :
 ${transcriptText}
 
@@ -106,7 +126,7 @@ RÈGLES :
 Réponds uniquement en JSON brut valide, sans markdown ni backticks :
 {
   "note": 0,
-  "verdict_jury": "3 à 5 phrases avec la note et l'impression générale.",
+  "verdict_jury": "3 à 5 phrases sans prénom avec la note et l'impression générale.",
   "presentation_initiale": "Analyse de la présentation initiale.",
   "qualite_expression": "Analyse de l'expression orale.",
   "connaissance_ecole": "Analyse de la connaissance de l'ESCP.",
