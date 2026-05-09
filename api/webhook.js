@@ -38,7 +38,7 @@ ENTRETIEN PRÉCÉDENT (à utiliser pour la comparaison) :
 - Note obtenue : ${prevFeedback.note}/20
 - Points forts : ${prevFeedback.points_forts || 'Non renseigné'}
 - Points faibles : ${prevFeedback.points_faibles || 'Non renseigné'}
-- Axes d'amélioration donnés : ${prevFeedback.axes_amelioration || 'Non renseigné'}
+- Axes d'amélioration donnés : ${prevFeedback.axes_amelioration || prevFeedback.plan_de_progression || 'Non renseigné'}
 ` : "C'est le premier entretien du candidat — pas de comparaison disponible."
 
     const formattedTranscript = transcript
@@ -53,11 +53,29 @@ ENTRETIEN PRÉCÉDENT (à utiliser pour la comparaison) :
     let promptFeedback = ''
     let ecole = 'ESCP'
 
+    const noFirstNameRule = `
+RÈGLE IMPORTANTE SUR LE PRÉNOM :
+Ne commence jamais le feedback par le prénom du candidat.
+N'utilise jamais de prénom dans le feedback, même si un prénom apparaît dans la transcription.
+La transcription peut mal reconnaître les prénoms.
+Adresse-toi toujours au candidat avec “vous”, sans l'appeler par son prénom.
+Exemples interdits :
+- “Rami, votre entretien…”
+- “Allan, vous avez…”
+- “Sarah, votre prestation…”
+Exemples attendus :
+- “Votre entretien montre…”
+- “Vous obtenez une note de…”
+- “Sur cette prestation, le jury retient…”
+`
+
     if (agent_id === AGENT_EMLYON) {
       ecole = 'EM Lyon'
       const cartes = body.data?.conversation_initiation_client_data?.dynamic_variables
 
       promptFeedback = `Tu es un membre expérimenté du jury d'admission emlyon Business School. Tu évalues des candidats de classes préparatoires (19-20 ans).
+
+${noFirstNameRule}
 
 TRANSCRIPTION DE L'ENTRETIEN :
 ${formattedTranscript}
@@ -110,7 +128,7 @@ CE QUE RECHERCHE VRAIMENT LE JURY EMLYON :
 Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
 {
   "note": <entier 0-20 ou la chaîne "NN">,
-  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant. Ton humain et direct. 3-4 phrases. Si CAS 2 : préciser que la note ne couvre que les cartes. Si CAS 3 : indiquer entretien non noté.>",
+  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant, sans prénom. Ton humain et direct. 3-4 phrases. Si CAS 2 : préciser que la note ne couvre que les cartes. Si CAS 3 : indiquer entretien non noté.>",
   "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité. Cite un extrait si nécessaire. Conseil.>",
   "qualite_expression": "<Vocabulaire, fluidité, hésitations. Objectif. Cite des exemples si erreurs. Conseil.>",
   "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment emlyon ? Cherche : spécialisation, programme, prof, valeur, alumni. Cite ce qu'il a dit. Conseil.>",
@@ -134,6 +152,8 @@ Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
       promptFeedback = `Tu es un membre expérimenté du jury d'admission de l'ESSEC Business School pour le Programme Grande École / Master in Management. Tu évalues des candidats de classes préparatoires de 19-20 ans.
 
 Tu ignores totalement le Global BBA. Tu ne dois jamais recommander le Global BBA, ni parler comme si le candidat postulait à ce programme.
+
+${noFirstNameRule}
 
 TRANSCRIPTION DE L'ENTRETIEN :
 ${formattedTranscript}
@@ -329,7 +349,7 @@ RÈGLES DE FORMAT :
 
 {
   "note": <entier 0-20>,
-  "verdict_jury": "<5 à 7 phrases. Donne la note, l'impression générale, le niveau réel du candidat et le principal enjeu de progression. Ne répète pas tout le diagnostic ici.>",
+  "verdict_jury": "<5 à 7 phrases. Donne la note, l'impression générale, le niveau réel du candidat et le principal enjeu de progression. Ne commence jamais par un prénom. Ne répète pas tout le diagnostic ici.>",
   "diagnostic_entretien": "<Analyse longue de la présentation, de l'expression, de la structure, de la maturité, de l'authenticité et de la posture. Cite 2 ou 3 moments précis de l'entretien. Explique ce qui a pénalisé le candidat, ce qui peut être sauvé, et ce qu'il doit comprendre sur sa prestation globale.>",
   "analyse_mise_en_situation": "<Analyse longue de la mise en situation. Évalue la reformulation du problème, les parties prenantes, les enjeux humains, éthiques, réputationnels et économiques, les options proposées, la décision finale et le plan d'action. Donne ensuite une version améliorée de la réponse que le candidat aurait pu produire.>",
   "adequation_essec": "<Analyse longue du lien entre le profil du candidat, son projet et l'ESSEC. Ne reste jamais général. Recommande des chaires, filières, cours, expériences, campus, doubles diplômes ou dispositifs ESSEC précisément adaptés à son profil. Explique comment les intégrer oralement dans une réponse crédible.>",
@@ -353,6 +373,8 @@ QUESTIONNAIRE DE PERSONNALITÉ REMPLI PAR LE CANDIDAT :
 ` : "Le candidat n'a pas rempli son questionnaire de personnalité."
 
       promptFeedback = `Tu es un membre expérimenté du jury d'admission ESCP Business School. Tu évalues des candidats de classes préparatoires (19-20 ans).
+
+${noFirstNameRule}
 
 ${questionnaireContext}
 
@@ -384,7 +406,7 @@ La capacité à tisser naturellement des liens entre :
 Réponds UNIQUEMENT en JSON brut sans markdown, sans backticks :
 {
   "note": <entier 0-20>,
-  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant. Ton humain et direct. 3-4 phrases. Peut être encourageant ou sévère.>",
+  "verdict_jury": "<S'adresse directement au candidat en le vouvoyant, sans prénom. Ton humain et direct. 3-4 phrases. Peut être encourageant ou sévère.>",
   "presentation_initiale": "<Analyse uniquement la première longue prise de parole. Durée, structure, originalité. Cite un extrait si nécessaire. Conseil.>",
   "qualite_expression": "<Vocabulaire, fluidité, hésitations. Objectif. Cite des exemples si erreurs. Conseil.>",
   "connaissance_ecole": "<A-t-il montré qu'il connaît vraiment l'ESCP ? Cherche : spécialisation, programme, prof, partenariat, alumni. Cite ce qu'il a dit. Conseil.>",
