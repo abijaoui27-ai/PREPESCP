@@ -62,7 +62,6 @@ ENTRETIEN PRÉCÉDENT À UTILISER POUR LA COMPARAISON :
       .map(t => `${t.role === 'agent' ? 'Examinateur' : 'Candidat'}: ${t.message}`)
       .join('\n')
 
-    const AGENT_ESCP = 'agent_5301kn5frmakepgabf8ne1pw9kzr'
     const AGENT_EMLYON = 'agent_2801kqpz5c0pfexst78ct5ezs5tf'
     const AGENT_ESSEC = 'agent_6201kqyj4vwkerkt0faxgk2zn3ed'
 
@@ -75,14 +74,6 @@ Ne commence jamais le feedback par le prénom du candidat.
 N'utilise jamais de prénom dans le feedback, même si un prénom apparaît dans la transcription.
 La transcription peut mal reconnaître les prénoms.
 Adresse-toi toujours au candidat avec “vous”, sans l'appeler par son prénom.
-Exemples interdits :
-- “Rami, votre entretien…”
-- “Allan, vous avez…”
-- “Sarah, votre prestation…”
-Exemples attendus :
-- “Votre entretien montre…”
-- “Vous obtenez une note de…”
-- “Sur cette prestation, le jury retient…”
 `
 
     if (agent_id === AGENT_EMLYON) {
@@ -109,44 +100,22 @@ MISSION :
 Génère un feedback complet, précis, honnête et personnalisé. Tu t'adresses directement au candidat en le vouvoyant. Cite ses propres mots quand tu fais des remarques. Ne sois jamais vague.
 
 RÈGLES DE NOTATION STRICTES :
+- Entretien complet : note normale sur 20.
+- Seulement les cartes : note basée uniquement sur les cartes, maximum réaliste.
+- Moins de 4 cartes abordées : note “NN”.
+- Mauvais : 6-8/20.
+- Moyen : 10-11/20.
+- Bien : 12-13/20.
+- Très bien : 14-16/20.
+- Exceptionnel : 17+/20.
+- Moyenne des admis emlyon : environ 13/20.
 
-Analyse d'abord la transcription pour déterminer dans quel cas tu te trouves.
-
-CAS 1 — ENTRETIEN COMPLET :
-Les 4 cartes ont été abordées ET l'entretien libre a eu lieu.
-→ Note normale sur 20, calibrée sur la vraie moyenne emlyon, environ 13/20.
-
-CAS 2 — SEULEMENT LES CARTES :
-Les 4 cartes ont été abordées mais l'entretien libre n'a pas eu lieu.
-→ Note basée uniquement sur ce qui a été fait : présentation + cartes.
-→ Dans le verdict, indique clairement :
-“Cette note a été calculée uniquement sur la partie cartes — l'entretien libre n'a pas été atteint. Elle n'est pas représentative d'un vrai entretien emlyon complet.”
-→ La section “echange_final” doit indiquer :
-“Non évaluable — entretien libre non atteint.”
-
-CAS 3 — ENTRETIEN TRÈS INCOMPLET :
-Moins de 4 cartes abordées, ou entretien volontairement arrêté très tôt.
-→ note : “NN”
-→ Dans le verdict :
-“Entretien non noté — moins de 4 cartes abordées. Un entretien emlyon ne peut pas être évalué dans ces conditions.”
-→ Toutes les sections non évaluables doivent indiquer “Non évaluable.”
-
-RÈGLES DE NOTATION POUR CAS 1 ET 2 :
-- Mauvais : 6-8/20
-- Moyen : 10-11/20
-- Bien : 12-13/20
-- Très bien : 14-16/20
-- Exceptionnel : 17+/20
-- Moyenne des admis emlyon : environ 13/20
-
-CE QUE RECHERCHE VRAIMENT LE JURY EMLYON :
-- Spontanéité et authenticité, pas des réponses récitées.
+CE QUE RECHERCHE LE JURY EMLYON :
+- Spontanéité et authenticité.
 - Capacité à se raconter avec des anecdotes concrètes.
-- Réactivité face aux questions décalées de la carte Créativité.
-- Cohérence entre les 4 cartes.
-- Capacité à relier expériences, personnalité, projet et école.
-- Les 5 valeurs emlyon : Exigence, Responsabilité, Intégrité, Diversité, Solidarité.
-- Connaissance réelle de l'école : spécialisations, valeurs, programmes, alumni, professeurs, incubateur, entrepreneuriat.
+- Réactivité face aux cartes.
+- Cohérence entre personnalité, expériences, projet et créativité.
+- Valeurs : Exigence, Responsabilité, Intégrité, Diversité, Solidarité.
 
 RÈGLE DE STRUCTURE :
 Dans chaque section longue, écris :
@@ -160,15 +129,15 @@ Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks :
 {
   "note": 0,
   "verdict_jury": "3 à 5 phrases sans prénom avec la note, l'impression générale et le principal enjeu.",
-  "presentation_initiale": "Diagnostic :\\nAnalyse de la première longue prise de parole : durée, structure, originalité, clarté, incarnation.\\n\\nRecommandations :\\nConseils concrets.",
-  "qualite_expression": "Diagnostic :\\nVocabulaire, fluidité, hésitations, posture, naturel.\\n\\nRecommandations :\\nReformulations concrètes.",
+  "presentation_initiale": "Diagnostic :\\nAnalyse de la première longue prise de parole.\\n\\nRecommandations :\\nConseils concrets.",
+  "qualite_expression": "Diagnostic :\\nVocabulaire, fluidité, posture, naturel.\\n\\nRecommandations :\\nReformulations concrètes.",
   "connaissance_ecole": "Diagnostic :\\nAnalyse de la connaissance d'emlyon.\\n\\nRecommandations :\\nRéférences emlyon à ajouter selon le profil.",
-  "carte_personnalite": "Diagnostic :\\nSi abordée : qualité, authenticité, profondeur. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
-  "carte_experiences": "Diagnostic :\\nSi abordée : apprentissages, lien projet. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
-  "carte_projets": "Diagnostic :\\nSi abordée : clarté, cohérence avec emlyon. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
-  "carte_creativite": "Diagnostic :\\nSi abordée : originalité, spontanéité, prise de risque. Si non : Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "carte_personnalite": "Diagnostic :\\nAnalyse si abordée, sinon Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "carte_experiences": "Diagnostic :\\nAnalyse si abordée, sinon Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "carte_projets": "Diagnostic :\\nAnalyse si abordée, sinon Non évaluable.\\n\\nRecommandations :\\nConseils.",
+  "carte_creativite": "Diagnostic :\\nAnalyse si abordée, sinon Non évaluable.\\n\\nRecommandations :\\nConseils.",
   "valeurs_emlyon": "Diagnostic :\\nAnalyse du lien avec Exigence, Responsabilité, Intégrité, Diversité, Solidarité.\\n\\nRecommandations :\\nComment mieux incarner ces valeurs.",
-  "echange_final": "Diagnostic :\\nSi atteint : qualité de l'échange libre. Si non : Non évaluable — entretien libre non atteint.\\n\\nRecommandations :\\nConseils.",
+  "echange_final": "Diagnostic :\\nAnalyse de l'échange libre si atteint, sinon Non évaluable.\\n\\nRecommandations :\\nConseils.",
   "question_finale": "Diagnostic :\\nAnalyse de la question finale.\\n\\nRecommandations :\\nPropose une meilleure question si nécessaire.",
   "analyse_personnalisee": "Diagnostic :\\nReviens sur 2-3 moments précis.\\n\\nRecommandations :\\nTransforme-les en pistes concrètes.",
   "comparaison_precedent": "Si premier entretien emlyon : indique que cette session sert de référence. Sinon, compare avec le précédent.",
@@ -191,147 +160,233 @@ ${formattedTranscript}
 
 ${previousContext}
 
-FORMAT ESSEC À GARDER EN TÊTE :
-- L'entretien ESSEC est long, généralement 30 à 45 minutes, sans préparation.
-- Le jury cherche à évaluer le potentiel de développement du candidat et la cohérence entre son profil et la culture de l'ESSEC.
-- Le jury est composé d'au moins deux personnes : professeur, membre de l'administration, diplômé, représentant du monde économique, étudiant en fin de cursus ou jeune diplômé.
-- La partie libre permet au candidat de se présenter, d'expliquer ses motivations, de montrer ses qualités, ses actions passées, ses engagements et ses projets futurs.
-- La partie structurée repose sur une ou plusieurs mises en situation inspirées de cas réels.
-- La mise en situation ne teste pas une bonne réponse unique : elle évalue le raisonnement, le bon sens, les valeurs, la décision, la prise en compte des parties prenantes et la capacité à agir dans l'incertitude.
+MISSION :
+Produis un feedback ESSEC premium, précis, utile, exigeant et non générique.
+
+Le candidat doit comprendre :
+1. ce qui s'est passé pendant son oral ;
+2. pourquoi le jury l'aurait bien ou mal perçu ;
+3. quelles références ESSEC il aurait dû utiliser ;
+4. comment améliorer sa présentation, sa mise en situation, son projet et son adéquation à l'école.
+
+STYLE ATTENDU :
+- Direct, exigeant, pédagogique, jamais humiliant.
+- Pas de phrases vagues comme “renseignez-vous davantage sur l'ESSEC”.
+- Quand tu critiques, tu expliques juste après comment améliorer.
+- Les références ESSEC doivent être intégrées dans les recommandations, pas listées comme un catalogue.
+- Dans les sections longues, écris toujours :
+
+Diagnostic :
+[analyse]
+
+Recommandations :
+[conseils concrets]
+
+FORMAT ESSEC :
+- Entretien long, généralement 30 à 45 minutes, sans préparation.
+- Jury composé d'au moins deux personnes : professeur, membre de l'administration, diplômé, représentant économique, étudiant en fin de cursus ou jeune diplômé.
+- Partie libre : présentation, motivations, qualités, actions passées, engagements, projets futurs.
+- Partie structurée : une ou plusieurs mises en situation inspirées de cas réels.
+- La mise en situation ne teste pas une bonne réponse unique : elle évalue le raisonnement, le bon sens, les valeurs, la décision, les parties prenantes et l'action dans l'incertitude.
 - L'entretien donne une seule note finale.
 
-CE QUE LE JURY ESSEC ÉVALUE :
-- Expression claire, structurée, naturelle.
-- Curiosité réelle, ouverture au monde.
-- Lucidité personnelle.
-- Leadership concret.
-- Réflexe éthique.
-- Esprit collectif.
-- Décision dans le flou.
-- Sens de l'exécution.
-- Imagination pragmatique.
-- Cohérence avec l'ESSEC : esprit pionnier, flexibilité du parcours, learning-by-doing, leadership responsable, excellence académique, ouverture internationale.
-
-BASE ESSEC À MOBILISER :
-ADN :
+ADN ESSEC :
 - ESSEC fondée en 1907.
+- Innovation et esprit pionnier au cœur de l'identité de l'école.
+- Devise : “Per scientiam, ad libertatem”.
+- Valeurs : humanisme, innovation, responsabilité, excellence, diversité.
 - École pionnière, école-monde aux racines françaises.
 - Campus : Cergy, Paris-La Défense, Singapour, Rabat.
 - Triple accréditation.
-- Culture de flexibilité du parcours.
-- Pédagogie par l'expérience.
-- Leadership responsable.
-- Excellence académique, humanisme, impact global.
+- Culture de la flexibilité, de la responsabilité, de l'expérimentation et du parcours à la carte.
+- L'ESSEC valorise les candidats capables de construire leur propre parcours et de justifier des choix personnels cohérents.
 
-PGE / MiM :
-- Parcours très flexible.
-- Plus de 50 filières et chaires.
-- Stage, apprentissage, VIE/VIA, CDD/CDI, création d'entreprise, expérience associative ou humanitaire.
-- Expérience internationale via campus ESSEC Asia-Pacific, campus Afrique ou partenaires internationaux.
+LES 3 PARTICULARITÉS À MOBILISER POUR “POURQUOI L'ESSEC ?” :
 
-Premaster :
-- Prise de parole en public.
-- Comprendre et changer le monde.
-- Transformer les organisations par la Data et l'IA.
-- Bootcamp entrepreneuriat en 33 heures.
-- SOLVE autour d'un cas d'entreprise réel.
-- Expérience terrain.
-- Going Pro.
-- Mission de conseil ou création d'entreprise.
+1. FLEXIBILITÉ / PARCOURS À LA CARTE :
+- Le Programme Grande École repose sur un parcours très flexible.
+- Pour être diplômé, l'étudiant doit remplir des prérequis :
+  - 9 cours fondamentaux : comptabilité, gestion financière, macroéconomie, marketing, etc.
+  - 16 cours électifs.
+  - Cours de langues.
+  - 12 mois minimum d'expérience professionnelle.
+  - 6 mois minimum à l'étranger, académique ou professionnel.
+- Les expériences professionnelles et l'international peuvent se combiner.
+- Les cours fondamentaux peuvent être validés à l'ESSEC ou dans des universités partenaires.
+- À partir de la première année de master, l'étudiant choisit environ les deux tiers de ses cours.
+- Cette flexibilité convient surtout aux candidats qui ont une vision globale de leur parcours, même si le projet n'est pas encore figé.
+- Le candidat doit expliquer comment il utiliserait cette liberté, pas seulement dire qu'elle l'intéresse.
 
-Doubles diplômes :
-- CentraleSupélec.
-- ENS Ulm.
-- ENS Paris-Saclay.
-- ENSAE.
-- Saint-Cyr.
-- École du Louvre.
-- ICP philosophie.
-- Mannheim.
-- University of Queensland.
-- Queen's Smith School of Business.
-- Guanghua School of Management, Peking University.
-- Seoul National University.
-- IIM Ahmedabad.
-- Bocconi.
-- Keio Business School.
-- TEC Monterrey.
-- Nanyang Business School.
+2. OPPORTUNITÉS / CHAIRES :
+- L'ESSEC est reconnue pour son système de chaires.
+- Une chaire est un bloc cohérent de cours, souvent à partir de la deuxième année, avec des étudiants qui partagent les mêmes centres d'intérêt.
+- Les chaires lient théorie, mise en pratique, entreprises partenaires, rencontres sectorielles et opportunités de stage.
+- Il faut citer une chaire seulement si elle est cohérente avec le projet du candidat.
 
-Ressources selon profil :
+Chaires ESSEC à mobiliser selon le profil :
+- Chaire Armand Peugeot : futur de l'industrie automobile, électromobilité, véhicules hybrides, mobilité durable ; partenariat Université PSA, Centrale Paris, ESSEC et Supélec.
+- Chaire Talents de la Transition Écologique : préparer aux enjeux environnementaux du monde de demain.
+- Chaire LVMH : gestion des marques de luxe, connaissances théoriques et pratiques sur le luxe.
+- Chaire d'Économie Urbaine : villes, territoires, complexité urbaine.
+- Chaire Digital Disruption : effet du numérique sur les entreprises.
+- Chaire ESSEC Amundi : gestion d'actifs, risques, ESG.
+- Chaire ESSEC du Changement : mécanismes du changement dans entreprises, administrations et société.
+- Chaire Innovation Managériale et Excellence Opérationnelle : nouvelles formes de management et entreprise du futur.
+- Chaire Media & Digital : secteur média, culture, économie, politique, laboratoire d'idées.
+- Chaire Grande Consommation : métiers de la consommation.
+- Chaire ICP-ESSEC Entreprises et Bien Commun : bien commun dans la société actuelle.
+- Chaire Immobilier et Développement Durable : nouvelles problématiques de l'immobilier.
+- Chaire Innovation et Santé : systèmes de santé, innovations en santé, stratégies de santé.
+- Chaire Innovation Sociale : entrepreneuriat à impact social et environnemental.
+- Chaire Leadership et Diversité : diversité en entreprise.
+- Chaire Leading a Scale-Up : postes dans des start-up en hypercroissance.
+- Chaire ESSEC Beauty : industrie de la beauté.
+- Chaire Philanthropie : impact social de la philanthropie.
+- Chaire Shaping the Future of Finance : futur du secteur financier.
+- Chaire Sports ESSEC : management du sport mondial.
+- Chaire Stratégie et Gouvernance de l'Information : gouvernance de l'information.
+- Food Business Challenges Chair : futurs leaders de l'industrie food avec transition durable.
+- Chaire Global Circular Economy : économie circulaire.
+
+3. SINGULARITÉ :
+- L'ESSEC permet de cultiver sa différence grâce à la construction d'un parcours personnel.
+- Le bon candidat ne dit pas seulement “je veux un parcours flexible” : il montre quelle singularité il veut construire.
+- Le jury attend que le candidat relie ses expériences, ses intérêts, son projet professionnel, les chaires, les doubles diplômes, les campus et les engagements à un parcours cohérent.
+
+DOUBLES DIPLÔMES À MOBILISER :
+- École du Louvre : art, histoire de l'art, management culturel.
+- CentraleSupélec : ingénierie, innovation, entrepreneuriat, profils tech/industrie.
+- ESM Saint-Cyr de Coëtquidan : défense, énergie, télécommunications, leadership.
+- ENSAE : banque, audit, assurance, finance, conseil, big data, statistiques.
+- ENS Ulm : géographie, sciences cognitives, histoire, philosophie, sciences sociales.
+- ENSA-V : ville, immobilier, grandes infrastructures.
+- Keio Business School au Japon : entrepreneuriat, innovation marketing.
+- Nanyang Business School à Singapour.
+- Nanyang Technological University à Singapour : science environnementale, ingénierie.
+- Mannheim, University of Queensland, Queen's Smith School of Business, Guanghua School of Management, Seoul National University, IIM Ahmedabad, Bocconi, TEC Monterrey.
+
+ASPECT SOCIAL :
+- Programme “Une Grande École : Pourquoi Pas Moi ?”, appelé PQPM.
+- Des étudiants ESSEC s'engagent bénévolement pour du tutorat 2 à 3h le mercredi après-midi ou le samedi matin.
+- Public accompagné : élèves de troisième, première et terminale d'établissements de Cergy.
+- Objectif : sensibiliser les étudiants ESSEC aux réalités sociales et développer une expérience humaine, citoyenne et transformatrice.
+- À mobiliser si le candidat parle d'éducation, d'égalité des chances, de transmission, d'engagement ou de responsabilité sociale.
+
+ASPECT ENVIRONNEMENTAL :
+- Démarche ESSEC Together.
+- 3 ambitions :
+  1. Former la communauté aux enjeux environnementaux.
+  2. Développer la recherche et les outils adaptés à la transition écologique.
+  3. Mettre en place une gestion environnementale exemplaire des campus.
+- Tous les élèves de première année suivent un parcours autour de la Fresque du Climat, avec ateliers de passage à l'action et cas d'entreprises en transition.
+- Séminaire “Comprendre et Changer le Monde” sur les grands enjeux sociaux et environnementaux.
+- Depuis 2019, transformation des cours fondamentaux pour intégrer les enjeux environnementaux et sociaux : économie, finance, marketing, contrôle de gestion, comptabilité, stratégie, ressources humaines, technologies de l'information.
+- Objectif de neutralité carbone d'ici 2040.
+- Actions campus : rénovation des bâtiments, diminution de la climatisation, suppression du plastique à usage unique et des bouteilles d'eau, Green Monday sans viande, politique zéro papier.
+- Centres / chaires environnement :
+  - Chaire Immobilier et Développement Durable.
+  - Chaire Armand Peugeot sur la mobilité durable.
+  - Chaire Talents de la Transition Écologique.
+  - Chaire Global Circular Economy.
+- Association NOISE ESSEC : articles, conférences, ateliers, paniers bios, ventes en vrac, forum des métiers de la transition, action avec l'administration pour réduire l'empreinte écologique de l'école.
+
+PARCOURS À L'ÉTRANGER :
+- Campus internationaux : Singapour et Rabat.
+- L'étudiant peut s'y rendre à partir de la deuxième année, dans la limite des places disponibles.
+- Singapour est à mobiliser pour l'Asie, la finance internationale, l'entrepreneuriat, la tech, l'innovation ou les marchés émergents.
+- Rabat est à mobiliser pour l'Afrique, l'impact, le développement, les politiques publiques, l'entrepreneuriat, les transitions économiques et sociales.
+
+ASSOCIATIONS :
+- Label Sauce : association culinaire.
+  - Toq' Chef : compétition de cuisine avec 10 duos, 2h de cuisine autour d'un thème.
+  - Grand Dîner : dîner élégant préparé avec le chef de l'ESSEC pour environ une centaine d'étudiants.
+  - Dîners Presque Parfaits : repas thématiques entre membres.
+  - À mobiliser pour profils food, événementiel, gastronomie, hospitalité, sens du collectif, organisation.
+- Bureau des Sports :
+  - Organise le sport à l'ESSEC.
+  - Derby des Parisiennes : compétition entre HEC, ESSEC et ESCP, sports variés, coupe du Derby.
+  - E2C / ESSEC Champions Cup : compétition d'une semaine avec sportifs de plus de 15 pays, sport, rencontres, activités, visite de Paris.
+  - Nocturnes : tournois mensuels le soir, volley, handball, basket, tennis.
+  - À mobiliser pour profils sportifs, leadership collectif, organisation d'événements, esprit d'équipe.
+
+RESSOURCES SELON PROFIL :
 IA / data / digital :
 - Digital Disruption Chair.
-- Accenture Strategic Business Analytics Chair.
-- Business Analytics Methods Track.
-- Digital Transformation and Digital Business Track.
-- Information Strategy and Governance Chair.
+- Strategic Business Analytics.
+- Business Analytics Methods.
 - Digital Transformation.
 - Digital Humanism.
+- Stratégie et gouvernance de l'information.
+- Angle : ne pas dire seulement “j'aime l'IA”, mais expliquer comment l'IA transforme les organisations, les métiers, les décisions et la relation client.
 
-Entrepreneuriat :
+Entrepreneuriat / startup :
 - Entrepreneurship Track.
 - ESSEC Ventures Incubator.
-- Leading a Scale-up Chair.
-- Leading a SME/SMI Track.
-- Tech, Innovation and Entrepreneurship.
+- Leading a Scale-Up Chair.
 - Bootcamp entrepreneuriat.
+- Tech, innovation, innovation marketing.
+- Keio Business School.
+- Angle : expliquer quel projet tester, avec quelles ressources ESSEC, et pourquoi la pédagogie par l'action correspond au candidat.
 
 Finance :
-- Finance Track.
-- ESSEC-Amundi Chair.
-- Shaping the Future of Finance Chair.
-- ESSEC-ISUP Risk & Actuarial Track.
-- Corporate Finance in Asia Track.
-- Financial Markets in Asia Track.
+- ESSEC Amundi.
+- Shaping the Future of Finance.
+- ENSAE.
+- Gestion d'actifs, risque, ESG, finance d'entreprise, marchés, big data, audit, assurance.
+- Angle : préciser le type de finance visé et lier chaires / double diplôme / expérience pro.
 
-Conseil / stratégie :
-- Filière conseil en stratégie.
-- CFO : Conseil, Finance, Organisation.
-- Chaire ESSEC du changement.
+Conseil / stratégie / transformation :
+- Chaire ESSEC du Changement.
+- Innovation Managériale et Excellence Opérationnelle.
+- CFO / Conseil Finance Organisation.
 - Asian Strategy Consulting Project.
-- Managing Plans and Projects.
+- Angle : présenter le conseil comme capacité à résoudre des problèmes précis, pas comme prestige.
 
-Impact / public / société :
-- Chaire Innovation sociale.
-- Chaire Talents de la transition écologique.
-- Global ESSEC Circular Economy Chair.
-- ICP-ESSEC Entreprises et Bien commun.
-- Management and Society Track.
-- Affaires publiques.
-- Géopolitique, défense et leadership.
-
-Luxe / marketing :
-- LVMH Chair.
-- ESSEC Beauty Chair.
+Luxe / beauté / marketing :
+- Chaire LVMH.
+- Chaire ESSEC Beauty.
 - Marketing Track.
 - Grande Consommation.
-- Media & Digital Track.
+- Media & Digital.
+- Angle : parler marque, désirabilité, expérience client, distribution, durabilité, internationalisation.
 
-Sport / santé / food :
-- ESSEC Sports Chair.
-- Food Chair.
-- Chaire Innovation et Santé.
+Impact / social / environnement :
+- PQPM.
+- ESSEC Together.
+- Fresque du Climat.
+- Comprendre et Changer le Monde.
+- NOISE ESSEC.
+- Innovation Sociale.
+- Talents de la Transition Écologique.
+- Circular Economy.
+- Entreprises et Bien Commun.
+- Angle : transformer des valeurs en engagements concrets.
+
+Sport / food / santé :
+- Sports ESSEC.
+- Food Business Challenges Chair.
+- Label Sauce.
+- Bureau des Sports.
+- Innovation et Santé.
+- Angle : relier passion personnelle, secteur économique, management et responsabilité.
+
+Art / culture / ville / immobilier :
+- École du Louvre.
+- Économie Urbaine.
+- ENSA-V.
+- Immobilier et Développement Durable.
+- Media & Digital.
+- Angle : construire un profil hybride art/ville/management/impact.
 
 MÉTHODE ESSEC POUR LA MISE EN SITUATION :
-1. Reformuler le problème.
+1. Reformuler le problème en une phrase.
 2. Identifier les parties prenantes.
-3. Identifier les enjeux humains, éthiques, juridiques, réputationnels, économiques.
+3. Repérer les enjeux humains, éthiques, juridiques, réputationnels, économiques.
 4. Proposer 2 ou 3 options.
 5. Choisir une décision claire.
 6. Justifier l'arbitrage.
 7. Décrire la mise en œuvre concrète.
-8. Anticiper les conséquences court et long terme.
-
-MISSION :
-Produis un feedback exceptionnel, précis, utile, non générique.
-
-RÈGLES :
-- Tu t'adresses directement au candidat en le vouvoyant.
-- Tu cites ses propres mots si utile.
-- Tu ne dis jamais simplement “renseignez-vous davantage sur l'ESSEC”.
-- Tu donnes directement les exemples ESSEC qu'il aurait dû mobiliser.
-- Tu adaptes les ressources ESSEC à SON profil.
-- Si le projet est flou, tu expliques comment construire un projet crédible à partir de ses expériences.
+8. Anticiper les conséquences à court terme et long terme.
 
 RÈGLES DE NOTATION :
 - Entretien interrompu ou très court : 0 à 5/20.
@@ -341,19 +396,28 @@ RÈGLES DE NOTATION :
 - Correct / admissible : 12-13/20.
 - Très solide : 14-16/20.
 - Excellent : 17+/20.
+- Une note 17+ exige : discours incarné, maturité, mise en situation bien structurée, vraie connaissance ESSEC, projet cohérent, capacité à dialoguer naturellement.
 
-Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks :
+IMPORTANT :
+- Ne recommande jamais une ressource ESSEC sans lien avec le profil.
+- Si le candidat parle d'un intérêt, transforme-le en parcours ESSEC possible.
+- Si le candidat cite une ressource ESSEC de manière superficielle, explique comment l'incarner.
+- Si le candidat ne cite rien, donne 2 ou 3 références parfaitement adaptées.
+- Ne répète pas les mêmes conseils dans toutes les sections.
+- Les sections doivent être longues, utiles et concrètes.
+
+Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks. Les retours à la ligne dans les chaînes JSON sont autorisés avec \\n\\n.
 {
   "note": 0,
-  "verdict_jury": "5 à 7 phrases sans prénom : note, impression générale, niveau réel, principal enjeu.",
-  "diagnostic_entretien": "Analyse longue de la présentation, expression, structure, maturité, authenticité et posture.",
-  "analyse_mise_en_situation": "Analyse longue de la mise en situation, puis version améliorée.",
-  "adequation_essec": "Analyse longue du lien profil-projet-ESSEC avec ressources précises.",
-  "plan_de_progression": "Plan concret en 5 étapes.",
-  "formulations_recommandees": "2 à 4 formulations améliorées.",
-  "points_forts": "2 à 4 points forts précis.",
-  "points_faibles": "2 à 4 points faibles précis.",
-  "comparaison_precedent": "Comparaison si disponible."
+  "verdict_jury": "5 à 7 phrases sans prénom. Donne la note, l'impression générale, le niveau réel et le principal enjeu de progression. Mentionne si le candidat manque surtout de structure, d'incarnation, de méthode en mise en situation, de projet ou de références ESSEC.",
+  "diagnostic_entretien": "Diagnostic :\\nAnalyse la présentation, l'expression, la structure, la maturité, l'authenticité et la posture. Cite 2 ou 3 moments précis de l'entretien.\\n\\nRecommandations :\\nExplique comment améliorer la présentation et l'expression. Propose une manière plus forte d'introduire le profil, en reliant si possible parcours, singularité et flexibilité ESSEC.",
+  "analyse_mise_en_situation": "Diagnostic :\\nAnalyse la mise en situation : reformulation, parties prenantes, enjeux humains, éthiques, réputationnels et économiques, options proposées, décision finale, plan d'action.\\n\\nRecommandations :\\nDonne une méthode claire pour refaire la mise en situation. Propose une version améliorée de la réponse, structurée en problème, parties prenantes, options, décision, mise en œuvre et conséquences.",
+  "adequation_essec": "Diagnostic :\\nAnalyse le lien entre le profil du candidat, son projet et l'ESSEC. Dis si sa connaissance est superficielle ou incarnée. Analyse s'il comprend vraiment la flexibilité, les chaires, les doubles diplômes, les campus et la singularité du parcours à la carte.\\n\\nRecommandations :\\nDonne des références ESSEC adaptées à son profil : chaires, doubles diplômes, campus Singapour/Rabat, PQPM, ESSEC Together, NOISE, Label Sauce, BDS, cours fondamentaux, électifs ou expériences professionnelles. Ajoute 1 à 2 formulations prêtes à réutiliser.",
+  "plan_de_progression": "Plan d'action en 5 étapes : quoi apprendre sur l'ESSEC, quoi reformuler, quelle ressource ESSEC ajouter, quel exemple personnel renforcer, comment s'entraîner à la mise en situation.",
+  "formulations_recommandees": "Reprends 2 à 4 formulations faibles, vagues ou maladroites du candidat et propose une version orale plus forte, plus précise et plus crédible pour l'ESSEC.",
+  "points_forts": "2 à 4 points forts réels, précis et non génériques.",
+  "points_faibles": "2 à 4 points faibles réels, précis, avec exemples et conséquences sur la note.",
+  "comparaison_precedent": "Si premier entretien ESSEC : indique que cette session sert de référence. Sinon compare brièvement avec le précédent entretien."
 }`
 
     } else {
@@ -399,7 +463,7 @@ STYLE ATTENDU :
 
 FORMAT ESCP :
 - Oral de personnalité centré sur le triangle : personnalité ↔ projet professionnel ↔ ESCP.
-- Le triangle ESCP-Personnalité-Projet professionnel est un axe autonome très important : il faut l'évaluer séparément, même si la connaissance de l'école est aussi analysée ailleurs.
+- Le triangle ESCP-Personnalité-Projet professionnel est un axe autonome très important.
 - Le questionnaire ESCP compte beaucoup : il guide le jury et donne une première impression.
 - Le jury attend une connaissance incarnée : références précises reliées au candidat, pas une récitation.
 - Note éliminatoire ESCP : 5/20. Moyenne admis : environ 13-14/20.
@@ -421,45 +485,39 @@ ADN :
 - Au moins 9 mois d'expérience professionnelle.
 
 Campus :
-- Paris : réseau, culture, finance, conseil, luxe, médias, impact, entreprises, ancrage historique.
-- London : finance, consulting, business international, Investment Banking, Strategic Asset Management, Business Consulting, Management Consulting Excellence, Responsible Leadership, Luxury Management.
-- Berlin : tech, innovation, startups, AI and Big Data, Technology and Digital Economy, Sustainability Management, Sustainable Finance, digital work.
-- Madrid : marketing, entrepreneuriat, business development, real estate, Digital Project Management, International Business Consulting.
-- Turin : industrie italienne, Corporate Entrepreneurship, finance, Strategic Consulting for Business Transformation, Food & Beverage, Luxury Marketing.
-- Warsaw : Kozminski University, Europe centrale, géopolitique, internationalisation, management multiculturel.
+- Paris : réseau, culture, finance, conseil, luxe, médias, impact.
+- London : finance, consulting, business international.
+- Berlin : tech, innovation, startups, AI and Big Data, Sustainability.
+- Madrid : marketing, entrepreneuriat, business development.
+- Turin : industrie italienne, Corporate Entrepreneurship, Food & Beverage, Luxury Marketing.
+- Warsaw : Europe centrale, géopolitique, management multiculturel.
 
 Pre-Master :
-- Année de L3 après prépa, majoritairement à Paris en français, possible à Turin en anglais.
-- Option Pre-Master Global Track / 3 ans - 3 continents.
-- Comptabilité, droit, économie, finance, marketing, statistiques, data analysis, méthodes quantitatives, psychologie et management, humanités, digital insights, opérations, langues.
-- Séminaires : Designing Tomorrow, Fresque du climat, controverse développement durable, Digital Insights, Immersion, Digital Spark, Designing Europe, Business Strategy Simulation, Soft Skills for Leaders.
+- Année de L3 après prépa.
+- Paris en français ou Turin en anglais.
+- Option Global Track / 3 ans - 3 continents.
+- Comptabilité, droit, économie, finance, marketing, statistiques, data analysis, psychologie et management, humanités, digital insights.
+- Séminaires : Designing Tomorrow, Fresque du climat, Digital Spark, Designing Europe, Business Strategy Simulation, Soft Skills for Leaders.
 
 MiM / PGE :
 - Parcours personnalisable.
 - Environ 70 spécialisations.
-- Jusqu'à trois spécialisations : une en M1 et deux en M2.
+- Jusqu'à trois spécialisations.
 - Rotation sur au moins deux campus.
-- Possibilité de 2 à 5 pays.
+- 2 à 5 pays.
 - Jusqu'à 5 diplômes possibles.
 - 49 partenaires de doubles diplômes.
 - 9 mois d'expérience professionnelle minimum.
-- Tronc commun : Corporate Finance, Business Law, Financial Reporting IFRS, Human Resource Management, Data Driven Marketing, Management Control, Organisation and Management, Strategy, Sustainability.
 
-IA / data / digital / tech :
+IA / data / digital :
 - Applied Data Science.
 - Artificial Intelligence and Big Data Business Innovation.
 - Artificial Intelligence and Robotics for Business.
 - Digital Project Management.
-- Digital Transformation: The Future of Work.
-- Digital Transformation: Understand, Contribute, Manage.
-- Internet of Things.
-- Competition and Innovation in High Tech.
+- Digital Transformation.
 - ESCP Tech Institute.
-- AI and Decision Making.
 - TRACIS.
-- European Center for Digital Competitiveness.
 - IoT Chair avec Schneider Electric.
-Angle : ne pas dire seulement “j'aime l'IA”, mais expliquer comment l'IA transforme les organisations, les décisions, les métiers, les opérations et les business models.
 
 Finance :
 - Corporate Finance.
@@ -469,68 +527,43 @@ Finance :
 - Strategic Asset Management.
 - Green CFO.
 - Sustainable Finance.
-- Financial and Sustainability Reporting for the CFO.
-- Management Control.
-- CFO Option.
 - Women in Finance Chair.
 - Mutual and Cooperative Banking Chair avec BPCE.
-- Master in Finance ESCP classé #1 Financial Times 2024.
-Angle : préciser corporate finance, M&A, marchés, asset management, audit, contrôle, CFO ou finance durable.
+- Master in Finance ESCP classé #1 FT 2024.
 
-Conseil / stratégie :
+Conseil :
 - Business Consulting.
 - Consulting Dynamics and Practices.
 - International Business Consulting.
 - Management Consulting Excellence.
 - Strategic Consulting for Business Transformation.
-- Stratégie et conseil.
-- Research, Analyses, Impact Studies and Consulting.
-- Cutting-edge Strategies.
 - Business Strategy Simulation.
-- Employeurs cohérents : BCG, Accenture, Deloitte, Wavestone, PwC, EY, KPMG.
-Angle : présenter le conseil comme méthode de résolution de problèmes, pas comme prestige vague.
 
 Entrepreneuriat :
 - Entrepreneurship.
 - Corporate Entrepreneurship.
-- Entrepreneurship: Technology and Digital Economy.
-- Entrepreneurship, The Art and Science of Scaling Up.
-- Social and Sustainable Entrepreneurship.
+- Technology and Digital Economy.
+- The Art and Science of Scaling Up.
 - Jean-Baptiste Say Institute.
 - Blue Factory incubators.
-- Plus de 600 entreprises accompagnées depuis 2007.
-- Innovation and Entrepreneurship Award.
-- Blue Factory Demodays.
-- Global Entrepreneurs Week.
-- Association Start Me Up.
-Angle : expliquer quel projet tester, sur quel marché, avec quelles ressources ESCP.
+- Plus de 600 entreprises accompagnées.
+- Start Me Up.
 
-Luxe / marketing / mode :
+Luxe / marketing :
 - Luxury Marketing.
-- Luxury Management: Past, Present and Future.
+- Luxury Management.
 - Creativity Marketing Management.
 - Consumer-centric Marketing.
-- Marketing Manager.
-- Go to Market.
-- Communication and New Media.
-- Marketing and Digital Strategy.
-- Creativity Marketing Professorship avec L'Oréal.
-- Turning Points Chair avec Cartier.
-- GRAIL.
-- Double diplôme Institut Français de la Mode.
-- Sotheby's Institute of Art.
-- Association Runway.
-Angle : parler désirabilité, marque, expérience client, distribution internationale, durabilité, création de valeur.
+- L'Oréal.
+- Cartier.
+- IFM.
+- Sotheby's.
+- Runway.
 
-Impact / social / environnement :
+Impact :
 - Designing Tomorrow.
 - Fresque du climat.
 - Sustainability.
-- International Business and Sustainability.
-- Energy Transitions and Sustainability.
-- Responsible Innovation in Africa.
-- Sustainability Management.
-- Sustainable Finance.
 - ESCP Sustainability Institute.
 - RESET.
 - Noise.
@@ -538,120 +571,42 @@ Impact / social / environnement :
 - Solidarité France Népal.
 - Rue des Enfants.
 - ESCP Refugees Assistance.
-Angle : transformer des valeurs en actions concrètes.
 
-Affaires publiques / Europe / géopolitique :
+Affaires publiques / Europe :
 - Affaires publiques.
 - Economics and Public Policy.
-- Law and Finance: International Business Transactions.
 - Designing Europe au Parlement européen.
 - ESCP Geopolitics Institute.
 - CERALE.
 - L'Économique ESCP.
-Angle : relier Europe, politiques publiques ou géopolitique à une expérience concrète de campus, séminaire, spécialisation ou association.
-
-Culture / sport / médias / art :
-- Sport et Management.
-- Management des industries culturelles et médiatiques.
-- Art Maniac.
-- Version Originale.
-- CoMu.
-- On'Air.
-- Polyphony.
-- Streams.
-- Runway.
-- ESCP'Ression.
-- ESCP Regatta.
-Angle : relier passion culturelle ou sportive à leadership, projet collectif, créativité et gestion d'événement.
-
-Profils hybrides :
-- CentraleSupélec.
-- ENSAE.
-- Mines Paris-PSL.
-- Paris 1 Panthéon-Sorbonne.
-- Institut Français de la Mode.
-- Sotheby's Institute of Art.
-- Ferrandi.
-- CFJ.
-Angle : management + ingénierie, droit, finance, mathématiques, journalisme, hôtellerie, art ou mode.
-
-Associations utiles :
-- Fleur de Bitume.
-- Solidarité France Népal.
-- Rue des Enfants.
-- Noise.
-- Art Maniac.
-- Version Originale.
-- ESCP'Ression.
-- Challenge.
-- Junior Entreprise.
-- ESCP HEC Finance Club.
-- Start Me Up.
-- Kryptosphère.
-- L'Économique ESCP.
-- Aware.
-- Runway.
-- Scep Invaders.
-- On'Air.
-- Polyphony.
-- Streams.
-- BDE.
-- BDS.
-- BUDSE.
-- Skloub.
-
-APPRENTISSAGE / CARRIÈRES :
-- Alternance longue 24 mois ou courte 12-14 mois.
-- Environ 200 apprentis par an.
-- Frais de scolarité pris en charge, salaire, responsabilités en entreprise, accompagnement par manager et tuteur/professeur.
-- Careers Centre : coaching, CV, entretiens, networking, career fairs, corporate presentations, job platform.
-- Chiffres utiles : 30 experts carrière, 250 événements entreprises, 12 career fairs sectoriels, 8 000 conventions, 75% employés avant diplôme, 100% acceptent une offre dans les 3 mois, 33% travaillent hors de leur pays d'origine.
-
-RÈGLES DE NOTATION :
-- Très court / interrompu : 0 à 5.
-- Partiel : maximum 11.
-- Très faible : 6-8.
-- Moyen : 10-11.
-- Correct : 12-13.
-- Très solide : 14-16.
-- Excellent : 17+ seulement si discours incarné, projet clair, vraie connaissance ESCP, posture naturelle, liens forts personnalité-projet-école.
 
 IMPORTANT SUR LA STRUCTURE :
-- Ne multiplie pas trop les axes, mais garde absolument une section séparée “triangle_liens”, car c'est central à l'oral ESCP.
-- La section “connaissance_ecole” doit évaluer la connaissance concrète de l'école et les références ESCP utilisées ou manquantes.
-- La section “triangle_liens” doit évaluer uniquement la cohérence entre personnalité, projet professionnel et ESCP.
-- Dans chaque section longue, impose un rendu visuel avec :
-
-Diagnostic :
-[paragraphe]
-
-Recommandations :
-[paragraphe]
-
+- Garde absolument une section séparée “triangle_liens”.
+- La section “connaissance_ecole” évalue la connaissance concrète de l'école.
+- La section “triangle_liens” évalue uniquement la cohérence entre personnalité, projet professionnel et ESCP.
 - Pour “exploitation_questionnaire”, fais deux sous-parties obligatoires :
-
 Analyse du questionnaire :
-Est-ce que le contenu du questionnaire est pertinent, distinctif, utile, trop vague, trop secondaire, ou mal choisi ?
+[pertinence du contenu]
 
 Exploitation dans l'entretien :
-Est-ce que le candidat s'en sert réellement à l'oral ? Est-ce qu'il transforme les éléments du questionnaire en preuves de personnalité, de projet ou d'adéquation ESCP ?
+[utilisation à l'oral]
 
-Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks. Les retours à la ligne dans les chaînes JSON sont autorisés avec \\n\\n.
+Réponds UNIQUEMENT en JSON brut valide, sans markdown, sans backticks :
 {
   "note": 0,
-  "verdict_jury": "5 à 7 phrases sans prénom. Donne la note, l'impression générale, le niveau réel et le problème principal. Mentionne si le candidat manque surtout de structure, de profondeur, d'incarnation, de cohérence du triangle ou de références ESCP.",
-  "presentation_initiale": "Diagnostic :\\nAnalyse de l'accroche, de la structure, de la clarté, de l'incarnation et de la maturité.\\n\\nRecommandations :\\nExplique comment améliorer la présentation, quelles références ESCP intégrer dès l'introduction si pertinent, et propose une formulation plus forte.",
-  "qualite_expression": "Diagnostic :\\nAnalyse la fluidité, la précision, le naturel, le vocabulaire, la posture et la capacité à répondre sans réciter.\\n\\nRecommandations :\\nPropose des reformulations concrètes, des tournures plus professionnelles et une façon de gagner en impact oral.",
-  "connaissance_ecole": "Diagnostic :\\nAnalyse uniquement la connaissance concrète de l'ESCP : ce qui est cité, ce qui est superficiel, ce qui manque, et si les références sont récitées ou incarnées.\\n\\nRecommandations :\\nDonne des références ESCP adaptées au profil du candidat : campus, spécialisations, séminaires, associations, doubles diplômes, chaires, incubateurs ou Career Centre. Ajoute 1 à 2 formulations qu'il aurait pu dire à l'oral.",
-  "triangle_liens": "Diagnostic :\\nAnalyse précisément le triangle personnalité ↔ projet professionnel ↔ ESCP. Dis si les trois éléments sont reliés naturellement, artificiellement ou pas du tout. Montre ce qui manque entre son histoire personnelle, ses ambitions et ce que l'ESCP peut lui apporter.\\n\\nRecommandations :\\nExplique comment construire un lien plus fort entre une expérience personnelle, un projet professionnel et une ressource ESCP précise. Donne 1 à 2 formulations orales prêtes à réutiliser.",
-  "dynamique_echange": "Diagnostic :\\nAnalyse l'écoute, le rebond, la gestion des relances, la spontanéité, l'énergie, l'authenticité et la capacité à porter l'échange.\\n\\nRecommandations :\\nExplique comment mieux dialoguer avec le jury et relier les relances à des exemples personnels ou à ESCP.",
-  "exploitation_questionnaire": "Analyse du questionnaire :\\nÉvalue la pertinence du contenu du questionnaire : éléments forts, éléments trop vagues, expériences secondaires, manque de cohérence ou potentiel inexploité.\\n\\nExploitation dans l'entretien :\\nAnalyse si le candidat utilise réellement son questionnaire à l'oral. Explique quels éléments auraient dû devenir des preuves de personnalité, de projet ou d'adéquation ESCP. Si le questionnaire est absent, explique quoi y mettre.",
-  "question_finale": "Diagnostic :\\nAnalyse la question finale si elle existe : pertinence, originalité, maturité et lien avec ESCP.\\n\\nRecommandations :\\nPropose 2 questions finales intelligentes et personnalisées, liées à son profil et à ESCP.",
-  "analyse_personnalisee": "Diagnostic :\\nReviens sur 2-3 moments précis de la transcription.\\n\\nRecommandations :\\nTransforme ces moments en arguments plus forts, avec références ESCP si pertinent.",
+  "verdict_jury": "5 à 7 phrases sans prénom. Donne la note, l'impression générale, le niveau réel et le problème principal.",
+  "presentation_initiale": "Diagnostic :\\nAnalyse de l'accroche, structure, clarté, incarnation et maturité.\\n\\nRecommandations :\\nExplique comment améliorer la présentation.",
+  "qualite_expression": "Diagnostic :\\nAnalyse fluidité, précision, naturel, vocabulaire, posture.\\n\\nRecommandations :\\nPropose des reformulations concrètes.",
+  "connaissance_ecole": "Diagnostic :\\nAnalyse la connaissance concrète de l'ESCP.\\n\\nRecommandations :\\nDonne des références ESCP adaptées au profil.",
+  "triangle_liens": "Diagnostic :\\nAnalyse le triangle personnalité ↔ projet professionnel ↔ ESCP.\\n\\nRecommandations :\\nExplique comment construire un lien plus fort.",
+  "dynamique_echange": "Diagnostic :\\nAnalyse écoute, rebond, gestion des relances, spontanéité.\\n\\nRecommandations :\\nExplique comment mieux dialoguer avec le jury.",
+  "exploitation_questionnaire": "Analyse du questionnaire :\\nÉvalue la pertinence du contenu du questionnaire.\\n\\nExploitation dans l'entretien :\\nAnalyse si le candidat utilise réellement son questionnaire à l'oral.",
+  "question_finale": "Diagnostic :\\nAnalyse la question finale.\\n\\nRecommandations :\\nPropose 2 questions finales intelligentes.",
+  "analyse_personnalisee": "Diagnostic :\\nReviens sur 2-3 moments précis.\\n\\nRecommandations :\\nTransforme ces moments en arguments plus forts.",
   "comparaison_precedent": "Si premier entretien ESCP : indique que cette session sert de référence. Sinon compare avec le précédent feedback.",
-  "axes_amelioration": "Plan d'action en 5 étapes : quoi apprendre, quoi reformuler, quelle référence ESCP ajouter, quel exemple personnel renforcer, comment s'entraîner.",
+  "axes_amelioration": "Plan d'action en 5 étapes.",
   "points_forts": "2 à 4 points forts réels et précis.",
-  "points_faibles": "2 à 4 points faibles réels, précis, avec exemples et conséquences sur la note."
+  "points_faibles": "2 à 4 points faibles réels et précis."
 }`
     }
 
