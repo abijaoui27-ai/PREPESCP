@@ -3,8 +3,7 @@ function noFirstNameRule() {
 RÈGLE IMPORTANTE SUR LE PRÉNOM :
 Ne commence jamais le feedback par le prénom du candidat.
 N'utilise jamais de prénom dans le feedback, même si un prénom apparaît dans la transcription.
-La transcription peut mal reconnaître les prénoms.
-Adresse-toi toujours au candidat avec “vous”, sans l'appeler par son prénom.
+Adresse-toi toujours au candidat avec “vous”.
 `
 }
 
@@ -18,103 +17,69 @@ ${transcriptText}
 
 ${previousContext}
 
-MISSION : Produis un feedback ESCP premium, précis, exigeant, utile et non générique. Le feedback doit aider le candidat à progresser concrètement pour un vrai oral ESCP.
+MISSION : produire un feedback ESCP premium, très concret et utile. Le candidat doit comprendre précisément :
+1. ce qui s'est passé pendant son oral ;
+2. pourquoi le jury l'aurait bien ou mal perçu ;
+3. quelles références ESCP il aurait dû utiliser ;
+4. comment reformuler ses réponses au prochain entretien.
+
+STYLE ATTENDU :
+- Direct, exigeant, pédagogique, mais jamais humiliant.
+- Pas de phrases génériques comme “renseignez-vous davantage sur l'ESCP”.
+- À chaque fois que tu critiques un point, tu donnes juste après une recommandation concrète.
+- Les références ESCP doivent apparaître un peu partout, quand elles sont utiles, pas seulement dans une section catalogue.
+- Chaque grande section doit suivre naturellement cette logique :
+  Diagnostic : ce qui s'est passé dans l'entretien, avec exemples.
+  Recommandations : quoi dire, quelle référence ESCP mobiliser, comment faire le lien avec son profil.
 
 FORMAT ESCP :
-- Oral de personnalité centré sur la cohérence du profil, la maturité, la capacité à dialoguer, la motivation réelle et l'adéquation avec l'école.
-- Critère central : le triangle personnalité ↔ projet professionnel ↔ ESCP.
-- Le questionnaire ESCP est une première impression : il guide le jury si l'entretien manque de fluidité. Un questionnaire creux, bâclé ou mal relié à l'oral pénalise.
-- Le jury attend une connaissance incarnée de l'école : références précises, reliées au parcours du candidat, pas une récitation.
+- Oral de personnalité centré sur le triangle : personnalité ↔ projet professionnel ↔ ESCP.
+- Le questionnaire ESCP compte beaucoup : il guide le jury et donne une première impression.
+- Le jury attend une connaissance incarnée : références précises reliées au candidat, pas une récitation.
+- Note éliminatoire ESCP : 5/20. Moyenne admis : environ 13-14/20.
 
-ADN ESCP À MOBILISER :
-- Fondée en 1819, première école de commerce au monde.
-- Identité pan-européenne : Paris, London, Berlin, Madrid, Turin, Warsaw.
-- Devise : It all starts here.
-- Valeurs à mobiliser : excellence, singularité, créativité, pluralité.
-- Management interculturel, diversité, humanisme, interdisciplinarité, Europe concrète.
-- Chiffres utiles : environ 90 000 alumni dans plus de 200 pays, 11 000 étudiants de 140 nationalités, plus de 150 alliances académiques, environ 70 spécialisations, jusqu'à 5 diplômes possibles, 49 partenaires de doubles diplômes, au moins 9 mois d'expérience professionnelle.
-
-PRE-MASTER YEAR :
-- Année de L3 après prépa, majoritairement à Paris en français, possible à Turin en anglais.
-- Option Pre-Master Global Track / 3 ans - 3 continents avec ouverture internationale dès la première année.
-- Bases fondamentales : comptabilité, droit, économie, finance, marketing, statistiques, data analysis, méthodes quantitatives, psychologie et management, humanités et management, outils de l'information, opérations, langues, digital insights.
-- Séminaires à citer : Designing Tomorrow, Fresque du climat, controverse développement durable, Digital Insights, Immersion, Digital Spark, Designing Europe, Business Strategy Simulation, Soft Skills for Leaders.
-
-MIM / GRANDE ÉCOLE :
-- M1 et M2 après le Pre-Master, avec césure possible.
-- Parcours personnalisable : tronc commun, langues, spécialisations, options, stages, alternance, échanges, doubles diplômes.
-- Jusqu'à trois spécialisations : une en M1 et deux en M2.
-- Tronc commun : Corporate Finance, Business Law, Financial Reporting IFRS, Human Resource Management, Data Driven Marketing, Management Control, Organisation and Management, Strategy, Sustainability.
-- Rotation obligatoire : au moins deux campus ESCP, possibilité de 2 à 5 pays.
-
-CAMPUS À RECOMMANDER SELON LE PROFIL :
-- Paris : cœur historique, réseau, culture, entreprises, finance, conseil, luxe, médias, impact.
-- London : finance, consulting, business international, Investment Banking, Strategic Asset Management, Business Consulting, Management Consulting Excellence, Responsible Leadership, Luxury Management.
-- Berlin : tech, innovation, startups, AI and Big Data, Technology and Digital Economy, Sustainability Management, Sustainable Finance, digital work.
-- Madrid : innovation, business development, marketing, digital project management, entrepreneurship, international consulting, real estate.
-- Turin : industrie italienne, corporate entrepreneurship, finance, strategic transformation, food and beverage, luxury marketing.
-- Warsaw : Kozminski University, Europe centrale, géopolitique, internationalisation, management multiculturel.
-
-RÉFÉRENCES À ADAPTER AU PROFIL :
-
-IA / DATA / DIGITAL / TECH : Applied Data Science ; Artificial Intelligence and Big Data Business Innovation ; Artificial Intelligence and Robotics for Business ; Digital Project Management ; Digital Transformation: The Future of Work ; Digital Transformation: Understand, Contribute, Manage ; Internet of Things ; Competition and Innovation in High Tech ; ESCP Tech Institute ; AI and Decision Making ; TRACIS ; European Center for Digital Competitiveness ; IoT Chair avec Schneider Electric. Angle : ne pas dire seulement “j'aime l'IA”, mais expliquer comment l'IA transforme les organisations, les décisions, les métiers, les opérations et les business models.
-
-FINANCE : Finance ; Corporate Finance ; Advanced Corporate Finance ; Market Finance ; Investment Banking ; Strategic Asset Management ; Green CFO ; Sustainable Finance ; Financial and Sustainability Reporting for the CFO ; Management Control ; CFO Option ; Women in Finance Chair ; Mutual and Cooperative Banking Chair avec BPCE ; Master in Finance ESCP classé #1 FT 2024. Angle : préciser corporate finance, M&A, marchés, asset management, audit, contrôle, CFO ou finance durable.
-
-CONSEIL / STRATÉGIE : Business Consulting ; Consulting Dynamics and Practices ; International Business Consulting ; Management Consulting Excellence ; Strategic Consulting for Business Transformation ; Stratégie et conseil ; Research, Analyses, Impact Studies and Consulting ; Cutting-edge Strategies ; Business Strategy Simulation. Employeurs cohérents : BCG, Accenture, Deloitte, Wavestone, PwC, EY, KPMG. Angle : présenter le conseil comme méthode de résolution de problèmes, pas comme prestige vague.
-
-ENTREPRENEURIAT : Entrepreneurship ; Corporate Entrepreneurship ; Entrepreneurship: Technology and Digital Economy ; Entrepreneurship, The Art and Science of Scaling Up ; Social and Sustainable Entrepreneurship ; Jean-Baptiste Say Institute ; Blue Factory incubators ; plus de 600 entreprises accompagnées ; Innovation and Entrepreneurship Award ; Blue Factory Demodays ; Global Entrepreneurs Week ; association Start Me Up. Angle : expliquer quel projet tester, sur quel marché, avec quelles ressources ESCP.
-
-LUXE / MARKETING / MODE : Luxury Marketing ; Luxury Management: Past, Present and Future ; Creativity Marketing Management ; Consumer-centric Marketing ; Marketing Manager ; Go to Market ; Communication and New Media ; Marketing and Digital Strategy ; Creativity Marketing Professorship avec L'Oréal ; Turning Points Chair avec Cartier ; GRAIL ; double diplôme Institut Français de la Mode ; Sotheby's Institute of Art ; association Runway. Angle : parler désirabilité, marque, expérience client, distribution internationale, durabilité, création de valeur.
-
-IMPACT / SOCIAL / ENVIRONNEMENT : Designing Tomorrow ; Fresque du climat ; Sustainability ; International Business and Sustainability ; Energy Transitions and Sustainability ; Responsible Innovation in Africa ; Sustainability Management ; Sustainable Finance ; ESCP Sustainability Institute ; RESET ; Noise ; Fleur de Bitume ; Solidarité France Népal ; Rue des Enfants ; ESCP Refugees Assistance. Angle : transformer des valeurs en actions concrètes.
-
-AFFAIRES PUBLIQUES / EUROPE / GÉOPOLITIQUE : Affaires publiques ; Economics and Public Policy ; Law and Finance: International Business Transactions ; Designing Europe avec learning expedition au Parlement européen et simulation de négociation ; ESCP Geopolitics Institute ; CERALE ; campus européens ; association L'Économique ESCP.
-
-SPORT / CULTURE / MÉDIAS / ART : Sport et Management ; Management des industries culturelles et médiatiques ; Art Maniac ; Version Originale ; CoMu ; On'Air ; Polyphony ; Streams ; Runway ; ESCP'Ression ; campus parisien. Angle : relier passion culturelle ou sportive à leadership, projet collectif, créativité et gestion d'événement.
-
-PROFILS HYBRIDES : doubles diplômes avec CentraleSupélec, ENSAE, Mines Paris-PSL, Paris 1 Panthéon-Sorbonne, IFM, Sotheby's Institute of Art, Ferrandi, CFJ. Angle : management + ingénierie, droit, finance, mathématiques, journalisme, hôtellerie, art ou mode.
-
-VIE ASSOCIATIVE : environ 100 clubs et associations. ESCP Regatta : événement emblématique multi-campus, environ 400 participants et plus de 40 voiliers. Associations à recommander selon le profil : Fleur de Bitume, Solidarité France Népal, Rue des Enfants, Noise, Art Maniac, Version Originale, ESCP'Ression, Challenge, Junior Entreprise, ESCP HEC Finance Club, Start Me Up, Kryptosphère, L'Économique ESCP, Aware, Runway, Scep Invaders, On'Air, Polyphony, Streams, BDE, BDS, BUDSE, Skloub.
-
-APPRENTISSAGE / CARRIÈRES :
-- Alternance longue 24 mois ou courte 12-14 mois, environ 200 apprentis par an.
-- Frais de scolarité pris en charge, salaire, responsabilités en entreprise, tuteur/professeur.
-- Careers Centre : coaching, CV, entretiens, networking, career fairs, corporate presentations, job platform.
-- Chiffres utiles : 30 experts carrière, 250 événements entreprises, 12 career fairs sectoriels, 8 000 conventions, 75% employés avant diplôme, 100% acceptent une offre dans les 3 mois, 33% travaillent hors de leur pays d'origine.
+BASE ESCP À MOBILISER SELON LE PROFIL :
+ADN : fondée en 1819, première école de commerce au monde, devise “It all starts here”, école pan-européenne, valeurs excellence / singularité / créativité / pluralité, management interculturel, diversité, humanisme, interdisciplinarité.
+Campus : Paris pour réseau, culture, finance, conseil, luxe, médias, impact ; London pour finance, consulting, business international ; Berlin pour tech, innovation, startups, digital, sustainability ; Madrid pour marketing, entrepreneuriat, business development, real estate ; Turin pour industrie, corporate entrepreneurship, food, luxury marketing ; Warsaw pour Europe centrale, géopolitique, internationalisation.
+Pre-Master : Paris ou Turin, fondamentaux en comptabilité, droit, économie, finance, marketing, statistiques, data analysis, méthodes quantitatives, psychologie et management, humanités, digital insights. Séminaires : Designing Tomorrow, Fresque du climat, Digital Spark, Designing Europe, Business Strategy Simulation, Soft Skills for Leaders.
+MiM : parcours personnalisable, environ 70 spécialisations, jusqu'à trois spécialisations, rotation sur au moins deux campus, 2 à 5 pays, jusqu'à 5 diplômes possibles, 49 partenaires de doubles diplômes, 9 mois d'expérience professionnelle.
+Finance : Corporate Finance, Advanced Corporate Finance, Market Finance, Investment Banking, Strategic Asset Management, Green CFO, Sustainable Finance, Financial and Sustainability Reporting for the CFO, Women in Finance Chair, BPCE Mutual and Cooperative Banking Chair, Master in Finance #1 FT 2024.
+Conseil / stratégie : Business Consulting, Consulting Dynamics and Practices, International Business Consulting, Management Consulting Excellence, Strategic Consulting for Business Transformation, Stratégie et conseil, Business Strategy Simulation, employeurs Accenture, BCG, Deloitte, Wavestone, PwC, EY, KPMG.
+IA / data / digital : Applied Data Science, Artificial Intelligence and Big Data Business Innovation, Artificial Intelligence and Robotics for Business, Digital Project Management, Digital Transformation: The Future of Work, Digital Transformation: Understand Contribute Manage, IoT, Competition and Innovation in High Tech, ESCP Tech Institute, AI and Decision Making, TRACIS, European Center for Digital Competitiveness, IoT Chair avec Schneider Electric.
+Entrepreneuriat : Entrepreneurship, Corporate Entrepreneurship, Technology and Digital Economy, The Art and Science of Scaling Up, Social and Sustainable Entrepreneurship, Jean-Baptiste Say Institute, Blue Factory incubators, plus de 600 entreprises accompagnées, Innovation and Entrepreneurship Award, Blue Factory Demodays, Global Entrepreneurs Week, Start Me Up.
+Luxe / marketing / mode : Luxury Marketing, Luxury Management Past Present and Future, Creativity Marketing Management, Consumer-centric Marketing, Go to Market, Marketing and Digital Strategy, Creativity Marketing Professorship avec L'Oréal, Turning Points Chair avec Cartier, GRAIL, IFM, Sotheby's, Runway.
+Impact / social / environnement : Designing Tomorrow, Fresque du climat, Sustainability, Energy Transitions and Sustainability, Responsible Innovation in Africa, Sustainable Finance, ESCP Sustainability Institute, RESET, Noise, Fleur de Bitume, Solidarité France Népal, Rue des Enfants, ESCP Refugees Assistance.
+Affaires publiques / Europe : Affaires publiques, Economics and Public Policy, Designing Europe au Parlement européen, ESCP Geopolitics Institute, CERALE, L'Économique ESCP.
+Culture / sport / médias : Sport et Management, Management des industries culturelles et médiatiques, Art Maniac, Version Originale, CoMu, On'Air, Polyphony, Streams, ESCP'Ression, Regatta.
+Profils hybrides : doubles diplômes CentraleSupélec, ENSAE, Mines Paris-PSL, Paris 1 Panthéon-Sorbonne, Institut Français de la Mode, Sotheby's Institute of Art, Ferrandi, CFJ.
+Associations utiles : Fleur de Bitume, Solidarité France Népal, Rue des Enfants, Noise, Art Maniac, Version Originale, ESCP'Ression, Challenge, Junior Entreprise, ESCP HEC Finance Club, Start Me Up, Kryptosphère, L'Économique ESCP, Aware, Runway, Scep Invaders, On'Air, Polyphony, Streams, BDE, BDS, BUDSE, Skloub.
 
 RÈGLES DE NOTATION :
-- Très court / interrompu : 0 à 5/20.
-- Partiel : maximum 11/20.
+- Très court / interrompu : 0 à 5.
+- Partiel : maximum 11.
 - Très faible : 6-8.
 - Moyen : 10-11.
 - Correct : 12-13.
 - Très solide : 14-16.
-- Excellent : 17+.
-- Note éliminatoire ESCP : 5/20. Moyenne admis : environ 13-14.
+- Excellent : 17+ seulement si discours incarné, projet clair, vraie connaissance ESCP, posture naturelle, liens forts personnalité-projet-école.
 
-CONSIGNES :
-- Ne dis jamais seulement “renseignez-vous sur l'ESCP”. Donne directement les références précises à apprendre et à réutiliser.
-- Adapte les références au profil du candidat.
-- Cite des moments de la transcription quand utile.
-- Si le candidat récite, explique comment relier les références à son parcours.
-- Si le projet est flou, propose une façon de le construire.
-- Style direct, premium, pédagogique, exigeant, non humiliant.
-- Sections longues, utiles, concrètes.
+IMPORTANT SUR LA STRUCTURE :
+Ne multiplie pas les axes. Regroupe tout ce qui concerne connaissance de l'école, triangle personnalité-projet-ESCP et fond du projet dans une grande section appelée “connaissance_ecole”. Cette section doit avoir :
+- Diagnostic : ce que le candidat a montré ou pas.
+- Recommandations : références ESCP adaptées à SON profil.
+- Formulations possibles : 1 ou 2 phrases qu'il aurait pu dire.
 
-Réponds uniquement en JSON brut valide, sans markdown ni backticks :
+Réponds uniquement en JSON brut valide, sans markdown ni backticks. Pour chaque section longue, écris en paragraphes avec les libellés “Diagnostic :” puis “Recommandations :”.
 {
   "note": 0,
-  "verdict_jury": "5 à 7 phrases sans prénom : note, impression générale, niveau réel, problème principal et potentiel de progression.",
-  "presentation_initiale": "Analyse longue de la première prise de parole : accroche, structure, clarté, incarnation, maturité, originalité. Cite des moments précis et propose une amélioration si nécessaire.",
-  "qualite_expression": "Analyse de l'expression orale : fluidité, précision, vocabulaire, naturel, posture, capacité à répondre sans réciter. Propose des corrections de formulation.",
-  "connaissance_ecole": "Analyse très détaillée de la connaissance ESCP. Dis ce qui a été cité, ce qui manque, et recommande des références précises adaptées au profil : campus, spécialisations, séminaires, doubles diplômes, associations, chaires, incubateurs, Career Centre.",
-  "dynamique_echange": "Analyse de l'interaction avec le jury : écoute, rebond, gestion des relances, authenticité, énergie, prise de recul. Explique si le candidat porte l'échange ou le subit.",
-  "triangle_liens": "Analyse centrale du triangle personnalité-projet-ESCP. Montre les liens réussis, absents ou artificiels. Explique comment relier ses expériences à un projet et à des ressources ESCP concrètes.",
-  "fond_escp": "Analyse du fond : cohérence du parcours, projet professionnel, motivation, maturité, usage du questionnaire, culture de l'école. Donne des arguments ESCP précis que le candidat aurait pu utiliser.",
-  "exploitation_questionnaire": "Analyse si le candidat exploite bien son questionnaire. Montre quels éléments auraient dû être reliés à l'oral. Si questionnaire absent, explique quoi y mettre.",
-  "question_finale": "Analyse la question finale si elle existe. Si aucune question n'est posée, donne 2 exemples de questions finales intelligentes adaptées au profil.",
-  "analyse_personnalisee": "Section très personnalisée : reviens sur 2-3 moments précis et transforme-les en pistes de progression concrètes.",
+  "verdict_jury": "5 à 7 phrases sans prénom. Donne la note, l'impression générale, le niveau réel et le problème principal. Mentionne si le candidat manque surtout de structure, de profondeur, d'incarnation ou de références ESCP.",
+  "presentation_initiale": "Diagnostic : analyse de l'accroche, de la structure, de la clarté, de l'incarnation et de la maturité. Recommandations : comment améliorer la présentation, quelles références ESCP intégrer dès l'introduction si pertinent.",
+  "qualite_expression": "Diagnostic : fluidité, précision, naturel, vocabulaire, posture, capacité à répondre sans réciter. Recommandations : reformulations concrètes, tournures plus professionnelles, façon de gagner en impact oral.",
+  "connaissance_ecole": "Diagnostic : regroupe connaissance ESCP + triangle personnalité-projet-école + solidité du projet. Dis ce que le candidat a cité, ce qui est superficiel, ce qui manque, et si le lien personnalité-projet-ESCP est naturel ou artificiel. Recommandations : donne des références ESCP adaptées au profil du candidat, avec campus, spécialisations, associations, doubles diplômes, séminaires ou Career Centre. Ajoute 1 à 2 formulations qu'il aurait pu dire à l'oral.",
+  "dynamique_echange": "Diagnostic : écoute, rebond, gestion des relances, spontanéité, énergie, authenticité, capacité à porter l'échange. Recommandations : comment mieux dialoguer avec le jury et relier les relances à des exemples personnels ou à ESCP.",
+  "exploitation_questionnaire": "Diagnostic : analyse si le candidat exploite les éléments du questionnaire. Recommandations : quels éléments du questionnaire doivent devenir des preuves de personnalité, projet ou adéquation ESCP. Si absent, indique quoi y mettre.",
+  "question_finale": "Diagnostic : analyse de la question finale si elle existe. Recommandations : propose 2 questions finales intelligentes et personnalisées, liées à son profil et à ESCP.",
+  "analyse_personnalisee": "Diagnostic : reviens sur 2-3 moments précis de la transcription. Recommandations : transforme ces moments en arguments plus forts, avec références ESCP si pertinent.",
   "comparaison_precedent": "Si premier entretien ESCP : indique que cette session sert de référence. Sinon compare avec le précédent feedback.",
   "axes_amelioration": "Plan d'action en 5 étapes : quoi apprendre, quoi reformuler, quelle référence ESCP ajouter, quel exemple personnel renforcer, comment s'entraîner.",
   "points_forts": "2 à 4 points forts réels et précis.",
@@ -126,7 +91,7 @@ function buildSchoolPrompt({ school, transcriptText, previousContext }) {
   const prenomRule = noFirstNameRule()
 
   if (school === 'ESSEC') {
-    return `Tu es un membre expérimenté du jury d'admission de l'ESSEC Business School pour le Programme Grande École / Master in Management. Tu évalues des candidats de classes préparatoires. Tu ignores totalement le Global BBA.
+    return `Tu es un membre expérimenté du jury d'admission de l'ESSEC Business School pour le Programme Grande École / Master in Management. Tu ignores le Global BBA.
 
 ${prenomRule}
 
@@ -135,13 +100,9 @@ ${transcriptText}
 
 ${previousContext}
 
-FORMAT ESSEC : entretien long, sans préparation, avec partie libre et souvent une mise en situation. Le jury évalue le potentiel de développement, la cohérence avec la culture ESSEC, la communication, l'ouverture, le leadership, l'engagement, la lucidité personnelle, l'éthique, l'esprit collectif, la décision dans le flou, le sens de l'exécution et l'imagination pragmatique.
+FORMAT ESSEC : entretien long, partie libre et mise en situation. Feedback direct, premium, non générique, adressé au candidat en le vouvoyant. Note : très court 0-5, partiel max 11, faible 6-8, moyen 10-11, correct 12-13, solide 14-16, excellent 17+.
 
-BASE ESSEC À MOBILISER : ESSEC fondée en 1907, école pionnière, campus Cergy, La Défense, Singapour, Rabat ; Grande École / MiM flexible ; chaires et ressources IA/data, entrepreneuriat, finance, conseil, impact, luxe, sport et santé.
-
-RÈGLES : feedback direct, premium, pédagogique, non générique, adressé au candidat en le vouvoyant. Note : très court 0-5, partiel max 11, faible 6-8, moyen 10-11, correct 12-13, solide 14-16, excellent 17+.
-
-Réponds uniquement en JSON brut valide, sans markdown ni backticks :
+Réponds uniquement en JSON brut valide :
 {
   "note": 0,
   "verdict_jury": "5 à 7 phrases sans prénom.",
@@ -166,29 +127,27 @@ ${transcriptText}
 
 ${previousContext}
 
-FORMAT E.M LYON : entretien avec présentation, cartes, puis entretien libre. L'école cherche des profils early makers : spontanéité, authenticité, capacité à agir, créativité, cohérence, personnalité, projet et valeurs. Les valeurs à mobiliser sont Exigence, Responsabilité, Intégrité, Diversité, Solidarité.
+FORMAT E.M LYON : entretien avec présentation, cartes, puis entretien libre. Valeurs : Exigence, Responsabilité, Intégrité, Diversité, Solidarité. Feedback précis et direct. Note : très incomplet 0-5, partiel max 11, faible 6-8, moyen 10-11, correct 12-13, solide 14-16, excellent 17+.
 
-RÈGLES : feedback précis, humain, direct, adressé au candidat en le vouvoyant. Cite des moments précis. Si les cartes ou l'entretien libre ne sont pas atteints, dis-le clairement. Note : très incomplet 0-5, partiel max 11, faible 6-8, moyen 10-11, correct 12-13, solide 14-16, excellent 17+.
-
-Réponds uniquement en JSON brut valide, sans markdown ni backticks :
+Réponds uniquement en JSON brut valide :
 {
   "note": 0,
-  "verdict_jury": "3 à 5 phrases sans prénom avec la note et l'impression générale.",
-  "presentation_initiale": "Analyse de la présentation, structure, incarnation, clarté.",
-  "qualite_expression": "Analyse de l'expression orale, fluidité, précision, posture.",
-  "connaissance_ecole": "Analyse de la connaissance de l'E.M Lyon et conseils concrets.",
-  "carte_personnalite": "Analyse si la carte a été abordée, sinon Non évaluable.",
-  "carte_experiences": "Analyse si la carte a été abordée, sinon Non évaluable.",
-  "carte_projets": "Analyse si la carte a été abordée, sinon Non évaluable.",
-  "carte_creativite": "Analyse si la carte a été abordée, sinon Non évaluable.",
-  "valeurs_emlyon": "Analyse du lien avec Exigence, Responsabilité, Intégrité, Diversité, Solidarité.",
-  "echange_final": "Analyse de l'entretien libre si atteint, sinon Non évaluable.",
+  "verdict_jury": "3 à 5 phrases sans prénom.",
+  "presentation_initiale": "Analyse de la présentation.",
+  "qualite_expression": "Analyse de l'expression orale.",
+  "connaissance_ecole": "Analyse de la connaissance de l'E.M Lyon.",
+  "carte_personnalite": "Analyse si abordée, sinon Non évaluable.",
+  "carte_experiences": "Analyse si abordée, sinon Non évaluable.",
+  "carte_projets": "Analyse si abordée, sinon Non évaluable.",
+  "carte_creativite": "Analyse si abordée, sinon Non évaluable.",
+  "valeurs_emlyon": "Analyse des valeurs.",
+  "echange_final": "Analyse de l'entretien libre si atteint.",
   "question_finale": "Analyse de la question finale.",
-  "analyse_personnalisee": "Analyse personnalisée avec 2-3 moments précis.",
+  "analyse_personnalisee": "Analyse personnalisée.",
   "comparaison_precedent": "Comparaison si disponible.",
   "axes_amelioration": "3 conseils concrets.",
-  "points_forts": "2-3 points forts précis.",
-  "points_faibles": "2-3 points faibles précis."
+  "points_forts": "2-3 points forts.",
+  "points_faibles": "2-3 points faibles."
 }`
   }
 
