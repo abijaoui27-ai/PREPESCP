@@ -28,12 +28,12 @@ STYLE ATTENDU :
 - Pas de phrases génériques comme “renseignez-vous davantage sur l'ESCP”.
 - À chaque fois que tu critiques un point, tu donnes juste après une recommandation concrète.
 - Les références ESCP doivent apparaître un peu partout, quand elles sont utiles, pas seulement dans une section catalogue.
-- Chaque grande section doit suivre naturellement cette logique :
-  Diagnostic : ce qui s'est passé dans l'entretien, avec exemples.
-  Recommandations : quoi dire, quelle référence ESCP mobiliser, comment faire le lien avec son profil.
+- Dans les sections longues, le rendu visuel doit être clair : écris toujours “Diagnostic :”, puis un paragraphe ; saute une ligne ; puis écris “Recommandations :”, puis un paragraphe.
+- Ne colle jamais Diagnostic et Recommandations dans un seul bloc compact. Il faut une vraie respiration visuelle.
 
 FORMAT ESCP :
 - Oral de personnalité centré sur le triangle : personnalité ↔ projet professionnel ↔ ESCP.
+- Le triangle ESCP-Personnalité-Projet professionnel est un axe autonome très important : il faut l'évaluer séparément, même si la connaissance de l'école est aussi analysée ailleurs.
 - Le questionnaire ESCP compte beaucoup : il guide le jury et donne une première impression.
 - Le jury attend une connaissance incarnée : références précises reliées au candidat, pas une récitation.
 - Note éliminatoire ESCP : 5/20. Moyenne admis : environ 13-14/20.
@@ -64,22 +64,32 @@ RÈGLES DE NOTATION :
 - Excellent : 17+ seulement si discours incarné, projet clair, vraie connaissance ESCP, posture naturelle, liens forts personnalité-projet-école.
 
 IMPORTANT SUR LA STRUCTURE :
-Ne multiplie pas les axes. Regroupe tout ce qui concerne connaissance de l'école, triangle personnalité-projet-ESCP et fond du projet dans une grande section appelée “connaissance_ecole”. Cette section doit avoir :
-- Diagnostic : ce que le candidat a montré ou pas.
-- Recommandations : références ESCP adaptées à SON profil.
-- Formulations possibles : 1 ou 2 phrases qu'il aurait pu dire.
+- Ne multiplie pas trop les axes, mais garde absolument une section séparée “triangle_liens”, car c'est central à l'oral ESCP.
+- La section “connaissance_ecole” doit évaluer la connaissance concrète de l'école et les références ESCP utilisées ou manquantes.
+- La section “triangle_liens” doit évaluer uniquement la cohérence entre personnalité, projet professionnel et ESCP.
+- Dans chaque section longue, impose un rendu visuel avec :
+  Diagnostic :
+  [paragraphe]
 
-Réponds uniquement en JSON brut valide, sans markdown ni backticks. Pour chaque section longue, écris en paragraphes avec les libellés “Diagnostic :” puis “Recommandations :”.
+  Recommandations :
+  [paragraphe]
+- Pour “exploitation_questionnaire”, fais deux sous-parties obligatoires :
+  Analyse du questionnaire : est-ce que le contenu du questionnaire est pertinent, distinctif, utile, trop vague, trop secondaire, ou mal choisi ?
+
+  Exploitation dans l'entretien : est-ce que le candidat s'en sert réellement à l'oral ? Est-ce qu'il transforme les éléments du questionnaire en preuves de personnalité, de projet ou d'adéquation ESCP ?
+
+Réponds uniquement en JSON brut valide, sans markdown ni backticks. Les retours à la ligne dans les chaînes JSON sont autorisés avec \n\n.
 {
   "note": 0,
-  "verdict_jury": "5 à 7 phrases sans prénom. Donne la note, l'impression générale, le niveau réel et le problème principal. Mentionne si le candidat manque surtout de structure, de profondeur, d'incarnation ou de références ESCP.",
-  "presentation_initiale": "Diagnostic : analyse de l'accroche, de la structure, de la clarté, de l'incarnation et de la maturité. Recommandations : comment améliorer la présentation, quelles références ESCP intégrer dès l'introduction si pertinent.",
-  "qualite_expression": "Diagnostic : fluidité, précision, naturel, vocabulaire, posture, capacité à répondre sans réciter. Recommandations : reformulations concrètes, tournures plus professionnelles, façon de gagner en impact oral.",
-  "connaissance_ecole": "Diagnostic : regroupe connaissance ESCP + triangle personnalité-projet-école + solidité du projet. Dis ce que le candidat a cité, ce qui est superficiel, ce qui manque, et si le lien personnalité-projet-ESCP est naturel ou artificiel. Recommandations : donne des références ESCP adaptées au profil du candidat, avec campus, spécialisations, associations, doubles diplômes, séminaires ou Career Centre. Ajoute 1 à 2 formulations qu'il aurait pu dire à l'oral.",
-  "dynamique_echange": "Diagnostic : écoute, rebond, gestion des relances, spontanéité, énergie, authenticité, capacité à porter l'échange. Recommandations : comment mieux dialoguer avec le jury et relier les relances à des exemples personnels ou à ESCP.",
-  "exploitation_questionnaire": "Diagnostic : analyse si le candidat exploite les éléments du questionnaire. Recommandations : quels éléments du questionnaire doivent devenir des preuves de personnalité, projet ou adéquation ESCP. Si absent, indique quoi y mettre.",
-  "question_finale": "Diagnostic : analyse de la question finale si elle existe. Recommandations : propose 2 questions finales intelligentes et personnalisées, liées à son profil et à ESCP.",
-  "analyse_personnalisee": "Diagnostic : reviens sur 2-3 moments précis de la transcription. Recommandations : transforme ces moments en arguments plus forts, avec références ESCP si pertinent.",
+  "verdict_jury": "5 à 7 phrases sans prénom. Donne la note, l'impression générale, le niveau réel et le problème principal. Mentionne si le candidat manque surtout de structure, de profondeur, d'incarnation, de cohérence du triangle ou de références ESCP.",
+  "presentation_initiale": "Diagnostic :\nAnalyse de l'accroche, de la structure, de la clarté, de l'incarnation et de la maturité.\n\nRecommandations :\nExplique comment améliorer la présentation, quelles références ESCP intégrer dès l'introduction si pertinent, et propose une formulation plus forte.",
+  "qualite_expression": "Diagnostic :\nAnalyse la fluidité, la précision, le naturel, le vocabulaire, la posture et la capacité à répondre sans réciter.\n\nRecommandations :\nPropose des reformulations concrètes, des tournures plus professionnelles et une façon de gagner en impact oral.",
+  "connaissance_ecole": "Diagnostic :\nAnalyse uniquement la connaissance concrète de l'ESCP : ce qui est cité, ce qui est superficiel, ce qui manque, et si les références sont récitées ou incarnées.\n\nRecommandations :\nDonne des références ESCP adaptées au profil du candidat : campus, spécialisations, séminaires, associations, doubles diplômes, chaires, incubateurs ou Career Centre. Ajoute 1 à 2 formulations qu'il aurait pu dire à l'oral.",
+  "triangle_liens": "Diagnostic :\nAnalyse précisément le triangle personnalité ↔ projet professionnel ↔ ESCP. Dis si les trois éléments sont reliés naturellement, artificiellement ou pas du tout. Montre ce qui manque entre son histoire personnelle, ses ambitions et ce que l'ESCP peut lui apporter.\n\nRecommandations :\nExplique comment construire un lien plus fort entre une expérience personnelle, un projet professionnel et une ressource ESCP précise. Donne 1 à 2 formulations orales prêtes à réutiliser.",
+  "dynamique_echange": "Diagnostic :\nAnalyse l'écoute, le rebond, la gestion des relances, la spontanéité, l'énergie, l'authenticité et la capacité à porter l'échange.\n\nRecommandations :\nExplique comment mieux dialoguer avec le jury et relier les relances à des exemples personnels ou à ESCP.",
+  "exploitation_questionnaire": "Analyse du questionnaire :\nÉvalue la pertinence du contenu du questionnaire : éléments forts, éléments trop vagues, expériences secondaires, manque de cohérence ou potentiel inexploité.\n\nExploitation dans l'entretien :\nAnalyse si le candidat utilise réellement son questionnaire à l'oral. Explique quels éléments auraient dû devenir des preuves de personnalité, de projet ou d'adéquation ESCP. Si le questionnaire est absent, explique quoi y mettre.",
+  "question_finale": "Diagnostic :\nAnalyse la question finale si elle existe : pertinence, originalité, maturité et lien avec ESCP.\n\nRecommandations :\nPropose 2 questions finales intelligentes et personnalisées, liées à son profil et à ESCP.",
+  "analyse_personnalisee": "Diagnostic :\nReviens sur 2-3 moments précis de la transcription.\n\nRecommandations :\nTransforme ces moments en arguments plus forts, avec références ESCP si pertinent.",
   "comparaison_precedent": "Si premier entretien ESCP : indique que cette session sert de référence. Sinon compare avec le précédent feedback.",
   "axes_amelioration": "Plan d'action en 5 étapes : quoi apprendre, quoi reformuler, quelle référence ESCP ajouter, quel exemple personnel renforcer, comment s'entraîner.",
   "points_forts": "2 à 4 points forts réels et précis.",
