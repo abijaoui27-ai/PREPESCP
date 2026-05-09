@@ -20,10 +20,19 @@
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(7,7,12,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border2); }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .nav-badge { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(249,115,22,0.3); padding: 3px 10px; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
     .nav-back { background: transparent; border: 1px solid var(--border); color: var(--muted2); padding: 6px 16px; font-family: 'Outfit', sans-serif; font-size: 0.75rem; cursor: pointer; text-decoration: none; transition: all 0.3s; }
     .nav-back:hover { border-color: var(--accent); color: var(--accent); }
+    .nav-feedback { background: rgba(201,169,110,0.10); border-color: rgba(201,169,110,0.32); color: var(--accent); }
 
     .main { max-width: 1100px; margin: 0 auto; padding: 90px 24px 60px; }
+
+    .admin-shortcuts { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+    .shortcut-card { background: linear-gradient(135deg, rgba(201,169,110,.10), rgba(201,169,110,.03)); border: 1px solid rgba(201,169,110,.18); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; gap: 18px; text-decoration: none; color: var(--text); position: relative; }
+    .shortcut-card::before { content: ''; position:absolute; top:0; left:0; right:0; height:2px; background: var(--gradient); }
+    .shortcut-title { font-family:'Cormorant Garamond', serif; font-size:1.25rem; font-weight:700; margin-bottom:4px; }
+    .shortcut-text { color: var(--muted2); font-size:.82rem; line-height:1.55; }
+    .shortcut-btn { background: var(--gradient); color: var(--bg); padding: 10px 18px; font-size:.78rem; font-weight:700; white-space: nowrap; }
 
     /* STATS */
     .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; background: var(--border2); margin-bottom: 32px; }
@@ -99,10 +108,14 @@
     .empty-row { padding: 48px 28px; text-align: center; color: var(--muted2); font-size: 0.85rem; }
 
     @media (max-width: 900px) {
+      nav { padding: 14px 18px; }
+      .nav-actions { gap: 6px; }
+      .nav-back { padding: 6px 10px; font-size: 0.68rem; }
       .stats-grid { grid-template-columns: repeat(3, 1fr); }
       .form-row { grid-template-columns: 1fr 1fr; }
       .student-row { grid-template-columns: 1fr auto; }
       .student-meta, .credits-badge, .last-note { display: none; }
+      .shortcut-card { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -111,10 +124,23 @@
 <nav>
   <div class="nav-logo">PrepOral</div>
   <div class="nav-badge">Admin</div>
-  <a href="/dashboard" class="nav-back">← Mon espace</a>
+  <div class="nav-actions">
+    <a href="/admin-feedback" class="nav-back nav-feedback">🧪 Simuler feedback</a>
+    <a href="/dashboard" class="nav-back">← Mon espace</a>
+  </div>
 </nav>
 
 <main class="main">
+
+  <div class="admin-shortcuts">
+    <a href="/admin-feedback" class="shortcut-card">
+      <div>
+        <div class="shortcut-title">Simuler un feedback automatique</div>
+        <div class="shortcut-text">Colle une transcription ElevenLabs, choisis ESCP / EM Lyon / ESSEC, génère le feedback via l’API et enregistre-le dans Supabase.</div>
+      </div>
+      <div class="shortcut-btn">Ouvrir →</div>
+    </a>
+  </div>
 
   <!-- STATS -->
   <div class="stats-grid" id="statsGrid">
@@ -214,9 +240,9 @@
     }
     list.innerHTML = students.map(s => {
       const creditsClass = s.credits > 3 ? 'ok' : s.credits > 0 ? 'low' : 'empty'
-      const date = s.created_at ? new Date(s.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : '—'
       const lastEntretien = s.dernier_entretien ? new Date(s.dernier_entretien).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : 'Jamais'
-      const ecoleTag = s.derniere_ecole ? `<span class="ecole-tag ${s.derniere_ecole === 'EM Lyon' ? 'emlyon' : 'escp'}">${s.derniere_ecole}</span>` : ''
+      const ecoleClass = s.derniere_ecole === 'EM Lyon' ? 'emlyon' : 'escp'
+      const ecoleTag = s.derniere_ecole ? `<span class="ecole-tag ${ecoleClass}">${s.derniere_ecole}</span>` : ''
       const hasDevice = s.device_id ? '🔒' : '🔓'
 
       return `
